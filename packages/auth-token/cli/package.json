@@ -1,4 +1,0 @@
-{
-  "main": "dist/spotifly-auth-token-cli.cjs.js",
-  "module": "dist/spotifly-auth-token-cli.esm.js"
-}

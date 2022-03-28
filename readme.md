@@ -1,5 +1,0 @@
-# Spotifly
-
-### CLI
-
-`yarn spotifly`

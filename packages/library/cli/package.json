@@ -1,4 +1,0 @@
-{
-  "main": "dist/spotifly-library-cli.cjs.js",
-  "module": "dist/spotifly-library-cli.esm.js"
-}
