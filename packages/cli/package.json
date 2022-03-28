@@ -1,0 +1,38 @@
+{
+  "name": "@spotifly/cli",
+  "version": "0.7.7",
+  "description": "The CLI for Spotifly",
+  "keywords": [
+    "cli",
+    "spotify",
+    "spotifly",
+    "music",
+    "library",
+    "history",
+    "data"
+  ],
+  "homepage": "https://spotifly.nougat.dev/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eegli/spotifly"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Eric Egli",
+    "email": "lx180777+npm@gmail.com"
+  },
+  "main": "dist/spotifly-cli.cjs.js",
+  "bin": {
+    "spotifly": "bin.js"
+  },
+  "files": [
+    "bin.js",
+    "dist",
+    "cli"
+  ],
+  "dependencies": {
+    "@spotifly/auth-token": "^0.2.5",
+    "@spotifly/library": "^0.0.4",
+    "@spotifly/utils": "^0.0.7"
+  }
+}

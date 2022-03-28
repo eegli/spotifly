@@ -1,0 +1,6 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Authorize via package works with emit mode: auth url 1`] = `
+"https://accounts.spotify.com/authorize?response_type=code&show_dialog=true&state=ou8n1fu8n1&client_id=cid&redirect_uri=http%3A%2F%2Flocalhost%3A1000&scope=user-do-nothing+user-balabla
+"
+`;

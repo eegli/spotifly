@@ -1,0 +1,5 @@
+*.d.ts
+**/dist
+**/build
+docs/.docusaurus
+coverage

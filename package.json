@@ -1,0 +1,64 @@
+{
+  "name": "@spotifly/repository",
+  "version": "0.0.0",
+  "private": true,
+  "homepage": "https://spotifly.nougat.dev/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eegli/spotifly"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Eric Egli",
+    "email": "lx180777+npm@gmail.com"
+  },
+  "bin": {
+    "spotifly": "packages/cli/bin.js"
+  },
+  "workspaces": [
+    "packages/*",
+    "docs"
+  ],
+  "scripts": {
+    "build": "preconstruct build",
+    "check-types": "tsc",
+    "dev": "preconstruct watch",
+    "format": "prettier --write packages docs \"**/*.{js,ts,tsx,md}\"",
+    "postinstall": "preconstruct dev",
+    "install:ci": "yarn install --frozen-lockfile --non-interactive",
+    "lint": "yarn eslint docs packages --ext .ts,.tsx,.js",
+    "release": "yarn build && changeset publish",
+    "status": "changeset status",
+    "test": "jest --silent",
+    "test:pkg": "jest --silent --selectProjects"
+  },
+  "dependencies": {
+    "@babel/core": "^7.17.5",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-typescript": "^7.16.7",
+    "@changesets/changelog-git": "^0.1.10",
+    "@changesets/cli": "^2.21.1",
+    "@preconstruct/cli": "^2.1.5",
+    "@types/jest": "^27.4.0",
+    "@types/node": "^17.0.23",
+    "@typescript-eslint/eslint-plugin": "^5.14.0",
+    "@typescript-eslint/parser": "^5.14.0",
+    "eslint": "^8.10.0",
+    "eslint-config-prettier": "^8.4.0",
+    "eslint-plugin-jest": "^26.1.1",
+    "eslint-plugin-react": "^7.29.2",
+    "jest": "^27.5.1",
+    "prettier": "^2.5.1",
+    "prettier-plugin-organize-imports": "^2.3.4",
+    "ts-jest": "^27.1.3",
+    "typescript": "^4.5.5"
+  },
+  "engines": {
+    "node": ">=14.19"
+  },
+  "preconstruct": {
+    "packages": [
+      "packages/*"
+    ]
+  }
+}
