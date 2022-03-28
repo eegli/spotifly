@@ -10,8 +10,8 @@ import Typography from '@mui/material/Typography';
 import React, { useState } from 'react';
 import { useLocalStorage } from 'react-use';
 import { useSpotifyCallbackFromQueryParams } from '../../hooks/useQueryToken';
+import { MuiThemeWrapper } from '../../theme/mui-theme-wrapper';
 import { authScopes } from '../../utils';
-import { MuiThemeWrapper } from '../../wrappers/mui-theme-wrapper';
 import { AuthTokenView, LocalToken } from './view';
 
 export const AuthTokenForm = () => {

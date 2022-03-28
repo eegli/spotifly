@@ -1,21 +1,32 @@
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import { Box } from '@mui/material';
+import Box from '@mui/material/Box';
 import Layout from '@theme/Layout';
-import clsx from 'clsx';
 import React from 'react';
 import HomepageFeatures from '../components/home';
-import { MuiThemeWrapper } from '../wrappers/mui-theme-wrapper';
-import styles from './index.module.css';
+import { MuiThemeWrapper } from '../theme/mui-theme-wrapper';
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
   return (
-    <header className={clsx('hero hero--primary', styles.heroBanner)}>
-      <div className="container">
-        <h1 className="hero__title">{siteConfig.title}</h1>
-        <p className="hero__subtitle">{siteConfig.tagline}</p>
-      </div>
-    </header>
+    <Box
+      component="header"
+      display="flex"
+      sx={{
+        justifyContent: 'center',
+        flexDirection: 'column',
+        alignItems: 'center',
+        padding: 4,
+        backgroundColor: 'primary.main',
+        color: 'primary.contrastText',
+      }}
+    >
+      <Box component="h1" fontSize="4rem">
+        {siteConfig.title}
+      </Box>
+      <Box component="p" fontSize="1.5rem">
+        {siteConfig.tagline}
+      </Box>
+    </Box>
   );
 }
 
