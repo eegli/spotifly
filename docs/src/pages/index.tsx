@@ -15,7 +15,7 @@ function HomepageHeader() {
         justifyContent: 'center',
         flexDirection: 'column',
         alignItems: 'center',
-        padding: 4,
+        padding: 5,
         backgroundColor: 'primary.main',
         color: 'primary.contrastText',
       }}
@@ -41,7 +41,7 @@ export default function Home(): JSX.Element {
         <Box
           id="main"
           my="auto"
-          height="100%"
+          flex="1 1 0"
           display="flex"
           flexDirection="column"
         >

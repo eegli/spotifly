@@ -1,6 +1,7 @@
 import LockOpenIcon from '@mui/icons-material/LockOpen';
-import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
+import StarIcon from '@mui/icons-material/Star';
+import { Button } from '@mui/material';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import React from 'react';
@@ -13,32 +14,24 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Easy to Use',
+    title: 'Quick and easy authentication',
     image: <LockOpenIcon />,
+    description: <>Get your access token directly from the docs.</>,
+  },
+  {
+    title: 'Built for CJS and ESM',
+    image: <StarIcon />,
     description: (
-      <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
-      </>
+      <>You choose whether you want to require or import a package.</>
     ),
   },
   {
-    title: 'Focus on What Matters',
-    image: <MusicNoteIcon />,
-    description: (
-      <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
-      </>
-    ),
-  },
-  {
-    title: 'Powered by React',
+    title: 'Powerful CLI',
     image: <SettingsSuggestIcon />,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        Use any package either via the Spotifly CLI or invoke it directly via
+        NPX - no installation required.
       </>
     ),
   },
@@ -66,7 +59,14 @@ function Feature({ title, image, description }: FeatureItem) {
           alignItems: 'center',
         }}
       >
-        <h3>{title}</h3>
+        <Box
+          component="h3"
+          sx={{
+            textTransform: 'capitalize',
+          }}
+        >
+          {title}
+        </Box>
         <p>{description}</p>
       </Box>
     </Box>
@@ -75,13 +75,28 @@ function Feature({ title, image, description }: FeatureItem) {
 
 export default function HomepageFeatures(): JSX.Element {
   return (
-    <Box component="section" padding={2}>
-      {FeatureList.map((props, idx) => (
-        <>
-          <Feature key={idx} {...props} />
-          <Divider flexItem />
-        </>
-      ))}
+    <Box
+      component="section"
+      padding={2}
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      }}
+    >
+      {FeatureList.map((props, idx) => {
+        const isLast = idx === FeatureList.length - 1;
+        return (
+          <>
+            <Feature key={props.title} {...props} />
+            {!isLast && <Divider flexItem variant="middle" />}
+          </>
+        );
+      })}
+
+      <Button size="large" variant="contained" sx={{ mt: 2, mb: 4 }}>
+        Explore the docs
+      </Button>
     </Box>
   );
 }
