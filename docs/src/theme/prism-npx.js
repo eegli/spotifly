@@ -1,5 +1,6 @@
 /* eslint-disable no-self-assign */
 /* eslint-disable no-undef */
+/* eslint-disable no-useless-escape */
 
 const regexes = {
   base: /^(?:\w)+\s[\w@\/-]+/g,

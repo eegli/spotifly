@@ -86,11 +86,11 @@ export default function HomepageFeatures(): JSX.Element {
         alignItems: 'center',
       }}
     >
-      {FeatureList.map((props, idx) => {
+      {FeatureList.map(({ description, title, image }, idx) => {
         const isLast = idx === FeatureList.length - 1;
         return (
-          <Box key={props.title} mb={isLast ? 3 : 2}>
-            <Feature {...props} />
+          <Box key={title} mb={isLast ? 3 : 2}>
+            <Feature description={description} title={title} image={image} />
             {!isLast && <Divider flexItem />}
           </Box>
         );
