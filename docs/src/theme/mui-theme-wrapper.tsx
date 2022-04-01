@@ -30,7 +30,10 @@ const getDesignTokens = (mode: PaletteMode): ThemeOptions => ({
 });
 
 export const MuiThemeWrapper = ({ children }: { children: ReactNode }) => {
-  const mode = useColorMode().colorMode;
-  const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
+  const { colorMode } = useColorMode();
+  const theme = useMemo(
+    () => createTheme(getDesignTokens(colorMode)),
+    [colorMode]
+  );
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 };

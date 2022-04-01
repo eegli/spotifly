@@ -1,9 +1,9 @@
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
 import StarIcon from '@mui/icons-material/Star';
-import { Button } from '@mui/material';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
+import MuiLink from '@mui/material/Link';
 import React from 'react';
 
 type FeatureItem = {
@@ -67,7 +67,9 @@ function Feature({ title, image, description }: FeatureItem) {
         >
           {title}
         </Box>
-        <p>{description}</p>
+        <Box component="p" sx={{ textAlign: 'center' }}>
+          {description}
+        </Box>
       </Box>
     </Box>
   );
@@ -87,16 +89,15 @@ export default function HomepageFeatures(): JSX.Element {
       {FeatureList.map((props, idx) => {
         const isLast = idx === FeatureList.length - 1;
         return (
-          <>
-            <Feature key={props.title} {...props} />
-            {!isLast && <Divider flexItem variant="middle" />}
-          </>
+          <Box key={props.title} mb={isLast ? 3 : 2}>
+            <Feature {...props} />
+            {!isLast && <Divider flexItem />}
+          </Box>
         );
       })}
-
-      <Button size="large" variant="contained" sx={{ mt: 2, mb: 4 }}>
+      <MuiLink href="docs/overview" variant="body1">
         Explore the docs
-      </Button>
+      </MuiLink>
     </Box>
   );
 }
