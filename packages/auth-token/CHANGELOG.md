@@ -1,5 +1,16 @@
 # @spotifly/auth-token
 
+## 0.3.0
+
+### Minor Changes
+
+- c6f5376: Initial release
+
+### Patch Changes
+
+- Updated dependencies [c6f5376]
+  - @spotifly/utils@0.1.0
+
 ## 0.2.5
 
 ### Patch Changes

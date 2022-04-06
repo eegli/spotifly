@@ -1,5 +1,18 @@
 # @spotifly/cli
 
+## 0.8.0
+
+### Minor Changes
+
+- c6f5376: Initial release
+
+### Patch Changes
+
+- Updated dependencies [c6f5376]
+  - @spotifly/auth-token@0.3.0
+  - @spotifly/library@0.1.0
+  - @spotifly/utils@0.1.0
+
 ## 0.7.7
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@spotifly/cli",
-  "version": "0.7.7",
+  "version": "0.8.0",
   "description": "The CLI for Spotifly",
   "keywords": [
     "cli",
@@ -31,8 +31,8 @@
     "cli"
   ],
   "dependencies": {
-    "@spotifly/auth-token": "^0.2.5",
-    "@spotifly/library": "^0.0.4",
-    "@spotifly/utils": "^0.0.7"
+    "@spotifly/auth-token": "^0.3.0",
+    "@spotifly/library": "^0.1.0",
+    "@spotifly/utils": "^0.1.0"
   }
 }

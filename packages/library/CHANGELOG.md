@@ -1,5 +1,16 @@
 # @spotifly/library
 
+## 0.1.0
+
+### Minor Changes
+
+- c6f5376: Initial release
+
+### Patch Changes
+
+- Updated dependencies [c6f5376]
+  - @spotifly/utils@0.1.0
+
 ## 0.0.4
 
 ### Patch Changes
