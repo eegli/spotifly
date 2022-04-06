@@ -1,6 +1,6 @@
 {
   "name": "@spotifly/library",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "private": false,
   "description": "Get your Spotify library via CLI",
   "keywords": [
@@ -31,7 +31,7 @@
   ],
   "dependencies": {
     "@eegli/tinyparse": "^0.5.0",
-    "@spotifly/utils": "^0.0.7",
+    "@spotifly/utils": "^0.1.0",
     "axios": "^0.25.0",
     "cli-progress": "^3.10.0"
   },

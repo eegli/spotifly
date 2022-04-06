@@ -1,6 +1,6 @@
 {
   "name": "@spotifly/auth-token",
-  "version": "0.2.5",
+  "version": "0.3.0",
   "description": "A simple utility for retrieving Spotify authentication and refresh tokens. Supports programmatic and CLI use",
   "keywords": [
     "spotify",
@@ -30,7 +30,7 @@
   ],
   "dependencies": {
     "@eegli/tinyparse": "^0.5.0",
-    "@spotifly/utils": "^0.0.7",
+    "@spotifly/utils": "^0.1.0",
     "node-fetch": "2"
   },
   "devDependencies": {
