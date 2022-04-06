@@ -17,9 +17,9 @@ export const writeJSON = async ({
   if (!fileName.endsWith('.json')) {
     fileName += '.json';
   }
-  path = join(process.cwd(), path, fileName);
+  path = join(process.cwd(), path);
   data = compact ? JSON.stringify(data) : JSON.stringify(data, null, 2);
 
-  await fs.outputFile(path, data);
+  await fs.outputFile(join(path, fileName), data);
   return path;
 };
