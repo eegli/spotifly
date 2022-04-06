@@ -32,6 +32,10 @@ export const cli = async (): Promise<void> => {
 Spotifly v${pkg.version}
     
 - ${pkg.description}
+
+Available commands:
+  - auth-token
+  - library
     
 For docs & help, visit ${pkg.homepage}
             `);

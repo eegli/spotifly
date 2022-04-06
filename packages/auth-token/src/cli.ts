@@ -23,7 +23,7 @@ export const cli = async (): Promise<void> => {
       `
 ${colors.yellow(`${pkg.name} v${pkg.version}`)}
 
-${help('CLI arguments')}
+${help('CLI Usage')}
 
 For docs & help, visit ${pkg.homepage}.
 `
