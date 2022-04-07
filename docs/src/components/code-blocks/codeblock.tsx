@@ -1,12 +1,21 @@
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
+import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import React, { useState } from 'react';
 import { MuiThemeWrapper } from '../../theme/mui-theme-wrapper';
-import { AllowedTypes, flagsFromObject, swapArrPositions } from '../../utils';
+import {
+  AllowedTypes,
+  authScopes,
+  flagsFromObject,
+  swapArrPositions,
+} from '../../utils';
 import { Formatter } from './formatter';
 
 type CliCodeBlockProps = {
@@ -14,6 +23,7 @@ type CliCodeBlockProps = {
   npx: string;
   commandMap: Record<string, AllowedTypes>;
   required: string[];
+  scopesKey?: string;
 };
 
 export const CliCodeBlock = ({
@@ -21,6 +31,7 @@ export const CliCodeBlock = ({
   npx,
   commandMap,
   required,
+  scopesKey,
 }: CliCodeBlockProps) => {
   const [inputFields, setInputFields] = useState<Record<string, AllowedTypes>>(
     {}
@@ -29,7 +40,6 @@ export const CliCodeBlock = ({
   const isRequired = (key: string) => required.includes(key);
 
   const merged = { ...commandMap, ...inputFields };
-
   return (
     <MuiThemeWrapper>
       <Box
@@ -67,6 +77,31 @@ export const CliCodeBlock = ({
             );
           }
 
+          if (key === scopesKey) {
+            return (
+              <FormControl key={key} required={isRequired(key)}>
+                <InputLabel>{key}</InputLabel>
+                <Select
+                  multiple
+                  value={value}
+                  onChange={event =>
+                    setInputFields({
+                      ...inputFields,
+                      [key]: event.target.value,
+                    })
+                  }
+                  input={<OutlinedInput label="scope" />}
+                >
+                  {authScopes.map(scope => (
+                    <MenuItem key={scope} value={scope}>
+                      {scope}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            );
+          }
+
           if (Array.isArray(value)) {
             return (
               <TextField
@@ -91,6 +126,7 @@ export const CliCodeBlock = ({
               </TextField>
             );
           }
+
           return (
             <TextField
               key={key}
@@ -111,10 +147,10 @@ export const CliCodeBlock = ({
         })}
       </Box>
       <Typography fontWeight="bold">With npx</Typography>
-      <Formatter>{flagsFromObject(npx, merged)}</Formatter>
+      <Formatter>{flagsFromObject(npx, merged, [scopesKey])}</Formatter>
 
       <Typography fontWeight="bold">Spotifly CLI</Typography>
-      <Formatter>{flagsFromObject(cli, merged)}</Formatter>
+      <Formatter>{flagsFromObject(cli, merged, [scopesKey])}</Formatter>
     </MuiThemeWrapper>
   );
 };

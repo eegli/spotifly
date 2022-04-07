@@ -26,10 +26,11 @@ import { CliCodeBlock } from '@site/src/components/code-blocks/codeblock';
     clientId: 'id',
     clientSecret: 'secret',
     port: 3000,
-    scopes: 'user-read-email',
+    scopes: ['user-read-email'],
     fileName: 'spotify-token',
     outDir: '',
   }}
+  scopesKey="scopes"
   required={['clientId', 'clientSecret']}
 />
 

@@ -2,7 +2,8 @@ export type AllowedTypes = string | string[] | boolean;
 
 export const flagsFromObject = (
   base: string,
-  obj: Record<string, AllowedTypes>
+  obj: Record<string, AllowedTypes>,
+  multiSelectKeys: string[] = []
 ): string => {
   return (
     base +
@@ -13,7 +14,10 @@ export const flagsFromObject = (
         key = '--' + key;
         acc += key + ' ';
         if (Array.isArray(value)) {
-          acc += value[0] + ' ';
+          const text = multiSelectKeys.includes(key.slice(2))
+            ? `"${value.join(' ')}"`
+            : value[0];
+          acc += text + ' ';
         } else if (typeof value === 'string') {
           // Wrap in quotes if value contains spaces
           if (value.indexOf(' ') > -1 && value.slice(-1) !== ' ') {
