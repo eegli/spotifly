@@ -1,45 +1,52 @@
 export type AllowedTypes = string | string[] | boolean;
 
-export const flagsFromObject = (
-  base: string,
-  obj: Record<string, AllowedTypes>,
-  multiSelectKeys: string[] = []
-): string => {
+export type FlagObjectParam = {
+  base: string;
+  obj: Record<string, AllowedTypes>;
+  multiValueKeys?: string[];
+};
+
+export function flagsFromObject({
+  base,
+  obj,
+  multiValueKeys = [],
+}: FlagObjectParam): string {
   return (
-    base +
+    base.trim() +
     ' ' +
     Object.entries(obj)
       .reduce((acc, [key, value]) => {
         if (value === false || value === '') return acc;
-        key = '--' + key;
-        acc += key + ' ';
+        acc += `--${key} `;
+
+        if (value === true) return acc;
+
         if (Array.isArray(value)) {
-          const text = multiSelectKeys.includes(key.slice(2))
+          const text = multiValueKeys.includes(key)
             ? `"${value.join(' ')}"`
             : value[0];
           acc += text + ' ';
-        } else if (typeof value === 'string') {
-          // Wrap in quotes if value contains spaces
-          if (value.indexOf(' ') > -1 && value.slice(-1) !== ' ') {
-            value = `"${value}"`;
-          }
-          acc += value + ' ';
-        } else if (typeof value === 'number') {
-          acc += value + ' ';
+          return acc;
         }
+
+        // Wrap in quotes if string value contains spaces
+        if (value.indexOf(' ') > -1 && value.slice(-1) !== ' ') {
+          value = `"${value}"`;
+        }
+        acc += value + ' ';
         return acc;
       }, '')
       .trim()
   );
-};
+}
 
-export const swapArrPositions = (arr: string[], element: string) => {
+export function swapArrPositions(arr: string[], element: string) {
   const index = arr.indexOf(element);
   if (index > -1) {
     [arr[0], arr[index]] = [arr[index], arr[0]];
   }
   return arr;
-};
+}
 
 // https://developer.spotify.com/documentation/general/guides/authorization/scopes/
 export const authScopes = [

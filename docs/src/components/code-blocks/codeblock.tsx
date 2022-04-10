@@ -8,7 +8,7 @@ import MenuItem from '@mui/material/MenuItem';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
-import React, { useState } from 'react';
+import React from 'react';
 import { MuiThemeWrapper } from '../../theme/mui-theme-wrapper';
 import {
   AllowedTypes,
@@ -33,13 +33,14 @@ export const CliCodeBlock = ({
   required,
   scopesKey,
 }: CliCodeBlockProps) => {
-  const [inputFields, setInputFields] = useState<Record<string, AllowedTypes>>(
-    {}
-  );
+  const [inputFields, setInputFields] = React.useState<
+    Record<string, AllowedTypes>
+  >({});
 
   const isRequired = (key: string) => required.includes(key);
 
   const merged = { ...commandMap, ...inputFields };
+  console.log(merged);
   return (
     <MuiThemeWrapper>
       <Box
@@ -146,11 +147,22 @@ export const CliCodeBlock = ({
           );
         })}
       </Box>
-      <Typography fontWeight="bold">With npx</Typography>
-      <Formatter>{flagsFromObject(npx, merged, [scopesKey])}</Formatter>
 
-      <Typography fontWeight="bold">Spotifly CLI</Typography>
-      <Formatter>{flagsFromObject(cli, merged, [scopesKey])}</Formatter>
+      {[
+        ['With npx', npx],
+        ['With cli', cli],
+      ].map(([title, base]) => (
+        <React.Fragment key={title}>
+          <Typography fontWeight="bold">{title}</Typography>
+          <Formatter>
+            {flagsFromObject({
+              base,
+              obj: merged,
+              multiValueKeys: [scopesKey],
+            })}
+          </Formatter>
+        </React.Fragment>
+      ))}
     </MuiThemeWrapper>
   );
 };
