@@ -1,11 +1,5 @@
 # @spotifly/cli
 
-## 0.8.1
-
-### Patch Changes
-
-- ddfa3c9: Upgrade utility dependency
-
 ## 0.8.0
 
 ### Minor Changes
