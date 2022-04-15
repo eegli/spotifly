@@ -3,7 +3,10 @@
   "changelog": "@changesets/changelog-git",
   "commit": false,
   "fixed": [],
-  "linked": [],
+  "linked": [
+    ["@spotifly/cli", "@spotifly/auth-token"],
+    ["@spotifly/cli", "@spotifly/library"]
+  ],
   "ignore": [],
   "access": "public",
   "baseBranch": "main",
