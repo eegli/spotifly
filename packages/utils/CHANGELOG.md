@@ -1,5 +1,11 @@
 # @spotifly/utils
 
+## 0.1.1
+
+### Patch Changes
+
+- 492dbb3: Fix writing utility to return path without file name
+
 ## 0.1.0
 
 ### Minor Changes
