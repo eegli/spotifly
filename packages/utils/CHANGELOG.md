@@ -1,5 +1,11 @@
 # @spotifly/utils
 
+## 0.1.2
+
+### Patch Changes
+
+- 7676701: Set fs utils to return base path without filename
+
 ## 0.1.1
 
 ### Patch Changes
