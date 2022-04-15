@@ -25,6 +25,12 @@ export const { parse, help } = createParser(defaultConfig, [
     shortFlag: '-cs',
   },
   {
+    name: 'scopes',
+    shortFlag: '-s',
+    description:
+      'Spotify authorization scopes. Multiple scopes need to be separated by a space. Default: "user-read-email"',
+  },
+  {
     name: 'port',
     shortFlag: '-p',
     description: 'Port for the localhost redirect URL. Default: 3000',
@@ -41,9 +47,8 @@ export const { parse, help } = createParser(defaultConfig, [
       'Custom name for the output JSON file. Default: "spotify-token"',
   },
   {
-    name: 'scopes',
-    shortFlag: '-s',
+    name: 'noEmit',
     description:
-      'Spotify authentication scopes. Multiple scopes need to be separated by a space. Default: "user-read-email"',
+      'When set to true, does not save the token to the file system. Default: false',
   },
 ]);

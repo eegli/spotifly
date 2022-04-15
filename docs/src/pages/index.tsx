@@ -20,7 +20,7 @@ function HomepageHeader() {
         color: 'primary.contrastText',
       }}
     >
-      <Box component="h1" fontSize="4rem">
+      <Box component="h1" fontSize="4rem" fontFamily="'Oswald', sans-serif">
         {siteConfig.title}
       </Box>
       <Box component="p" fontSize="1.5rem">
@@ -35,7 +35,7 @@ export default function Home(): JSX.Element {
   return (
     <Layout
       title={`Explore ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />"
+      description={siteConfig.tagline}
     >
       <MuiThemeWrapper>
         <Box

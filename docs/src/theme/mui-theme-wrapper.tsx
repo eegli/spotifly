@@ -6,9 +6,9 @@ const darkMode = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: '#e6b2e2',
-      light: '#f0d1ee',
-      dark: '#dc93d6',
+      main: '#90caf9',
+      light: '#b5dcfb',
+      dark: '#6bb8f7',
     },
   },
 });

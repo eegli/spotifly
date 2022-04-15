@@ -14,7 +14,7 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Quick and easy authentication',
+    title: 'Quick and easy authorization',
     image: <LockOpenIcon />,
     description: <>Get your access token directly from the docs.</>,
   },
@@ -95,7 +95,21 @@ export default function HomepageFeatures(): JSX.Element {
           </Box>
         );
       })}
-      <MuiLink href="docs/overview" variant="body1">
+      <MuiLink
+        href="docs/overview"
+        variant="body1"
+        sx={{
+          px: 2,
+          py: 1,
+          borderRadius: '4px',
+          backgroundColor: 'primary.main',
+          color: 'primary.contrastText',
+          '&:hover': {
+            backgroundColor: 'secondary.main',
+            color: 'text.primary',
+          },
+        }}
+      >
         Explore the docs
       </MuiLink>
     </Box>

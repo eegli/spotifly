@@ -8,7 +8,7 @@ tags:
 
 Export your Spotify library to JSON.
 
-You will need an access token from Spotify. You can get one from right [here!](/docs/authentication)
+You will need an access token from Spotify. You can get one from right [here!](/docs/authorization)
 
 ## CLI Usage
 
@@ -32,14 +32,16 @@ import { CliCodeBlock } from '@site/src/components/code-blocks/codeblock';
 
 ### Options
 
-| Flag         | **_(required?)_** Description, [opts?]                                          |
+| Flag         | _(required?)_ Description                                                       |
 | ------------ | ------------------------------------------------------------------------------- |
 | `--token`    | ✅ A Spotify user access token. Requires at least the scope "user-library-read" |
 | `--type`     | ❌ Output type per track. Either `full` or `light`. Default: `light`            |
 | `--genres`   | ❌ Include artist genres for each track. Default: `false`                       |
 | `--features` | ❌ Include audio features for each track. Default: `false`                      |
 | `--compact`  | ❌ Output more compact/minified JSON and save disk space. Default: `false`      |
-| `--outDir`   | ❌ Custom relative output directory. Default: Current directory                 |
+| --outDir     | ❌ Custom relative output directory. Default: Current directory                 |
+
+## Output
 
 A `light` track has a reduced set of properties:
 
@@ -58,4 +60,4 @@ type TrackLight = {
 };
 ```
 
-The `full` has all the track properties from the Spotify API.
+The `full` has all the track properties from the Spotify API. The next page features an example of both outputs.

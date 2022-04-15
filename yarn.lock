@@ -1973,10 +1973,10 @@
     url-loader "^4.1.1"
     webpack "^5.70.0"
 
-"@eegli/tinyparse@^0.5.0":
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/@eegli/tinyparse/-/tinyparse-0.5.0.tgz#b526bb94abbf0fcb0a551ff155629509fcea3466"
-  integrity sha512-Aao/+8DTjFxI0n8+BtENxci8EpTjXQjh60VzIH8cd3Pam9p26Gqla4Mqz5G2D34gARBznVRHrA+I19vgndL7vw==
+"@eegli/tinyparse@^0.5.1":
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/@eegli/tinyparse/-/tinyparse-0.5.1.tgz#69ba4f1a9fd02649ec35b94c6ed72902a6545d13"
+  integrity sha512-tyIRPnxcq69kyfGi+iLOwukMUkFZYndxA/Yv3QTIRpcSsEoEjApsVbL+elB9DZkpiV56wH8vSMtLcL9rVfGA2g==
 
 "@emotion/babel-plugin@^11.7.1":
   version "11.7.2"
