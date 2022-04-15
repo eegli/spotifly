@@ -1,6 +1,6 @@
-import { cli as authCli } from '@spotifly/auth-token/cli';
-import { cli as libraryCli } from '@spotifly/library/cli';
-import { colors } from '@spotifly/utils';
+import { cli as authCli } from '../../auth-token/cli';
+import { cli as libraryCli } from '../../library/cli';
+import { colors } from '../../utils';
 import pkg from '../package.json';
 
 const info = (msg: string) => console.info(colors.yellow(msg));

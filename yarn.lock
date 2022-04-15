@@ -2667,6 +2667,13 @@
     eval "^0.1.8"
     webpack-sources "^1.4.3"
 
+"@spotifly/utils@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@spotifly/utils/-/utils-0.1.2.tgz#f861cffd99dc2375fd060221b170e3936d3d1f02"
+  integrity sha512-F5q+0R4KbI51jwpaXfVBJLIqzHAbmd6jakv6DclLC30bx1B73einfe0LSeGi6nMByeO9mZq6I3tAmuazQsyeow==
+  dependencies:
+    fs-extra "^10.0.1"
+
 "@svgr/babel-plugin-add-jsx-attribute@^6.0.0":
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/@svgr/babel-plugin-add-jsx-attribute/-/babel-plugin-add-jsx-attribute-6.0.0.tgz#bd6d1ff32a31b82b601e73672a789cc41e84fe18"
