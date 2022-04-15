@@ -32,7 +32,7 @@
   ],
   "dependencies": {
     "@eegli/tinyparse": "^0.5.1",
-    "@spotifly/utils": "^0.1.0",
+    "@spotifly/utils": "^0.1.2",
     "node-fetch": "2"
   },
   "devDependencies": {
