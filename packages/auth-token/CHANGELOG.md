@@ -1,5 +1,11 @@
 # @spotifly/auth-token
 
+## 0.3.1
+
+### Patch Changes
+
+- ddfa3c9: Upgrade utility dependency
+
 ## 0.3.0
 
 ### Minor Changes
