@@ -28,6 +28,7 @@ const config = {
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl: 'https://github.com/eegli/spotifly/tree/main/docs/',
         },
+
         blog: false,
         theme: {
           customCss: [require.resolve('./src/css/custom.css')],
@@ -56,6 +57,10 @@ const config = {
             position: 'right',
           },
         ],
+      },
+      announcementBar: {
+        content:
+          'Hi! Spotifly is still under active development. Check the GitHub readme for more info.',
       },
       footer: {
         style: 'dark',
