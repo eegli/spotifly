@@ -23,6 +23,7 @@
   "scripts": {
     "build": "preconstruct build",
     "check-types": "tsc",
+    "deps:list": "node scripts/versions.mjs",
     "dev": "preconstruct watch",
     "format": "prettier --write packages docs \"**/*.{js,ts,tsx,md}\"",
     "postinstall": "preconstruct dev",

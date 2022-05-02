@@ -38,6 +38,6 @@ const outDated = projects.reduce((acc, curr) => {
 }, []);
 
 writeFileSync(
-  join(process.cwd(), 'versions.json'),
+  join(process.cwd(), 'internal-deps.json'),
   JSON.stringify({ outDated, projects }, null, 2)
 );
