@@ -4,13 +4,19 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import React from 'react';
 
-export type LocalToken = {
-  token: string;
+export type TokenData = {
+  accessToken: string;
   expires: number;
   scopes: string;
+  refreshToken?: string;
 };
 
-export const AuthTokenView = ({ expires, token, scopes }: LocalToken) => {
+export const AuthTokenList = ({
+  expires,
+  accessToken,
+  refreshToken,
+  scopes,
+}: TokenData) => {
   return (
     <List>
       <ListItem disablePadding>
@@ -30,12 +36,17 @@ export const AuthTokenView = ({ expires, token, scopes }: LocalToken) => {
         <ListItemButton disableGutters>
           <ListItemText
             sx={{ wordBreak: 'break-all' }}
-            onClick={() => navigator.clipboard.writeText(token)}
-            primary="Token - Click to copy"
-            secondary={token}
+            onClick={() => navigator.clipboard.writeText(accessToken)}
+            primary="Access token - Click to copy"
+            secondary={accessToken}
           />
         </ListItemButton>
       </ListItem>
+      {refreshToken && (
+        <ListItem disablePadding>
+          <ListItemText primary="Refresh token" secondary={refreshToken} />
+        </ListItem>
+      )}
     </List>
   );
 };

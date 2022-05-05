@@ -6,63 +6,92 @@ import MenuItem from '@mui/material/MenuItem';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-import React, { useState } from 'react';
+import React, { ChangeEvent, useReducer } from 'react';
 import { useLocalStorage } from 'react-use';
-import { useSpotifyCallbackFromQueryParams } from '../../hooks/useQueryToken';
+import { createAuthUrl, getRefreshToken } from '../../api';
+import { useTokenFromQueryParams } from '../../hooks/useTokenFromQueryParams';
+import { tokenReducer } from '../../state/token';
 import { MuiThemeWrapper } from '../../theme/mui-theme-wrapper';
 import { authScopes } from '../../utils';
-import { AuthTokenView, LocalToken } from './view';
+import { ErrorMessage } from './error';
+import { AuthTokenList, TokenData } from './list';
 
 export const AuthTokenForm = () => {
-  const [clientId, setClientId] = useState('');
-  const [clientSecret, setClientSecret] = useState('');
-  const [scopes, setScopes] = useState<string[]>([]);
-  const [error, setError] = useState('');
-  const [localToken, setLocalToken, removeLocalToken] =
-    useLocalStorage<LocalToken>('token');
+  const [state, dispatch] = useReducer(tokenReducer, {
+    clientId: 'ba00d5a5d6b549f8be3ddbb80a25728f',
+    clientSecret: '452e7384d1b1475c9d04ff244af5b699',
+    scopes: ['user-read-email'],
+    refreshToken: '',
+    error: '',
+  });
 
-  if (localToken && localToken.expires < Date.now()) {
+  const isReady =
+    state.clientId && state.clientSecret && state.scopes.length > 0;
+
+  // Short-lived access token is saved in localstorage as long as it's
+  // valid
+  const [accessToken, setAccessToken, removeLocalToken] =
+    useLocalStorage<Omit<TokenData, 'refreshToken'>>('token');
+
+  if (accessToken && accessToken.expires < Date.now()) {
     removeLocalToken();
   }
 
-  useSpotifyCallbackFromQueryParams();
+  useTokenFromQueryParams();
 
-  const isReady = clientId && clientSecret && scopes.length > 0;
+  const handleScopeChange = (e: SelectChangeEvent<typeof state.scopes>) => {
+    dispatch({ type: 'setScopes', payload: e.target.value });
+  };
 
-  const handleScopeChange = (event: SelectChangeEvent<typeof scopes>) => {
-    const { value } = event.target;
-    setScopes(typeof value === 'string' ? [value] : value);
+  const handleClientIdChange = (e: ChangeEvent<HTMLInputElement>) => {
+    dispatch({ type: 'setClientId', payload: e.target.value });
+  };
+
+  const handleClientSecretChange = (e: ChangeEvent<HTMLInputElement>) => {
+    dispatch({ type: 'setClientSecret', payload: e.target.value });
   };
 
   const handleLogin = () => {
-    const spotifyUrl =
-      'https://accounts.spotify.com/authorize?' +
-      new URLSearchParams({
-        response_type: 'token',
-        show_dialog: 'true',
-        client_id: encodeURIComponent(clientId),
-        redirect_uri: window.location.href,
-        scope: scopes.join(' '),
-      }).toString();
-
+    const spotifyUrl = createAuthUrl({
+      clientId: state.clientId,
+      scopes: state.scopes,
+      redirectUri: window.location.href,
+    });
     const popup = window.open(
       spotifyUrl,
       'Login with Spotify',
       'width=500,height=800'
     );
 
-    window.spotifyCallback = (token, error) => {
-      if (token) {
-        setLocalToken({
-          scopes: scopes.join(', '),
-          token,
-          expires: new Date(Date.now() + 1000 * 3600).getTime(),
+    window.spotifyCallback = code => {
+      if (!code) {
+        dispatch({
+          type: 'setError',
+          payload:
+            'Error logging in to Spotify. Did you click &quot;cancel&quot; in the popup?',
         });
-        setError('');
       } else {
-        setError(error);
+        (async () => {
+          const tokenResponse = await getRefreshToken({
+            clientId: state.clientId,
+            clientSecret: state.clientSecret,
+            code,
+            redirectUri: window.location.href,
+          });
+          console.log(tokenResponse);
+          setAccessToken({
+            scopes: state.scopes.join(', '),
+            accessToken: tokenResponse.access_token,
+            expires: new Date(Date.now() + 1000 * 3600).getTime(),
+          });
+          dispatch({
+            type: 'setRefreshToken',
+            payload: tokenResponse.refresh_token,
+          });
+          dispatch({ type: 'setError', payload: '' });
+        })();
       }
+
       popup?.close();
     };
   };
@@ -80,23 +109,23 @@ export const AuthTokenForm = () => {
         }}
       >
         <TextField
-          value={clientId}
+          value={state.clientId}
           label="Client ID"
           key="id"
-          onChange={v => setClientId(v.target.value)}
+          onChange={handleClientIdChange}
         />
         <TextField
-          value={clientSecret}
+          value={state.clientSecret}
           label="Client Secret"
           key="secret"
-          onChange={v => setClientSecret(v.target.value)}
+          onChange={handleClientSecretChange}
         />
 
         <FormControl>
           <InputLabel>Scopes</InputLabel>
           <Select
             multiple
-            value={scopes}
+            value={state.scopes}
             onChange={handleScopeChange}
             input={<OutlinedInput label="Scope" />}
           >
@@ -109,19 +138,18 @@ export const AuthTokenForm = () => {
         </FormControl>
       </Box>
       {isReady && (
-        <Button sx={{ mb: 2 }} variant="contained" onClick={handleLogin}>
+        <Button
+          sx={{ mb: 2, backgroundColor: '#1db954', color: '#fff' }}
+          variant="contained"
+          onClick={handleLogin}
+        >
           Login with Spotify
         </Button>
       )}
-      {error ? (
-        <Box py={2} px={1}>
-          <Typography>
-            Error login in with Spotify. Reason: {error}. Did you click
-            &quot;cancel&quot; in the popup?
-          </Typography>
-        </Box>
-      ) : localToken ? (
-        <AuthTokenView {...localToken} />
+      {state.error ? (
+        <ErrorMessage message={state.error} />
+      ) : accessToken ? (
+        <AuthTokenList {...accessToken} refreshToken={state.refreshToken} />
       ) : null}
     </MuiThemeWrapper>
   );

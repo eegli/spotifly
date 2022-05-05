@@ -1,3 +1,3 @@
 interface Window {
-    spotifyCallback: ((token: string, error: string) => void) | undefined;
+    spotifyCallback: ((code: string | null) => void) | undefined;
 }
