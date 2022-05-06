@@ -6,6 +6,7 @@ type RefreshTokenParams = {
 };
 
 type AuthUrlParams = {
+  type: string;
   clientId: string;
   redirectUri: string;
   scopes: string[];
@@ -21,14 +22,16 @@ type SpotifyTokenResponse = {
 };
 
 export function createAuthUrl({
+  type,
   clientId,
   scopes,
   redirectUri,
 }: AuthUrlParams): string {
+  const response_type = type === 'Implicit Grant Flow' ? 'token' : 'code';
   return (
     'https://accounts.spotify.com/authorize?' +
     new URLSearchParams({
-      response_type: 'code',
+      response_type,
       show_dialog: 'true',
       client_id: encodeURIComponent(clientId),
       redirect_uri: redirectUri,
@@ -37,7 +40,7 @@ export function createAuthUrl({
   );
 }
 
-export async function getRefreshToken({
+export async function getToken({
   clientId,
   clientSecret,
   redirectUri,

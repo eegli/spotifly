@@ -2,7 +2,8 @@ type StringAction =
   | 'setClientId'
   | 'setClientSecret'
   | 'setRefreshToken'
-  | 'setError';
+  | 'setError'
+  | 'setAuthType';
 
 type GenericTokenAction<T, P> = {
   type: T;
@@ -14,6 +15,7 @@ type TokenAction =
   | GenericTokenAction<'setScopes', string[] | string>;
 
 type TokenState = {
+  authType: string;
   clientId: string;
   clientSecret: string;
   refreshToken: string;
@@ -24,6 +26,8 @@ type TokenState = {
 export function tokenReducer(state: TokenState, action: TokenAction) {
   const { type, payload } = action;
   switch (type) {
+    case 'setAuthType':
+      return { ...state, authType: payload };
     case 'setClientId':
       return { ...state, clientId: payload };
     case 'setClientSecret':

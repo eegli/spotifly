@@ -10,9 +10,16 @@ If you don't have one already, click the link below and create one. It's free!
 
 [https://developer.spotify.com/dashboard/](https://developer.spotify.com/dashboard/).
 
-## Types of tokens
+## OAuth flows and Tokens
 
-WIP
+There are multiple ways to authorize with Spotify. We're only interested in two of them: `Implicit Grant Flow` and `Authorization Code Flow`. Both of these methods eventually let us access user-related data on Spotify.
+
+- Implicit Grant Flow
+- Authorization Code Flow
+
+For more info, [read the docs](https://developer.spotify.com/documentation/general/guides/authorization/).
+
+WIP Such a token can only be generated in the browser and expires after one hour
 
 After having created your application, click _edit_ and add the following two redirect URLs:
 
@@ -21,7 +28,7 @@ After having created your application, click _edit_ and add the following two re
 
 :::info
 
-Having the first URL whitelisted as redirect URL enables you to easily get a short-lived access token directly on this page using the helper below (_Implicit Grant Flow_). Such a token can only be generated in the browser and expires after one hour.
+Having the first URL whitelisted as redirect URL enables you to easily get both short and long-lived tokens directly on this page using the helper below.
 
 The second URL is needed when you want to generate an access (and refresh) token locally (_Authorization Code Flow_). Such tokens are generally used in apps that run in an independent environment. The `auth-token` package needs a localhost URL to work.
 

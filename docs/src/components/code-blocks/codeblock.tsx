@@ -40,7 +40,6 @@ export const CliCodeBlock = ({
   const isRequired = (key: string) => required.includes(key);
 
   const merged = { ...commandMap, ...inputFields };
-  console.log(merged);
   return (
     <MuiThemeWrapper>
       <Box

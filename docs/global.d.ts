@@ -1,3 +1,3 @@
 interface Window {
-    spotifyCallback: ((code: string | null) => void) | undefined;
+     spotifyCallback:  ( (params: URLSearchParams) => void) | undefined;
 }

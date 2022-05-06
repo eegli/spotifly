@@ -8,7 +8,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import React, { ChangeEvent, useReducer } from 'react';
 import { useLocalStorage } from 'react-use';
-import { createAuthUrl, getRefreshToken } from '../../api';
+import { createAuthUrl, getToken } from '../../api';
 import { useTokenFromQueryParams } from '../../hooks/useTokenFromQueryParams';
 import { tokenReducer } from '../../state/token';
 import { MuiThemeWrapper } from '../../theme/mui-theme-wrapper';
@@ -18,22 +18,26 @@ import { AuthTokenList, TokenData } from './list';
 
 export const AuthTokenForm = () => {
   const [state, dispatch] = useReducer(tokenReducer, {
-    clientId: 'ba00d5a5d6b549f8be3ddbb80a25728f',
-    clientSecret: '452e7384d1b1475c9d04ff244af5b699',
+    authType: 'Implicit Grant Flow',
+    clientId: '3041f34cf22c46349d0c80148946aee6',
+    clientSecret: '9ee38eb6aece44c98e58d2beedb440b3',
     scopes: ['user-read-email'],
     refreshToken: '',
     error: '',
   });
 
   const isReady =
-    state.clientId && state.clientSecret && state.scopes.length > 0;
+    (state.authType === 'Implicit Grant Flow' ||
+      (state.authType === 'Authorization Code Flow' && state.clientSecret)) &&
+    state.clientId &&
+    state.scopes.length > 0;
 
   // Short-lived access token is saved in localstorage as long as it's
   // valid
-  const [accessToken, setAccessToken, removeLocalToken] =
+  const [localToken, setLocalToken, removeLocalToken] =
     useLocalStorage<Omit<TokenData, 'refreshToken'>>('token');
 
-  if (accessToken && accessToken.expires < Date.now()) {
+  if (localToken && localToken.expires < Date.now()) {
     removeLocalToken();
   }
 
@@ -51,8 +55,15 @@ export const AuthTokenForm = () => {
     dispatch({ type: 'setClientSecret', payload: e.target.value });
   };
 
+  const handleAuthTypeChange = (
+    e: SelectChangeEvent<typeof state.authType>
+  ) => {
+    dispatch({ type: 'setAuthType', payload: e.target.value });
+  };
+
   const handleLogin = () => {
     const spotifyUrl = createAuthUrl({
+      type: state.authType,
       clientId: state.clientId,
       scopes: state.scopes,
       redirectUri: window.location.href,
@@ -63,34 +74,43 @@ export const AuthTokenForm = () => {
       'width=500,height=800'
     );
 
-    window.spotifyCallback = code => {
-      if (!code) {
+    window.spotifyCallback = async params => {
+      // Implicit grant
+      let accessToken = params.get('access_token') || '';
+      const code = params.get('code');
+      const error = params.get('error');
+
+      if (error || (!code && !accessToken)) {
         dispatch({
           type: 'setError',
           payload:
             'Error logging in to Spotify. Did you click &quot;cancel&quot; in the popup?',
         });
-      } else {
-        (async () => {
-          const tokenResponse = await getRefreshToken({
-            clientId: state.clientId,
-            clientSecret: state.clientSecret,
-            code,
-            redirectUri: window.location.href,
-          });
-          console.log(tokenResponse);
-          setAccessToken({
-            scopes: state.scopes.join(', '),
-            accessToken: tokenResponse.access_token,
-            expires: new Date(Date.now() + 1000 * 3600).getTime(),
-          });
-          dispatch({
-            type: 'setRefreshToken',
-            payload: tokenResponse.refresh_token,
-          });
-          dispatch({ type: 'setError', payload: '' });
-        })();
+        return;
       }
+
+      dispatch({ type: 'setError', payload: '' });
+      // Authorization code flow
+      if (code) {
+        const { refresh_token, access_token } = await getToken({
+          clientId: state.clientId,
+          clientSecret: state.clientSecret,
+          code,
+          redirectUri: window.location.href,
+        });
+
+        dispatch({
+          type: 'setRefreshToken',
+          payload: refresh_token,
+        });
+        accessToken = access_token;
+      }
+
+      setLocalToken({
+        accessToken,
+        scopes: state.scopes.join(', '),
+        expires: new Date(Date.now() + 1000 * 3600).getTime(),
+      });
 
       popup?.close();
     };
@@ -108,26 +128,27 @@ export const AuthTokenForm = () => {
           mb: 2,
         }}
       >
-        <TextField
-          value={state.clientId}
-          label="Client ID"
-          key="id"
-          onChange={handleClientIdChange}
-        />
-        <TextField
-          value={state.clientSecret}
-          label="Client Secret"
-          key="secret"
-          onChange={handleClientSecretChange}
-        />
-
+        <FormControl>
+          <InputLabel>Authorization Type</InputLabel>
+          <Select
+            onChange={handleAuthTypeChange}
+            value={state.authType}
+            label="Authorization Type"
+          >
+            {['Implicit Grant Flow', 'Authorization Code Flow'].map(flow => (
+              <MenuItem key={flow} value={flow}>
+                {flow}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
         <FormControl>
           <InputLabel>Scopes</InputLabel>
           <Select
             multiple
             value={state.scopes}
             onChange={handleScopeChange}
-            input={<OutlinedInput label="Scope" />}
+            input={<OutlinedInput label="Scopes" />}
           >
             {authScopes.map(scope => (
               <MenuItem key={scope} value={scope}>
@@ -136,6 +157,20 @@ export const AuthTokenForm = () => {
             ))}
           </Select>
         </FormControl>
+        <TextField
+          value={state.clientId}
+          label="Client ID"
+          key="id"
+          onChange={handleClientIdChange}
+        />
+        {state.authType === 'Authorization Code Flow' && (
+          <TextField
+            value={state.clientSecret}
+            label="Client Secret"
+            key="secret"
+            onChange={handleClientSecretChange}
+          />
+        )}
       </Box>
       {isReady && (
         <Button
@@ -148,8 +183,8 @@ export const AuthTokenForm = () => {
       )}
       {state.error ? (
         <ErrorMessage message={state.error} />
-      ) : accessToken ? (
-        <AuthTokenList {...accessToken} refreshToken={state.refreshToken} />
+      ) : localToken ? (
+        <AuthTokenList {...localToken} refreshToken={state.refreshToken} />
       ) : null}
     </MuiThemeWrapper>
   );
