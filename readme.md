@@ -4,6 +4,8 @@ Spotifly is work in progress. It joins my currently independent Spotify related 
 
 I'm a little busy now but plan to release the first major/initial versions for each package somewhere in June/July. ⚒️
 
+Please do not use any of the packages from @spotifly yet, they are still lacking important security patches.
+
 ## CLI
 
 `yarn spotifly`
