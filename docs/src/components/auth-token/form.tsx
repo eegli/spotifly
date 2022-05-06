@@ -19,8 +19,8 @@ import { AuthTokenList, TokenData } from './list';
 export const AuthTokenForm = () => {
   const [state, dispatch] = useReducer(tokenReducer, {
     authType: 'Implicit Grant Flow',
-    clientId: '3041f34cf22c46349d0c80148946aee6',
-    clientSecret: '9ee38eb6aece44c98e58d2beedb440b3',
+    clientId: '',
+    clientSecret: '',
     scopes: ['user-read-email'],
     refreshToken: '',
     error: '',
@@ -120,6 +120,7 @@ export const AuthTokenForm = () => {
       <Box
         component="form"
         sx={{
+          mt: 4,
           display: 'flex',
           flexDirection: 'row',
           flexWrap: 'wrap',

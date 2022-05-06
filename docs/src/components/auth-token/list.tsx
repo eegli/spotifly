@@ -1,4 +1,3 @@
-import { ListItemButton } from '@mui/material';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
@@ -16,37 +15,33 @@ export const AuthTokenList = ({
   accessToken,
   refreshToken,
   scopes,
-}: TokenData) => {
-  return (
-    <List>
+}: TokenData) => (
+  <List>
+    <ListItem disablePadding>
+      <ListItemText
+        primary="Expires"
+        secondary={`In ${new Date(
+          expires - Date.now()
+        ).getMinutes()} minutes (at ${new Date(expires).toLocaleTimeString()})`}
+      />
+    </ListItem>
+    <ListItem disablePadding>
+      <ListItemText primary="Scopes" secondary={scopes} />
+    </ListItem>
+    <ListItem disablePadding>
+      <ListItem disablePadding>
+        <ListItemText primary="Access token" secondary={accessToken} />
+      </ListItem>
+    </ListItem>
+    {refreshToken && (
       <ListItem disablePadding>
         <ListItemText
-          primary="Expires"
-          secondary={`In ${new Date(
-            expires - Date.now()
-          ).getMinutes()} minutes (at ${new Date(
-            expires
-          ).toLocaleTimeString()})`}
+          primary="Refresh token"
+          primaryTypographyProps={{ color: 'warning.light' }}
+          secondary={refreshToken}
+          secondaryTypographyProps={{ color: 'warning.dark' }}
         />
       </ListItem>
-      <ListItem disablePadding>
-        <ListItemText primary="Scopes" secondary={scopes} />
-      </ListItem>
-      <ListItem disablePadding>
-        <ListItemButton disableGutters>
-          <ListItemText
-            sx={{ wordBreak: 'break-all' }}
-            onClick={() => navigator.clipboard.writeText(accessToken)}
-            primary="Access token - Click to copy"
-            secondary={accessToken}
-          />
-        </ListItemButton>
-      </ListItem>
-      {refreshToken && (
-        <ListItem disablePadding>
-          <ListItemText primary="Refresh token" secondary={refreshToken} />
-        </ListItem>
-      )}
-    </List>
-  );
-};
+    )}
+  </List>
+);

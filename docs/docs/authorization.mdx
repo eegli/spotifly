@@ -4,22 +4,9 @@ hide_table_of_contents: true
 sidebar_position: 2
 ---
 
-In order to access Spotify's data, you will need a dedicated Spotify application (and, of course, a Spotify account).
+In order to access Spotify's data, you will need a dedicated Spotify application (and, of course, a Spotify account). If you don't have one already, click the link below and create one. It's free!
 
-If you don't have one already, click the link below and create one. It's free!
-
-[https://developer.spotify.com/dashboard/](https://developer.spotify.com/dashboard/).
-
-## OAuth flows and Tokens
-
-There are multiple ways to authorize with Spotify. We're only interested in two of them: `Implicit Grant Flow` and `Authorization Code Flow`. Both of these methods eventually let us access user-related data on Spotify.
-
-- Implicit Grant Flow
-- Authorization Code Flow
-
-For more info, [read the docs](https://developer.spotify.com/documentation/general/guides/authorization/).
-
-WIP Such a token can only be generated in the browser and expires after one hour
+- [https://developer.spotify.com/dashboard/](https://developer.spotify.com/dashboard/).
 
 After having created your application, click _edit_ and add the following two redirect URLs:
 
@@ -28,19 +15,36 @@ After having created your application, click _edit_ and add the following two re
 
 :::info
 
-Having the first URL whitelisted as redirect URL enables you to easily get both short and long-lived tokens directly on this page using the helper below.
+Whitelisting the first URL enables you to create both short-lived access and long-lived refresh tokens directly on this page using the helper below.
 
-The second URL is needed when you want to generate an access (and refresh) token locally (_Authorization Code Flow_). Such tokens are generally used in apps that run in an independent environment. The `auth-token` package needs a localhost URL to work.
+The second URL is needed when you want to generate a long-lived token locally (_Authorization Code Flow_). You don't have to add it in your Spotify application. It's only needed when you want to use the `auth-token` package.
 
 :::
 
-For more information about Spotify's different types of Authorization, [refer to their docs](https://developer.spotify.com/documentation/general/guides/authorization/).
+## Supported Grant Flows and Tokens
+
+There are multiple ways to authorize with Spotify. We're particularly interested in two of them: `Implicit Grant Flow` and `Authorization Code Flow`. Both of these methods eventually let us access user-related data on Spotify. Below is an excerpt from the [Spotify documentation](https://developer.spotify.com/documentation/general/guides/authorization/) (_May 2022_).
+
+### Implicit Grant Flow
+
+_The implicit grant flow is carried out on the client side and it does not involve secret keys. Thus, you do not need any server-side code to use it. Access tokens issued are short-lived with no refresh token to extend them when they expire_.
+
+### Authorization Code Flow
+
+_The authorization code flow is suitable for long-running applications (e.g. web and mobile apps) where the user grants permission only once._
+
+In short:
+
+- The _Authorization Code Flow_ involves exchanging a client secret. It generates both a short-lived access and long-lived _refresh_ token that can be used to independently renew the access token.
+- The _Implicit Grant Flow_ does not include and secrets. It can only be carried out in a browser. The result is a short-lived _access token_.
 
 ## Getting an access token
 
-In order to authenticate with Spotify, most Spotifly packages need an access token. The helper below can be used to generate such a token that is bound to your Spotify application. Packages that require a token will list what scopes are needed.
+In order to authenticate with Spotify, most packages need a (short-lived) access token. If you're unsure what you need, _Implicit Grant_ is a good start! Tokens obtained from this flow expire after one hour and do not require the exchange of any secrets.
 
-Previously generated tokens are saved locally in your browser for as long as they are valid (one hour).
+These short-lived tokens are saved locally in this browser as long as they are valid. If you select the _Authorization Code Flow_, the generated **refresh token** will **not** be saved in your browser. Copy it before you leave the page!
+
+Last but not least, note that all packages that require a token will list what scopes are needed.
 
 import { AuthTokenForm } from '@site/src/components/auth-token/form';
 
