@@ -45,6 +45,13 @@ module.exports = {
     },
     {
       ...common,
+      displayName: 'libraryv2',
+      rootDir: 'packages/libraryv2',
+      roots: ['<rootDir>/src/', '<rootDir>/test/'],
+      collectCoverageFrom: ['src/**'],
+    },
+    {
+      ...common,
       displayName: 'docs',
       rootDir: 'docs',
     },

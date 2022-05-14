@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Spotify config update 1`] = `
+Array [
+  "7FtCyCJCJaxabYO7Uyda5B",
+  "6PIxyj355iDhl3wQSsHXPE",
+  "1BPsbKiNgav1TY1ITIU8C5",
+  "3q4qbeWVDpN7LcwU6db2a7",
+  "6QF9jZk7NKic4H0A01lGWw",
+  "0k3dnuEr9LghUE4jxS0PT4",
+  "5dScLouYq1Xn2eUlzlpusx",
+]
+`;
