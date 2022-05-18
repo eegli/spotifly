@@ -1,9 +1,7 @@
-import { AxiosResponse } from 'axios';
-
 export type MapCollection<T> = Map<string, T>;
 export type SetCollection<T> = Set<T>;
 
-type PickActual<T, P extends keyof T> = T[P];
+export type PickActual<T, P extends keyof T> = T[P];
 
 type RequiredConfig = {
   token: string;
@@ -23,7 +21,7 @@ export type EnhancedTrack<T> = T & {
   genres?: string[][];
   features?: SpotifyApi.AudioFeaturesObject;
 };
-export type SavedTrack = SpotifyApi.SavedTrackObject;
+
 export type TrackFull = SpotifyApi.TrackObjectFull;
 export type TrackSimplified = SpotifyApi.TrackObjectSimplified;
 export type EnhancedSavedTrack = EnhancedTrack<SpotifyApi.SavedTrackObject>;
@@ -57,9 +55,3 @@ export type Library<T = unknown> = {
     features?: SpotifyApi.AudioFeaturesObject;
   };
 }[];
-
-export type UsersSavedTracks =
-  AxiosResponse<SpotifyApi.UsersSavedTracksResponse>;
-export type MultipleArtists = AxiosResponse<SpotifyApi.MultipleArtistsResponse>;
-export type MultipleAudioFeatures =
-  AxiosResponse<SpotifyApi.MultipleAudioFeaturesResponse>;

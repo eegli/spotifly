@@ -1,5 +1,5 @@
 {
-  "name": "@spotifly/library2",
+  "name": "@spotifly/core",
   "version": "0.0.0",
   "private": true,
   "description": "Get your Spotify library via CLI",
@@ -21,8 +21,8 @@
     "name": "Eric Egli",
     "email": "lx180777+npm@gmail.com"
   },
-  "main": "dist/spotifly-library.cjs.js",
-  "module": "dist/spotifly-library.esm.js",
+  "main": "dist/spotifly-core.cjs.js",
+  "module": "dist/spotifly-core.esm.js",
   "bin": "bin.js",
   "files": [
     "dist",
@@ -41,8 +41,7 @@
   },
   "preconstruct": {
     "entrypoints": [
-      "index.ts",
-      "cli.ts"
+      "index.ts"
     ]
   }
 }

@@ -3,6 +3,9 @@ const common = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   moduleFileExtensions: ['js', 'ts'],
+  snapshotFormat: {
+    printBasicPrototype: false,
+  },
   globals: {
     'ts-jest': {
       isolatedModules: true,
@@ -45,8 +48,8 @@ module.exports = {
     },
     {
       ...common,
-      displayName: 'libraryv2',
-      rootDir: 'packages/libraryv2',
+      displayName: 'core',
+      rootDir: 'packages/core',
       roots: ['<rootDir>/src/', '<rootDir>/test/'],
       collectCoverageFrom: ['src/**'],
     },

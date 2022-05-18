@@ -1,1 +1,1 @@
-export { Library } from './library';
+export { Artists, Tracks } from './base/models';
