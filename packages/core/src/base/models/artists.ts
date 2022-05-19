@@ -1,18 +1,9 @@
-import { MapCollection } from '../../types';
 import { chunkify } from '../../utils';
-import { Collectible, RequestConfig, SpotifyKind } from '../abstract';
+import { RequestConfig, SpotifyKind } from '../abstract';
 
 export class Artists extends SpotifyKind {
-  #artists: MapCollection<SpotifyApi.ArtistObjectFull> = new Map();
-
   constructor(opts: RequestConfig) {
     super(opts);
-  }
-
-  public get collection() {
-    return {
-      artists: new Collectible(this.#artists),
-    };
   }
 
   async getSeveralArtists(id: string, ...ids: string[]): Promise<this> {
@@ -27,9 +18,6 @@ export class Artists extends SpotifyKind {
             },
           }
         );
-      data.artists.forEach(artist => {
-        this.#artists.set(artist.id, artist);
-      });
     }
     return this;
   }

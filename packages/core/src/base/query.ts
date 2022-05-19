@@ -42,7 +42,7 @@ export const endpointsv1 = {
     limit: 50,
   },
   getSeveralTracks: {
-    limit: 50,
+    limit: 2,
     url: 'tracks',
   },
   getUsersSavedTracks: {

@@ -11,12 +11,11 @@ type CacheableConfig = {
 
 export function Cacheable({
   entity,
-
   enabled = true,
   debug = false,
 }: CacheableConfig) {
   return function (
-    _: any,
+    target: any,
     propertyKey: string,
     descriptor: PropertyDescriptor
   ) {
@@ -24,7 +23,7 @@ export function Cacheable({
     const log = debug ? console.log : () => {};
     const original = descriptor.value;
     descriptor.value = async function (...args: string[]) {
-      if (!Array.isArray(args)) {
+      if (!Array.isArray(args) || !args.every(arg => typeof arg === 'string')) {
         throw new Error(
           `Decorator applied on uncacheable method ${propertyKey}`
         );

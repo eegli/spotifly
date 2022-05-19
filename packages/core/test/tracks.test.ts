@@ -5,47 +5,57 @@ afterEach(() => {
 });
 
 const token =
-  'BQDkk4J8UWbK3Ik9zOvIYvylcIMgiQgG6k0niv9nUvJnfCstK9U5TlGPwgyzbcj5MksG34IdcIV1-KVVmoa_5en-bYX4zgxkCJ9KLqViueWUfem5NwbLAbPt9EJqCLemJSy4Xx6e7b_KjC8XBC5GuoKF5-pNo-1a-XbrsNgKtPr7DpW5-l2MWbkQWbBJpdV93uShRLe8uiVCJ3apXVgUQHhiGESlcz-qvF2GCahiClkdBLlYTOHbTyLx97Npi-9b8M_E4qqEl_z1hUGYPjpj_wtIg6AjGVwDi8QYjx_q8JKZ7QE';
+  'BQALkgWC7T-pLi8gnSjAF8VeueiwNPT0w3Z65BHCh04YRRfB-94JAqpKhirA6mlutdYW6geN7hC_QmNe3sFrxeli-t67xqgkTXjfa6ecEyVPo6bKz8pan1LyKJHkuoRsTO3WRe0oM28poujHsgEHxi8j603nxfAOnjwkyzRFPE7TV-FX2MjIGeiuwlJpRrhXnqGVkhMj_IF1VTVj2MnkAw3IokxsjyvLXhuN1r5P5ndZaq_dMBB-f1J5_WGcZh2HrlO62nEqTnP1WjJyCE03HSMn6YsAOpo6ggRFqEscy8nCOig';
+
+const TEST_TRACKS = [
+  '4y8xXLG9O3Rbl6e1KaNRTG',
+  '5r2kpjTJlJouxpESA1xEEY',
+  '3F7fvCqnP7DyPIxYvGycb8',
+  '5lIlwCysofF8YMbHAuF7hp',
+  '62jEKykYY6stn1kYGAWVAH',
+];
+
+function firstAndRest() {
+  return [TEST_TRACKS[0], ...TEST_TRACKS.slice(1)] as const;
+}
+
+const SAVED_TRACKS_ON_SPOTIFY = 10;
 
 describe('Tracks', () => {
-  test('userSavedTracks', async () => {
-    const tracks1 = new Tracks({
-      accessToken: token,
-    });
+  const tracks1 = new Tracks({
+    accessToken: token,
+  });
 
-    for await (const x of tracks1.userSavedTracks.iter({ chunkSize: 3 })) {
-      console.log(x.items.map(x => x.added_at));
-    }
-
-    const res = await tracks1.userSavedTracks.getAll();
-    console.log(res.map(x => x.added_at));
-
-    const tracks2 = new Tracks({
-      accessToken: token,
-    });
-
-    const r1 = await tracks1.getSeveralTracks(
-      '4y8xXLG9O3Rbl6e1KaNRTG',
-      '5r2kpjTJlJouxpESA1xEEY'
+  describe('# get multiple tracks', () => {
+    const getSeveralTracksSpy = jest.spyOn(
+      Tracks.prototype as any,
+      '_getSeveralTracks'
     );
+    test('iter', async () => {
+      const iter = tracks1.tracks(...firstAndRest()).iter({ chunkSize: 1 });
 
-    const r2 = await tracks2.getSeveralTracks(
-      '4y8xXLG9O3Rbl6e1KaNRTG',
-      '5r2kpjTJlJouxpESA1xEEY'
+      for await (const _ of iter);
+      expect(getSeveralTracksSpy).toHaveBeenCalledTimes(5);
+    });
+    test('getall', async () => {});
+  });
+
+  describe('# user saved tracks', () => {
+    const getUserSavedTracks = jest.spyOn(
+      Tracks.prototype as any,
+      '_getUserSavedTracks'
     );
-
-    expect(r1.map(r => r.id)).toMatchInlineSnapshot(`
-      [
-        "4y8xXLG9O3Rbl6e1KaNRTG",
-        "5r2kpjTJlJouxpESA1xEEY",
-      ]
-    `);
-
-    expect(r2.map(r => r.id)).toMatchInlineSnapshot(`
-      [
-        "4y8xXLG9O3Rbl6e1KaNRTG",
-        "5r2kpjTJlJouxpESA1xEEY",
-      ]
-    `);
+    test('iter', async () => {
+      const iter = tracks1.userSavedTracks.iter({ chunkSize: 3 });
+      for await (const _ of iter);
+      expect(getUserSavedTracks).toHaveBeenCalledTimes(
+        Math.ceil(SAVED_TRACKS_ON_SPOTIFY / 3)
+      );
+    });
+    test('getall', async () => {
+      const res = await tracks1.userSavedTracks.getAll();
+      expect(res).toHaveLength(SAVED_TRACKS_ON_SPOTIFY);
+      expect(getUserSavedTracks).toHaveBeenCalledTimes(1);
+    });
   });
 });
