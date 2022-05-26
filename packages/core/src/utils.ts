@@ -1,3 +1,11 @@
+/**
+ * Splits an iterable into chunks of a specified size
+ *
+ * @param {Array<T>|Set<T>} obj - An iterable object
+ * @param {number} chunkSize - A optional string param
+ * @return {T[][]} The chunked iterable as an array
+ *
+ */
 export function chunkify<T>(obj: T[] | Set<T>, chunkSize: number): T[][] {
   const len = Array.isArray(obj) ? obj.length : obj.size;
   const chunks = [];

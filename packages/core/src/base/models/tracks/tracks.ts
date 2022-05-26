@@ -1,4 +1,4 @@
-import { Cacheable, CacheEntity } from '../../../cache';
+import { cacheableFactory, CacheEntity } from '../../../cache';
 import { chunkify } from '../../../utils';
 import { RequestConfig, SpotifyKind } from '../../abstract';
 import {
@@ -8,47 +8,59 @@ import {
   TracksAPI,
 } from './api';
 
-let isCacheEnabled = true;
+type TrackArgs = RequestConfig & { useCache?: boolean };
+
+let Cacheable = cacheableFactory();
 
 export class Tracks extends SpotifyKind implements TracksAPI {
-  constructor(opts: RequestConfig, withCache = true) {
-    super(opts);
-    isCacheEnabled = withCache;
+  constructor({ useCache = true, ...rest }: TrackArgs) {
+    super(rest);
+    Cacheable = cacheableFactory({ enabled: useCache });
   }
 
   /* ******** Multiple Tracks ******** */
 
   /* Private */
-  @Cacheable({ entity: CacheEntity.Track, enabled: isCacheEnabled })
+  @Cacheable<SpotifyApi.TrackObjectFull[]>({
+    entity: CacheEntity.Track,
+  })
   // TODO add dev warning for limit
   private async _getSeveralTracks(
     ...ids: string[]
   ): Promise<SpotifyApi.TrackObjectFull[]> {
-    const res = await this.request.get<SpotifyApi.MultipleTracksResponse>(
-      this.endpoints.getSeveralTracks.url,
-      {
-        params: {
-          ids: ids.join(','),
-          limit: this.endpoints.getSeveralTracks.limit,
-        },
-      }
-    );
+    if (ids.length > this.endpoints.getSeveralTracks.limit) {
+      throw new Error('Cannot request more items than the limit');
+    }
+    const res = await this.request<SpotifyApi.MultipleTracksResponse>({
+      method: 'get',
+      url: this.endpoints.getSeveralTracks.url,
+      params: {
+        ids: ids.join(','),
+        limit: this.endpoints.getSeveralTracks.limit,
+      },
+    });
 
     return res.data.tracks;
   }
 
   /* Public API */
-  public tracks(id: string, ...ids: string[]) {
+  public tracks(...ids: string[]) {
     const self = this;
-    const allIds = [id, ...ids];
     const limit = this.endpoints.getSeveralTracks.limit;
 
-    async function getAll() {
-      return chunkify(allIds, limit).reduce(async (acc, [id, ids]) => {
-        const res = await self._getSeveralTracks(id, ids);
+    async function get() {
+      return chunkify(ids, limit).reduce(async (acc, idsChunk) => {
+        const res = await self._getSeveralTracks(...idsChunk);
         acc.then(existing => existing.push(...res));
         return acc;
       }, Promise.resolve(<SpotifyApi.TrackObjectFull[]>[]));
+    }
+
+    async function getAll() {
+      const chunks = chunkify(ids, limit).map(idsChunk =>
+        self._getSeveralTracks(...idsChunk)
+      );
+      return Promise.all(chunks);
     }
 
     // If the number of items requested per iteration (= chunk size) is
@@ -61,18 +73,18 @@ export class Tracks extends SpotifyKind implements TracksAPI {
     // In this case, the chunk size will be set to 2 and generator
     // will yield 2, 2 and 1 item in the last iteration.
 
-    async function* iter({ chunkSize = limit } = {}): AsyncGenerator<
-      SpotifyApi.TrackObjectFull[]
-    > {
+    async function* iter(
+      chunkSize = limit
+    ): AsyncGenerator<SpotifyApi.TrackObjectFull[]> {
       // Yield each chunk
       chunkSize = chunkSize > limit ? limit : chunkSize;
-      const chunks = chunkify(allIds, chunkSize);
+      const chunks = chunkify(ids, chunkSize);
       for (let i = 0; i < chunks.length; i++) {
-        const curr = chunks[i];
-        yield self._getSeveralTracks(curr[0], ...curr.slice(1));
+        yield self._getSeveralTracks(...chunks[i]);
       }
     }
     return {
+      get,
       getAll,
       iter,
     };
@@ -85,15 +97,14 @@ export class Tracks extends SpotifyKind implements TracksAPI {
     limit = this.endpoints.getUsersSavedTracks.limit,
     offset = 0,
   }: SavedTracksParams = {}): Promise<SavedTracksResponse> {
-    const res = await this.request.get<SpotifyApi.UsersSavedTracksResponse>(
-      this.endpoints.getUsersSavedTracks.url,
-      {
-        params: {
-          limit,
-          offset,
-        },
-      }
-    );
+    const res = await this.request<SpotifyApi.UsersSavedTracksResponse>({
+      method: 'get',
+      url: this.endpoints.getUsersSavedTracks.url,
+      params: {
+        limit,
+        offset,
+      },
+    });
     return res.data;
   }
 

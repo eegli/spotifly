@@ -1,4 +1,4 @@
-import { ReqIds, ReqLimit } from '../../query';
+import { ReqIds, ReqLimit } from '../../../query';
 
 export type SavedTrack = SpotifyApi.SavedTrackObject;
 export type FullTrack = SpotifyApi.TrackObjectFull;

@@ -6,54 +6,58 @@ export enum CacheEntity {
 type CacheableConfig = {
   entity: CacheEntity;
   debug?: boolean;
-  enabled?: boolean;
 };
 
-export function Cacheable({
-  entity,
-  enabled = true,
-  debug = false,
-}: CacheableConfig) {
-  return function (
-    target: any,
-    propertyKey: string,
-    descriptor: PropertyDescriptor
-  ) {
-    if (!enabled) return;
-    const log = debug ? console.log : () => {};
-    const original = descriptor.value;
-    descriptor.value = async function (...args: string[]) {
-      if (!Array.isArray(args) || !args.every(arg => typeof arg === 'string')) {
-        throw new Error(
-          `Decorator applied on uncacheable method ${propertyKey}`
+export function cacheableFactory({ enabled = true } = {}) {
+  return function Cacheable<T extends unknown[]>({
+    entity,
+    debug = false,
+  }: CacheableConfig) {
+    return function (
+      _: unknown,
+      propertyKey: string,
+      descriptor: PropertyDescriptor
+    ) {
+      console.log('Cache is enabled:', enabled);
+      if (!enabled) return;
+      const log = debug ? console.log : () => {};
+      const original = descriptor.value;
+      descriptor.value = async function (...args: string[]) {
+        if (
+          !Array.isArray(args) ||
+          !args.every(arg => typeof arg === 'string')
+        ) {
+          throw new Error(
+            `Decorator applied on uncacheable method ${propertyKey}`
+          );
+        }
+        const { cached, uncached } = cache.filterCached(entity, args);
+
+        if (uncached.length === 0) {
+          log('Reading all items from cache');
+          return Promise.resolve(cached);
+        }
+
+        log(
+          `Found ${cached.length}/${args.length} entries in cache, optimizing query...`
         );
-      }
-      const { cached, uncached } = cache.filterCached(entity, args);
+        args = uncached;
 
-      if (uncached.length === 0) {
-        log('Reading all items from cache');
-        return Promise.resolve(cached);
-      }
+        const result: T[] = await original.call(this, ...args);
 
-      log(
-        `Found ${cached.length}/${args.length} entries in cache, optimizing query...`
-      );
-      args = uncached;
-
-      const result: any[] = await original.call(this, ...args);
-
-      log(`Putting ${result.length} new item(s) into cache`);
-      for (let i = 0; i < result.length; i++) {
-        cache.put(entity, [uncached[i], result[i]]);
-      }
-      log(`Appending ${cached.length} item(s) to result from cache`);
-      result.push(...cached);
-      return Promise.resolve(result);
+        log(`Putting ${result.length} new item(s) into cache`);
+        for (let i = 0; i < result.length; i++) {
+          cache.put(entity, [uncached[i], result[i]]);
+        }
+        log(`Appending ${cached.length} item(s) to result from cache`);
+        result.push(...cached);
+        return Promise.resolve(result);
+      };
     };
   };
 }
 
-type FilteredCache = {
+export type FilteredCache = {
   cached: any[];
   uncached: string[];
 };
