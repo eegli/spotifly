@@ -4,32 +4,41 @@ type QueryParams = {
   market: string;
   url: string;
   id: string;
-  ids: string;
+  ids: string[];
 };
 
-type Options<T> = { required: keyof T; optional: keyof T };
+type Options<Obj> = { required: keyof Obj; optional?: keyof Obj };
 
-type GracefulPick<T, K> = K extends keyof T
+type HasCommonTypes<T1, T2> = Extract<T1, T2> extends never ? false : true;
+
+type PropsInCommon<T1, T2> = Extract<T1, string & T2>;
+
+type GracefulPick<Obj, MaybeKey> = MaybeKey extends keyof Obj
   ? {
-      [P in K]: T[P];
+      [P in MaybeKey]: Obj[P];
     }
   : {};
 
 export type GenericQuery<
   P extends Options<QueryParams>,
-  R = GracefulPick<QueryParams, P['required']>,
-  O = GracefulPick<QueryParams, P['optional']>
-> = O extends R
-  ? `Parameter "${Exclude<keyof O, symbol>}" cannot be optional and required`
+  K1 = P['required'],
+  K2 = P['optional'],
+  R = GracefulPick<QueryParams, K1>,
+  O = GracefulPick<QueryParams, K2>
+> = HasCommonTypes<O, R> extends true
+  ? `Parameter ${PropsInCommon<K1, K2>} cannot be optional and required`
   : {
       [K in keyof R]: R[K];
     } & {
       [K in keyof O]?: O[K];
     };
 
-const query: GenericQuery<{ required: 'limit' | 'offset'; optional: 'url' }> = {
-  limit: 1,
-  offset: 2,
+const query: GenericQuery<{
+  required: 'ids' | 'url';
+  optional: 'market';
+}> = {
+  ids: ['1', '2', '3'],
+  url: 'https://example.com',
 };
 
 export const endpointsv1 = {
