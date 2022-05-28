@@ -7,22 +7,52 @@ type QueryParams = {
   ids: string[];
 };
 
-type HasCommonTypes<T1, T2> = Extract<T1, T2> extends never ? false : true;
-
-type PropsInCommon<T1, T2> = Extract<T1, T2 & string>;
-
 type GracefulPick<T, K> = K extends keyof T ? { [P in K]?: T[P] } : {};
 
-type GenQuery<
-  T extends Record<string, any>,
+type GenericFields<
+  T extends Record<string, unknown>,
   R extends keyof T,
   O extends Exclude<keyof T, R> | undefined = undefined
 > = Pick<T, R> & Partial<GracefulPick<T, O>>;
 
-const x: GenQuery<QueryParams, 'id' | 'url', 'offset' | 'limit'> = {
-  id: '123',
-  url: 'https://example.com',
-  limit: 10,
+type GenericFieldsWithError<
+  T extends Record<string, unknown>,
+  R extends keyof T,
+  O extends keyof T | undefined = undefined
+> = HasCommonTypes<R, O> extends true
+  ? `${TypesInCommon<R, O>} cannot be both optional and required`
+  : GracefulPick<T, R> & Partial<GracefulPick<T, O>>;
+
+type HasCommonTypes<T1, T2> = Extract<T1, T2> extends never ? false : true;
+
+type TypesInCommon<T1, T2> = Extract<T1, T2 & string>;
+
+const q1: GenericFields<FormOptions, 'name' | 'email', 'message'> = {
+  name: 'Elisa',
+  email: 'elisa@gmail.com',
+};
+
+const q2: GenericFields<FormOptions, 'name' | 'email', 'message'> = {
+  name: 'Elisa',
+  email: 'elisa@gmail.com',
+  message: {
+    header: "What's up?",
+    body: 'Some text',
+  },
+};
+
+const q3: GenericFieldsWithError<FormOptions, 'name' | 'email', 'message'> = {
+  name: 'Elisa',
+  email: 'elisa@gmail.com',
+};
+
+type FormOptions = {
+  name: string;
+  email: string;
+  message: {
+    header: string;
+    body: string;
+  };
 };
 
 export const endpointsv1 = {
