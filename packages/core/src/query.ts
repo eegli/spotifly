@@ -1,4 +1,4 @@
-type QueryParams = {
+export type QueryParams = {
   limit: number;
   offset: number;
   market: string;
@@ -7,17 +7,19 @@ type QueryParams = {
   ids: string[];
 };
 
-type GracefulPick<T, K> = K extends keyof T ? { [P in K]?: T[P] } : {};
+type GracefulPick<T, K> = K extends keyof T
+  ? { [P in K]?: T[P] }
+  : Record<never, never>;
 
-type GenericFields<
+export type GenericFields<
   T extends Record<string, unknown>,
-  R extends keyof T,
+  R extends keyof T | null,
   O extends Exclude<keyof T, R> | undefined = undefined
-> = Pick<T, R> & Partial<GracefulPick<T, O>>;
+> = GracefulPick<T, R> & Partial<GracefulPick<T, O>>;
 
-type GenericFieldsWithError<
+export type GenericFieldsWithError<
   T extends Record<string, unknown>,
-  R extends keyof T,
+  R extends keyof T | null,
   O extends keyof T | undefined = undefined
 > = HasCommonTypes<R, O> extends true
   ? `${TypesInCommon<R, O>} cannot be both optional and required`
@@ -27,9 +29,11 @@ type HasCommonTypes<T1, T2> = Extract<T1, T2> extends never ? false : true;
 
 type TypesInCommon<T1, T2> = Extract<T1, T2 & string>;
 
-const q1: GenericFields<FormOptions, 'name' | 'email', 'message'> = {
-  name: 'Elisa',
-  email: 'elisa@gmail.com',
+const q1: GenericFields<FormOptions, null, 'message'> = {
+  message: {
+    header: "What's up?",
+    body: 'Some text',
+  },
 };
 
 const q2: GenericFields<FormOptions, 'name' | 'email', 'message'> = {

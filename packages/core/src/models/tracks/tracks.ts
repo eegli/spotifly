@@ -1,6 +1,6 @@
-import { cacheableFactory, CacheEntity } from '../../../cache';
-import { chunkify } from '../../../utils';
 import { RequestConfig, SpotifyKind } from '../../abstract';
+import { Cacheable, CacheEntity } from '../../cache';
+import { chunkify } from '../../utils';
 import {
   SavedTrackObject,
   SavedTracksParams,
@@ -8,14 +8,9 @@ import {
   TracksAPI,
 } from './api';
 
-type TrackArgs = RequestConfig & { useCache?: boolean };
-
-let Cacheable = cacheableFactory();
-
 export class Tracks extends SpotifyKind implements TracksAPI {
-  constructor({ useCache = true, ...rest }: TrackArgs) {
-    super(rest);
-    Cacheable = cacheableFactory({ enabled: useCache });
+  constructor(args: RequestConfig) {
+    super(args);
   }
 
   /* ******** Multiple Tracks ******** */

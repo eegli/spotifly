@@ -1,4 +1,4 @@
-import { ReqIds, ReqLimit } from '../../../query';
+import { GenericFieldsWithError, QueryParams } from '../../query';
 
 export type SavedTrack = SpotifyApi.SavedTrackObject;
 export type FullTrack = SpotifyApi.TrackObjectFull;
@@ -11,7 +11,7 @@ export type SavedTracksParams = {
 export type SavedTracksResponse = SpotifyApi.UsersSavedTracksResponse;
 export type SavedTrackObject = SpotifyApi.SavedTrackObject;
 
-export type GetSeveralTracks = ReqIds & Partial<ReqLimit>;
+export type GetSeveralTracks = GenericFieldsWithError<QueryParams, 'ids'>;
 
 export interface TracksAPI {
   userSavedTracks: {

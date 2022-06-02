@@ -1,48 +1,58 @@
-import { Tracks } from '../src/';
-import { axiosInstance } from '../src/base/abstract';
+import { AxiosInstance } from 'axios';
+import Spotifly from '../src/';
 import { getTestTracks, TEST_TRACKS } from './payloads/data';
 
 afterEach(() => {
   jest.clearAllMocks();
 });
 
-const tracks = new Tracks({
-  useCache: false,
-  clientId: '',
-  clientSecret: '',
-  refreshToken: '',
+Spotifly.cache.disable();
+
+const tracks = new Spotifly.Tracks({
+  clientId: process.env.SPT_CLIENT_ID,
+  clientSecret: process.env.SPT_CLIENT_SECRET,
+  refreshToken: process.env.SPT_REFRESH_TOKEN,
 });
 
+type WithRequest = {
+  request: AxiosInstance;
+};
+
+const instanceReqSpy = jest.spyOn(tracks as unknown as WithRequest, 'request');
+
 describe('Tracks', () => {
-  const instanceReqSpy = jest.spyOn(axiosInstance, 'get');
-  describe('# get multiple tracks', () => {
+  describe('# get several tracks', () => {
     const getSeveralTracksSpy = jest.spyOn(
-      Tracks.prototype as any,
+      Spotifly.Tracks.prototype as any,
       '_getSeveralTracks'
     );
+
     test('iter 1', async () => {
-      const iter = tracks.tracks(...getTestTracks(10)).iter(3);
-      for await (const x of iter) {
-        console.log(x.map(t => t.id));
-      }
-      expect(instanceReqSpy).toHaveBeenCalledTimes(4);
+      const perIter = 3;
+      const requestedItems = 51;
+      const expected = Math.floor(requestedItems / perIter);
+
+      const iter = tracks
+        .tracks(...getTestTracks(requestedItems))
+        .iter(perIter);
+      for await (const _ of iter);
+      expect(instanceReqSpy).toHaveBeenCalledTimes(expected);
     });
     test('get', async () => {
-      await tracks.tracks(...getTestTracks(10)).get();
-      expect(getSeveralTracksSpy).toHaveBeenCalledTimes(1);
+      await tracks.tracks(...getTestTracks(51)).get();
+      expect(instanceReqSpy).toHaveBeenCalledTimes(2);
+      expect(getSeveralTracksSpy).toHaveBeenCalledTimes(2);
     });
 
     test('getall', async () => {
-      await tracks
-        .tracks(...TEST_TRACKS, ...TEST_TRACKS, ...TEST_TRACKS)
-        .getAll();
-      expect(getSeveralTracksSpy).toHaveBeenCalledTimes(1);
+      await tracks.tracks(...TEST_TRACKS).getAll();
+      expect(getSeveralTracksSpy).toHaveBeenCalledTimes(3);
     });
   });
 
   describe('# user saved tracks', () => {
     const getUserSavedTracks = jest.spyOn(
-      Tracks.prototype as any,
+      Spotifly.Tracks.prototype as any,
       '_getUserSavedTracks'
     );
     test('iter', async () => {

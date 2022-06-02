@@ -52,6 +52,7 @@ module.exports = {
       rootDir: 'packages/core',
       roots: ['<rootDir>/src/', '<rootDir>/test/'],
       collectCoverageFrom: ['src/**'],
+      setupFiles: ['dotenv/config'],
     },
     {
       ...common,

@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
-import { endpointsv1 } from '../query';
-import { reqInterceptor, resInterceptor } from '../request';
+import { endpointsv1 } from './query';
+import { reqInterceptor, resInterceptor } from './request';
 
 type AuthConfig = {
   type: 'access_token' | 'refresh_token';
