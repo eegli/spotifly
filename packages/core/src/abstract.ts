@@ -1,5 +1,4 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
-import { endpointsv1 } from './query';
+import axios, { AxiosInstance, AxiosPromise, AxiosRequestConfig } from 'axios';
 import { reqInterceptor, resInterceptor } from './request';
 
 type AuthConfig = {
@@ -24,7 +23,7 @@ export type RequestConfig =
 export let axiosInstance = axios.create();
 
 export abstract class SpotifyKind {
-  protected endpoints = endpointsv1;
+  protected abstract endpoints: Record<string, Record<string, string | number>>;
   protected axiosInstance: AxiosInstance;
   private auth: AuthConfig;
 
@@ -56,7 +55,7 @@ export abstract class SpotifyKind {
       baseURL: 'https://api.spotify.com/v1',
       headers: { Authorization: `Bearer ${this.auth.accessToken}` },
       ...config,
-    });
+    }) as AxiosPromise<T>;
   }
 
   private get needsNewToken() {

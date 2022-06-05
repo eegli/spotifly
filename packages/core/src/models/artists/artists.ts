@@ -1,22 +1,38 @@
 import { RequestConfig, SpotifyKind } from '../../abstract';
-import { chunkify } from '../../utils';
+import { Cacheable, CacheEntity } from '../../cache';
+import { ArtistObjectFull, MultipleArtistsResponse } from './api';
 
 export class Artists extends SpotifyKind {
   constructor(opts: RequestConfig) {
     super(opts);
   }
 
-  async getSeveralArtists(id: string, ...ids: string[]): Promise<this> {
-    const chunkSize = this.endpoints.getSeveralArtists.limit;
-    for await (const chunk of chunkify([id, ...ids], chunkSize)) {
-      const { data } = await this.request<SpotifyApi.MultipleArtistsResponse>({
-        method: 'get',
-        url: this.endpoints.getSeveralArtists.url,
-        params: {
-          ids: chunk.join(','),
-        },
-      });
+  protected endpoints = {
+    getSeveralArtists: {
+      url: 'artists',
+      limit: <number>50,
+    },
+  };
+
+  /* ******** Multiple Tracks ******** */
+
+  /* Private */
+  @Cacheable(CacheEntity.Artist)
+  private async _getSeveralArtists(
+    ...ids: string[]
+  ): Promise<ArtistObjectFull[]> {
+    if (ids.length > this.endpoints.getSeveralArtists.limit) {
+      throw new Error('Cannot request more items than the limit');
     }
-    return this;
+    const { data } = await this.request<MultipleArtistsResponse>({
+      method: 'get',
+      url: this.endpoints.getSeveralArtists.url,
+      params: {
+        ids: ids.join(','),
+        limit: this.endpoints.getSeveralArtists.limit,
+      },
+    });
+
+    return data.artists;
   }
 }

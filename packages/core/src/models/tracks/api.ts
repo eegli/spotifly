@@ -1,26 +1,24 @@
-import { GenericFieldsWithError, QueryParams } from '../../query';
+import { QueryParams, TypeFromV2 } from '../../query';
 
-export type SavedTrack = SpotifyApi.SavedTrackObject;
-export type FullTrack = SpotifyApi.TrackObjectFull;
-export type FullArtist = SpotifyApi.ArtistObjectFull;
-
-export type SavedTracksParams = {
-  limit?: number;
-  offset?: number;
-};
-export type SavedTracksResponse = SpotifyApi.UsersSavedTracksResponse;
+export type TrackObjectFull = SpotifyApi.TrackObjectFull;
+export type UsersSavedTracksResponse = SpotifyApi.UsersSavedTracksResponse;
 export type SavedTrackObject = SpotifyApi.SavedTrackObject;
 
-export type GetSeveralTracks = GenericFieldsWithError<QueryParams, 'ids'>;
+export type ParamsSavedTracks = TypeFromV2<
+  QueryParams,
+  null,
+  'limit' | 'offset'
+>;
 
 export interface TracksAPI {
+  tracks(...ids: string[]): {
+    get: () => Promise<TrackObjectFull[]>;
+    getAll: () => Promise<TrackObjectFull[][]>;
+    iter: (chunkSize: number) => AsyncGenerator<TrackObjectFull[]>;
+  };
   userSavedTracks: {
-    get: (params: SavedTracksParams) => Promise<SavedTracksResponse>;
+    get: (params: ParamsSavedTracks) => Promise<UsersSavedTracksResponse>;
     getAll: () => Promise<SavedTrackObject[]>;
-    iter: ({
-      chunkSize,
-    }: {
-      chunkSize?: number;
-    }) => AsyncGenerator<SavedTracksResponse>;
+    iter: (chunkSize: number) => AsyncGenerator<UsersSavedTracksResponse>;
   };
 }

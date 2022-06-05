@@ -31,15 +31,16 @@ describe('Tracks', () => {
       const perIter = 3;
       const requestedItems = 51;
       const expected = Math.floor(requestedItems / perIter);
+      const testTrackIds = getTestTracks(requestedItems);
 
-      const iter = tracks
-        .tracks(...getTestTracks(requestedItems))
-        .iter(perIter);
+      const iter = tracks.tracks(...testTrackIds).iter(perIter);
       for await (const _ of iter);
       expect(instanceReqSpy).toHaveBeenCalledTimes(expected);
     });
     test('get', async () => {
-      await tracks.tracks(...getTestTracks(51)).get();
+      const requestedItems = 51;
+      const testTrackIds = getTestTracks(requestedItems);
+      await tracks.tracks(...testTrackIds).get();
       expect(instanceReqSpy).toHaveBeenCalledTimes(2);
       expect(getSeveralTracksSpy).toHaveBeenCalledTimes(2);
     });
@@ -55,13 +56,16 @@ describe('Tracks', () => {
       Spotifly.Tracks.prototype as any,
       '_getUserSavedTracks'
     );
+    test('get', async () => {
+      const res = await tracks.userSavedTracks.get();
+      expect(res).toMatchSnapshot();
+    });
     test('iter', async () => {
-      const iter = tracks.userSavedTracks.iter({ chunkSize: 3 });
+      const iter = tracks.userSavedTracks.iter(3);
       for await (const _ of iter);
     });
     test('getall', async () => {
       await tracks.userSavedTracks.getAll();
-
       expect(getUserSavedTracks).toHaveBeenCalledTimes(1);
     });
   });

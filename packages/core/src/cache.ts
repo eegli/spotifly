@@ -3,15 +3,10 @@ export enum CacheEntity {
   Track = 'track',
 }
 
-type CacheableConfig = {
-  entity: CacheEntity;
-  debug?: boolean;
-};
-
-export function Cacheable<T extends unknown[]>({
-  entity,
-  debug = false,
-}: CacheableConfig) {
+export function Cacheable<T extends unknown[]>(
+  entity: CacheEntity,
+  debug = false
+) {
   return function (
     _: unknown,
     propertyKey: string,
