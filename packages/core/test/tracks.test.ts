@@ -1,6 +1,6 @@
 import { AxiosInstance } from 'axios';
 import Spotifly from '../src/';
-import { getTestTracks, TEST_TRACKS } from './payloads/data';
+import { getTestTracks } from './payloads/data';
 
 afterEach(() => {
   jest.clearAllMocks();
@@ -24,7 +24,7 @@ describe('Tracks', () => {
   describe('# get several tracks', () => {
     const getSeveralTracksSpy = jest.spyOn(
       Spotifly.Tracks.prototype as any,
-      '_getSeveralTracks'
+      'getSeveralTracks'
     );
 
     test('iter 1', async () => {
@@ -44,17 +44,12 @@ describe('Tracks', () => {
       expect(instanceReqSpy).toHaveBeenCalledTimes(2);
       expect(getSeveralTracksSpy).toHaveBeenCalledTimes(2);
     });
-
-    test('getall', async () => {
-      await tracks.tracks(...TEST_TRACKS).getAll();
-      expect(getSeveralTracksSpy).toHaveBeenCalledTimes(3);
-    });
   });
 
   describe('# user saved tracks', () => {
     const getUserSavedTracks = jest.spyOn(
       Spotifly.Tracks.prototype as any,
-      '_getUserSavedTracks'
+      'getUserSavedTracks'
     );
     test('get', async () => {
       const res = await tracks.userSavedTracks.get();

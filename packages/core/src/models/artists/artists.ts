@@ -1,38 +1,21 @@
-import { RequestConfig, SpotifyKind } from '../../abstract';
-import { Cacheable, CacheEntity } from '../../cache';
-import { ArtistObjectFull, MultipleArtistsResponse } from './api';
+import { createIninitePaginationMethods } from '../factory';
+import { ArtistsBase } from './base';
 
-export class Artists extends SpotifyKind {
-  constructor(opts: RequestConfig) {
-    super(opts);
-  }
-
-  protected endpoints = {
-    getSeveralArtists: {
-      url: 'artists',
-      limit: <number>50,
-    },
-  };
-
-  /* ******** Multiple Tracks ******** */
-
-  /* Private */
-  @Cacheable(CacheEntity.Artist)
-  private async _getSeveralArtists(
-    ...ids: string[]
-  ): Promise<ArtistObjectFull[]> {
-    if (ids.length > this.endpoints.getSeveralArtists.limit) {
-      throw new Error('Cannot request more items than the limit');
-    }
-    const { data } = await this.request<MultipleArtistsResponse>({
-      method: 'get',
-      url: this.endpoints.getSeveralArtists.url,
-      params: {
-        ids: ids.join(','),
-        limit: this.endpoints.getSeveralArtists.limit,
-      },
+export class Artists extends ArtistsBase {
+  /**
+   * Returns an object literal that offers multiple ways to fetch
+   * artist data. If the number of artist ids exceeds the limit, the
+   * request is split into chunks
+   *
+   * @public
+   * @param {...string[]} ids Spotify artist ids
+   *
+   */
+  public artists(...ids: string[]) {
+    return createIninitePaginationMethods({
+      func: this.getSeveralArtists.bind(this),
+      limit: this.endpoints.severalArtists.limit,
+      params: ids,
     });
-
-    return data.artists;
   }
 }

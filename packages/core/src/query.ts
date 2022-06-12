@@ -5,6 +5,7 @@ export type QueryParams = {
   url: string;
   id: string;
   ids: string[];
+  contentOnly: boolean;
 };
 
 export type TypeFromV1<

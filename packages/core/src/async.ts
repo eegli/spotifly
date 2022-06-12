@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosPromise, AxiosRequestConfig } from 'axios';
-import { reqInterceptor, resInterceptor } from './request';
+import { reqInterceptor, resInterceptor } from './services/axios';
 
 type AuthConfig = {
   type: 'access_token' | 'refresh_token';
@@ -10,7 +10,7 @@ type AuthConfig = {
   accessToken: string;
 };
 
-export type RequestConfig =
+type RequestConfig =
   | {
       accessToken: string;
     }
@@ -20,9 +20,9 @@ export type RequestConfig =
       clientSecret: string;
     };
 
-export let axiosInstance = axios.create();
+export type AsyncArgs = ConstructorParameters<typeof AsyncProvider>;
 
-export abstract class SpotifyKind {
+export abstract class AsyncProvider {
   protected abstract endpoints: Record<string, Record<string, string | number>>;
   protected axiosInstance: AxiosInstance;
   private auth: AuthConfig;
@@ -41,10 +41,6 @@ export abstract class SpotifyKind {
     this.axiosInstance = axios.create();
     this.axiosInstance.interceptors.request.use(...reqInterceptor);
     this.axiosInstance.interceptors.response.use(...resInterceptor);
-
-    // Point the internal instance to the external that can be
-    // exported and spied on during tests
-    axiosInstance = this.axiosInstance;
   }
 
   protected async request<T>(config: AxiosRequestConfig<T>) {
@@ -67,7 +63,7 @@ export abstract class SpotifyKind {
   }
 
   private async refreshAccessToken() {
-    const { access_token } = await SpotifyKind.getAccessToken(
+    const { access_token } = await AsyncProvider.getAccessToken(
       this.auth.clientId,
       this.auth.clientSecret,
       this.auth.refreshToken
