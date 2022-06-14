@@ -1,6 +1,6 @@
 import { chunkify } from '../utils';
 
-export function createIninitePaginationMethods<
+function fromUnpaginated<
   Func extends (...args: any[]) => Promise<any[]>,
   Result = ReturnType<Func>
 >({ func, params, limit }: { limit: number; params: string[]; func: Func }) {
@@ -22,7 +22,7 @@ export function createIninitePaginationMethods<
   };
 }
 
-export function createFinitePaginationMethods<
+function fromPaginated<
   Func extends (...args: any[]) => Promise<any>,
   Iter extends (...args: any[]) => AsyncGenerator<any[]>
 >({ iter, func }: { iter: Iter; func: Func }) {
@@ -38,3 +38,8 @@ export function createFinitePaginationMethods<
     },
   };
 }
+
+export default {
+  fromPaginated,
+  fromUnpaginated,
+};

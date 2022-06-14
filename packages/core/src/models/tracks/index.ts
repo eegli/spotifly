@@ -1,21 +1,18 @@
-import {
-  createFinitePaginationMethods,
-  createIninitePaginationMethods,
-} from '../factory';
+import methodFactory from '../factory';
 import { TracksBase } from './base';
 
 export class Tracks extends TracksBase {
   /**
    * Returns an object literal that offers multiple ways to fetch
-   * track data. If the number of track ids exceeds the limit, the
-   * request is split into chunks
+   * track data. If the number of ids exceeds the limit, the
+   * request is split into chunks.
    *
    * @public
    * @param {...string[]} ids Spotify track ids
    *
    */
   public tracks(...ids: string[]) {
-    return createIninitePaginationMethods({
+    return methodFactory.fromUnpaginated({
       func: this.getSeveralTracks.bind(this),
       limit: this.endpoints.severalTracks.limit,
       params: ids,
@@ -30,7 +27,7 @@ export class Tracks extends TracksBase {
    *
    */
   public get userSavedTracks() {
-    return createFinitePaginationMethods({
+    return methodFactory.fromPaginated({
       func: this.getUserSavedTracks.bind(this),
       iter: this.getUserSavedTracksIter.bind(this),
     });

@@ -12,9 +12,7 @@ export class ArtistsBase extends AsyncProvider {
 
   /* Private */
   @Cacheable(CacheEntity.Artist)
-  protected async getSeveralArtists(
-    ...ids: string[]
-  ): Promise<MultipleArtistsResponse> {
+  protected async getSeveralArtists(...ids: string[]) {
     if (ids.length > this.endpoints.severalArtists.limit) {
       throw new Error('Cannot request more items than the limit');
     }
@@ -27,6 +25,6 @@ export class ArtistsBase extends AsyncProvider {
       },
     });
 
-    return data;
+    return data.artists;
   }
 }
