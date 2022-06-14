@@ -16,6 +16,8 @@ export const resInterceptor: Parameters<
   response => response,
   async error => {
     if (error.response && error.response.status === 401) {
+      // TODO
+      console.log(error);
     }
     return Promise.reject(error);
   },

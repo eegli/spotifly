@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable  @typescript-eslint/no-empty-function */
+
 export enum CacheEntity {
   Artist = 'artist',
   Track = 'track',
@@ -7,7 +10,7 @@ export function Cacheable<T extends unknown[]>(
   entity: CacheEntity,
   debug = false
 ) {
-  return function (
+  return function cacheMeBaby(
     _: unknown,
     propertyKey: string,
     descriptor: PropertyDescriptor

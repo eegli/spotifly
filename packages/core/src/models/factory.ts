@@ -1,18 +1,24 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { chunkify } from '../utils';
 
+/* 
+Generate methods for paginated/finite endpoints (e.g. a user's saved
+tracks) automatically. Same thing for unpaginated/infinite endpoints
+(e.g. multiple tracks, multiple artists)
+*/
 function fromUnpaginated<
   Func extends (...args: any[]) => Promise<any[]>,
-  Result = ReturnType<Func>
+  Res = ReturnType<Func>
 >({ func, params, limit }: { limit: number; params: string[]; func: Func }) {
   return {
-    get: async function get(): Promise<Result[]> {
+    get: async function get(): Promise<Res[]> {
       return chunkify(params, limit).reduce(async (acc, idsChunk) => {
         const res = await func(...idsChunk);
         acc.then(existing => existing.push(...res));
         return acc;
-      }, Promise.resolve(<Result[]>[]));
+      }, Promise.resolve(<Res[]>[]));
     },
-    iter: async function* iter(chunkSize = limit): AsyncGenerator<Result[]> {
+    iter: async function* iter(chunkSize = limit): AsyncGenerator<Res[]> {
       chunkSize = chunkSize > limit ? limit : chunkSize;
       const chunks = chunkify(params, chunkSize);
       for (let i = 0; i < chunks.length; i++) {
@@ -24,12 +30,13 @@ function fromUnpaginated<
 
 function fromPaginated<
   Func extends (...args: any[]) => Promise<any>,
-  Iter extends (...args: any[]) => AsyncGenerator<any[]>
+  Iter extends (...args: any[]) => AsyncGenerator<any[]>,
+  Res = ReturnType<Func>
 >({ iter, func }: { iter: Iter; func: Func }) {
   return {
     get: func,
     iter,
-    getAll: async function getAll(): Promise<ReturnType<Func>> {
+    getAll: async function getAll(): Promise<Res[]> {
       const result = [];
       for await (const chunk of iter()) {
         result.push(...chunk);
