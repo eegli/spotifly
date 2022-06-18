@@ -1,33 +1,30 @@
-import axios, { AxiosInstance, AxiosPromise, AxiosRequestConfig } from 'axios';
-import { reqInterceptor, resInterceptor } from './services/axios';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
-type AuthConfig = {
-  type: 'access_token' | 'refresh_token';
-  clientId: string;
-  clientSecret: string;
-  refreshToken: string;
-  expiresAt: Date;
+type AccessTokenConfig = {
   accessToken: string;
 };
 
-type RequestConfig =
-  | {
-      accessToken: string;
-    }
-  | {
-      refreshToken: string;
-      clientId: string;
-      clientSecret: string;
-    };
+type RefreshTokenConfig = {
+  refreshToken: string;
+  clientId: string;
+  clientSecret: string;
+};
 
-export type AsyncArgs = ConstructorParameters<typeof AsyncProvider>;
+export type AuthProviderConfig = AccessTokenConfig | RefreshTokenConfig;
 
-export abstract class AsyncProvider {
-  protected abstract endpoints: Record<string, Record<string, string | number>>;
-  protected axiosInstance: AxiosInstance;
-  private auth: AuthConfig;
+export class AuthProvider {
+  // Must be smaller than 60 minutes
+  private REFRESH_AFTER_SECONDS = 59 * 60;
+  private auth: {
+    type: 'access_token' | 'refresh_token';
+    clientId: string;
+    clientSecret: string;
+    refreshToken: string;
+    expiresAt: Date;
+    accessToken: string;
+  };
 
-  constructor(config: RequestConfig) {
+  constructor(config: AuthProviderConfig) {
     this.auth = {
       type: 'accessToken' in config ? 'access_token' : 'refresh_token',
       clientId: '',
@@ -37,21 +34,19 @@ export abstract class AsyncProvider {
       accessToken: '',
       ...config,
     };
-
-    this.axiosInstance = axios.create();
-    this.axiosInstance.interceptors.request.use(...reqInterceptor);
-    this.axiosInstance.interceptors.response.use(...resInterceptor);
   }
 
-  protected async request<T>(config: AxiosRequestConfig<T>) {
+  public async request<T>(
+    config: AxiosRequestConfig<T>
+  ): Promise<AxiosResponse<T>> {
     if (this.needsNewToken) {
       await this.refreshAccessToken();
     }
-    return this.axiosInstance({
+    return axios({
       baseURL: 'https://api.spotify.com/v1',
       headers: { Authorization: `Bearer ${this.auth.accessToken}` },
       ...config,
-    }) as AxiosPromise<T>;
+    });
   }
 
   private get needsNewToken() {
@@ -63,7 +58,7 @@ export abstract class AsyncProvider {
   }
 
   private async refreshAccessToken() {
-    const { access_token } = await AsyncProvider.getAccessToken(
+    const { access_token } = await this.getAccessToken(
       this.auth.clientId,
       this.auth.clientSecret,
       this.auth.refreshToken
@@ -75,10 +70,12 @@ export abstract class AsyncProvider {
 
     // Set to expire after 59 minutes 30 seconds so we have time to
     // refresh
-    this.auth.expiresAt.setTime(this.auth.expiresAt.getTime() + 59 * 60 * 1000);
+    this.auth.expiresAt.setTime(
+      this.auth.expiresAt.getTime() + this.REFRESH_AFTER_SECONDS * 1000
+    );
   }
 
-  static async getAccessToken(
+  private async getAccessToken(
     clientId: string,
     clientSecret: string,
     refreshToken: string

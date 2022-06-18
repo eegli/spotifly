@@ -1,8 +1,9 @@
-import { AsyncProvider } from '../../async';
+import { SpotifyKind } from '../../abstract';
 import { Cacheable, CacheEntity } from '../../cache';
-type MultipleArtistsResponse = SpotifyApi.MultipleArtistsResponse;
 
-export class ArtistsBase extends AsyncProvider {
+export type MultipleArtistsResponse = SpotifyApi.MultipleArtistsResponse;
+
+export class ArtistsBase extends SpotifyKind {
   protected endpoints = {
     severalArtists: {
       url: 'artists',
@@ -24,7 +25,6 @@ export class ArtistsBase extends AsyncProvider {
         limit: this.endpoints.severalArtists.limit,
       },
     });
-
     return data.artists;
   }
 }

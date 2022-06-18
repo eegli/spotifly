@@ -1,11 +1,11 @@
-import { AsyncProvider } from '../../async';
+import { SpotifyKind } from '../../abstract';
 import { Cacheable, CacheEntity } from '../../cache';
 import { ParamsSavedTracks } from './api';
 
-type UsersSavedTracksResponse = SpotifyApi.UsersSavedTracksResponse;
-type MultipleTracksResponse = SpotifyApi.MultipleTracksResponse;
+export type UsersSavedTracksResponse = SpotifyApi.UsersSavedTracksResponse;
+export type MultipleTracksResponse = SpotifyApi.MultipleTracksResponse;
 
-export class TracksBase extends AsyncProvider {
+export class TracksBase extends SpotifyKind {
   protected endpoints = {
     severalTracks: {
       limit: <number>50,

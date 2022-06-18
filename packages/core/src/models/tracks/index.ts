@@ -11,7 +11,7 @@ export class Tracks extends TracksBase {
    * @param {...string[]} ids Spotify track ids
    *
    */
-  public tracks(...ids: string[]) {
+  public ids(...ids: string[]) {
     return methodFactory.fromUnpaginated({
       func: this.getSeveralTracks.bind(this),
       limit: this.endpoints.severalTracks.limit,

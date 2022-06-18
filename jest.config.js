@@ -53,6 +53,7 @@ module.exports = {
       roots: ['<rootDir>/src/', '<rootDir>/test/'],
       collectCoverageFrom: ['src/**'],
       setupFiles: ['dotenv/config'],
+      setupFilesAfterEnv: ['<rootDir>/test/setup.ts'],
     },
     {
       ...common,

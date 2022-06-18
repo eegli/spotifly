@@ -11,7 +11,7 @@ export class Artists extends ArtistsBase {
    * @param {...string[]} ids Spotify artist ids
    *
    */
-  public artists(...ids: string[]) {
+  public ids(...ids: string[]) {
     return methodFactory.fromUnpaginated({
       func: this.getSeveralArtists.bind(this),
       limit: this.endpoints.severalArtists.limit,
