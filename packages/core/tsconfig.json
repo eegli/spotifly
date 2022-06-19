@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "rootDirs": ["src", "test"],
+    "paths": {
+      "@/test/*": ["test/*"]
+    }
+  }
+}

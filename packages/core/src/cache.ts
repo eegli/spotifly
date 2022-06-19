@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable  @typescript-eslint/no-empty-function */
 
 export enum CacheEntity {
   Artist = 'artist',
@@ -8,6 +7,7 @@ export enum CacheEntity {
 
 export function Cacheable<T extends unknown[]>(
   entity: CacheEntity,
+  idKey: keyof T[number],
   debug = false
 ) {
   return function cacheMeBaby(
@@ -38,9 +38,11 @@ export function Cacheable<T extends unknown[]>(
       const result: T[] = await original.call(this, ...args);
 
       log(`Putting ${result.length} new item(s) into cache`);
-      for (let i = 0; i < result.length; i++) {
-        cache.put(entity, [uncached[i], result[i]]);
-      }
+      result.forEach(item => {
+        const id = item[idKey] as string;
+        cache.put(entity, [id, item]);
+      });
+
       log(`Appending ${cached.length} item(s) to result from cache`);
       result.push(...cached);
       return Promise.resolve(result);
@@ -54,32 +56,32 @@ export type FilteredCache = {
 };
 
 class Cache {
-  #tracks = new Map<string, any>();
-  #artists = new Map<string, any>();
+  private tracks = new Map<string, any>();
+  private artists = new Map<string, any>();
 
-  #enabled = true;
+  private enabled = true;
 
-  #findBin(entity: CacheEntity) {
+  findBin(entity: CacheEntity) {
     switch (entity) {
       case CacheEntity.Track:
-        return this.#tracks;
+        return this.tracks;
       case CacheEntity.Artist:
-        return this.#artists;
+        return this.artists;
     }
   }
 
   public disable() {
-    this.#enabled = false;
+    this.enabled = false;
   }
 
-  public put(entity: CacheEntity, item: [string, any]): void {
-    const bin = this.#findBin(entity);
-    bin.set(item[0], item[1]);
+  public put(entity: CacheEntity, [id, value]: [string, any]): void {
+    if (!this.enabled) return;
+    this.findBin(entity).set(id, value);
   }
 
   public filterCached(entity: CacheEntity, ids: string[]): FilteredCache {
-    if (!this.#enabled) return { cached: [], uncached: ids };
-    const bin = this.#findBin(entity);
+    if (!this.enabled) return { cached: [], uncached: ids };
+    const bin = this.findBin(entity);
     return ids.reduce(
       (acc, curr) => {
         const item = bin.get(curr);

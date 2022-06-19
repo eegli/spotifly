@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { getAccessToken } from './utils/index';
 
 type AccessTokenConfig = {
   accessToken: string;
@@ -58,7 +59,7 @@ export class AuthProvider {
   }
 
   private async refreshAccessToken() {
-    const { access_token } = await this.getAccessToken(
+    const { access_token } = await getAccessToken(
       this.auth.clientId,
       this.auth.clientSecret,
       this.auth.refreshToken
@@ -73,34 +74,5 @@ export class AuthProvider {
     this.auth.expiresAt.setTime(
       this.auth.expiresAt.getTime() + this.REFRESH_AFTER_SECONDS * 1000
     );
-  }
-
-  private async getAccessToken(
-    clientId: string,
-    clientSecret: string,
-    refreshToken: string
-  ) {
-    return axios
-      .post<{
-        access_token: string;
-        token_type: 'Bearer';
-        scope: string;
-        expires_in: number;
-      }>(
-        'https://accounts.spotify.com/api/token',
-        new URLSearchParams({
-          grant_type: 'refresh_token',
-          refresh_token: refreshToken,
-        }).toString(),
-        {
-          headers: {
-            'Content-type': 'application/x-www-form-urlencoded',
-            Authorization:
-              'Basic ' +
-              Buffer.from(clientId + ':' + clientSecret).toString('base64'),
-          },
-        }
-      )
-      .then(res => res.data);
   }
 }

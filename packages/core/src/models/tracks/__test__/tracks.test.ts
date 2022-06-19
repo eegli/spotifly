@@ -1,7 +1,6 @@
 import { Tracks } from '..';
-import { AuthProvider } from '../../../request';
+import { auth } from '../../../../test/setup';
 
-const auth = new AuthProvider({ accessToken: '' });
 const tracks = new Tracks(auth);
 
 describe('Models, Artists', () => {
@@ -10,7 +9,7 @@ describe('Models, Artists', () => {
     expect(res).toHaveLength(3);
   });
   it('getById', async () => {
-    const res = await tracks.ids('1', '2', '3').get();
-    expect(res).toHaveLength(3);
+    const res = await tracks.userSavedTracks.getAll();
+    expect(res).toMatchSnapshot();
   });
 });

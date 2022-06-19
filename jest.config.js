@@ -54,6 +54,9 @@ module.exports = {
       collectCoverageFrom: ['src/**'],
       setupFiles: ['dotenv/config'],
       setupFilesAfterEnv: ['<rootDir>/test/setup.ts'],
+      moduleNameMapper: {
+        '^@/test/(.*)$': '<rootDir>/test/$1',
+      },
     },
     {
       ...common,

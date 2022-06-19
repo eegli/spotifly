@@ -2,6 +2,7 @@ import { SpotifyKind } from '../../abstract';
 import { Cacheable, CacheEntity } from '../../cache';
 
 export type MultipleArtistsResponse = SpotifyApi.MultipleArtistsResponse;
+type ArtistObjectFull = SpotifyApi.ArtistObjectFull;
 
 export class ArtistsBase extends SpotifyKind {
   protected endpoints = {
@@ -12,8 +13,10 @@ export class ArtistsBase extends SpotifyKind {
   };
 
   /* Private */
-  @Cacheable(CacheEntity.Artist)
-  protected async getSeveralArtists(...ids: string[]) {
+  @Cacheable<ArtistObjectFull[]>(CacheEntity.Artist, 'id')
+  protected async getSeveralArtists(
+    ...ids: string[]
+  ): Promise<ArtistObjectFull[]> {
     if (ids.length > this.endpoints.severalArtists.limit) {
       throw new Error('Cannot request more items than the limit');
     }

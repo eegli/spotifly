@@ -1,7 +1,6 @@
+import { auth } from '@/test/setup';
 import { Artists } from '..';
-import { AuthProvider } from '../../../request';
 
-const auth = new AuthProvider({ accessToken: '' });
 const artists = new Artists(auth);
 
 describe('Models, Artists', () => {

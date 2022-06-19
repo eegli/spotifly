@@ -33,10 +33,12 @@
     "@eegli/tinyparse": "^0.5.1",
     "@spotifly/utils": "^0.1.2",
     "axios": "^0.25.0",
-    "cli-progress": "^3.10.0"
+    "cli-progress": "^3.10.0",
+    "ramda": "^0.28.0"
   },
   "devDependencies": {
     "@types/cli-progress": "^3.9.2",
+    "@types/ramda": "^0.28.14",
     "@types/spotify-api": "^0.0.13"
   },
   "preconstruct": {
