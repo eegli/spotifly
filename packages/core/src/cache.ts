@@ -5,9 +5,9 @@ export enum CacheEntity {
   Track = 'track',
 }
 
-export function Cacheable<T extends unknown[]>(
+export function Cacheable<T extends Record<string, any>[]>(
   entity: CacheEntity,
-  idKey: keyof T[number],
+  cacheKey: keyof T[number] & string,
   debug = false
 ) {
   return function cacheMeBaby(
@@ -35,11 +35,11 @@ export function Cacheable<T extends unknown[]>(
       );
       args = uncached;
 
-      const result: T[] = await original.call(this, ...args);
-
+      const result: T = await original.call(this, ...args);
       log(`Putting ${result.length} new item(s) into cache`);
       result.forEach(item => {
-        const id = item[idKey] as string;
+        const id = item[cacheKey];
+        if (!id) throw new Error('Invalid cache property key. Item: ' + item);
         cache.put(entity, [id, item]);
       });
 

@@ -4,6 +4,7 @@
     "baseUrl": ".",
     "rootDirs": ["src", "test"],
     "paths": {
+      "@/models/*": ["src/models/*"],
       "@/test/*": ["test/*"]
     }
   }

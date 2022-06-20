@@ -1,7 +1,7 @@
-import { auth } from '@/test/setup';
+import { authProvider } from '@/test/setup';
 import { Artists } from '..';
 
-const artists = new Artists(auth);
+const artists = new Artists(authProvider);
 
 describe('Models, Artists', () => {
   it('works', async () => {

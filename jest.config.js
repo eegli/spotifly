@@ -56,6 +56,7 @@ module.exports = {
       setupFilesAfterEnv: ['<rootDir>/test/setup.ts'],
       moduleNameMapper: {
         '^@/test/(.*)$': '<rootDir>/test/$1',
+        '^@/models/(.*)$': '<rootDir>/src/models/$1',
       },
     },
     {

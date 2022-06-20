@@ -4,7 +4,6 @@ import { ParamsSavedTracks, SavedTrackObject } from './api';
 
 export type UsersSavedTracksResponse = SpotifyApi.UsersSavedTracksResponse;
 export type MultipleTracksResponse = SpotifyApi.MultipleTracksResponse;
-type TrackObjectFull = SpotifyApi.TrackObjectFull;
 
 export class TracksBase extends SpotifyKind {
   protected endpoints = {
@@ -20,13 +19,10 @@ export class TracksBase extends SpotifyKind {
     },
   } as const;
 
-  @Cacheable<TrackObjectFull[]>(CacheEntity.Track, 'id')
+  @Cacheable<SpotifyApi.TrackObjectFull[]>(CacheEntity.Track, 'id')
   protected async getSeveralTracks(
     ...ids: string[]
-  ): Promise<TrackObjectFull[]> {
-    if (ids.length > this.endpoints.severalTracks.limit) {
-      throw new Error('Cannot request more items than the limit');
-    }
+  ): Promise<SpotifyApi.TrackObjectFull[]> {
     const res = await this.request<MultipleTracksResponse>({
       method: this.endpoints.severalTracks.method,
       url: this.endpoints.severalTracks.url,
@@ -41,13 +37,11 @@ export class TracksBase extends SpotifyKind {
   protected async getUserSavedTracks(
     params: ParamsSavedTracks = {}
   ): Promise<UsersSavedTracksResponse> {
+    const withNextUrl = typeof params === 'string';
     const { data } = await this.request<UsersSavedTracksResponse>({
       method: this.endpoints.usersSavedTracks.method,
-      url: this.endpoints.usersSavedTracks.url,
-      params: {
-        limit: params.limit || this.endpoints.usersSavedTracks.limit,
-        offset: params.offset || 0,
-      },
+      url: withNextUrl ? params : this.endpoints.usersSavedTracks.url,
+      ...{ params: withNextUrl ? {} : params },
     });
     return data;
   }
@@ -55,14 +49,21 @@ export class TracksBase extends SpotifyKind {
   protected async *getUserSavedTracksIter(
     chunkSize = this.endpoints.usersSavedTracks.limit
   ): AsyncGenerator<SavedTrackObject[]> {
-    let hasNextPage = true;
-    for (let offset = 0; hasNextPage; offset += chunkSize) {
-      const data = await this.getUserSavedTracks({
-        offset,
-        limit: chunkSize,
-      });
-      hasNextPage = !!data.next;
-      yield data.items;
+    if (chunkSize < 1) {
+      throw new TypeError('Chunk size must be stricly positive');
     }
+    const params = {
+      offset: 0,
+      limit: chunkSize,
+      nextPage: <string | null>null,
+    };
+    do {
+      const data = await this.getUserSavedTracks(
+        params.nextPage ? params.nextPage : params
+      );
+      params.offset += chunkSize;
+      params.nextPage = data.next;
+      yield data.items;
+    } while (params.nextPage);
   }
 }

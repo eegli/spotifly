@@ -9,7 +9,7 @@ tracks) automatically. Same thing for unpaginated/infinite endpoints
 function fromUnpaginated<
   Func extends (...args: any[]) => Promise<any[]>,
   Res = ReturnType<Func>
->({ func, params, limit }: { limit: number; params: string[]; func: Func }) {
+>({ func, params, limit }: { limit: number; params: any[]; func: Func }) {
   return {
     get: async function get(): Promise<Res[]> {
       return chunkify(params, limit).reduce(async (acc, idsChunk) => {
@@ -19,6 +19,9 @@ function fromUnpaginated<
       }, Promise.resolve(<Res[]>[]));
     },
     iter: async function* iter(chunkSize = limit): AsyncGenerator<Res[]> {
+      if (chunkSize < 1) {
+        throw new TypeError('Chunk size must be strictly positive');
+      }
       chunkSize = chunkSize > limit ? limit : chunkSize;
       const chunks = chunkify(params, chunkSize);
       for (let i = 0; i < chunks.length; i++) {
