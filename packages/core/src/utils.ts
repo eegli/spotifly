@@ -7,6 +7,8 @@
  *
  */
 export function chunkify<T>(obj: T[] | Set<T>, chunkSize: number): T[][] {
+  if (chunkSize < 1)
+    throw new TypeError('Chunk size must be strictly positive');
   const len = Array.isArray(obj) ? obj.length : obj.size;
   const chunks = [];
   for (let i = 0; i < len; i += chunkSize) {

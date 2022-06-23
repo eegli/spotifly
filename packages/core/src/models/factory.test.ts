@@ -1,47 +1,84 @@
 import factory from './factory';
 
+function createMock(endpointLimit: number) {
+  return jest.fn((...args: unknown[]) => {
+    if (args.length > endpointLimit) throw new Error();
+    return Promise.resolve(args);
+  });
+}
+
+const unique = new Set();
+
 beforeEach(() => {
   jest.clearAllMocks();
+  unique.clear();
 });
 
 describe('Method factory', () => {
   describe('unpaginated ', () => {
-    const mockFunc = jest.fn().mockResolvedValue([]);
+    const LIMIT = 5;
+    const PARAM_LEN = 11;
+
+    const mockFunc = createMock(LIMIT);
     const e = factory.fromUnpaginated({
       func: mockFunc,
-      limit: 10,
-      params: Array.from({ length: 11 }).fill(0),
+      limit: LIMIT,
+      params: Array.from({ length: PARAM_LEN }).map((_, i) => i),
     });
 
     test('get', async () => {
-      await e.get();
-      expect(mockFunc).toHaveBeenCalledTimes(2);
+      const res = await e.get();
+      expect(res).toHaveLength(11);
+      expect(mockFunc).toHaveBeenCalledTimes(3);
       mockFunc.mock.calls.forEach(call => {
         expect(call.length).toBeLessThanOrEqual(10);
       });
     });
-    test('iter with default chunk size', async () => {
-      for await (const _ of e.iter());
-      expect(mockFunc).toHaveBeenCalledTimes(2);
-      mockFunc.mock.calls.forEach(call => {
-        expect(call.length).toBeLessThanOrEqual(10);
-      });
+    test('iter with default chunk size (limit)', async () => {
+      for await (const res of e.iter()) {
+        res.forEach(item => unique.add(item));
+        expect(res.length).toBeLessThanOrEqual(5);
+        expect(res.length).toBeGreaterThanOrEqual(1);
+      }
+      expect(unique.size).toBe(PARAM_LEN);
+      expect(mockFunc).toHaveBeenCalledTimes(3);
     });
-    test('iter with with chunk size below limit 1', async () => {
-      for await (const _ of e.iter(1));
-      expect(mockFunc).toHaveBeenCalledTimes(11);
-      mockFunc.mock.calls.forEach(call => {
-        expect(call.length).toBeLessThanOrEqual(10);
-      });
+    test('iter with minimum chunk size', async () => {
+      for await (const res of e.iter(1)) {
+        res.forEach(item => unique.add(item));
+        expect(res).toHaveLength(1);
+      }
+      expect(unique.size).toBe(PARAM_LEN);
+      expect(mockFunc).toHaveBeenCalledTimes(3);
+    });
+    test('iter with with chunk size below limit', async () => {
+      for await (const res of e.iter(3)) {
+        res.forEach(item => unique.add(item));
+        expect(res.length).toBeLessThanOrEqual(3);
+        expect(res.length).toBeGreaterThanOrEqual(2);
+      }
+      expect(unique.size).toBe(PARAM_LEN);
+      expect(mockFunc).toHaveBeenCalledTimes(3);
     });
     test('iter with with chunk size above limit', async () => {
-      for await (const _ of e.iter(11));
-      expect(mockFunc).toHaveBeenCalledTimes(2);
-      mockFunc.mock.calls.forEach(call => {
-        expect(call.length).toBeLessThanOrEqual(10);
-      });
+      for await (const res of e.iter(6)) {
+        res.forEach(item => unique.add(item));
+        expect(res.length).toBeLessThanOrEqual(6);
+        expect(res.length).toBeGreaterThanOrEqual(5);
+      }
+
+      expect(unique.size).toBe(PARAM_LEN);
+      expect(mockFunc).toHaveBeenCalledTimes(3);
     });
-    test('iter with non-positive chunk size should throw', async () => {
+    test('iter with with chunk size above param len', async () => {
+      for await (const res of e.iter(12)) {
+        res.forEach(item => unique.add(item));
+        expect(res.length).toBe(11);
+      }
+      expect(unique.size).toBe(PARAM_LEN);
+      expect(mockFunc).toHaveBeenCalledTimes(3);
+    });
+    test('iter with non-positive chunk size throws', async () => {
       await expect(async () => {
         for await (const _ of e.iter(0));
       }).rejects.toThrow();
