@@ -1,30 +1,53 @@
 import { SpotifyKind } from '../../abstract';
-import { Cacheable, CacheEntity } from '../../cache';
 
-export type MultipleArtistsResponse = SpotifyApi.MultipleArtistsResponse;
+export type GetSeveralArtistOptions = {
+  market?: string;
+};
+
+type GroupType = 'album' | 'single' | 'appears_on' | 'compilation';
+type Group =
+  | `${GroupType}`
+  | `${GroupType},${GroupType}`
+  | `${GroupType},${GroupType},${GroupType}`
+  | `${GroupType},${GroupType},${GroupType},${GroupType}`;
+
+export type GetArtistsAlbumsOptions = {
+  include_groups?: Group;
+  limit?: number;
+  market?: string;
+  offset?: number;
+};
 
 export class ArtistsBase extends SpotifyKind {
-  protected endpoints = {
-    severalArtists: {
-      url: 'artists',
-      limit: <number>50,
-    },
-  };
-
-  /* Private */
-  @Cacheable<SpotifyApi.ArtistObjectFull[]>(CacheEntity.Artist, 'id')
-  protected async getSeveralArtists(...ids: string[]) {
-    if (ids.length > this.endpoints.severalArtists.limit) {
-      throw new Error('Cannot request more items than the limit');
-    }
-    const { data } = await this.request<MultipleArtistsResponse>({
+  protected async getSeveralArtists(
+    artistIds: string[],
+    { market }: GetSeveralArtistOptions = {}
+  ) {
+    const { data } = await this.request<SpotifyApi.MultipleArtistsResponse>({
       method: 'get',
-      url: this.endpoints.severalArtists.url,
+      url: 'artists',
       params: {
-        ids: ids.join(','),
-        limit: this.endpoints.severalArtists.limit,
+        ids: artistIds.join(','),
+        market,
       },
     });
     return data.artists;
+  }
+
+  protected async getArtistsAlbums(
+    boundArtistId: string,
+    { limit, include_groups, market, offset }: GetArtistsAlbumsOptions
+  ) {
+    const { data } = await this.request<SpotifyApi.ArtistsAlbumsResponse>({
+      method: 'get',
+      url: `artists/${boundArtistId}/albums`,
+      params: {
+        include_groups,
+        limit,
+        market,
+        offset,
+      },
+    });
+    return data;
   }
 }

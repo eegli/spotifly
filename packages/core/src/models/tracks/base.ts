@@ -1,5 +1,4 @@
 import { SpotifyKind } from '../../abstract';
-import { Cacheable, CacheEntity } from '../../cache';
 import { ParamsSavedTracks, SavedTrackObject } from './api';
 
 export type UsersSavedTracksResponse = SpotifyApi.UsersSavedTracksResponse;
@@ -19,10 +18,9 @@ export class TracksBase extends SpotifyKind {
     },
   } as const;
 
-  @Cacheable<SpotifyApi.TrackObjectFull[]>(CacheEntity.Track, 'id')
   protected async getSeveralTracks(
     ...ids: string[]
-  ): Promise<SpotifyApi.TrackObjectFull[]> {
+  ): Promise<SpotifyApi.MultipleTracksResponse> {
     const res = await this.request<MultipleTracksResponse>({
       method: this.endpoints.severalTracks.method,
       url: this.endpoints.severalTracks.url,
@@ -31,7 +29,7 @@ export class TracksBase extends SpotifyKind {
         limit: this.endpoints.severalTracks.limit,
       },
     });
-    return res.data.tracks;
+    return res.data;
   }
 
   protected async getUserSavedTracks(

@@ -1,9 +1,9 @@
 import factory from './factory';
 
 function createMock(endpointLimit: number) {
-  return jest.fn((...args: unknown[]) => {
-    if (args.length > endpointLimit) throw new Error();
-    return Promise.resolve(args);
+  return jest.fn((ids: number[], { attr }: { attr: string }) => {
+    if (ids.length > endpointLimit) throw new Error();
+    return Promise.resolve(ids);
   });
 }
 
@@ -23,13 +23,17 @@ describe('Method factory', () => {
     const e = factory.fromUnpaginated({
       func: mockFunc,
       limit: LIMIT,
-      params: Array.from({ length: PARAM_LEN }).map((_, i) => i),
+      toChunk: Array.from({ length: PARAM_LEN }, (_, i) => i),
+      opts: { attr: 'test' },
     });
 
     test('get', async () => {
       const res = await e.get();
       expect(res).toHaveLength(11);
       expect(mockFunc).toHaveBeenCalledTimes(3);
+      expect(mockFunc).toHaveBeenCalledWith(expect.any(Object), {
+        attr: 'test',
+      });
       mockFunc.mock.calls.forEach(call => {
         expect(call.length).toBeLessThanOrEqual(10);
       });

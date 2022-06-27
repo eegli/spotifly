@@ -10,11 +10,25 @@ function fromUnpaginated<
   Func extends (...args: any[]) => Promise<any[]>,
   ResArray = Awaited<ReturnType<Func>>,
   ResItem = ResArray extends (infer E)[] ? E : never
->({ func, params, limit }: { limit: number; params: any[]; func: Func }) {
+>({
+  func,
+  toChunk,
+  opts,
+  limit,
+}: {
+  limit: number;
+  toChunk: Parameters<Func>[0] extends (infer U)[] ? U[] : never;
+  opts: Parameters<Func>[1] extends infer O
+    ? O extends Record<string, any> | undefined
+      ? O
+      : never
+    : never;
+  func: Func;
+}) {
   return {
     get: async function get(): Promise<ResItem[]> {
-      return chunkify(params, limit).reduce(async (acc, idsChunk) => {
-        const res = await func(...idsChunk);
+      return chunkify(toChunk, limit).reduce(async (acc, idsChunk) => {
+        const res = await func(idsChunk, opts);
         acc.then(existing => existing.push(...res));
         return acc;
       }, Promise.resolve(<ResItem[]>[]));
@@ -23,17 +37,17 @@ function fromUnpaginated<
       if (chunkSize < 1) {
         throw new TypeError('Chunk size must be strictly positive');
       }
-      if (chunkSize >= params.length) {
+      if (chunkSize >= toChunk.length) {
         return yield this.get();
       }
 
       let reserve: ResItem[] = [];
 
-      for await (const idsChunk of chunkify(params, limit)) {
+      for await (const idsChunk of chunkify(toChunk, limit)) {
         // Append from previous iteration
         const current = reserve;
         reserve = [];
-        current.push(...(await func(...idsChunk)));
+        current.push(...(await func(idsChunk, opts)));
 
         // How many times can we yield given the chunk size and
         // fetched items?
@@ -71,13 +85,32 @@ function fromUnpaginated<
 }
 
 function fromPaginated<
-  Func extends (...args: any[]) => Promise<any>,
-  Iter extends (...args: any[]) => AsyncGenerator<any[]>,
+  Func extends (
+    params: Record<string, any>
+  ) => Promise<SpotifyApi.PagingObject<any>>,
   Res = Awaited<ReturnType<Func>>
->({ iter, func }: { iter: Iter; func: Func }) {
+>({
+  func,
+  limit,
+  opts,
+}: {
+  func: Func;
+  limit: number;
+  opts: Parameters<Func>[0];
+}) {
+  async function* iter() {
+    let offset = 0;
+    let nextPage: string | null = null;
+    do {
+      const data = await func({ limit, offset, ...opts });
+      offset += limit;
+      nextPage = data.next;
+      yield data.items;
+    } while (nextPage);
+  }
+
   return {
     get: func,
-    iter,
     getAll: async function getAll(): Promise<Res[]> {
       const result = [];
       for await (const chunk of iter()) {
