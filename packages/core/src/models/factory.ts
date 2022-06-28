@@ -6,39 +6,37 @@ Generate methods for paginated/finite endpoints (e.g. a user's saved
 tracks) automatically. Same thing for unpaginated/infinite endpoints
 (e.g. multiple tracks, multiple artists)
 */
+
 function fromUnpaginated<
-  Func extends (...args: any[]) => Promise<any[]>,
-  ResArray = Awaited<ReturnType<Func>>,
-  ResItem = ResArray extends (infer E)[] ? E : never
->({
-  func,
-  toChunk,
-  opts,
-  limit,
-}: {
-  limit: number;
-  toChunk: Parameters<Func>[0] extends (infer U)[] ? U[] : never;
-  opts: Parameters<Func>[1] extends infer O
-    ? O extends Record<string, any> | undefined
-      ? O
+  Func extends (arg1: string[], arg2: any) => Promise<any[]>,
+  Options = Parameters<Func>[1] extends infer P
+    ? P extends Record<string, any>
+      ? P
       : never
-    : never;
-  func: Func;
-}) {
+    : never,
+  ResItem = Awaited<ReturnType<Func>> extends (infer E)[] ? E : never
+>({ func, toChunk, limit }: { limit: number; toChunk: string[]; func: Func }) {
   return {
-    get: async function get(): Promise<ResItem[]> {
+    get: async function get(options?: Options): Promise<ResItem[]> {
       return chunkify(toChunk, limit).reduce(async (acc, idsChunk) => {
-        const res = await func(idsChunk, opts);
+        const res = await func(idsChunk, { ...options });
         acc.then(existing => existing.push(...res));
         return acc;
       }, Promise.resolve(<ResItem[]>[]));
     },
-    iter: async function* iter(chunkSize = limit): AsyncGenerator<ResItem[]> {
+    iter: async function* iter(
+      options?: {
+        chunkSize?: number;
+      } & Options
+    ): AsyncGenerator<ResItem[]> {
+      const chunkSize = options?.chunkSize ?? limit;
+      delete options?.chunkSize;
+
       if (chunkSize < 1) {
         throw new TypeError('Chunk size must be strictly positive');
       }
       if (chunkSize >= toChunk.length) {
-        return yield this.get();
+        return yield this.get(options);
       }
 
       let reserve: ResItem[] = [];
@@ -47,7 +45,7 @@ function fromUnpaginated<
         // Append from previous iteration
         const current = reserve;
         reserve = [];
-        current.push(...(await func(idsChunk, opts)));
+        current.push(...(await func(idsChunk, { ...options })));
 
         // How many times can we yield given the chunk size and
         // fetched items?
@@ -84,25 +82,24 @@ function fromUnpaginated<
   };
 }
 
+type Paginated = { offset?: number; limit?: number };
+
 function fromPaginated<
-  Func extends (
-    params: Record<string, any>
-  ) => Promise<SpotifyApi.PagingObject<any>>,
-  Res = Awaited<ReturnType<Func>>
->({
-  func,
-  limit,
-  opts,
-}: {
-  func: Func;
-  limit: number;
-  opts: Parameters<Func>[0];
-}) {
-  async function* iter() {
+  Func extends (arg: any) => Promise<SpotifyApi.PagingObject<any>>,
+  Options = Parameters<Func>[number] extends infer P
+    ? P extends Paginated
+      ? P
+      : never
+    : never,
+  RestOptions = Omit<Options, keyof Paginated>,
+  ResAll = Awaited<ReturnType<Func>>,
+  Res = ResAll extends SpotifyApi.PagingObject<infer R> ? R : never
+>({ func, limit }: { func: Func; limit: number }) {
+  async function* iter(options?: RestOptions) {
     let offset = 0;
     let nextPage: string | null = null;
     do {
-      const data = await func({ limit, offset, ...opts });
+      const data = await func({ ...options });
       offset += limit;
       nextPage = data.next;
       yield data.items;
@@ -110,10 +107,15 @@ function fromPaginated<
   }
 
   return {
-    get: func,
-    getAll: async function getAll(): Promise<Res[]> {
+    get: async function get(
+      options?: Options
+    ): Promise<SpotifyApi.PagingObject<Res>> {
+      const data = await func({ ...options });
+      return data;
+    },
+    getAll: async function getAll(options?: RestOptions): Promise<ResAll[]> {
       const result = [];
-      for await (const chunk of iter()) {
+      for await (const chunk of iter(options)) {
         result.push(...chunk);
       }
       return result;

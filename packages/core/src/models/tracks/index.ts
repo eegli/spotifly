@@ -1,5 +1,9 @@
 import methodFactory from '../factory';
-import { TracksBase } from './base';
+import {
+  GetSeveralTracksOptions,
+  GetUserSavedTrackOptions,
+  TracksBase,
+} from './base';
 
 export class Tracks extends TracksBase {
   /**
@@ -11,11 +15,12 @@ export class Tracks extends TracksBase {
    * @param {...string[]} ids Spotify track ids
    *
    */
-  public ids(...ids: string[]) {
+  public trackInfo(ids: string[], opts: GetSeveralTracksOptions = {}) {
     return methodFactory.fromUnpaginated({
       func: this.getSeveralTracks.bind(this),
-      limit: this.endpoints.severalTracks.limit,
-      params: ids,
+      limit: 50,
+      toChunk: ids,
+      opts,
     });
   }
 
@@ -26,10 +31,11 @@ export class Tracks extends TracksBase {
    * @public
    *
    */
-  public get userSavedTracks() {
+  public userSavedTracks(opts: GetUserSavedTrackOptions = {}) {
     return methodFactory.fromPaginated({
       func: this.getUserSavedTracks.bind(this),
-      iter: this.getUserSavedTracksIter.bind(this),
+      limit: 50,
+      opts,
     });
   }
 }

@@ -6,7 +6,7 @@ export const server = setupServer(
     rest.post('https://accounts.spotify.com/api/token', req => {
       return req.passthrough();
     }),
-    rest.get('https://api.spotify.com/v1/artists', req => {
+    rest.get('https://api.spotify.com/v1/artists*', req => {
       return req.passthrough();
     }),
   ]

@@ -1,9 +1,5 @@
 import methodFactory from '../factory';
-import {
-  ArtistsBase,
-  GetArtistsAlbumsOptions,
-  GetSeveralArtistOptions,
-} from './base';
+import { ArtistsBase } from './base';
 
 export class Artists extends ArtistsBase {
   /**
@@ -15,20 +11,18 @@ export class Artists extends ArtistsBase {
    * @param {...string[]} ids Spotify artist ids
    *
    */
-  public ids(ids: string[], opts: GetSeveralArtistOptions = {}) {
+  public info(...ids: string[]) {
     return methodFactory.fromUnpaginated({
       func: this.getSeveralArtists.bind(this),
       limit: 50,
       toChunk: ids,
-      opts,
     });
   }
 
-  public albums(artistId: string, opts: GetArtistsAlbumsOptions = {}) {
+  public albums(artistId: string) {
     return methodFactory.fromPaginated({
       func: this.getArtistsAlbums.bind(this, artistId),
       limit: 50,
-      opts,
     });
   }
 }

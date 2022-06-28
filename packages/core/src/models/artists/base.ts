@@ -21,14 +21,14 @@ export type GetArtistsAlbumsOptions = {
 export class ArtistsBase extends SpotifyKind {
   protected async getSeveralArtists(
     artistIds: string[],
-    { market }: GetSeveralArtistOptions = {}
+    options: GetSeveralArtistOptions = {}
   ) {
     const { data } = await this.request<SpotifyApi.MultipleArtistsResponse>({
       method: 'get',
       url: 'artists',
       params: {
         ids: artistIds.join(','),
-        market,
+        ...options,
       },
     });
     return data.artists;
@@ -36,17 +36,12 @@ export class ArtistsBase extends SpotifyKind {
 
   protected async getArtistsAlbums(
     boundArtistId: string,
-    { limit, include_groups, market, offset }: GetArtistsAlbumsOptions
+    options: GetArtistsAlbumsOptions = {}
   ) {
     const { data } = await this.request<SpotifyApi.ArtistsAlbumsResponse>({
       method: 'get',
       url: `artists/${boundArtistId}/albums`,
-      params: {
-        include_groups,
-        limit,
-        market,
-        offset,
-      },
+      params: options,
     });
     return data;
   }
