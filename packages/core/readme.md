@@ -1,10 +1,12 @@
-# Philosophy
+Augment process.env:
 
-- Abstraction is key
-- Use as few queries as possible
-
-# Endpoint Categorization
-
-- Finite get (e.g. user saved tracks)
-- Infinite get (e.g. tracks by id)
-- Non-get
+```ts
+declare namespace NodeJS {
+  export interface ProcessEnv {
+    SPOTIFY_CLIENT_ID: string | undefined;
+    SPOTIFY_CLIENT_SECRET: string | undefined;
+    SPOTIFY_REFRESH_TOKEN: string | undefined;
+    SPOTIFY_ACCESS_TOKEN: string | undefined;
+  }
+}
+```

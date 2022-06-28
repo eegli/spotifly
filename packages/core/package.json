@@ -2,7 +2,7 @@
   "name": "@spotifly/core",
   "version": "0.0.0",
   "private": true,
-  "description": "Get your Spotify library via CLI",
+  "description": "Core for Spotifly",
   "keywords": [
     "spotify",
     "library",
@@ -23,23 +23,11 @@
   },
   "main": "dist/spotifly-core.cjs.js",
   "module": "dist/spotifly-core.esm.js",
-  "bin": "bin.js",
   "files": [
-    "dist",
-    "cli",
-    "bin.js"
+    "dist"
   ],
-  "dependencies": {
-    "@eegli/tinyparse": "^0.5.1",
-    "@spotifly/utils": "^0.1.2",
-    "axios": "^0.25.0",
-    "cli-progress": "^3.10.0",
-    "ramda": "^0.28.0"
-  },
-  "devDependencies": {
-    "@types/cli-progress": "^3.9.2",
-    "@types/ramda": "^0.28.14",
-    "@types/spotify-api": "^0.0.13"
+  "peerDependencies": {
+    "axios": "0.20.x"
   },
   "preconstruct": {
     "entrypoints": [
