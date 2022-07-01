@@ -17,7 +17,6 @@
     "plugin:jest/style",
     "prettier"
   ],
-  "ignorePatterns": "docs",
   "overrides": [
     {
       "files": ["**.ts", "**/*.tsx"],
