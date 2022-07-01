@@ -2961,7 +2961,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@docusaurus/core@npm:2.0.0-beta.21, @docusaurus/core@npm:^2.0.0-beta.18":
+"@docusaurus/core@npm:2.0.0-beta.21, @docusaurus/core@npm:^2.0.0-beta.21":
   version: 2.0.0-beta.21
   resolution: "@docusaurus/core@npm:2.0.0-beta.21"
   dependencies:
@@ -3092,19 +3092,6 @@ __metadata:
     react: ^16.8.4 || ^17.0.0
     react-dom: ^16.8.4 || ^17.0.0
   checksum: d537cbb59f28e3d1cd3723526937363f5df80bfcaf8c613009e5123d3addc17b7df81b514250e4d30520111658c8914776e2bf845663274994b391ff3b8b115c
-  languageName: node
-  linkType: hard
-
-"@docusaurus/module-type-aliases@npm:2.0.0-beta.15":
-  version: 2.0.0-beta.15
-  resolution: "@docusaurus/module-type-aliases@npm:2.0.0-beta.15"
-  dependencies:
-    "@docusaurus/types": 2.0.0-beta.15
-    "@types/react": "*"
-    "@types/react-helmet": "*"
-    "@types/react-router-config": "*"
-    "@types/react-router-dom": "*"
-  checksum: dd7d3de46a6886d3e367b31d0107eef7a5ffc54acae557625e6fb937619152ddbabafd774ffa6beb7783e039b09a3b916655393ca1a09d3d8e36a75c12e2c569
   languageName: node
   linkType: hard
 
@@ -3258,7 +3245,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@docusaurus/preset-classic@npm:^2.0.0-beta.18":
+"@docusaurus/preset-classic@npm:^2.0.0-beta.21":
   version: 2.0.0-beta.21
   resolution: "@docusaurus/preset-classic@npm:2.0.0-beta.21"
   dependencies:
@@ -3344,7 +3331,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@docusaurus/theme-live-codeblock@npm:^2.0.0-beta.18":
+"@docusaurus/theme-live-codeblock@npm:^2.0.0-beta.21":
   version: 2.0.0-beta.21
   resolution: "@docusaurus/theme-live-codeblock@npm:2.0.0-beta.21"
   dependencies:
@@ -3398,20 +3385,6 @@ __metadata:
     fs-extra: ^10.1.0
     tslib: ^2.4.0
   checksum: 99464c0f5136f44dbcd1a6121614bdcd3797d6cfc99de57b0d6cca7b422d3748dad6d22a89098c09aa6fcdbf4a7435262d6d028e55380b5a1c89ea04a8378dde
-  languageName: node
-  linkType: hard
-
-"@docusaurus/types@npm:2.0.0-beta.15":
-  version: 2.0.0-beta.15
-  resolution: "@docusaurus/types@npm:2.0.0-beta.15"
-  dependencies:
-    commander: ^5.1.0
-    joi: ^17.4.2
-    querystring: 0.2.1
-    utility-types: ^3.10.0
-    webpack: ^5.61.0
-    webpack-merge: ^5.8.0
-  checksum: f630b77d16ccf4b201ac473df8a65c79bbbd9735278ed85654e67d1c8810927df1034b6bfbcbc4bb153f4733329a782c2560e0032633c2bd2faa90f4c1ce0fe1
   languageName: node
   linkType: hard
 
@@ -3536,7 +3509,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/react@npm:^11.8.1":
+"@emotion/react@npm:^11.9.3":
   version: 11.9.3
   resolution: "@emotion/react@npm:11.9.3"
   dependencies:
@@ -3579,7 +3552,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/styled@npm:^11.8.1":
+"@emotion/styled@npm:^11.9.3":
   version: 11.9.3
   resolution: "@emotion/styled@npm:11.9.3"
   dependencies:
@@ -3982,7 +3955,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mdx-js/react@npm:^1.6.21, @mdx-js/react@npm:^1.6.22":
+"@mdx-js/react@npm:^1.6.22":
   version: 1.6.22
   resolution: "@mdx-js/react@npm:1.6.22"
   peerDependencies:
@@ -4021,7 +3994,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/icons-material@npm:^5.4.2":
+"@mui/icons-material@npm:^5.8.4":
   version: 5.8.4
   resolution: "@mui/icons-material@npm:5.8.4"
   dependencies:
@@ -4037,7 +4010,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/material@npm:^5.4.3":
+"@mui/material@npm:^5.8.6":
   version: 5.8.6
   resolution: "@mui/material@npm:5.8.6"
   dependencies:
@@ -4311,22 +4284,22 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spotifly/docs@workspace:."
   dependencies:
-    "@docusaurus/core": ^2.0.0-beta.18
-    "@docusaurus/module-type-aliases": 2.0.0-beta.15
-    "@docusaurus/preset-classic": ^2.0.0-beta.18
-    "@docusaurus/theme-live-codeblock": ^2.0.0-beta.18
-    "@emotion/react": ^11.8.1
-    "@emotion/styled": ^11.8.1
-    "@mdx-js/react": ^1.6.21
-    "@mui/icons-material": ^5.4.2
-    "@mui/material": ^5.4.3
-    "@tsconfig/docusaurus": ^1.0.4
+    "@docusaurus/core": ^2.0.0-beta.21
+    "@docusaurus/module-type-aliases": 2.0.0-beta.21
+    "@docusaurus/preset-classic": ^2.0.0-beta.21
+    "@docusaurus/theme-live-codeblock": ^2.0.0-beta.21
+    "@emotion/react": ^11.9.3
+    "@emotion/styled": ^11.9.3
+    "@mdx-js/react": ^1.6.22
+    "@mui/icons-material": ^5.8.4
+    "@mui/material": ^5.8.6
+    "@tsconfig/docusaurus": ^1.0.6
     clsx: ^1.1.1
-    jest: ^28.1.1
-    prism-react-renderer: ^1.2.1
-    react: ^17.0.1
-    react-dom: ^17.0.1
-    react-use: ^17.3.2
+    jest: ^28.1.2
+    prism-react-renderer: ^1.3.5
+    react: ^17.0.2
+    react-dom: ^17.0.2
+    react-use: ^17.4.0
     ts-jest: ^28.0.5
     typescript: ^4.7.4
   languageName: unknown
@@ -4509,10 +4482,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tsconfig/docusaurus@npm:^1.0.4":
-  version: 1.0.4
-  resolution: "@tsconfig/docusaurus@npm:1.0.4"
-  checksum: 720ca04baa47cbd7ec9c4f6ce18c5fcc2117a077ceff9fe89b7ac66be4968a9ea37bbf8c72e91e517ed57953b38ce6d1c7e05380623f2c579ae4021fb59f0632
+"@tsconfig/docusaurus@npm:^1.0.6":
+  version: 1.0.6
+  resolution: "@tsconfig/docusaurus@npm:1.0.6"
+  checksum: fb0d7965c01fe64fc6369a72695b903d654bd5fb145f373d707c2bae3c2d828703517d812cef1c041ae44b108f44e52778b9d9837a54fdf782e68e6619a90a4d
   languageName: node
   linkType: hard
 
@@ -4803,15 +4776,6 @@ __metadata:
   version: 1.2.4
   resolution: "@types/range-parser@npm:1.2.4"
   checksum: b7c0dfd5080a989d6c8bb0b6750fc0933d9acabeb476da6fe71d8bdf1ab65e37c136169d84148034802f48378ab94e3c37bb4ef7656b2bec2cb9c0f8d4146a95
-  languageName: node
-  linkType: hard
-
-"@types/react-helmet@npm:*":
-  version: 6.1.5
-  resolution: "@types/react-helmet@npm:6.1.5"
-  dependencies:
-    "@types/react": "*"
-  checksum: d059cc084d3b3071cce3421bb1170dd42819cf39b81afe60d4fbd66c5ef9ffeaadf1802df80efd9553258f621678f69ceb5a21d73df0d8539d40ae9a0f995485
   languageName: node
   linkType: hard
 
@@ -7366,16 +7330,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"enhanced-resolve@npm:^5.8.3":
-  version: 5.9.0
-  resolution: "enhanced-resolve@npm:5.9.0"
-  dependencies:
-    graceful-fs: ^4.2.4
-    tapable: ^2.2.0
-  checksum: 06435f52670229eb7fd8d92ea2d988a275f9a1b8c08b9023ba45767c6ed844bc87aa9c9c7e6d044eef99ad73fc3b066b78101163696e5c53121909e5bf8efe8b
-  languageName: node
-  linkType: hard
-
 "enhanced-resolve@npm:^5.9.3":
   version: 5.10.0
   resolution: "enhanced-resolve@npm:5.10.0"
@@ -9674,7 +9628,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest@npm:^28.1.1":
+"jest@npm:^28.1.2":
   version: 28.1.2
   resolution: "jest@npm:28.1.2"
   dependencies:
@@ -9693,7 +9647,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"joi@npm:^17.4.2, joi@npm:^17.6.0":
+"joi@npm:^17.6.0":
   version: 17.6.0
   resolution: "joi@npm:17.6.0"
   dependencies:
@@ -9765,13 +9719,6 @@ __metadata:
   version: 3.0.0
   resolution: "json-buffer@npm:3.0.0"
   checksum: 0cecacb8025370686a916069a2ff81f7d55167421b6aa7270ee74e244012650dd6bce22b0852202ea7ff8624fce50ff0ec1bdf95914ccb4553426e290d5a63fa
-  languageName: node
-  linkType: hard
-
-"json-parse-better-errors@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "json-parse-better-errors@npm:1.0.2"
-  checksum: ff2b5ba2a70e88fd97a3cb28c1840144c5ce8fae9cbeeddba15afa333a5c407cf0e42300cd0a2885dbb055227fe68d405070faad941beeffbfde9cf3b2c78c5d
   languageName: node
   linkType: hard
 
@@ -11575,21 +11522,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prism-react-renderer@npm:^1.0.1, prism-react-renderer@npm:^1.3.3":
+"prism-react-renderer@npm:^1.0.1, prism-react-renderer@npm:^1.3.3, prism-react-renderer@npm:^1.3.5":
   version: 1.3.5
   resolution: "prism-react-renderer@npm:1.3.5"
   peerDependencies:
     react: ">=0.14.9"
   checksum: c18806dcbc4c0b4fd6fd15bd06b4f7c0a6da98d93af235c3e970854994eb9b59e23315abb6cfc29e69da26d36709a47e25da85ab27fed81b6812f0a52caf6dfa
-  languageName: node
-  linkType: hard
-
-"prism-react-renderer@npm:^1.2.1":
-  version: 1.3.1
-  resolution: "prism-react-renderer@npm:1.3.1"
-  peerDependencies:
-    react: ">=0.14.9"
-  checksum: 883693ea59dd6c7d821930ff232f1b28cd3f5d4a111fdb0a730f2ae34ffc7ca805ad3522c86eecbc79f9bee30279371e1fa6b33b4f72a6d3f17921b733b303b6
   languageName: node
   linkType: hard
 
@@ -11722,13 +11660,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"querystring@npm:0.2.1":
-  version: 0.2.1
-  resolution: "querystring@npm:0.2.1"
-  checksum: 7b83b45d641e75fd39cd6625ddfd44e7618e741c61e95281b57bbae8fde0afcc12cf851924559e5cc1ef9baa3b1e06e22b164ea1397d65dd94b801f678d9c8ce
-  languageName: node
-  linkType: hard
-
 "queue-microtask@npm:^1.2.2":
   version: 1.2.3
   resolution: "queue-microtask@npm:1.2.3"
@@ -11838,7 +11769,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:^17.0.1":
+"react-dom@npm:^17.0.2":
   version: 17.0.2
   resolution: "react-dom@npm:17.0.2"
   dependencies:
@@ -12048,7 +11979,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-use@npm:^17.3.2":
+"react-use@npm:^17.4.0":
   version: 17.4.0
   resolution: "react-use@npm:17.4.0"
   dependencies:
@@ -12073,7 +12004,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:^17.0.1":
+"react@npm:^17.0.2":
   version: 17.0.2
   resolution: "react@npm:17.0.2"
   dependencies:
@@ -14372,43 +14303,6 @@ __metadata:
   version: 3.2.3
   resolution: "webpack-sources@npm:3.2.3"
   checksum: 989e401b9fe3536529e2a99dac8c1bdc50e3a0a2c8669cbafad31271eadd994bc9405f88a3039cd2e29db5e6d9d0926ceb7a1a4e7409ece021fe79c37d9c4607
-  languageName: node
-  linkType: hard
-
-"webpack@npm:^5.61.0":
-  version: 5.69.1
-  resolution: "webpack@npm:5.69.1"
-  dependencies:
-    "@types/eslint-scope": ^3.7.3
-    "@types/estree": ^0.0.51
-    "@webassemblyjs/ast": 1.11.1
-    "@webassemblyjs/wasm-edit": 1.11.1
-    "@webassemblyjs/wasm-parser": 1.11.1
-    acorn: ^8.4.1
-    acorn-import-assertions: ^1.7.6
-    browserslist: ^4.14.5
-    chrome-trace-event: ^1.0.2
-    enhanced-resolve: ^5.8.3
-    es-module-lexer: ^0.9.0
-    eslint-scope: 5.1.1
-    events: ^3.2.0
-    glob-to-regexp: ^0.4.1
-    graceful-fs: ^4.2.9
-    json-parse-better-errors: ^1.0.2
-    loader-runner: ^4.2.0
-    mime-types: ^2.1.27
-    neo-async: ^2.6.2
-    schema-utils: ^3.1.0
-    tapable: ^2.1.1
-    terser-webpack-plugin: ^5.1.3
-    watchpack: ^2.3.1
-    webpack-sources: ^3.2.3
-  peerDependenciesMeta:
-    webpack-cli:
-      optional: true
-  bin:
-    webpack: bin/webpack.js
-  checksum: 490a6e9e4cd9d0ed3b6c7ca08015da2628919fda8fcf9c36f0f6c0e3ad71eaaaf4b0d12753109f22a4faf79fe9a9063552d9708e0ee2352cf8568433b8e296a7
   languageName: node
   linkType: hard
 
