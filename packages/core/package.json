@@ -26,15 +26,18 @@
   "files": [
     "dist"
   ],
+  "devDependencies": {
+    "axios": "^0.27.2"
+  },
   "peerDependencies": {
     "axios": "*"
+  },
+  "engines": {
+    "node": ">=16"
   },
   "preconstruct": {
     "entrypoints": [
       "index.ts"
     ]
-  },
-  "devDependencies": {
-    "axios": "^0.27.2"
   }
 }

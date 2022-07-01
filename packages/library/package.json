@@ -38,6 +38,9 @@
     "@types/cli-progress": "^3.9.2",
     "@types/spotify-api": "^0.0.13"
   },
+  "engines": {
+    "node": ">=16"
+  },
   "preconstruct": {
     "entrypoints": [
       "index.ts",

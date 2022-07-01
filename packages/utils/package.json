@@ -28,6 +28,9 @@
   "devDependencies": {
     "@types/fs-extra": "^9.0.13"
   },
+  "engines": {
+    "node": ">=16"
+  },
   "preconstruct": {
     "entrypoints": [
       "index.ts",
