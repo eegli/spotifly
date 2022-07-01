@@ -27,7 +27,6 @@
     "dev": "preconstruct watch",
     "format": "prettier --write packages docs \"**/*.{js,ts,tsx,md}\"",
     "postinstall": "preconstruct dev",
-    "install:ci": "yarn install --immutable",
     "lint": "yarn eslint docs packages --ext .ts,.tsx,.js",
     "release": "yarn build && changeset publish",
     "sort-packages": "npx --yes sort-package-json \"package.json\" \"packages/*/package.json\" ",

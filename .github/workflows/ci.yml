@@ -51,7 +51,7 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'yarn'
       - name: Install Dependencies
-        run: yarn install:ci
+        run: yarn install --immutable
       - name: TypeScript checks
         run: yarn lint
 
@@ -72,6 +72,6 @@ jobs:
           cache: 'yarn'
           node-version: ${{ matrix.node }}
       - name: Install dependencies
-        run: yarn install:ci
+        run: yarn install --immutable
       - name: Run tests
         run: yarn test --coverage --verbose
