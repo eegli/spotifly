@@ -1,0 +1,4 @@
+{
+  "main": "dist/spotifly-utils-iterable.cjs.js",
+  "module": "dist/spotifly-utils-iterable.esm.js"
+}

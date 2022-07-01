@@ -10,6 +10,7 @@
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
     "serve": "docusaurus serve",
+    "test": "jest",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
     "typecheck": "tsc"
@@ -32,7 +33,10 @@
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "2.0.0-beta.15",
-    "@tsconfig/docusaurus": "^1.0.4"
+    "@tsconfig/docusaurus": "^1.0.4",
+    "jest": "^28.1.1",
+    "ts-jest": "^28.0.5",
+    "typescript": "^4.7.4"
   },
   "browserslist": {
     "production": [

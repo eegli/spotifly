@@ -1,11 +1,15 @@
 {
-  "name": "@spotifly/utils",
-  "version": "0.1.2",
-  "description": "Utility package for Spotifly",
+  "name": "@spotifly/core",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Core for Spotifly",
   "keywords": [
-    "spotifly",
     "spotify",
-    "utils"
+    "library",
+    "music",
+    "json",
+    "cli",
+    "typescript"
   ],
   "homepage": "https://spotifly.nougat.dev/",
   "repository": {
@@ -17,27 +21,23 @@
     "name": "Eric Egli",
     "email": "lx180777+npm@gmail.com"
   },
-  "main": "dist/spotifly-utils.cjs.js",
-  "module": "dist/spotifly-utils.esm.js",
+  "main": "dist/spotifly-core.cjs.js",
+  "module": "dist/spotifly-core.esm.js",
   "files": [
-    "dist",
-    "fs",
-    "iterable"
+    "dist"
   ],
-  "dependencies": {
-    "fs-extra": "^10.0.1"
-  },
   "devDependencies": {
-    "@types/fs-extra": "^9.0.13"
+    "axios": "^0.27.2"
+  },
+  "peerDependencies": {
+    "axios": "*"
   },
   "engines": {
     "node": ">=16"
   },
   "preconstruct": {
     "entrypoints": [
-      "index.ts",
-      "iterable.ts",
-      "fs.ts"
+      "index.ts"
     ]
   }
 }

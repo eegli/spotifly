@@ -39,6 +39,9 @@
     "@types/fs-extra": "^9.0.13",
     "@types/node-fetch": "^2.6.1"
   },
+  "engines": {
+    "node": ">=16"
+  },
   "preconstruct": {
     "entrypoints": [
       "index.ts",

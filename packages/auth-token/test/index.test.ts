@@ -2,9 +2,7 @@ import * as utils from '@spotifly/utils';
 import { authorize } from '../src';
 import * as server from '../src/server';
 
-jest
-  .useFakeTimers('modern')
-  .setSystemTime(new Date('1996-04-20T22:00:00.000Z'));
+jest.useFakeTimers().setSystemTime(new Date('1996-04-20T22:00:00.000Z'));
 
 jest.mock(
   'node-fetch',

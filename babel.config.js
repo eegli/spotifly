@@ -3,9 +3,13 @@ module.exports = {
     [
       '@babel/preset-env',
       {
-        targets: { node: '14.19' },
+        targets: { node: '16' },
       },
     ],
     ['@babel/preset-typescript'],
+  ],
+  plugins: [
+    '@babel/plugin-proposal-class-properties',
+    ['@babel/plugin-proposal-decorators', { decoratorsBeforeExport: true }],
   ],
 };

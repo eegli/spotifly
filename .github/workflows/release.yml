@@ -10,18 +10,18 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v2
+      - name: Checkout repo
+        uses: actions/checkout@v3
         with:
           # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
           fetch-depth: 0
-      - name: Setup Node.js 14.x
-        uses: actions/setup-node@v2
+      - name: Setup Node
+        uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
           cache: yarn
-      - name: Install Dependencies
-        run: yarn
+      - name: Install dependencies
+        run: yarn install
       # https://github.com/changesets/action
       - name: Create release PR or release packages
         uses: changesets/action@v1

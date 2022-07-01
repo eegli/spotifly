@@ -7,16 +7,20 @@ on:
 
 jobs:
   test-deploy:
-    name: Test deployment
+    name: Test docs deployment
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: docs
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
           cache: yarn
-      - name: Test build
-        working-directory: ./docs
+      - name: Build website
         run: |
-          yarn
+          yarn install
+          yarn test
           yarn build
