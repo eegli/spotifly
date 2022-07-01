@@ -41,3 +41,5 @@ jobs:
         run: yarn install
       - name: Run tests
         run: yarn test --coverage --verbose
+      - name: Create builds
+        run: yarn build
