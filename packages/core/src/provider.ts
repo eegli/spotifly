@@ -12,10 +12,11 @@ type RefreshTokenConfig = {
 
 type CommonConfig = {
   requestConfig?: AxiosRequestConfig;
+  refreshAfterSeconds?: number;
 };
 
-export type AuthProviderConfig = (AccessTokenConfig | RefreshTokenConfig) &
-  CommonConfig;
+export type AuthProviderConfig = CommonConfig &
+  (AccessTokenConfig | RefreshTokenConfig);
 
 export class AuthProvider {
   // Must be smaller than 60 minutes
@@ -28,42 +29,44 @@ export class AuthProvider {
     clientId: string;
     clientSecret: string;
     refreshToken: string;
+    accessToken: string;
     expiresAt: Date;
   };
 
-  public accessToken: string;
-
-  constructor({ requestConfig, ...rest }: AuthProviderConfig) {
+  constructor(ctrArgs: AuthProviderConfig) {
+    const { refreshAfterSeconds, requestConfig, ...tokenConfig } = ctrArgs;
     this.#axios = axios.create(requestConfig);
     this.#auth = {
-      type: 'accessToken' in rest ? 'access_token' : 'refresh_token',
+      type: 'accessToken' in tokenConfig ? 'access_token' : 'refresh_token',
+      accessToken: '',
+      expiresAt: new Date(),
       clientId: '',
       clientSecret: '',
       refreshToken: '',
-      expiresAt: new Date(),
-      ...rest,
+      ...tokenConfig,
     };
-    this.accessToken = 'accessToken' in rest ? rest.accessToken : '';
+    if (refreshAfterSeconds) {
+      this.#REFRESH_AFTER_SECONDS = refreshAfterSeconds;
+    }
   }
 
   public async request<T>(
-    config: AxiosRequestConfig<T>
+    req: AxiosRequestConfig<T>
   ): Promise<AxiosResponse<T>> {
     if (this.needsNewToken) {
       await this.refreshAccessToken();
     }
     return this.#axios({
-      baseURL: 'https://api.spotify.com/v1',
-      headers: { Authorization: `Bearer ${this.accessToken}` },
-      ...config,
+      headers: { Authorization: `Bearer ${this.#auth.accessToken}` },
+      ...req,
     });
   }
 
   private get needsNewToken() {
+    if (this.#auth.type === 'access_token') return false;
     return (
-      this.#auth.type === 'refresh_token' &&
-      this.#auth.expiresAt &&
-      this.#auth.expiresAt < new Date()
+      !this.#auth.accessToken ||
+      (this.#auth.expiresAt && this.#auth.expiresAt < new Date())
     );
   }
 
@@ -75,7 +78,7 @@ export class AuthProvider {
     );
 
     // Access tokens expire after 1 hour.
-    this.accessToken = access_token;
+    this.#auth.accessToken = access_token;
     this.#auth.expiresAt = new Date();
 
     // Set to expire after 59 minutes 30 seconds so we have time to

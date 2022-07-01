@@ -27,5 +27,13 @@
   },
   "devDependencies": {
     "@types/fs-extra": "^9.0.13"
+  },
+  "preconstruct": {
+    "entrypoints": [
+      "index.ts",
+      "iterable.ts",
+      "fs.ts",
+      "fs.ts"
+    ]
   }
 }

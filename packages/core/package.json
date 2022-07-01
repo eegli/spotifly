@@ -27,11 +27,14 @@
     "dist"
   ],
   "peerDependencies": {
-    "axios": "0.20.x"
+    "axios": "*"
   },
   "preconstruct": {
     "entrypoints": [
       "index.ts"
     ]
+  },
+  "devDependencies": {
+    "axios": "^0.27.2"
   }
 }

@@ -1,3 +1,3 @@
-export { AuthProvider } from './request';
-export type { AuthProviderConfig } from './request';
+export { AuthProvider } from './provider';
+export type { AuthProviderConfig } from './provider';
 export { chunkify } from './utils';

@@ -6,3 +6,10 @@ coverage
 cli.txt
 yarn-error.log
 secrets.txt
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions

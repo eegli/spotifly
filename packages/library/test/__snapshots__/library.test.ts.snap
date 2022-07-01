@@ -1,15 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Library gets light library: light track 1`] = `
-Object {
+{
   "added_at": "2021-09-30T22:04:57Z",
-  "track": Object {
-    "album": Object {
+  "track": {
+    "album": {
       "id": "0vlWyzbAl3ff9b3zout1XQ",
       "name": "Stay With Me",
     },
-    "artists": Array [
-      Object {
+    "artists": [
+      {
         "id": "5Ho1vKl1Uz8bJlk4vbmvmf",
         "name": "Amelie Lens",
       },
@@ -21,7 +21,7 @@ Object {
 `;
 
 exports[`Library with audio features: features 1`] = `
-Object {
+{
   "acousticness": 0.0375,
   "analysis_url": "https://api.spotify.com/v1/audio-analysis/5UsfWcP6SThHlZ4oAgx7ge",
   "danceability": 0.725,
@@ -44,8 +44,8 @@ Object {
 `;
 
 exports[`Library with genres: genres 1`] = `
-Array [
-  Array [
+[
+  [
     "acid techno",
     "belgian techno",
     "dark techno",
