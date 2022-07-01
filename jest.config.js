@@ -52,10 +52,11 @@ module.exports = {
       roots: ['<rootDir>/src', '<rootDir>/test'],
       collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
     },
-    {
+    // TODO run docs test separately
+    /* {
       ...common,
       displayName: 'docs',
       rootDir: 'docs',
-    },
+    }, */
   ],
 };
