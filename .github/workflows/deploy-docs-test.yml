@@ -19,12 +19,8 @@ jobs:
         with:
           node-version-file: '.nvmrc'
           cache: yarn
-      - name: Install dependencies
-        run: yarn install
-      - name: Run tests
-        run: yarn test:docs
       - name: Build website
-        working-directory: ./docs
         run: |
           yarn install
+          yarn test
           yarn build
