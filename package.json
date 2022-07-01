@@ -32,7 +32,8 @@
     "sort-packages": "npx --yes sort-package-json \"package.json\" \"packages/*/package.json\" ",
     "status": "changeset status",
     "test": "jest --silent",
-    "test:pkg": "jest --selectProjects"
+    "test:pkg": "jest --selectProjects",
+    "test:docs": "cd docs && jest"
   },
   "dependencies": {
     "@babel/core": "^7.18.6",

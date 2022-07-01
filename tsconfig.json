@@ -1,14 +1,15 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
     "target": "esnext",
+    "module": "esnext",
     "baseUrl": ".",
-    "jsx": "react-jsx",
+    "lib": ["esnext"],
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
+    "noImplicitAny": true,
     "strictNullChecks": true,
     "skipLibCheck": true,
     "isolatedModules": true,

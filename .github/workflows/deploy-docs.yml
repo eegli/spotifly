@@ -6,19 +6,28 @@ on:
 
 jobs:
   deploy:
-    name: Deploy to GitHub Pages
+    name: Deploy docs to GitHub Pages
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: docs
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
           cache: yarn
+      - name: Install dependencies
+        run: yarn install
+      - name: Run tests
+        run: yarn test:docs
       - name: Build website
         working-directory: ./docs
         run: |
           yarn install
           yarn build
+
       # Popular action to deploy to GitHub Pages:
       # Docs: https://github.com/peaceiris/actions-gh-pages#%EF%B8%8F-docusaurus
       - name: Deploy to GitHub Pages
