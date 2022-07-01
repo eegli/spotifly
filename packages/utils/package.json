@@ -20,7 +20,9 @@
   "main": "dist/spotifly-utils.cjs.js",
   "module": "dist/spotifly-utils.esm.js",
   "files": [
-    "dist"
+    "dist",
+    "fs",
+    "iterable"
   ],
   "dependencies": {
     "fs-extra": "^10.0.1"
@@ -35,7 +37,6 @@
     "entrypoints": [
       "index.ts",
       "iterable.ts",
-      "fs.ts",
       "fs.ts"
     ]
   }
