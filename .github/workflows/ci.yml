@@ -52,7 +52,7 @@ jobs:
           cache: 'yarn'
       - name: Install Dependencies
         run: yarn install
-      - name: TypeScript checks
+      - name: Lint
         run: yarn lint
 
   tests:
