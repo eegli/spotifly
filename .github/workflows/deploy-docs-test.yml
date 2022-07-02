@@ -1,4 +1,4 @@
-name: Deploy docs (test)
+name: Docs
 
 on:
   pull_request:
