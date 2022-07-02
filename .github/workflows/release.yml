@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     branches: [main]
-    paths: [packages/**]
+    paths: [packages/**, .changeset]
 
 jobs:
   release:
