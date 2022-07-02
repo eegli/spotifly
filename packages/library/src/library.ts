@@ -1,23 +1,22 @@
-import { writeJSON } from '@spotifly/utils';
+import { AuthProvider } from '@spotifly/core';
+import { chunkify, writeJSON } from '@spotifly/utils';
 import axios from 'axios';
 import { defaultConfig } from './config';
 import type {
   Library,
   LibraryExport,
-  MultipleArtists,
-  MultipleAudioFeatures,
   Options,
   TrackFull,
   TrackLight,
-  UsersSavedTracks,
 } from './types';
-import { chunkify, createProgressBar } from './utils';
+import { createProgressBar } from './utils';
 
 export const getLibrary = async (
   options: Options
 ): Promise<LibraryExport<TrackLight | TrackFull>> => {
   try {
     const config = { ...defaultConfig, ...options };
+    const asyncProvider = new AuthProvider({ accessToken: config.token });
     const lib: LibraryExport<TrackFull | TrackLight> = {
       meta: {
         date_generated: new Date().toISOString(),
@@ -35,14 +34,13 @@ export const getLibrary = async (
 
     progress.start(0, 0);
     while (pagination.nextUrl) {
-      const { data }: UsersSavedTracks = await axios.get(pagination.nextUrl, {
-        headers: {
-          Authorization: `Bearer ${config.token}`,
-        },
-        params: {
-          limit: 50,
-        },
-      });
+      const { data } =
+        await asyncProvider.request<SpotifyApi.UsersSavedTracksResponse>({
+          url: pagination.nextUrl,
+          params: {
+            limit: 50,
+          },
+        });
 
       progress.setTotal(data.total);
       progress.increment(data.items.length);
@@ -95,17 +93,14 @@ export const getLibrary = async (
       progress.start(artistIds.size, 0);
 
       for await (const chunk of chunkify(artistIds, chunkSize)) {
-        const { data }: MultipleArtists = await axios.get(
-          'https://api.spotify.com/v1/artists',
-          {
-            headers: {
-              Authorization: `Bearer ${config.token}`,
-            },
+        const { data } =
+          await asyncProvider.request<SpotifyApi.MultipleArtistsResponse>({
+            url: 'https://api.spotify.com/v1/artists',
             params: {
               ids: chunk.join(','),
             },
-          }
-        );
+          });
+
         data.artists.forEach(artist => {
           genres[artist.id] = artist.genres;
         });
@@ -127,17 +122,15 @@ export const getLibrary = async (
 
       progress.start(songIds.length, 0);
       for await (const chunk of chunkify(songIds, 50)) {
-        const { data }: MultipleAudioFeatures = await axios.get(
-          'https://api.spotify.com/v1/audio-features',
-          {
-            headers: {
-              Authorization: `Bearer ${config.token}`,
-            },
-            params: {
-              ids: chunk.join(','),
-            },
-          }
-        );
+        const { data } =
+          await asyncProvider.request<SpotifyApi.MultipleAudioFeaturesResponse>(
+            {
+              url: 'https://api.spotify.com/v1/audio-features',
+              params: {
+                ids: chunk.join(','),
+              },
+            }
+          );
 
         data.audio_features.forEach(f => {
           features[f.id] = f;

@@ -3475,12 +3475,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@spotifly/auth-token@^0.3.0, @spotifly/auth-token@workspace:packages/auth-token":
+"@spotifly/auth-token@workspace:^, @spotifly/auth-token@workspace:packages/auth-token":
   version: 0.0.0-use.local
   resolution: "@spotifly/auth-token@workspace:packages/auth-token"
   dependencies:
     "@eegli/tinyparse": ^0.5.1
-    "@spotifly/utils": ^0.1.2
+    "@spotifly/utils": "workspace:^"
     "@types/fs-extra": ^9.0.13
     "@types/node-fetch": ^2.6.2
     node-fetch: 2.6.7
@@ -3493,21 +3493,19 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spotifly/cli@workspace:packages/cli"
   dependencies:
-    "@spotifly/auth-token": ^0.3.0
-    "@spotifly/library": ^0.1.0
-    "@spotifly/utils": ^0.1.0
+    "@spotifly/auth-token": "workspace:^"
+    "@spotifly/library": "workspace:^"
+    "@spotifly/utils": "workspace:^"
   bin:
     spotifly: bin.js
   languageName: unknown
   linkType: soft
 
-"@spotifly/core@workspace:packages/core":
+"@spotifly/core@workspace:^, @spotifly/core@workspace:packages/core":
   version: 0.0.0-use.local
   resolution: "@spotifly/core@workspace:packages/core"
   dependencies:
     axios: ^0.27.2
-  peerDependencies:
-    axios: "*"
   languageName: unknown
   linkType: soft
 
@@ -3533,15 +3531,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@spotifly/library@^0.1.0, @spotifly/library@workspace:packages/library":
+"@spotifly/library@workspace:^, @spotifly/library@workspace:packages/library":
   version: 0.0.0-use.local
   resolution: "@spotifly/library@workspace:packages/library"
   dependencies:
     "@eegli/tinyparse": ^0.5.1
-    "@spotifly/utils": ^0.1.2
+    "@spotifly/core": "workspace:^"
+    "@spotifly/utils": "workspace:^"
     "@types/cli-progress": ^3.11.0
     "@types/spotify-api": ^0.0.16
-    axios: ^0.27.2
     cli-progress: ^3.11.2
   bin:
     library: bin.js
@@ -3577,7 +3575,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@spotifly/utils@^0.1.0, @spotifly/utils@^0.1.2, @spotifly/utils@workspace:packages/utils":
+"@spotifly/utils@workspace:^, @spotifly/utils@workspace:packages/utils":
   version: 0.0.0-use.local
   resolution: "@spotifly/utils@workspace:packages/utils"
   dependencies:

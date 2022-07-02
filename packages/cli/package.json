@@ -31,9 +31,9 @@
     "cli"
   ],
   "dependencies": {
-    "@spotifly/auth-token": "^0.3.0",
-    "@spotifly/library": "^0.1.0",
-    "@spotifly/utils": "^0.1.0"
+    "@spotifly/auth-token": "workspace:^",
+    "@spotifly/library": "workspace:^",
+    "@spotifly/utils": "workspace:^"
   },
   "engines": {
     "node": ">=16"

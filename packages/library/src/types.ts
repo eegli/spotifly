@@ -44,8 +44,5 @@ export type Library<T = unknown> = {
   };
 }[];
 
-export type UsersSavedTracks =
-  AxiosResponse<SpotifyApi.UsersSavedTracksResponse>;
-export type MultipleArtists = AxiosResponse<SpotifyApi.MultipleArtistsResponse>;
 export type MultipleAudioFeatures =
   AxiosResponse<SpotifyApi.MultipleAudioFeaturesResponse>;
