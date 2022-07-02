@@ -52,5 +52,12 @@ module.exports = {
       roots: ['<rootDir>/src', '<rootDir>/test'],
       collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
     },
+    {
+      ...common,
+      displayName: 'docs',
+      rootDir: 'docs',
+      roots: ['<rootDir>/src'],
+      collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
+    },
   ],
 };

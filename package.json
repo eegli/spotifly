@@ -23,18 +23,17 @@
   "scripts": {
     "build": "preconstruct build",
     "check-types": "tsc",
-    "deps:list": "node scripts/versions.mjs",
     "dev": "preconstruct watch",
-    "upgrade": "upgrade-interactive",
     "format": "prettier --write packages docs \"**/*.{js,ts,tsx,md}\"",
     "postinstall": "preconstruct dev",
     "lint": "yarn eslint docs packages --ext .ts,.tsx,.js",
+    "list-deps": "node scripts/versions.mjs",
     "release": "yarn build && changeset publish",
     "sort-packages": "npx --yes sort-package-json \"package.json\" \"packages/*/package.json\" ",
     "status": "changeset status",
     "test": "jest --silent",
     "test:pkg": "jest --selectProjects",
-    "test:docs": "cd docs && jest"
+    "upgrade": "upgrade-interactive"
   },
   "dependencies": {
     "@babel/core": "^7.18.6",
@@ -57,6 +56,9 @@
     "prettier-plugin-organize-imports": "^3.0.0",
     "ts-jest": "^28.0.5",
     "typescript": "^4.7.4"
+  },
+  "resolutions": {
+    "minimist": "npm:minimist-lite@2.2.0"
   },
   "packageManager": "yarn@3.2.1",
   "engines": {
