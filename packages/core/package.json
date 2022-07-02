@@ -1,7 +1,7 @@
 {
   "name": "@spotifly/core",
   "version": "0.0.0",
-  "private": true,
+  "private": false,
   "description": "Core for Spotifly",
   "keywords": [
     "spotify",
@@ -26,11 +26,8 @@
   "files": [
     "dist"
   ],
-  "devDependencies": {
+  "dependencies": {
     "axios": "^0.27.2"
-  },
-  "peerDependencies": {
-    "axios": "*"
   },
   "engines": {
     "node": ">=16"
