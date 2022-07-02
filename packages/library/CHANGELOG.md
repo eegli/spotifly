@@ -1,5 +1,14 @@
 # @spotifly/library
 
+## 0.1.2
+
+### Patch Changes
+
+- Updated dependencies [dcdb28c]
+- Updated dependencies [1a6b283]
+  - @spotifly/core@0.0.1
+  - @spotifly/utils@0.2.0
+
 ## 0.1.1
 
 ### Patch Changes

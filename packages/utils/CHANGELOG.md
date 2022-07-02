@@ -1,5 +1,11 @@
 # @spotifly/utils
 
+## 0.2.0
+
+### Minor Changes
+
+- 1a6b283: Configure multiple entry points and add chunkify utility
+
 ## 0.1.2
 
 ### Patch Changes
