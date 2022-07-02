@@ -3,10 +3,8 @@ name: CI
 on:
   push:
     branches: [main]
-    paths-ignore: [docs/**]
   pull_request:
     branches: [main]
-    paths-ignore: [docs/**]
 
 jobs:
   eslint:
@@ -41,5 +39,17 @@ jobs:
         run: yarn install
       - name: Run tests
         run: yarn test --coverage --verbose
-      - name: Create builds
+  build:
+    name: Build packages
+    runs-on: [ubuntu-latest]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'yarn'
+      - name: Install dependencies
+        run: yarn install
+      - name: Build packages
         run: yarn build
