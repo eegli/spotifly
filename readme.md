@@ -10,26 +10,12 @@ Please do not use any of the packages from @spotifly yet, they are still lacking
 
 `yarn spotifly`
 
-## Allowed PR titles
+## Allowed PR Titles
 
-https://github.com/angular/angular/blob/22b96b9/CONTRIBUTING.md#type
-
-### Type
-
-Must be one of the following:
-
-- **build**: Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)
-- **ci**: Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)
-- **docs**: Documentation only changes
-- **feat**: A new feature
-- **fix**: A bug fix
-- **perf**: A code change that improves performance
-- **refactor**: A code change that neither fixes a bug nor adds a feature
-- **style**: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
-- **test**: Adding missing tests or correcting existing tests
+https://www.conventionalcommits.org/en/v1.0.0/#summary
 
 ## TODO
 
-- `a02b6c26dd38440c96aa029524fef3e7`
+- Wait for changeset to resolve open issue related to replacing yarn workspace ranges before publishing ([#issue432](https://github.com/changesets/changesets/issues/432),[#pull674](https://github.com/changesets/changesets/pull/674))
 
 - Figure out how to make MUI work nicely: https://docusaurus.io/docs/styling-layout/#css-in-js
