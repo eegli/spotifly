@@ -2,4 +2,4 @@
 '@spotifly/utils': minor
 ---
 
-Configure multiple entry points and add chunk utilities
+Configure multiple entry points and add chunkify utility
