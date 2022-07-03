@@ -1,7 +1,6 @@
 {
   "name": "@spotifly/core",
   "version": "0.0.1",
-  "private": false,
   "description": "Core for Spotifly",
   "keywords": [
     "spotify",
@@ -31,6 +30,9 @@
   },
   "engines": {
     "node": ">=16"
+  },
+  "publishConfig": {
+    "directory": "_release/package"
   },
   "preconstruct": {
     "entrypoints": [
