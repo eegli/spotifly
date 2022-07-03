@@ -1,5 +1,14 @@
 # @spotifly/library
 
+## 0.1.3
+
+### Patch Changes
+
+- d4ec750: Fix workspace: semver resolution by packing manually with yarn.
+- Updated dependencies [d4ec750]
+  - @spotifly/core@0.0.2
+  - @spotifly/utils@0.2.1
+
 ## 0.1.2
 
 ### Patch Changes

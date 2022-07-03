@@ -1,5 +1,15 @@
 # @spotifly/cli
 
+## 0.8.2
+
+### Patch Changes
+
+- d4ec750: Fix workspace: semver resolution by packing manually with yarn.
+- Updated dependencies [d4ec750]
+  - @spotifly/auth-token@0.3.3
+  - @spotifly/library@0.1.3
+  - @spotifly/utils@0.2.1
+
 ## 0.8.1
 
 ### Patch Changes
