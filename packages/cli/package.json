@@ -37,5 +37,8 @@
   },
   "engines": {
     "node": ">=16"
+  },
+  "publishConfig": {
+    "directory": "_release/package"
   }
 }
