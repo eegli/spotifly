@@ -41,6 +41,9 @@
   "engines": {
     "node": ">=16"
   },
+  "publishConfig": {
+    "directory": "_release/package"
+  },
   "preconstruct": {
     "entrypoints": [
       "index.ts",
