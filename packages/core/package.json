@@ -1,7 +1,6 @@
 {
   "name": "@spotifly/core",
   "version": "0.0.1",
-  "private": false,
   "description": "Core for Spotifly",
   "keywords": [
     "spotify",
