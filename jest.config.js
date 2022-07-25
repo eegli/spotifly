@@ -54,8 +54,8 @@ module.exports = {
     },
     {
       ...common,
-      displayName: 'docs',
-      rootDir: 'docs',
+      displayName: 'website',
+      rootDir: 'website',
       roots: ['<rootDir>/src'],
       collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
     },

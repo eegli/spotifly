@@ -2,8 +2,7 @@ type StringAction =
   | 'setClientId'
   | 'setClientSecret'
   | 'setRefreshToken'
-  | 'setError'
-  | 'setAuthType';
+  | 'setError';
 
 type GenericTokenAction<T, P> = {
   type: T;
@@ -12,10 +11,16 @@ type GenericTokenAction<T, P> = {
 
 type TokenAction =
   | GenericTokenAction<StringAction, string>
-  | GenericTokenAction<'setScopes', string[] | string>;
+  | GenericTokenAction<'setScopes', string[] | string>
+  | GenericTokenAction<'setAuthType', AuthType>;
+
+export enum AuthType {
+  ImplicitGrantFlow = 'Implicit Grant Flow',
+  AuthCodeFlow = 'Authorization Code Flow',
+}
 
 type TokenState = {
-  authType: string;
+  authType: AuthType;
   clientId: string;
   clientSecret: string;
   refreshToken: string;

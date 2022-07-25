@@ -10,33 +10,30 @@ export const defaultConfig: Required<Options> = {
   outDir: '',
 };
 
-export const { parse, help } = createParser(defaultConfig, [
-  {
-    name: 'token',
-    required: true,
-    description:
-      'A Spotify user access token. Requires at least the scope "user-library-read"',
+export const { parse, help } = createParser(defaultConfig, {
+  options: {
+    token: {
+      required: true,
+      description:
+        'A Spotify user access token. Requires at least the scope "user-library-read"',
+    },
+    type: {
+      description:
+        "Output type per track. Either 'full' or 'light'. Default: 'light'",
+    },
+    genres: {
+      description: 'Include artist genres for each track. Default: false',
+    },
+    features: {
+      description: 'Include audio features for each track. Default: false',
+    },
+    compact: {
+      description:
+        'Output more compact/minified JSON and save disk space. Default: false',
+    },
+    outDir: {
+      description:
+        'Custom relative output directory. Default: Current directory',
+    },
   },
-  {
-    name: 'type',
-    description:
-      "Output type per track. Either 'full' or 'light'. Default: 'light'",
-  },
-  {
-    name: 'genres',
-    description: 'Include artist genres for each track. Default: false',
-  },
-  {
-    name: 'features',
-    description: 'Include audio features for each track. Default: false',
-  },
-  {
-    name: 'compact',
-    description:
-      'Output more compact/minified JSON and save disk space. Default: false',
-  },
-  {
-    name: 'outDir',
-    description: 'Custom relative output directory. Default: Current directory',
-  },
-]);
+});

@@ -24,14 +24,12 @@
   },
   "main": "dist/spotifly-auth-token.cjs.js",
   "module": "dist/spotifly-auth-token.esm.js",
-  "bin": "bin.js",
   "files": [
     "dist",
-    "cli",
-    "bin.js"
+    "cli"
   ],
   "dependencies": {
-    "@eegli/tinyparse": "^0.5.1",
+    "@eegli/tinyparse": "^0.6.0",
     "@spotifly/utils": "workspace:^",
     "node-fetch": "2.6.7"
   },

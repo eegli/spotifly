@@ -1,9 +1,9 @@
-name: Docs
+name: Docs - Test Deployment
 
 on:
   pull_request:
     branches: [main]
-    paths: [docs/**]
+    paths: [website/**]
 
 jobs:
   test-deploy:
@@ -12,7 +12,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: docs
+        working-directory: website
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
