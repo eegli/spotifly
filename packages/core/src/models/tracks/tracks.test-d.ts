@@ -1,5 +1,5 @@
 import { expectType } from 'tsd';
-import { AuthProvider, init } from './index';
+import { AuthProvider, init } from '../../index';
 
 type P<T> = Promise<T>;
 

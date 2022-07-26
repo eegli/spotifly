@@ -35,7 +35,7 @@ module.exports = {
       ...common,
       displayName: 'core',
       rootDir: 'packages/core',
-      roots: ['<rootDir>/src', '<rootDir>/test'],
+      roots: ['<rootDir>/src'],
       collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
     },
     {

@@ -1,4 +1,4 @@
-import { MultipleTracks, SingleTrack, UsersSaved } from './models/';
+import Tracks from './models/tracks';
 import { AuthProvider } from './provider';
 
 export { AuthProvider } from './provider';
@@ -6,12 +6,6 @@ export type { AuthProviderConfig } from './provider';
 
 export function init(provider: AuthProvider) {
   return {
-    Tracks: {
-      MultipleTracks: new MultipleTracks(provider),
-      SingleTrack: new SingleTrack(provider),
-      UsersSaved: new UsersSaved(provider),
-    } as const,
+    Tracks: Tracks(provider),
   } as const;
 }
-
-const Spotify = init(new AuthProvider({ accessToken: '123' }));

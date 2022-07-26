@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AuthProvider } from '../src/provider';
+import { AuthProvider } from './provider';
 
 beforeEach(() => {
   jest.clearAllMocks();
