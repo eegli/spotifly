@@ -31,7 +31,6 @@
     "cli"
   ],
   "dependencies": {
-    "@eegli/tinyparse": "^0.6.0",
     "@spotifly/auth-token": "workspace:^",
     "@spotifly/library": "workspace:^",
     "@spotifly/utils": "workspace:^"
