@@ -148,8 +148,8 @@ export const CliCodeBlock = ({
       </Box>
 
       {[
-        ['With npx', npx],
-        ['With cli', cli],
+        ['With NPX', npx],
+        ['With CLI', cli],
       ].map(([title, base]) => (
         <React.Fragment key={title}>
           <Typography fontWeight="bold">{title}</Typography>

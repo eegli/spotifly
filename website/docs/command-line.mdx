@@ -22,12 +22,18 @@ Then:
 spotifly [package] [args...]
 ```
 
-## Usage with NPX
+## Usage with NPX / Yarn DLX
 
 Instead of installing the CLI, every package can also be invoked directly with `npx`. This will download and save the executable in npm's local cache but not permanently add it to the PATH. [How NPX works](https://docs.npmjs.com/cli/v7/commands/npx).
 
 ```bash
 npx @spotifly/auth-token@latest [...args]
+```
+
+Alternatively, if you're in a workspace that uses [Yarn Berry](https://yarnpkg.com/cli/dlx), you can use `yarn dlx`.
+
+```bash
+yarn dlx @spotifly/auth-token@latest [...args]
 ```
 
 :::tip
@@ -42,12 +48,12 @@ npx --yes @spotifly/auth-token@latest [...args]
 
 ## Version and help
 
-Invoke any command with no arguments to see the version and available commands.
+Invoke any command with no arguments to see the version and available commands. This is equivalent to passing the `--help` flag. Of course, the classic `--version` flag is supported as well.
 
 ```bash
-# Global CLI
+# CLI installed
 spotifly
 
-# Specific package
-npx @spotifly/auth-token@latest
+# From NPM
+npx @spotifly/cli --version
 ```
