@@ -23,8 +23,7 @@
   "main": "dist/spotifly-core.cjs.js",
   "module": "dist/spotifly-core.esm.js",
   "files": [
-    "dist",
-    "models"
+    "dist"
   ],
   "dependencies": {
     "axios": "^0.27.2"
@@ -34,14 +33,5 @@
   },
   "publishConfig": {
     "directory": "_release/package"
-  },
-  "tsd": {
-    "directory": "src"
-  },
-  "preconstruct": {
-    "entrypoints": [
-      "index.ts",
-      "models.ts"
-    ]
   }
 }
