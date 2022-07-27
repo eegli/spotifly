@@ -1,26 +1,29 @@
 import { AuthInitOptions } from '../../abstract';
+import { merge } from '../../utils';
 import {
   GetSeveralTracks,
   GetSingleTrack,
   GetUsersSavedTracks,
   PutUserSavedTracks,
+  RemoveUserSavedTracks,
 } from './tracks';
 
 export default function Tracks(authInitOpts: AuthInitOptions) {
   return {
     Single: new GetSingleTrack(authInitOpts),
     Several: new GetSeveralTracks(authInitOpts),
-    UsersSaved: Object.assign(
-      {},
+    UsersSaved: merge(
       new GetUsersSavedTracks(authInitOpts),
-      new PutUserSavedTracks(authInitOpts)
+      new PutUserSavedTracks(authInitOpts),
+      new RemoveUserSavedTracks(authInitOpts)
     ),
   } as const;
 }
 
-export const Models = {
+export const TrackModels = {
   GetSeveralTracks,
   GetSingleTrack,
   GetUsersSavedTracks,
   PutUserSavedTracks,
+  RemoveUserSavedTracks,
 };

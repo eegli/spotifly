@@ -1,10 +1,9 @@
 export function createAutoPaginated<
-  R extends SpotifyApi.PagingObject<any>,
   P extends { limit: number; offset: number },
-  F extends (params: P) => Promise<R>,
-  A extends Awaited<ReturnType<F>>
+  F extends (params: P) => Promise<SpotifyApi.PagingObject<unknown>>,
+  R extends Awaited<ReturnType<F>>
 >(getFn: F, limit: number) {
-  return async function (cb?: (params: A) => unknown): Promise<A[]> {
+  return async function (cb?: (params: R) => unknown): Promise<R[]> {
     let nextPage: string | null = null;
     let offset = 0;
     const tracks = [];
@@ -16,9 +15,9 @@ export function createAutoPaginated<
       tracks.push(...response.items);
       nextPage = response.next;
       offset += limit;
-      if (cb) cb(response as A);
+      if (cb) cb(response as R);
     } while (nextPage);
 
-    return tracks;
+    return tracks as R[];
   };
 }

@@ -19,12 +19,18 @@
   ],
   "overrides": [
     {
-      "files": ["**.ts", "**/*.tsx"],
+      "files": ["**.ts", "**.tsx"],
       "plugins": ["@typescript-eslint"],
       "extends": ["plugin:@typescript-eslint/recommended", "prettier"],
       "parser": "@typescript-eslint/parser",
       "parserOptions": {
         "project": ["./tsconfig.json"]
+      }
+    },
+    {
+      "files": ["*.test-d.ts"],
+      "rules": {
+        "jest/expect-expect": "off"
       }
     }
   ]
