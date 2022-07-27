@@ -4,9 +4,7 @@ export function createAutoPaginated<
   F extends (params: P) => Promise<R>,
   A extends Awaited<ReturnType<F>>
 >(getFn: F, limit: number) {
-  return async function (
-    cb?: (params: A) => unknown
-  ): Promise<Awaited<ReturnType<F>>[]> {
+  return async function (cb?: (params: A) => unknown): Promise<A[]> {
     let nextPage: string | null = null;
     let offset = 0;
     const tracks = [];
