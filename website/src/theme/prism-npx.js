@@ -5,7 +5,7 @@
 const regexes = {
   base: /^(?:\w)+\s[\w@\/-]+/g,
   flagWithArg: /(?<=--)\w+(?=\s[\w"'])/g,
-  flagArgs: /(?<=\w\s)(?:\w+-?)+\b/g,
+  flagArgs: /(?<=\w\s)\w+\b/g,
   flagBools: /(?<=--)\w+((?=\s--)|\b$)/g,
 };
 
