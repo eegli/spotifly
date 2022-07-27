@@ -1,6 +1,7 @@
 name: Docs - Test Deployment
 
 on:
+  workflow_dispatch:
   pull_request:
     branches: [main]
     paths: [website/**]
