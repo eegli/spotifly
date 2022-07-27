@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunk_spotifly_docs=self.webpackChunk_spotifly_docs||[]).push([[121],{8070:s=>{s.exports=JSON.parse('[{"label":"cli","permalink":"/docs/tags/cli","count":2}]')}}]);
