@@ -35,8 +35,18 @@ module.exports = {
       ...common,
       displayName: 'core',
       rootDir: 'packages/core',
-      roots: ['<rootDir>/src'],
+      roots: ['<rootDir>/src', '<rootDir>/test'],
       collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
+    },
+    {
+      displayName: {
+        name: 'core-types',
+        color: 'cyan',
+      },
+      rootDir: 'packages/core',
+      roots: ['<rootDir>/test'],
+      testMatch: ['**/*.test-d.ts'],
+      runner: 'jest-runner-tsd',
     },
     {
       ...common,

@@ -1,10 +1,26 @@
-import { AuthProvider } from '../../provider';
-import { MultipleTracks, SingleTrack, UsersSaved } from './tracks';
+import { AuthInitOptions } from '../../abstract';
+import {
+  GetSeveralTracks,
+  GetSingleTrack,
+  GetUsersSavedTracks,
+  PutUserSavedTracks,
+} from './tracks';
 
-export default function Tracks(provider: AuthProvider) {
+export default function Tracks(authInitOpts: AuthInitOptions) {
   return {
-    MultipleTracks: new MultipleTracks(provider),
-    SingleTrack: new SingleTrack(provider),
-    UsersSaved: new UsersSaved(provider),
+    Single: new GetSingleTrack(authInitOpts),
+    Several: new GetSeveralTracks(authInitOpts),
+    UsersSaved: Object.assign(
+      {},
+      new GetUsersSavedTracks(authInitOpts),
+      new PutUserSavedTracks(authInitOpts)
+    ),
   } as const;
 }
+
+export const Models = {
+  GetSeveralTracks,
+  GetSingleTrack,
+  GetUsersSavedTracks,
+  PutUserSavedTracks,
+};

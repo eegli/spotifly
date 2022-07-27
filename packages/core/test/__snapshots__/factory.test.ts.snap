@@ -1,0 +1,223 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Factory queries endpoint indefinitely for results and invokes callback 0 1`] = `
+[
+  [
+    {
+      "limit": 6,
+      "offset": 0,
+    },
+  ],
+  [
+    {
+      "limit": 6,
+      "offset": 6,
+    },
+  ],
+  [
+    {
+      "limit": 6,
+      "offset": 12,
+    },
+  ],
+  [
+    {
+      "limit": 6,
+      "offset": 18,
+    },
+  ],
+]
+`;
+
+exports[`Factory queries endpoint indefinitely for results and invokes callback 0 2`] = `
+[
+  [
+    {
+      "href": "href",
+      "items": [
+        "item 20",
+        "item 19",
+        "item 18",
+        "item 17",
+        "item 16",
+        "item 15",
+      ],
+      "limit": 6,
+      "next": "next",
+      "offset": 0,
+      "previous": null,
+      "total": 1,
+    },
+  ],
+  [
+    {
+      "href": "href",
+      "items": [
+        "item 14",
+        "item 13",
+        "item 12",
+        "item 11",
+        "item 10",
+        "item 9",
+      ],
+      "limit": 6,
+      "next": "next",
+      "offset": 6,
+      "previous": null,
+      "total": 1,
+    },
+  ],
+  [
+    {
+      "href": "href",
+      "items": [
+        "item 8",
+        "item 7",
+        "item 6",
+        "item 5",
+        "item 4",
+        "item 3",
+      ],
+      "limit": 6,
+      "next": "next",
+      "offset": 12,
+      "previous": null,
+      "total": 1,
+    },
+  ],
+  [
+    {
+      "href": "href",
+      "items": [
+        "item 2",
+        "item 1",
+      ],
+      "limit": 6,
+      "next": null,
+      "offset": 18,
+      "previous": null,
+      "total": 1,
+    },
+  ],
+]
+`;
+
+exports[`Factory queries endpoint indefinitely for results and invokes callback 1 1`] = `
+[
+  [
+    {
+      "limit": 6,
+      "offset": 0,
+    },
+  ],
+]
+`;
+
+exports[`Factory queries endpoint indefinitely for results and invokes callback 1 2`] = `
+[
+  [
+    {
+      "href": "href",
+      "items": [
+        "item 5",
+        "item 4",
+        "item 3",
+        "item 2",
+        "item 1",
+      ],
+      "limit": 6,
+      "next": null,
+      "offset": 0,
+      "previous": null,
+      "total": 1,
+    },
+  ],
+]
+`;
+
+exports[`Factory queries endpoint indefinitely for results and invokes callback 2 1`] = `
+[
+  [
+    {
+      "limit": 6,
+      "offset": 0,
+    },
+  ],
+  [
+    {
+      "limit": 6,
+      "offset": 6,
+    },
+  ],
+]
+`;
+
+exports[`Factory queries endpoint indefinitely for results and invokes callback 2 2`] = `
+[
+  [
+    {
+      "href": "href",
+      "items": [
+        "item 12",
+        "item 11",
+        "item 10",
+        "item 9",
+        "item 8",
+        "item 7",
+      ],
+      "limit": 6,
+      "next": "next",
+      "offset": 0,
+      "previous": null,
+      "total": 1,
+    },
+  ],
+  [
+    {
+      "href": "href",
+      "items": [
+        "item 6",
+        "item 5",
+        "item 4",
+        "item 3",
+        "item 2",
+        "item 1",
+      ],
+      "limit": 6,
+      "next": null,
+      "offset": 6,
+      "previous": null,
+      "total": 1,
+    },
+  ],
+]
+`;
+
+exports[`Factory queries endpoint indefinitely for results and invokes callback 3 1`] = `
+[
+  [
+    {
+      "limit": 6,
+      "offset": 0,
+    },
+  ],
+]
+`;
+
+exports[`Factory queries endpoint indefinitely for results and invokes callback 3 2`] = `
+[
+  [
+    {
+      "href": "href",
+      "items": [
+        "item 1",
+      ],
+      "limit": 6,
+      "next": null,
+      "offset": 0,
+      "previous": null,
+      "total": 1,
+    },
+  ],
+]
+`;

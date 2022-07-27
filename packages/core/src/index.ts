@@ -1,11 +1,12 @@
+import { AuthInitOptions } from './abstract';
 import Tracks from './models/tracks';
-import { AuthProvider } from './provider';
 
+export type { AuthInitOptions } from './abstract';
 export { AuthProvider } from './provider';
-export type { AuthProviderConfig } from './provider';
+export type { AuthProviderCtrArgs } from './provider';
 
-export function init(provider: AuthProvider) {
+export function init(authInitOptions: AuthInitOptions) {
   return {
-    Tracks: Tracks(provider),
+    Tracks: Tracks(authInitOptions),
   } as const;
 }
