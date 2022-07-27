@@ -22,14 +22,12 @@
   },
   "main": "dist/spotifly-library.cjs.js",
   "module": "dist/spotifly-library.esm.js",
-  "bin": "bin.js",
   "files": [
     "dist",
-    "cli",
-    "bin.js"
+    "cli"
   ],
   "dependencies": {
-    "@eegli/tinyparse": "^0.5.1",
+    "@eegli/tinyparse": "^0.6.0",
     "@spotifly/core": "workspace:^",
     "@spotifly/utils": "workspace:^",
     "cli-progress": "^3.11.2"

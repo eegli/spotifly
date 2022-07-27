@@ -1,46 +1,78 @@
-import { cli as authCli } from '@spotifly/auth-token/cli';
-import { cli as libraryCli } from '@spotifly/library/cli';
+import * as authCli from '@spotifly/auth-token/cli';
+import * as libraryCli from '@spotifly/library/cli';
 import { colors } from '@spotifly/utils';
-import pkg from '../package.json';
+import ownPackage from '../package.json';
 
-const info = (msg: string) => console.info(colors.yellow(msg));
-
-const execute = async (cmd: string): Promise<void> => {
-  process.argv.splice(2, 1);
-  switch (cmd) {
-    case 'auth-token':
-      return authCli();
-    case 'library':
-      return libraryCli();
-    default:
-      info("Unknown command. Run 'spotifly --help' for available commands");
-  }
+type Invoke = {
+  callback: (args: string[]) => any;
+  help: (title: string) => string;
+  pkg: {
+    name: string;
+    version: string;
+    homepage: string;
+  };
 };
 
-export const cli = async (): Promise<void> => {
-  const cmd = process.argv[2];
+export const invoke = async (
+  argv: string[],
+  { callback, help, pkg }: Invoke
+): Promise<void> => {
+  if (argv.length < 3) {
+    console.info(`${colors.bold(colors.cyan(`${pkg.name} v${pkg.version}`))}
+
+${help('Command-line usage')}
+      
+  For docs & help, visit ${pkg.homepage}
+      `);
+    return;
+  }
+  return callback(argv);
+};
+
+export const run = async (): Promise<void> => {
+  const argv = process.argv.slice(2);
+  const cmd = argv[0];
 
   switch (cmd) {
     case '--version':
     case '-v':
-      info(`${pkg.name} v${pkg.version}`);
-      break;
+      console.info(
+        `${colors.bold(
+          colors.cyan(`${ownPackage.name} v${ownPackage.version}`)
+        )}`
+      );
+      return;
     case '--help':
     case '-h':
     case undefined:
-      info(`
-Spotifly v${pkg.version}
-    
-- ${pkg.description}
+      console.info(`${colors.bold(
+        colors.cyan(`${ownPackage.name} v${ownPackage.version}`)
+      )}
+- ${ownPackage.description}
 
-Available commands:
-  - auth-token
-  - library
-    
-For docs & help, visit ${pkg.homepage}
-            `);
-      break;
+Available commands: ${colors.green(`
+- auth-token
+- library 
+`)}
+For docs & help, visit ${ownPackage.homepage}`);
+      return;
+    case 'auth-token':
+      return invoke(argv, {
+        callback: authCli.callback,
+        help: authCli.help,
+        pkg: authCli.pkg,
+      });
+    case 'library':
+      return invoke(argv, {
+        callback: libraryCli.callback,
+        help: libraryCli.help,
+        pkg: libraryCli.pkg,
+      });
     default:
-      return execute(cmd);
+      console.info(
+        colors.yellow(
+          `Unknown argument '${cmd}'.\nRun 'spotifly --help' for available commands`
+        )
+      );
   }
 };

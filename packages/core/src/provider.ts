@@ -15,7 +15,7 @@ type CommonConfig = {
   refreshAfterSeconds?: number;
 };
 
-export type AuthProviderConfig = CommonConfig &
+export type AuthProviderCtrArgs = CommonConfig &
   (AccessTokenConfig | RefreshTokenConfig);
 
 export class AuthProvider {
@@ -33,7 +33,7 @@ export class AuthProvider {
     expiresAt: Date;
   };
 
-  constructor(ctrArgs: AuthProviderConfig) {
+  constructor(ctrArgs: AuthProviderCtrArgs) {
     const { refreshAfterSeconds, requestConfig, ...tokenConfig } = ctrArgs;
     this.#axios = axios.create(requestConfig);
     this.#auth = {

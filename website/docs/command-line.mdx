@@ -1,0 +1,59 @@
+---
+sidebar_position: 3
+---
+
+# Command Line
+
+## Installing the CLI
+
+Spotifly's wrapper CLI can be installed globally. It ships with the latest versions of all executables from this project.
+
+```bash
+yarn global add @spotifly/cli
+```
+
+```bash
+npm install -g @spotifly/cli
+```
+
+Then:
+
+```bash
+spotifly [package] [args...]
+```
+
+## Usage with NPX / Yarn DLX
+
+Instead of installing the CLI, every package can also be invoked directly with `npx`. This will download and save the executable in npm's local cache but not permanently add it to the PATH. [How NPX works](https://docs.npmjs.com/cli/v7/commands/npx).
+
+```bash
+npx @spotifly/auth-token@latest [...args]
+```
+
+Alternatively, if you're in a workspace that uses [Yarn Berry](https://yarnpkg.com/cli/dlx), you can use `yarn dlx`.
+
+```bash
+yarn dlx @spotifly/auth-token@latest [...args]
+```
+
+:::tip
+
+If a package is invoked with `npx` and not in the cache, a prompt will ask you to install it. You can suppress the prompt by adding `--yes` right after `npx`. This is useful if you want to run any command in a CI/CD environment.
+
+```bash
+npx --yes @spotifly/auth-token@latest [...args]
+```
+
+:::
+
+## Version and help
+
+Invoke any command with no arguments to see the version and available commands. This is equivalent to passing the `--help` flag. Of course, the classic `--version` flag is supported as well.
+
+```bash
+# CLI installed
+spotifly
+
+# From NPM
+npx @spotifly/cli --version
+```

@@ -1,5 +1,5 @@
 *.d.ts
 **/dist
 **/build
-docs/.docusaurus
+website/.docusaurus
 coverage

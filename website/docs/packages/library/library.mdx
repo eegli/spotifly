@@ -1,0 +1,63 @@
+---
+title: Library
+tags:
+  - cli
+---
+
+![npm (scoped)](https://img.shields.io/npm/v/@spotifly/library)
+
+Export your Spotify library to JSON.
+
+You will need an access token from Spotify. You can get one from right [here!](/docs/authorization)
+
+## CLI Usage
+
+Create your custom command using the query builder below and paste it into your terminal.
+
+import { CliCodeBlock } from '@site/src/components/code-blocks/codeblock';
+
+<CliCodeBlock
+  cli="spotifly library"
+  npx="npx @spotifly/cli@latest library"
+  commandMap={{
+    token: 'token',
+    type: ['light', 'full'],
+    outDir: '',
+    genres: false,
+    features: false,
+    compact: false,
+  }}
+  required={['token']}
+/>
+
+### Options
+
+| Flag         | _(required?)_ Description                                                       |
+| ------------ | ------------------------------------------------------------------------------- |
+| `--token`    | ✅ A Spotify user access token. Requires at least the scope "user-library-read" |
+| `--type`     | ❌ Output type per track. Either `full` or `light`. Default: `light`            |
+| `--genres`   | ❌ Include artist genres for each track. Default: `false`                       |
+| `--features` | ❌ Include audio features for each track. Default: `false`                      |
+| `--compact`  | ❌ Output more compact/minified JSON and save disk space. Default: `false`      |
+| --outDir     | ❌ Custom relative output directory. Default: Current directory                 |
+
+## Output
+
+A `light` track has a reduced set of properties:
+
+```ts
+type TrackLight = {
+  id: string;
+  name: string;
+  album: {
+    name: string;
+    id: string;
+  };
+  artists: {
+    id: string;
+    name: string;
+  }[];
+};
+```
+
+The `full` has all the track properties from the Spotify API. The next page features an example of both outputs.

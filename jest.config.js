@@ -39,6 +39,16 @@ module.exports = {
       collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
     },
     {
+      displayName: {
+        name: 'core-types',
+        color: 'cyan',
+      },
+      rootDir: 'packages/core',
+      roots: ['<rootDir>/test'],
+      testMatch: ['**/*.test-d.ts'],
+      runner: 'jest-runner-tsd',
+    },
+    {
       ...common,
       displayName: 'library',
       rootDir: 'packages/library',
@@ -54,8 +64,8 @@ module.exports = {
     },
     {
       ...common,
-      displayName: 'docs',
-      rootDir: 'docs',
+      displayName: 'website',
+      rootDir: 'website',
       roots: ['<rootDir>/src'],
       collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
     },

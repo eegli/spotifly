@@ -1,8 +1,8 @@
-name: Docs
+name: Docs - Deployment
 on:
   push:
     branches: [main]
-    paths: [docs/**]
+    paths: [website/**]
 
 jobs:
   deploy:
@@ -11,7 +11,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: docs
+        working-directory: website
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
