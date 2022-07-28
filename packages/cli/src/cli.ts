@@ -4,7 +4,7 @@ import { colors } from '@spotifly/utils';
 import ownPackage from '../package.json';
 
 type Invoke = {
-  callback: (args: string[]) => any;
+  callback: (args: string[]) => unknown;
   help: (title: string) => string;
   pkg: {
     name: string;
@@ -16,7 +16,7 @@ type Invoke = {
 export const invoke = async (
   argv: string[],
   { callback, help, pkg }: Invoke
-): Promise<void> => {
+): Promise<unknown> => {
   if (argv.length < 3) {
     console.info(`${colors.bold(colors.cyan(`${pkg.name} v${pkg.version}`))}
 
@@ -29,7 +29,7 @@ ${help('Command-line usage')}
   return callback(argv);
 };
 
-export const run = async (): Promise<void> => {
+export const run = async (): Promise<unknown> => {
   const argv = process.argv.slice(2);
   const cmd = argv[0];
 

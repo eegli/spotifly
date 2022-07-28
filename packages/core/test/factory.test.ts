@@ -1,4 +1,5 @@
-import { createAutoPaginated } from '../src/factory';
+import { DataPromise } from '../src/abstract';
+import { getAllFromPaginated } from '../src/factory';
 
 beforeEach(() => {
   jest.clearAllMocks();
@@ -7,8 +8,12 @@ beforeEach(() => {
 function* createPaginatedBackend(
   total: number,
   atOnce: number
-): Generator<{ nextPage: string | null; items: string[] }, void, unknown> {
-  const range = Array.from({ length: total }, (_, i) => `item ${i + 1}`);
+): Generator<
+  { nextPage: string | null; items: { id: number }[] },
+  void,
+  unknown
+> {
+  const range = Array.from({ length: total }, (_, i) => ({ id: i + 1 }));
   for (let idx = total; idx > 0; idx -= atOnce) {
     yield {
       nextPage: idx > atOnce ? 'next' : null,
@@ -25,24 +30,36 @@ const createMockAPIEndpoint = function ({
 }) {
   const backend = createPaginatedBackend(itemCount, limit);
 
-  return jest.fn(({ limit, offset }: { limit: number; offset: number }) => {
-    let next: string | null = 'next';
-    const nextValue = backend.next().value;
-    if (!nextValue) throw new Error();
-    if (nextValue.nextPage === null) {
-      next = null;
-    }
-
-    return Promise.resolve({
-      href: 'href',
-      items: nextValue.items,
+  return jest.fn(
+    ({
       limit,
-      next,
       offset,
-      previous: null,
-      total: 1,
-    } as SpotifyApi.PagingObject<string>);
-  });
+    }: {
+      limit: number;
+      offset: number;
+    }): DataPromise<SpotifyApi.PagingObject<{ id: number }>> => {
+      let next: string | null = 'next';
+      const nextValue = backend.next().value;
+      if (!nextValue) throw new Error();
+      if (nextValue.nextPage === null) {
+        next = null;
+      }
+
+      return Promise.resolve({
+        statusCode: 200,
+        headers: {},
+        data: {
+          href: 'href',
+          items: nextValue.items,
+          limit,
+          next,
+          offset,
+          previous: null,
+          total: 1,
+        },
+      });
+    }
+  );
 };
 
 const mockCb = jest.fn();
@@ -56,16 +73,23 @@ describe('Factory', () => {
   ];
 
   for (let i = 0; i < testCases.length; i++) {
-    test(`queries endpoint indefinitely for results and invokes callback ${i}`, async () => {
+    test(`gets all items and invokes callback in between, ${i}`, async () => {
       const { limit, itemCount, expectedCalls } = testCases[i];
-      const mockFn = createMockAPIEndpoint({ itemCount, limit });
+      const mockGetter = createMockAPIEndpoint({ itemCount, limit });
 
-      await createAutoPaginated(mockFn, limit)(args => mockCb(args));
+      const result = await getAllFromPaginated(
+        mockGetter,
+        limit
+      )(args => mockCb(args));
 
-      expect(mockFn).toHaveBeenCalledTimes(expectedCalls);
-      expect(mockFn.mock.calls).toMatchSnapshot();
+      expect(result).toHaveLength(itemCount);
+      expect(result).toMatchSnapshot('result');
+
+      expect(mockGetter).toHaveBeenCalledTimes(expectedCalls);
+      expect(mockGetter.mock.calls).toMatchSnapshot('getter invocation');
+
       expect(mockCb).toHaveBeenCalledTimes(expectedCalls);
-      expect(mockCb.mock.calls).toMatchSnapshot();
+      expect(mockCb.mock.calls).toMatchSnapshot('callback invocation');
     });
   }
 });

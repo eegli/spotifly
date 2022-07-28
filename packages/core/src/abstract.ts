@@ -1,9 +1,14 @@
+import { AxiosResponse } from 'axios';
 import { AuthProvider, AuthProviderCtrArgs } from './provider';
 
 type Params = Record<string, unknown>;
 type MaybeParams = Params | undefined;
-type SomeCallback<T = unknown> = (params: T) => unknown;
-type SomePromise = Promise<unknown>;
+export type DataResponse<T = unknown> = {
+  data: T;
+  headers: Record<string, string | number | boolean>;
+  statusCode: number;
+};
+export type DataPromise<T = unknown> = Promise<DataResponse<T>>;
 
 // https://github.com/microsoft/TypeScript/issues/39556
 type BetterOmit<T, E> = {
@@ -12,6 +17,12 @@ type BetterOmit<T, E> = {
 
 export type AuthInitOptions = BetterOmit<AuthProviderCtrArgs, 'requestConfig'>;
 
+export enum Methods {
+  GET = 'GET',
+  POST = 'POST',
+  PUT = 'PUT',
+  DELETE = 'DELETE',
+}
 export abstract class BaseEndpoint {
   protected provider: AuthProvider;
   constructor(protected ctrArgs: AuthInitOptions) {
@@ -23,21 +34,29 @@ export abstract class BaseEndpoint {
 }
 
 export abstract class GetEndpoint extends BaseEndpoint {
-  abstract get(params: MaybeParams): SomePromise;
+  abstract get(params: MaybeParams): DataPromise;
 }
 
-export abstract class PaginatedGetEndpoint extends GetEndpoint {
-  abstract getAll(pageCallback?: SomeCallback): SomePromise;
+export abstract class LimitedGetEndpoint extends GetEndpoint {
+  abstract limit: number;
 }
 
 export abstract class PutEndpoint extends BaseEndpoint {
-  abstract put(params: Params): SomePromise;
+  abstract put(params: Params): DataPromise;
 }
 
 export abstract class PostEndpoint extends BaseEndpoint {
-  abstract post(params: Params): SomePromise;
+  abstract post(params: Params): DataPromise;
 }
 
 export abstract class DeleteEndpoint extends BaseEndpoint {
-  abstract delete(params: Params): SomePromise;
+  abstract delete(params: Params): DataPromise;
+}
+
+export function transformResponse<T>(res: AxiosResponse<T>): DataResponse<T> {
+  return {
+    data: res.data,
+    headers: res.headers,
+    statusCode: res.status,
+  };
 }
