@@ -26,8 +26,8 @@
     "dist"
   ],
   "dependencies": {
-    "axios": "^0.27.2",
-    "@spotifly/utils": "workspace:^"
+    "@spotifly/utils": "workspace:^",
+    "axios": "^0.27.2"
   },
   "engines": {
     "node": ">=16"
