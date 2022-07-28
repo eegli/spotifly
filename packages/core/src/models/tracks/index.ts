@@ -1,29 +1,54 @@
 import { AuthInitOptions } from '../../abstract';
+import { getAllFromPaginated } from '../../factory';
 import { merge } from '../../utils';
 import {
-  GetSeveralTracks,
+  CheckUsersSavedTracks,
+  GetAudioAnalysis,
+  GetAudioFeatures,
+  GetMultipleAudioFeatures,
+  GetMultipleTracks,
+  GetRecommendations,
   GetSingleTrack,
   GetUsersSavedTracks,
-  PutUserSavedTracks,
-  RemoveUserSavedTracks,
+  RemoveUsersSavedTracks,
+  SaveTracksForUser,
 } from './tracks';
 
 export default function Tracks(authInitOpts: AuthInitOptions) {
+  const GetUserSaved = new GetUsersSavedTracks(authInitOpts);
+
   return {
-    Single: new GetSingleTrack(authInitOpts),
-    Several: new GetSeveralTracks(authInitOpts),
-    UsersSaved: merge(
-      new GetUsersSavedTracks(authInitOpts),
-      new PutUserSavedTracks(authInitOpts),
-      new RemoveUserSavedTracks(authInitOpts)
-    ),
+    SingleTrack: new GetSingleTrack(authInitOpts),
+    MultipleTracks: new GetMultipleTracks(authInitOpts),
+    Analysis: new GetAudioAnalysis(authInitOpts),
+    Features: {
+      get: new GetAudioFeatures(authInitOpts).get,
+      getMultiple: new GetMultipleAudioFeatures(authInitOpts).get,
+    },
+    Recommendations: new GetRecommendations(authInitOpts),
+    UsersSaved: merge(GetUserSaved, {
+      save: new SaveTracksForUser(authInitOpts).put,
+      remove: new RemoveUsersSavedTracks(authInitOpts).delete,
+      check: new CheckUsersSavedTracks(authInitOpts).get,
+    }),
+    extended: {
+      allUserSavedTracks: getAllFromPaginated(
+        GetUserSaved.get,
+        GetUserSaved.limit
+      ),
+    },
   } as const;
 }
 
 export const TrackModels = {
-  GetSeveralTracks,
+  CheckUsersSavedTracks,
+  GetAudioAnalysis,
+  GetAudioFeatures,
+  GetMultipleAudioFeatures,
+  GetMultipleTracks,
+  GetRecommendations,
   GetSingleTrack,
   GetUsersSavedTracks,
-  PutUserSavedTracks,
-  RemoveUserSavedTracks,
+  RemoveUsersSavedTracks,
+  SaveTracksForUser,
 };

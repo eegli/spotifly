@@ -3,7 +3,7 @@
 
 export function merge<T1, T2, T3, T4, T5, T6>(
   c1: T1,
-  c2: T2,
+  c2?: T2,
   c3?: T3,
   c4?: T4,
   c5?: T5,

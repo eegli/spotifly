@@ -1,23 +1,26 @@
-export function createAutoPaginated<
+import { DataPromise } from './abstract';
+
+export function getAllFromPaginated<
   P extends { limit: number; offset: number },
-  F extends (params: P) => Promise<SpotifyApi.PagingObject<unknown>>,
-  R extends Awaited<ReturnType<F>>
+  F extends (params: P) => DataPromise<SpotifyApi.PagingObject<unknown>>,
+  R extends Awaited<ReturnType<F>>,
+  D extends R['data']['items']
 >(getFn: F, limit: number) {
-  return async function (cb?: (params: R) => unknown): Promise<R[]> {
+  return async function (cb?: (params: R) => unknown): Promise<D> {
     let nextPage: string | null = null;
     let offset = 0;
-    const tracks = [];
+    const items = [];
     do {
-      const response = await getFn({
+      const response = (await getFn({
         limit,
         offset,
-      } as P);
-      tracks.push(...response.items);
-      nextPage = response.next;
+      } as P)) as R;
+      items.push(...response.data.items);
+      nextPage = response.data.next;
       offset += limit;
-      if (cb) cb(response as R);
+      if (cb) cb(response);
     } while (nextPage);
 
-    return tracks as R[];
+    return items as D;
   };
 }
