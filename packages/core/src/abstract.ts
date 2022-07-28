@@ -3,7 +3,6 @@ import { AuthProvider, AuthProviderCtrArgs } from './provider';
 
 type Params = Record<string, unknown>;
 type MaybeParams = Params | undefined;
-type SomeCallback<T = unknown> = (params: T) => unknown;
 export type DataResponse<T = unknown> = {
   data: T;
   headers: Record<string, string | number | boolean>;
