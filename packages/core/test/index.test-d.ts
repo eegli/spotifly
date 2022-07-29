@@ -33,11 +33,11 @@ describe('Lib type definitions', () => {
     );
 
     expectType<R<SpotifyApi.UsersSavedTracksResponse>[]>(
-      await Spotifly.Tracks.extended.allUserSavedTracks()
+      await Spotifly.Tracks.extended.getAllUserSavedTracks()
     );
 
     expectAssignable<
-      Parameters<typeof Spotifly.Tracks.extended.allUserSavedTracks>[0]
+      Parameters<typeof Spotifly.Tracks.extended.getAllUserSavedTracks>[0]
     >((_: R<SpotifyApi.UsersSavedTracksResponse>) => null);
 
     expectType<R<SpotifyApi.SaveTracksForUserResponse>>(

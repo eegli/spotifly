@@ -37,16 +37,16 @@ export default function Tracks(provider: AuthProvider) {
       check: checkUsersSavedTracks(provider),
     } as const,
     extended: {
-      allUserSavedTracks: factory.getAllFromPaginated(
+      getAllUserSavedTracks: factory.getAllFromPaginated(
         getUsersSavedTracks(provider),
         getUsersSavedTracksLimit
       ),
-      allTracks: factory.getAllFromLimited(
+      getAllTracks: factory.getAllFromLimited(
         getMultipleTracks(provider),
         'trackIds',
         getMultipleTracksLimit
       ),
-      allAudioFeatures: factory.getAllFromLimited(
+      getAllAudioFeatures: factory.getAllFromLimited(
         getMultipleAudioFeatures(provider),
         'trackIds',
         getMultipleAudioFeaturesLimit

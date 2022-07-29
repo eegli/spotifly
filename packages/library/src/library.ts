@@ -70,7 +70,7 @@ export const getLibrary = async (
     progress = createProgressBar('artists');
     progress.start(artistIds.size, 0);
 
-    await Spotifly.Artists.extended.allArtists(
+    await Spotifly.Artists.extended.getAllArtists(
       { artistIds: [...artistIds] },
       ({ data }) => {
         data.artists.forEach(artist => {
