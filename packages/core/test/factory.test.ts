@@ -1,5 +1,5 @@
-import { DataPromise } from '../src/abstract';
-import { getAllFromPaginated } from '../src/factory';
+import * as factory from '../src/factory';
+import { DataPromise } from '../src/request';
 
 beforeEach(() => {
   jest.clearAllMocks();
@@ -21,7 +21,7 @@ function* createPaginatedBackend(
     };
   }
 }
-const createMockAPIEndpoint = function ({
+const createPaginatedAPI = function ({
   itemCount,
   limit,
 }: {
@@ -62,34 +62,105 @@ const createMockAPIEndpoint = function ({
   );
 };
 
-const mockCb = jest.fn();
-
-describe('Factory', () => {
-  const testCases = [
+describe('Factory, pagination handling', () => {
+  const mockCb = jest.fn((...args: unknown[]) => Promise.resolve(args));
+  [
     { limit: 6, itemCount: 20, expectedCalls: 4 },
     { limit: 6, itemCount: 5, expectedCalls: 1 },
     { limit: 6, itemCount: 12, expectedCalls: 2 },
     { limit: 6, itemCount: 1, expectedCalls: 1 },
-  ];
+  ].forEach(testCase => {
+    const { limit, itemCount, expectedCalls } = testCase;
+    test(`gets all ${itemCount} items and invokes callback in between`, async () => {
+      const mockAPI = createPaginatedAPI({ itemCount, limit });
 
-  for (let i = 0; i < testCases.length; i++) {
-    test(`gets all items and invokes callback in between, ${i}`, async () => {
-      const { limit, itemCount, expectedCalls } = testCases[i];
-      const mockGetter = createMockAPIEndpoint({ itemCount, limit });
-
-      const result = await getAllFromPaginated(
-        mockGetter,
+      const result = await factory.getAllFromPaginated(
+        mockAPI,
         limit
       )(args => mockCb(args));
 
-      expect(result).toHaveLength(itemCount);
+      expect(result).toHaveLength(expectedCalls);
+      const allItems = result.reduce(
+        (acc, curr) => [...acc, ...curr.data.items],
+        [] as unknown[]
+      );
+      expect(allItems).toHaveLength(itemCount);
       expect(result).toMatchSnapshot('result');
 
-      expect(mockGetter).toHaveBeenCalledTimes(expectedCalls);
-      expect(mockGetter.mock.calls).toMatchSnapshot('getter invocation');
+      expect(mockAPI).toHaveBeenCalledTimes(expectedCalls);
+      expect(mockAPI.mock.calls).toMatchSnapshot('api invocation');
 
       expect(mockCb).toHaveBeenCalledTimes(expectedCalls);
+      expect(mockCb).toHaveBeenCalledWith(
+        expect.objectContaining({
+          headers: expect.any(Object),
+          statusCode: expect.any(Number),
+          data: expect.any(Object),
+        })
+      );
       expect(mockCb.mock.calls).toMatchSnapshot('callback invocation');
     });
-  }
+  });
+});
+
+const createLimitedAPI = function (limit: number) {
+  return jest.fn(
+    ({ ids }: { ids: string[] }): DataPromise<{ id: number }[]> => {
+      if (ids.length > limit) {
+        throw new Error();
+      }
+
+      return Promise.resolve({
+        statusCode: 200,
+        headers: {},
+        data: Array.from({ length: ids.length }).map(() => ({ id: 1 })),
+      });
+    }
+  );
+};
+
+describe('Factory, limited endpoint handling', () => {
+  const mockCb = jest.fn((...args: unknown[]) => Promise.resolve(args));
+
+  [
+    { limit: 5, itemCount: 1, expectedCalls: 1 },
+    { limit: 5, itemCount: 5, expectedCalls: 1 },
+    { limit: 5, itemCount: 8, expectedCalls: 2 },
+    { limit: 5, itemCount: 12, expectedCalls: 3 },
+  ].forEach(testCase => {
+    const { limit, itemCount, expectedCalls } = testCase;
+    test(`handles max ${itemCount} item with limit of ${limit}`, async () => {
+      const mockAPI = createLimitedAPI(limit);
+
+      const result = await factory.getAllFromLimited(
+        mockAPI,
+        'ids',
+        limit
+      )({ ids: Array.from({ length: itemCount }, () => 'test') }, args =>
+        mockCb(args)
+      );
+      expect(result).toHaveLength(expectedCalls);
+      const allItems = result.reduce(
+        (acc, curr) => [...acc, ...curr.data],
+        [] as unknown[]
+      );
+      expect(allItems).toHaveLength(itemCount);
+      expect(result).toMatchSnapshot('result');
+
+      expect(mockAPI).toHaveBeenCalledTimes(expectedCalls);
+      mockAPI.mock.calls.forEach(call =>
+        expect(call[0].ids.length).toBeLessThanOrEqual(limit)
+      );
+
+      expect(mockCb).toHaveBeenCalledTimes(expectedCalls);
+      expect(mockCb).toHaveBeenCalledWith(
+        expect.objectContaining({
+          headers: expect.any(Object),
+          statusCode: expect.any(Number),
+          data: expect.any(Object),
+        })
+      );
+      expect(mockCb.mock.calls).toMatchSnapshot('callback invocation');
+    });
+  });
 });

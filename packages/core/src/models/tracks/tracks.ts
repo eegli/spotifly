@@ -1,127 +1,139 @@
 import {
-  DeleteEndpoint,
-  GetEndpoint,
-  LimitedGetEndpoint,
   Methods,
-  PutEndpoint,
   transformResponse,
-} from '../../abstract';
-export class GetSingleTrack extends GetEndpoint {
-  async get(params: { trackId: string }) {
-    const res = await this.provider.request<SpotifyApi.SingleTrackResponse>({
+  WithProvider,
+  WithProviderOptional,
+} from '../../request';
+
+export const getSingleTrack: WithProvider<
+  { trackId: string },
+  SpotifyApi.SingleTrackResponse
+> = provider => async params =>
+  transformResponse(
+    await provider.request({
       method: Methods.GET,
       url: `tracks/${params.trackId}`,
-    });
-    return transformResponse(res);
-  }
-}
+    })
+  );
 
-export class GetMultipleTracks extends LimitedGetEndpoint {
-  async get(params: { trackIds: string[]; market?: string }) {
-    const res = await this.provider.request<SpotifyApi.MultipleTracksResponse>({
+export const getMultipleTracks: WithProvider<
+  { trackIds: string[]; market?: string },
+  SpotifyApi.MultipleTracksResponse
+> = provider => async params =>
+  transformResponse(
+    await provider.request({
       method: Methods.GET,
       url: 'tracks',
       params: {
         ids: params.trackIds.join(','),
       },
-    });
-    return transformResponse(res);
-  }
+    })
+  );
 
-  limit = 50;
-}
-export class GetUsersSavedTracks extends LimitedGetEndpoint {
-  async get(params?: { limit?: number; market?: string; offset?: number }) {
-    const res =
-      await this.provider.request<SpotifyApi.UsersSavedTracksResponse>({
-        method: Methods.GET,
-        url: 'me/tracks',
-        params,
-      });
-    return transformResponse(res);
-  }
+export const getMultipleTracksLimit = 50;
 
-  limit = 50;
-}
+export const getUsersSavedTracks: WithProviderOptional<
+  { limit?: number; market?: string; offset?: number } | undefined,
+  SpotifyApi.UsersSavedTracksResponse
+> = provider => async params =>
+  transformResponse(
+    await provider.request({
+      method: Methods.GET,
+      url: 'me/tracks',
+      params,
+    })
+  );
 
-export class SaveTracksForUser extends PutEndpoint {
-  async put(params: { trackIds: string[] }) {
-    const res =
-      await this.provider.request<SpotifyApi.SaveTracksForUserResponse>({
-        method: Methods.PUT,
-        url: '/me/tracks/contains',
-        params: {
-          ids: params.trackIds.join(','),
-        },
-      });
-    return transformResponse(res);
-  }
-}
+export const getUsersSavedTracksLimit = 50;
 
-export class RemoveUsersSavedTracks extends DeleteEndpoint {
-  async delete(params: { trackIds: string[] }) {
-    const res =
-      await this.provider.request<SpotifyApi.RemoveUsersSavedTracksResponse>({
-        method: Methods.DELETE,
-        url: 'me/tracks',
-        params: {
-          ids: params.trackIds.join(','),
-        },
-      });
-    return transformResponse(res);
-  }
-}
+export const saveTracksForUser: WithProvider<
+  { trackIds: string[] },
+  SpotifyApi.SaveTracksForUserResponse
+> = provider => async params =>
+  transformResponse(
+    await provider.request({
+      method: Methods.PUT,
+      url: 'me/tracks',
+      params: {
+        ids: params.trackIds.join(','),
+      },
+    })
+  );
 
-export class CheckUsersSavedTracks extends GetEndpoint {
-  async get(params: { trackIds: string[] }) {
-    const res =
-      await this.provider.request<SpotifyApi.CheckUsersSavedTracksResponse>({
-        method: Methods.GET,
-        url: 'me/tracks',
-        params: {
-          ids: params.trackIds.join(','),
-        },
-      });
-    return transformResponse(res);
-  }
-}
+export const saveTracksForUserLimit = 50;
 
-export class GetAudioFeatures extends GetEndpoint {
-  async get(params: { trackId: string }) {
-    const res = await this.provider.request<SpotifyApi.AudioFeaturesResponse>({
+export const removeUsersSavedTracks: WithProvider<
+  { trackIds: string[] },
+  SpotifyApi.RemoveUsersSavedTracksResponse
+> = provider => async params =>
+  transformResponse(
+    await provider.request({
+      method: Methods.DELETE,
+      url: 'me/tracks',
+      params: {
+        ids: params.trackIds.join(','),
+      },
+    })
+  );
+
+export const removeUsersSavedTracksLimit = 50;
+
+export const checkUsersSavedTracks: WithProvider<
+  { trackIds: string[] },
+  SpotifyApi.CheckUsersSavedTracksResponse
+> = provider => async params =>
+  transformResponse(
+    await provider.request({
+      method: Methods.GET,
+      url: 'me/tracks/contains',
+      params: {
+        ids: params.trackIds.join(','),
+      },
+    })
+  );
+
+export const checkUsersSavedTracksLimit = 50;
+
+export const getSingleAudioFeatures: WithProvider<
+  { trackId: string },
+  SpotifyApi.AudioFeaturesResponse
+> = provider => async params =>
+  transformResponse(
+    await provider.request({
       method: Methods.GET,
       url: `audio-features/${params.trackId}`,
-    });
-    return transformResponse(res);
-  }
-}
-export class GetMultipleAudioFeatures extends LimitedGetEndpoint {
-  async get(params: { trackIds: string[] }) {
-    const res =
-      await this.provider.request<SpotifyApi.MultipleAudioFeaturesResponse>({
-        method: Methods.GET,
-        url: 'audio-features',
-        params: {
-          ids: params.trackIds.join(','),
-        },
-      });
-    return transformResponse(res);
-  }
-  limit = 100;
-}
+    })
+  );
 
-export class GetAudioAnalysis extends GetEndpoint {
-  async get(params: { trackId: string }) {
-    const res = await this.provider.request<SpotifyApi.AudioAnalysisResponse>({
+export const getMultipleAudioFeatures: WithProvider<
+  { trackIds: string[] },
+  SpotifyApi.MultipleAudioFeaturesResponse
+> = provider => async params =>
+  transformResponse(
+    await provider.request({
+      method: Methods.GET,
+      url: 'audio-features',
+      params: {
+        ids: params.trackIds.join(','),
+      },
+    })
+  );
+
+export const getMultipleAudioFeaturesLimit = 100;
+
+export const getAudioAnalysis: WithProvider<
+  { trackId: string },
+  SpotifyApi.AudioAnalysisResponse
+> = provider => async params =>
+  transformResponse(
+    await provider.request({
       method: Methods.GET,
       url: `audio-analysis/${params.trackId}`,
-    });
-    return transformResponse(res);
-  }
-}
+    })
+  );
 
-export class GetRecommendations extends GetEndpoint {
-  async get(params: {
+export const getRecommendations: WithProvider<
+  {
     seed_artists: string;
     seed_genres: string;
     seed_tracks: string;
@@ -169,13 +181,13 @@ export class GetRecommendations extends GetEndpoint {
     target_tempo?: number;
     target_time_signature?: number;
     target_valence?: number;
-  }) {
-    const res =
-      await this.provider.request<SpotifyApi.RecommendationsFromSeedsResponse>({
-        method: Methods.GET,
-        url: 'recommendations',
-        params,
-      });
-    return transformResponse(res);
-  }
-}
+  },
+  SpotifyApi.RecommendationsFromSeedsResponse
+> = provider => async params =>
+  transformResponse(
+    await provider.request({
+      method: Methods.GET,
+      url: 'recommendations',
+      params,
+    })
+  );

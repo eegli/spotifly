@@ -1,6 +1,626 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Factory gets all items and invokes callback in between, 0: callback invocation 1`] = `
+exports[`Factory, limited endpoint handling handles max 1 item with limit of 5: callback invocation 1`] = `
+[
+  [
+    {
+      "data": [
+        {
+          "id": 1,
+        },
+      ],
+      "headers": {},
+      "statusCode": 200,
+    },
+  ],
+]
+`;
+
+exports[`Factory, limited endpoint handling handles max 1 item with limit of 5: result 1`] = `
+[
+  {
+    "data": [
+      {
+        "id": 1,
+      },
+    ],
+    "headers": {},
+    "statusCode": 200,
+  },
+]
+`;
+
+exports[`Factory, limited endpoint handling handles max 5 item with limit of 5: callback invocation 1`] = `
+[
+  [
+    {
+      "data": [
+        {
+          "id": 1,
+        },
+        {
+          "id": 1,
+        },
+        {
+          "id": 1,
+        },
+        {
+          "id": 1,
+        },
+        {
+          "id": 1,
+        },
+      ],
+      "headers": {},
+      "statusCode": 200,
+    },
+  ],
+]
+`;
+
+exports[`Factory, limited endpoint handling handles max 5 item with limit of 5: result 1`] = `
+[
+  {
+    "data": [
+      {
+        "id": 1,
+      },
+      {
+        "id": 1,
+      },
+      {
+        "id": 1,
+      },
+      {
+        "id": 1,
+      },
+      {
+        "id": 1,
+      },
+    ],
+    "headers": {},
+    "statusCode": 200,
+  },
+]
+`;
+
+exports[`Factory, limited endpoint handling handles max 8 item with limit of 5: callback invocation 1`] = `
+[
+  [
+    {
+      "data": [
+        {
+          "id": 1,
+        },
+        {
+          "id": 1,
+        },
+        {
+          "id": 1,
+        },
+        {
+          "id": 1,
+        },
+        {
+          "id": 1,
+        },
+      ],
+      "headers": {},
+      "statusCode": 200,
+    },
+  ],
+  [
+    {
+      "data": [
+        {
+          "id": 1,
+        },
+        {
+          "id": 1,
+        },
+        {
+          "id": 1,
+        },
+      ],
+      "headers": {},
+      "statusCode": 200,
+    },
+  ],
+]
+`;
+
+exports[`Factory, limited endpoint handling handles max 8 item with limit of 5: result 1`] = `
+[
+  {
+    "data": [
+      {
+        "id": 1,
+      },
+      {
+        "id": 1,
+      },
+      {
+        "id": 1,
+      },
+      {
+        "id": 1,
+      },
+      {
+        "id": 1,
+      },
+    ],
+    "headers": {},
+    "statusCode": 200,
+  },
+  {
+    "data": [
+      {
+        "id": 1,
+      },
+      {
+        "id": 1,
+      },
+      {
+        "id": 1,
+      },
+    ],
+    "headers": {},
+    "statusCode": 200,
+  },
+]
+`;
+
+exports[`Factory, limited endpoint handling handles max 12 item with limit of 5: callback invocation 1`] = `
+[
+  [
+    {
+      "data": [
+        {
+          "id": 1,
+        },
+        {
+          "id": 1,
+        },
+        {
+          "id": 1,
+        },
+        {
+          "id": 1,
+        },
+        {
+          "id": 1,
+        },
+      ],
+      "headers": {},
+      "statusCode": 200,
+    },
+  ],
+  [
+    {
+      "data": [
+        {
+          "id": 1,
+        },
+        {
+          "id": 1,
+        },
+        {
+          "id": 1,
+        },
+        {
+          "id": 1,
+        },
+        {
+          "id": 1,
+        },
+      ],
+      "headers": {},
+      "statusCode": 200,
+    },
+  ],
+  [
+    {
+      "data": [
+        {
+          "id": 1,
+        },
+        {
+          "id": 1,
+        },
+      ],
+      "headers": {},
+      "statusCode": 200,
+    },
+  ],
+]
+`;
+
+exports[`Factory, limited endpoint handling handles max 12 item with limit of 5: result 1`] = `
+[
+  {
+    "data": [
+      {
+        "id": 1,
+      },
+      {
+        "id": 1,
+      },
+      {
+        "id": 1,
+      },
+      {
+        "id": 1,
+      },
+      {
+        "id": 1,
+      },
+    ],
+    "headers": {},
+    "statusCode": 200,
+  },
+  {
+    "data": [
+      {
+        "id": 1,
+      },
+      {
+        "id": 1,
+      },
+      {
+        "id": 1,
+      },
+      {
+        "id": 1,
+      },
+      {
+        "id": 1,
+      },
+    ],
+    "headers": {},
+    "statusCode": 200,
+  },
+  {
+    "data": [
+      {
+        "id": 1,
+      },
+      {
+        "id": 1,
+      },
+    ],
+    "headers": {},
+    "statusCode": 200,
+  },
+]
+`;
+
+exports[`Factory, pagination handling gets all 1 items and invokes callback in between: api invocation 1`] = `
+[
+  [
+    {
+      "limit": 6,
+      "offset": 0,
+    },
+  ],
+]
+`;
+
+exports[`Factory, pagination handling gets all 1 items and invokes callback in between: callback invocation 1`] = `
+[
+  [
+    {
+      "data": {
+        "href": "href",
+        "items": [
+          {
+            "id": 1,
+          },
+        ],
+        "limit": 6,
+        "next": null,
+        "offset": 0,
+        "previous": null,
+        "total": 1,
+      },
+      "headers": {},
+      "statusCode": 200,
+    },
+  ],
+]
+`;
+
+exports[`Factory, pagination handling gets all 1 items and invokes callback in between: result 1`] = `
+[
+  {
+    "data": {
+      "href": "href",
+      "items": [
+        {
+          "id": 1,
+        },
+      ],
+      "limit": 6,
+      "next": null,
+      "offset": 0,
+      "previous": null,
+      "total": 1,
+    },
+    "headers": {},
+    "statusCode": 200,
+  },
+]
+`;
+
+exports[`Factory, pagination handling gets all 5 items and invokes callback in between: api invocation 1`] = `
+[
+  [
+    {
+      "limit": 6,
+      "offset": 0,
+    },
+  ],
+]
+`;
+
+exports[`Factory, pagination handling gets all 5 items and invokes callback in between: callback invocation 1`] = `
+[
+  [
+    {
+      "data": {
+        "href": "href",
+        "items": [
+          {
+            "id": 5,
+          },
+          {
+            "id": 4,
+          },
+          {
+            "id": 3,
+          },
+          {
+            "id": 2,
+          },
+          {
+            "id": 1,
+          },
+        ],
+        "limit": 6,
+        "next": null,
+        "offset": 0,
+        "previous": null,
+        "total": 1,
+      },
+      "headers": {},
+      "statusCode": 200,
+    },
+  ],
+]
+`;
+
+exports[`Factory, pagination handling gets all 5 items and invokes callback in between: result 1`] = `
+[
+  {
+    "data": {
+      "href": "href",
+      "items": [
+        {
+          "id": 5,
+        },
+        {
+          "id": 4,
+        },
+        {
+          "id": 3,
+        },
+        {
+          "id": 2,
+        },
+        {
+          "id": 1,
+        },
+      ],
+      "limit": 6,
+      "next": null,
+      "offset": 0,
+      "previous": null,
+      "total": 1,
+    },
+    "headers": {},
+    "statusCode": 200,
+  },
+]
+`;
+
+exports[`Factory, pagination handling gets all 12 items and invokes callback in between: api invocation 1`] = `
+[
+  [
+    {
+      "limit": 6,
+      "offset": 0,
+    },
+  ],
+  [
+    {
+      "limit": 6,
+      "offset": 6,
+    },
+  ],
+]
+`;
+
+exports[`Factory, pagination handling gets all 12 items and invokes callback in between: callback invocation 1`] = `
+[
+  [
+    {
+      "data": {
+        "href": "href",
+        "items": [
+          {
+            "id": 12,
+          },
+          {
+            "id": 11,
+          },
+          {
+            "id": 10,
+          },
+          {
+            "id": 9,
+          },
+          {
+            "id": 8,
+          },
+          {
+            "id": 7,
+          },
+        ],
+        "limit": 6,
+        "next": "next",
+        "offset": 0,
+        "previous": null,
+        "total": 1,
+      },
+      "headers": {},
+      "statusCode": 200,
+    },
+  ],
+  [
+    {
+      "data": {
+        "href": "href",
+        "items": [
+          {
+            "id": 6,
+          },
+          {
+            "id": 5,
+          },
+          {
+            "id": 4,
+          },
+          {
+            "id": 3,
+          },
+          {
+            "id": 2,
+          },
+          {
+            "id": 1,
+          },
+        ],
+        "limit": 6,
+        "next": null,
+        "offset": 6,
+        "previous": null,
+        "total": 1,
+      },
+      "headers": {},
+      "statusCode": 200,
+    },
+  ],
+]
+`;
+
+exports[`Factory, pagination handling gets all 12 items and invokes callback in between: result 1`] = `
+[
+  {
+    "data": {
+      "href": "href",
+      "items": [
+        {
+          "id": 12,
+        },
+        {
+          "id": 11,
+        },
+        {
+          "id": 10,
+        },
+        {
+          "id": 9,
+        },
+        {
+          "id": 8,
+        },
+        {
+          "id": 7,
+        },
+      ],
+      "limit": 6,
+      "next": "next",
+      "offset": 0,
+      "previous": null,
+      "total": 1,
+    },
+    "headers": {},
+    "statusCode": 200,
+  },
+  {
+    "data": {
+      "href": "href",
+      "items": [
+        {
+          "id": 6,
+        },
+        {
+          "id": 5,
+        },
+        {
+          "id": 4,
+        },
+        {
+          "id": 3,
+        },
+        {
+          "id": 2,
+        },
+        {
+          "id": 1,
+        },
+      ],
+      "limit": 6,
+      "next": null,
+      "offset": 6,
+      "previous": null,
+      "total": 1,
+    },
+    "headers": {},
+    "statusCode": 200,
+  },
+]
+`;
+
+exports[`Factory, pagination handling gets all 20 items and invokes callback in between: api invocation 1`] = `
+[
+  [
+    {
+      "limit": 6,
+      "offset": 0,
+    },
+  ],
+  [
+    {
+      "limit": 6,
+      "offset": 6,
+    },
+  ],
+  [
+    {
+      "limit": 6,
+      "offset": 12,
+    },
+  ],
+  [
+    {
+      "limit": 6,
+      "offset": 18,
+    },
+  ],
+]
+`;
+
+exports[`Factory, pagination handling gets all 20 items and invokes callback in between: callback invocation 1`] = `
 [
   [
     {
@@ -129,337 +749,123 @@ exports[`Factory gets all items and invokes callback in between, 0: callback inv
 ]
 `;
 
-exports[`Factory gets all items and invokes callback in between, 0: getter invocation 1`] = `
+exports[`Factory, pagination handling gets all 20 items and invokes callback in between: result 1`] = `
 [
-  [
-    {
+  {
+    "data": {
+      "href": "href",
+      "items": [
+        {
+          "id": 20,
+        },
+        {
+          "id": 19,
+        },
+        {
+          "id": 18,
+        },
+        {
+          "id": 17,
+        },
+        {
+          "id": 16,
+        },
+        {
+          "id": 15,
+        },
+      ],
       "limit": 6,
+      "next": "next",
       "offset": 0,
+      "previous": null,
+      "total": 1,
     },
-  ],
-  [
-    {
+    "headers": {},
+    "statusCode": 200,
+  },
+  {
+    "data": {
+      "href": "href",
+      "items": [
+        {
+          "id": 14,
+        },
+        {
+          "id": 13,
+        },
+        {
+          "id": 12,
+        },
+        {
+          "id": 11,
+        },
+        {
+          "id": 10,
+        },
+        {
+          "id": 9,
+        },
+      ],
       "limit": 6,
+      "next": "next",
       "offset": 6,
+      "previous": null,
+      "total": 1,
     },
-  ],
-  [
-    {
+    "headers": {},
+    "statusCode": 200,
+  },
+  {
+    "data": {
+      "href": "href",
+      "items": [
+        {
+          "id": 8,
+        },
+        {
+          "id": 7,
+        },
+        {
+          "id": 6,
+        },
+        {
+          "id": 5,
+        },
+        {
+          "id": 4,
+        },
+        {
+          "id": 3,
+        },
+      ],
       "limit": 6,
+      "next": "next",
       "offset": 12,
+      "previous": null,
+      "total": 1,
     },
-  ],
-  [
-    {
+    "headers": {},
+    "statusCode": 200,
+  },
+  {
+    "data": {
+      "href": "href",
+      "items": [
+        {
+          "id": 2,
+        },
+        {
+          "id": 1,
+        },
+      ],
       "limit": 6,
+      "next": null,
       "offset": 18,
+      "previous": null,
+      "total": 1,
     },
-  ],
-]
-`;
-
-exports[`Factory gets all items and invokes callback in between, 0: result 1`] = `
-[
-  {
-    "id": 20,
-  },
-  {
-    "id": 19,
-  },
-  {
-    "id": 18,
-  },
-  {
-    "id": 17,
-  },
-  {
-    "id": 16,
-  },
-  {
-    "id": 15,
-  },
-  {
-    "id": 14,
-  },
-  {
-    "id": 13,
-  },
-  {
-    "id": 12,
-  },
-  {
-    "id": 11,
-  },
-  {
-    "id": 10,
-  },
-  {
-    "id": 9,
-  },
-  {
-    "id": 8,
-  },
-  {
-    "id": 7,
-  },
-  {
-    "id": 6,
-  },
-  {
-    "id": 5,
-  },
-  {
-    "id": 4,
-  },
-  {
-    "id": 3,
-  },
-  {
-    "id": 2,
-  },
-  {
-    "id": 1,
-  },
-]
-`;
-
-exports[`Factory gets all items and invokes callback in between, 1: callback invocation 1`] = `
-[
-  [
-    {
-      "data": {
-        "href": "href",
-        "items": [
-          {
-            "id": 5,
-          },
-          {
-            "id": 4,
-          },
-          {
-            "id": 3,
-          },
-          {
-            "id": 2,
-          },
-          {
-            "id": 1,
-          },
-        ],
-        "limit": 6,
-        "next": null,
-        "offset": 0,
-        "previous": null,
-        "total": 1,
-      },
-      "headers": {},
-      "statusCode": 200,
-    },
-  ],
-]
-`;
-
-exports[`Factory gets all items and invokes callback in between, 1: getter invocation 1`] = `
-[
-  [
-    {
-      "limit": 6,
-      "offset": 0,
-    },
-  ],
-]
-`;
-
-exports[`Factory gets all items and invokes callback in between, 1: result 1`] = `
-[
-  {
-    "id": 5,
-  },
-  {
-    "id": 4,
-  },
-  {
-    "id": 3,
-  },
-  {
-    "id": 2,
-  },
-  {
-    "id": 1,
-  },
-]
-`;
-
-exports[`Factory gets all items and invokes callback in between, 2: callback invocation 1`] = `
-[
-  [
-    {
-      "data": {
-        "href": "href",
-        "items": [
-          {
-            "id": 12,
-          },
-          {
-            "id": 11,
-          },
-          {
-            "id": 10,
-          },
-          {
-            "id": 9,
-          },
-          {
-            "id": 8,
-          },
-          {
-            "id": 7,
-          },
-        ],
-        "limit": 6,
-        "next": "next",
-        "offset": 0,
-        "previous": null,
-        "total": 1,
-      },
-      "headers": {},
-      "statusCode": 200,
-    },
-  ],
-  [
-    {
-      "data": {
-        "href": "href",
-        "items": [
-          {
-            "id": 6,
-          },
-          {
-            "id": 5,
-          },
-          {
-            "id": 4,
-          },
-          {
-            "id": 3,
-          },
-          {
-            "id": 2,
-          },
-          {
-            "id": 1,
-          },
-        ],
-        "limit": 6,
-        "next": null,
-        "offset": 6,
-        "previous": null,
-        "total": 1,
-      },
-      "headers": {},
-      "statusCode": 200,
-    },
-  ],
-]
-`;
-
-exports[`Factory gets all items and invokes callback in between, 2: getter invocation 1`] = `
-[
-  [
-    {
-      "limit": 6,
-      "offset": 0,
-    },
-  ],
-  [
-    {
-      "limit": 6,
-      "offset": 6,
-    },
-  ],
-]
-`;
-
-exports[`Factory gets all items and invokes callback in between, 2: result 1`] = `
-[
-  {
-    "id": 12,
-  },
-  {
-    "id": 11,
-  },
-  {
-    "id": 10,
-  },
-  {
-    "id": 9,
-  },
-  {
-    "id": 8,
-  },
-  {
-    "id": 7,
-  },
-  {
-    "id": 6,
-  },
-  {
-    "id": 5,
-  },
-  {
-    "id": 4,
-  },
-  {
-    "id": 3,
-  },
-  {
-    "id": 2,
-  },
-  {
-    "id": 1,
-  },
-]
-`;
-
-exports[`Factory gets all items and invokes callback in between, 3: callback invocation 1`] = `
-[
-  [
-    {
-      "data": {
-        "href": "href",
-        "items": [
-          {
-            "id": 1,
-          },
-        ],
-        "limit": 6,
-        "next": null,
-        "offset": 0,
-        "previous": null,
-        "total": 1,
-      },
-      "headers": {},
-      "statusCode": 200,
-    },
-  ],
-]
-`;
-
-exports[`Factory gets all items and invokes callback in between, 3: getter invocation 1`] = `
-[
-  [
-    {
-      "limit": 6,
-      "offset": 0,
-    },
-  ],
-]
-`;
-
-exports[`Factory gets all items and invokes callback in between, 3: result 1`] = `
-[
-  {
-    "id": 1,
+    "headers": {},
+    "statusCode": 200,
   },
 ]
 `;

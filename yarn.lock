@@ -4070,6 +4070,7 @@ __metadata:
     prettier: ^2.7.1
     prettier-plugin-organize-imports: ^3.0.0
     ts-jest: ^28.0.7
+    type-fest: ^2.17.0
     typescript: ^4.7.4
   bin:
     spotifly: packages/cli/bin.js
@@ -15168,6 +15169,13 @@ __metadata:
   version: 0.8.1
   resolution: "type-fest@npm:0.8.1"
   checksum: d61c4b2eba24009033ae4500d7d818a94fd6d1b481a8111612ee141400d5f1db46f199c014766b9fa9b31a6a7374d96fc748c6d688a78a3ce5a33123839becb7
+  languageName: node
+  linkType: hard
+
+"type-fest@npm:^2.17.0":
+  version: 2.17.0
+  resolution: "type-fest@npm:2.17.0"
+  checksum: cb626b7434f463632643ee8681c900d17739decd820f28ed2e77de7fb8fc406f30f3e86b1b8f26a76f94fbf781e96347febaa8d06b5cef21fdc5f65ded86ad05
   languageName: node
   linkType: hard
 

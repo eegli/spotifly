@@ -1,54 +1,56 @@
-import { AuthInitOptions } from '../../abstract';
-import { getAllFromPaginated } from '../../factory';
-import { merge } from '../../utils';
+import * as factory from '../../factory';
+import { AuthProvider } from '../../provider';
 import {
-  CheckUsersSavedTracks,
-  GetAudioAnalysis,
-  GetAudioFeatures,
-  GetMultipleAudioFeatures,
-  GetMultipleTracks,
-  GetRecommendations,
-  GetSingleTrack,
-  GetUsersSavedTracks,
-  RemoveUsersSavedTracks,
-  SaveTracksForUser,
+  checkUsersSavedTracks,
+  getAudioAnalysis,
+  getMultipleAudioFeatures,
+  getMultipleAudioFeaturesLimit,
+  getMultipleTracks,
+  getMultipleTracksLimit,
+  getRecommendations,
+  getSingleAudioFeatures,
+  getSingleTrack,
+  getUsersSavedTracks,
+  getUsersSavedTracksLimit,
+  removeUsersSavedTracks,
+  saveTracksForUser,
 } from './tracks';
 
-export default function Tracks(authInitOpts: AuthInitOptions) {
-  const GetUserSaved = new GetUsersSavedTracks(authInitOpts);
-
+export default function Tracks(provider: AuthProvider) {
   return {
-    SingleTrack: new GetSingleTrack(authInitOpts),
-    MultipleTracks: new GetMultipleTracks(authInitOpts),
-    Analysis: new GetAudioAnalysis(authInitOpts),
-    Features: {
-      get: new GetAudioFeatures(authInitOpts).get,
-      getMultiple: new GetMultipleAudioFeatures(authInitOpts).get,
-    },
-    Recommendations: new GetRecommendations(authInitOpts),
-    UsersSaved: merge(GetUserSaved, {
-      save: new SaveTracksForUser(authInitOpts).put,
-      remove: new RemoveUsersSavedTracks(authInitOpts).delete,
-      check: new CheckUsersSavedTracks(authInitOpts).get,
-    }),
+    get: getSingleTrack(provider),
+    getMultiple: getMultipleTracks(provider),
+    AudioAnalysis: {
+      get: getAudioAnalysis(provider),
+    } as const,
+    AudioFeatures: {
+      get: getSingleAudioFeatures(provider),
+      getMultiple: getMultipleAudioFeatures(provider),
+    } as const,
+    Recommendations: {
+      get: getRecommendations(provider),
+    } as const,
+    UsersSaved: {
+      get: getUsersSavedTracks(provider),
+      save: saveTracksForUser(provider),
+      remove: removeUsersSavedTracks(provider),
+      check: checkUsersSavedTracks(provider),
+    } as const,
     extended: {
-      allUserSavedTracks: getAllFromPaginated(
-        GetUserSaved.get,
-        GetUserSaved.limit
+      getAllUserSavedTracks: factory.getAllFromPaginated(
+        getUsersSavedTracks(provider),
+        getUsersSavedTracksLimit
       ),
-    },
+      getAllTracks: factory.getAllFromLimited(
+        getMultipleTracks(provider),
+        'trackIds',
+        getMultipleTracksLimit
+      ),
+      getAllAudioFeatures: factory.getAllFromLimited(
+        getMultipleAudioFeatures(provider),
+        'trackIds',
+        getMultipleAudioFeaturesLimit
+      ),
+    } as const,
   } as const;
 }
-
-export const TrackModels = {
-  CheckUsersSavedTracks,
-  GetAudioAnalysis,
-  GetAudioFeatures,
-  GetMultipleAudioFeatures,
-  GetMultipleTracks,
-  GetRecommendations,
-  GetSingleTrack,
-  GetUsersSavedTracks,
-  RemoveUsersSavedTracks,
-  SaveTracksForUser,
-};
