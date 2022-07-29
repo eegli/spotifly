@@ -2,12 +2,12 @@ import * as factory from '../../factory';
 import { AuthProvider } from '../../provider';
 import {
   checkUsersSavedTracks,
+  getAudioAnalysis,
   getMultipleAudioFeatures,
   getMultipleAudioFeaturesLimit,
   getMultipleTracks,
   getMultipleTracksLimit,
   getRecommendations,
-  getSingleAudioAnalysis,
   getSingleAudioFeatures,
   getSingleTrack,
   getUsersSavedTracks,
@@ -21,21 +21,21 @@ export default function Tracks(provider: AuthProvider) {
     get: getSingleTrack(provider),
     getMultiple: getMultipleTracks(provider),
     AudioAnalysis: {
-      get: getSingleAudioAnalysis(provider),
-    },
+      get: getAudioAnalysis(provider),
+    } as const,
     AudioFeatures: {
       get: getSingleAudioFeatures(provider),
       getMultiple: getMultipleAudioFeatures(provider),
-    },
+    } as const,
     Recommendations: {
       get: getRecommendations(provider),
-    },
+    } as const,
     UsersSaved: {
       get: getUsersSavedTracks(provider),
       save: saveTracksForUser(provider),
       remove: removeUsersSavedTracks(provider),
       check: checkUsersSavedTracks(provider),
-    },
+    } as const,
     extended: {
       allUserSavedTracks: factory.getAllFromPaginated(
         getUsersSavedTracks(provider),
@@ -51,6 +51,6 @@ export default function Tracks(provider: AuthProvider) {
         'trackIds',
         getMultipleAudioFeaturesLimit
       ),
-    },
+    } as const,
   } as const;
 }

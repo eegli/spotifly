@@ -121,7 +121,7 @@ export const getMultipleAudioFeatures: WithProvider<
 
 export const getMultipleAudioFeaturesLimit = 100;
 
-export const getSingleAudioAnalysis: WithProvider<
+export const getAudioAnalysis: WithProvider<
   { trackId: string },
   SpotifyApi.AudioAnalysisResponse
 > = provider => async params =>

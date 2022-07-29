@@ -15,13 +15,13 @@ export default function Artists(provider: AuthProvider) {
     getMultiple: getMultipleArtists(provider),
     Albums: {
       get: getArtistsAlbums(provider),
-    },
+    } as const,
     TopTracks: {
       get: getArtistsTopTracks(provider),
-    },
+    } as const,
     RelatedArtists: {
       get: getArtistsRelatedArtists(provider),
-    },
+    } as const,
     extended: {
       getAllArtists: factory.getAllFromLimited(
         getMultipleArtists(provider),
