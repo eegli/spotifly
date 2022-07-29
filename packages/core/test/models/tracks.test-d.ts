@@ -17,7 +17,7 @@ expectType<R<SpotifyApi.UsersSavedTracksResponse>>(
 );
 
 declare function cb(resp: R<SpotifyApi.UsersSavedTracksResponse>): unknown;
-expectType<SpotifyApi.SavedTrackObject[]>(
+expectType<R<SpotifyApi.UsersSavedTracksResponse>[]>(
   await Tracks.extended.allUserSavedTracks()
 );
 expectAssignable<

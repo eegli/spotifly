@@ -22,12 +22,12 @@ describe('Factory', () => {
   test('Auto pagination factory parameters', async () => {
     type Params = Parameters<typeof factory.getAllFromPaginated>;
     expectAssignable<Readonly<Params>>([fetcher, 5] as const);
-    expectNotAssignable<Readonly<Readonly<Params>>>([badFetcher1, 5] as const);
-    expectNotAssignable<Readonly<Readonly<Params>>>([badFetcher2, 5] as const);
+    expectNotAssignable<Readonly<Params>>([badFetcher1, 5] as const);
+    expectNotAssignable<Readonly<Params>>([badFetcher2, 5] as const);
   });
   test('Auto pagination return type', async () => {
     const getAll = factory.getAllFromPaginated(fetcher, 10);
-    expectType<Custom[]>(await getAll());
+    expectType<DataResponse<SpotifyApi.PagingObject<Custom>>[]>(await getAll());
   });
   test('Auto pagination callback', async () => {
     const getAll = factory.getAllFromPaginated(fetcher, 10);

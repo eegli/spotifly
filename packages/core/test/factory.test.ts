@@ -62,7 +62,7 @@ const createMockAPIEndpoint = function ({
   );
 };
 
-const mockCb = jest.fn();
+const mockCb = jest.fn((...args: unknown[]) => Promise.resolve(args));
 
 describe('Factory', () => {
   const testCases = [
@@ -82,13 +82,25 @@ describe('Factory', () => {
         limit
       )(args => mockCb(args));
 
-      expect(result).toHaveLength(itemCount);
+      expect(result).toHaveLength(expectedCalls);
+      const allItems = result.reduce(
+        (acc, curr) => [...acc, ...curr.data.items],
+        [] as unknown[]
+      );
+      expect(allItems).toHaveLength(itemCount);
       expect(result).toMatchSnapshot('result');
 
       expect(mockGetter).toHaveBeenCalledTimes(expectedCalls);
       expect(mockGetter.mock.calls).toMatchSnapshot('getter invocation');
 
       expect(mockCb).toHaveBeenCalledTimes(expectedCalls);
+      expect(mockCb).toHaveBeenCalledWith(
+        expect.objectContaining({
+          headers: expect.any(Object),
+          statusCode: expect.any(Number),
+          data: expect.any(Object),
+        })
+      );
       expect(mockCb.mock.calls).toMatchSnapshot('callback invocation');
     });
   }
