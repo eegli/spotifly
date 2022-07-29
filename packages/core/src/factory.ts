@@ -1,6 +1,6 @@
 import { chunkify } from '@spotifly/utils';
 import type { ConditionalKeys } from 'type-fest';
-import { DataPromise } from './abstract';
+import { DataPromise } from './request';
 
 type PaginationParams = {
   limit: number;

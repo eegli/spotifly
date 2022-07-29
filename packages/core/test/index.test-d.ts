@@ -1,16 +1,16 @@
 import { expectAssignable, expectType } from 'tsd-lite';
-import { DataResponse as R } from '../src/abstract';
 import { init } from '../src/index';
+import { DataResponse as R } from '../src/request';
 
 const Spotifly = init({ accessToken: '' });
 
 describe('Lib type definitions', () => {
   test('Artists', async () => {
     expectType<R<SpotifyApi.SingleArtistResponse>>(
-      await Spotifly.Artists.SingleArtist.get({ artistId: '' })
+      await Spotifly.Artists.get({ artistId: '' })
     );
     expectType<R<SpotifyApi.MultipleArtistsResponse>>(
-      await Spotifly.Artists.MultipleArtists.get({ artistIds: [] })
+      await Spotifly.Artists.getMultiple({ artistIds: [] })
     );
     expectAssignable<
       Parameters<typeof Spotifly.Artists.extended.allArtists>[0]
@@ -21,11 +21,11 @@ describe('Lib type definitions', () => {
   });
   test('Tracks', async () => {
     expectType<R<SpotifyApi.SingleTrackResponse>>(
-      await Spotifly.Tracks.SingleTrack.get({ trackId: '' })
+      await Spotifly.Tracks.get({ trackId: '' })
     );
 
     expectType<R<SpotifyApi.MultipleTracksResponse>>(
-      await Spotifly.Tracks.MultipleTracks.get({ trackIds: [] })
+      await Spotifly.Tracks.getMultiple({ trackIds: [] })
     );
 
     expectType<R<SpotifyApi.UsersSavedTracksResponse>>(
@@ -53,15 +53,15 @@ describe('Lib type definitions', () => {
     );
 
     expectType<R<SpotifyApi.AudioFeaturesResponse>>(
-      await Spotifly.Tracks.Features.get({ trackId: '' })
+      await Spotifly.Tracks.AudioFeatures.get({ trackId: '' })
     );
 
     expectType<R<SpotifyApi.MultipleAudioFeaturesResponse>>(
-      await Spotifly.Tracks.Features.getMultiple({ trackIds: [''] })
+      await Spotifly.Tracks.AudioFeatures.getMultiple({ trackIds: [''] })
     );
 
     expectType<R<SpotifyApi.AudioAnalysisResponse>>(
-      await Spotifly.Tracks.Analysis.get({ trackId: '' })
+      await Spotifly.Tracks.AudioAnalysis.get({ trackId: '' })
     );
 
     expectType<R<SpotifyApi.RecommendationsFromSeedsResponse>>(

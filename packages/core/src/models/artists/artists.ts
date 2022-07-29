@@ -1,33 +1,27 @@
-import {
-  GetEndpoint,
-  LimitedGetEndpoint,
-  Methods,
-  transformResponse,
-} from '../../abstract';
+import { Methods, transformResponse, WithProvider } from '../../request';
 
-export class GetSingleArtist extends GetEndpoint {
-  async get(params: { artistId: string }) {
-    const res = await this.provider.request<SpotifyApi.SingleArtistResponse>({
+export const getSingleArtist: WithProvider<
+  { artistId: string },
+  SpotifyApi.SingleArtistResponse
+> = provider => async params =>
+  transformResponse(
+    await provider.request({
       method: Methods.GET,
       url: `artists/${params.artistId}`,
-    });
-    return transformResponse(res);
-  }
-}
+    })
+  );
 
-export class GetMultipleArtists extends LimitedGetEndpoint {
-  async get(params: { artistIds: string[] }) {
-    const res = await this.provider.request<SpotifyApi.MultipleArtistsResponse>(
-      {
-        method: Methods.GET,
-        url: 'artists',
-        params: {
-          ids: params.artistIds.join(','),
-        },
-      }
-    );
-    return transformResponse(res);
-  }
-
-  limit = 50;
-}
+export const getMultipleArtists: WithProvider<
+  { artistIds: string[] },
+  SpotifyApi.MultipleArtistsResponse
+> = provider => async params =>
+  transformResponse(
+    await provider.request({
+      method: Methods.GET,
+      url: 'artists',
+      params: {
+        ids: params.artistIds.join(','),
+      },
+    })
+  );
+export const getMultipleArtistsLimit = 50;

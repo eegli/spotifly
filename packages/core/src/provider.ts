@@ -15,8 +15,15 @@ type CommonConfig = {
   refreshAfterSeconds?: number;
 };
 
-export type AuthProviderCtrArgs = CommonConfig &
+type AuthProviderCtrArgs = CommonConfig &
   (AccessTokenConfig | RefreshTokenConfig);
+
+// https://github.com/microsoft/TypeScript/issues/39556
+type BetterOmit<T, E> = {
+  [P in keyof T as Exclude<P, E>]: T[P];
+};
+
+export type AuthInitOptions = BetterOmit<AuthProviderCtrArgs, 'requestConfig'>;
 
 export class AuthProvider {
   // Must be smaller than 60 minutes

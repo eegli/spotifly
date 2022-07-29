@@ -1,18 +1,21 @@
-import { AuthInitOptions } from '../../abstract';
 import * as factory from '../../factory';
-import { GetMultipleArtists, GetSingleArtist } from './artists';
+import { AuthProvider } from '../../provider';
+import {
+  getMultipleArtists,
+  getMultipleArtistsLimit,
+  getSingleArtist,
+} from './artists';
 
-export default function Artists(authInitOpts: AuthInitOptions) {
-  const MultipleArtists = new GetMultipleArtists(authInitOpts);
+export default function Artists(provider: AuthProvider) {
   return {
-    SingleArtist: new GetSingleArtist(authInitOpts),
-    MultipleArtists,
+    get: getSingleArtist(provider),
+    getMultiple: getMultipleArtists(provider),
     extended: {
       allArtists: factory.getAllFromLimited(
-        MultipleArtists.get,
+        getMultipleArtists(provider),
         'artistIds',
-        MultipleArtists.limit
+        getMultipleArtistsLimit
       ),
-    },
+    } as const,
   } as const;
 }

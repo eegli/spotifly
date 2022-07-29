@@ -1,52 +1,55 @@
-import { AuthInitOptions } from '../../abstract';
 import * as factory from '../../factory';
+import { AuthProvider } from '../../provider';
 import {
-  CheckUsersSavedTracks,
-  GetAudioAnalysis,
-  GetAudioFeatures,
-  GetMultipleAudioFeatures,
-  GetMultipleTracks,
-  GetRecommendations,
-  GetSingleTrack,
-  GetUsersSavedTracks,
-  RemoveUsersSavedTracks,
-  SaveTracksForUser,
+  checkUsersSavedTracks,
+  getMultipleAudioFeatures,
+  getMultipleAudioFeaturesLimit,
+  getMultipleTracks,
+  getMultipleTracksLimit,
+  getRecommendations,
+  getSingleAudioAnalysis,
+  getSingleAudioFeatures,
+  getSingleTrack,
+  getUsersSavedTracks,
+  getUsersSavedTracksLimit,
+  removeUsersSavedTracks,
+  saveTracksForUser,
 } from './tracks';
 
-export default function Tracks(authInitOpts: AuthInitOptions) {
-  const GetUserSaved = new GetUsersSavedTracks(authInitOpts);
-  const MultipleTracks = new GetMultipleTracks(authInitOpts);
-  const MultipleFeatures = new GetMultipleAudioFeatures(authInitOpts);
-
+export default function Tracks(provider: AuthProvider) {
   return {
-    SingleTrack: new GetSingleTrack(authInitOpts),
-    MultipleTracks,
-    Analysis: new GetAudioAnalysis(authInitOpts),
-    Features: {
-      get: new GetAudioFeatures(authInitOpts).get,
-      getMultiple: MultipleFeatures.get,
+    get: getSingleTrack(provider),
+    getMultiple: getMultipleTracks(provider),
+    AudioAnalysis: {
+      get: getSingleAudioAnalysis(provider),
     },
-    Recommendations: new GetRecommendations(authInitOpts),
+    AudioFeatures: {
+      get: getSingleAudioFeatures(provider),
+      getMultiple: getMultipleAudioFeatures(provider),
+    },
+    Recommendations: {
+      get: getRecommendations(provider),
+    },
     UsersSaved: {
-      get: GetUserSaved.get,
-      save: new SaveTracksForUser(authInitOpts).put,
-      remove: new RemoveUsersSavedTracks(authInitOpts).delete,
-      check: new CheckUsersSavedTracks(authInitOpts).get,
+      get: getUsersSavedTracks(provider),
+      save: saveTracksForUser(provider),
+      remove: removeUsersSavedTracks(provider),
+      check: checkUsersSavedTracks(provider),
     },
     extended: {
       allUserSavedTracks: factory.getAllFromPaginated(
-        GetUserSaved.get,
-        GetUserSaved.limit
+        getUsersSavedTracks(provider),
+        getUsersSavedTracksLimit
       ),
       allTracks: factory.getAllFromLimited(
-        MultipleTracks.get,
+        getMultipleTracks(provider),
         'trackIds',
-        MultipleTracks.limit
+        getMultipleTracksLimit
       ),
-      allFeatures: factory.getAllFromLimited(
-        MultipleFeatures.get,
+      allAudioFeatures: factory.getAllFromLimited(
+        getMultipleAudioFeatures(provider),
         'trackIds',
-        MultipleFeatures.limit
+        getMultipleAudioFeaturesLimit
       ),
     },
   } as const;
