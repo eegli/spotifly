@@ -1,13 +1,75 @@
-import { expectAssignable } from 'tsd-lite';
+import { expectAssignable, expectType } from 'tsd-lite';
+import { DataResponse as R } from '../src/abstract';
 import { init } from '../src/index';
 
-type Params = Parameters<typeof init>[0];
+const Spotifly = init({ accessToken: '' });
 
-describe('Lib signature', () => {
-  expectAssignable<Params>({ accessToken: '' });
-  expectAssignable<Params>({
-    refreshToken: '',
-    clientId: '',
-    clientSecret: '',
+describe('Lib type definitions', () => {
+  test('Artists', async () => {
+    expectType<R<SpotifyApi.SingleArtistResponse>>(
+      await Spotifly.Artists.SingleArtist.get({ artistId: '' })
+    );
+    expectType<R<SpotifyApi.MultipleArtistsResponse>>(
+      await Spotifly.Artists.MultipleArtists.get({ artistIds: [] })
+    );
+    expectAssignable<
+      Parameters<typeof Spotifly.Artists.extended.allArtists>[0]
+    >({ artistIds: [] });
+    expectAssignable<
+      Parameters<typeof Spotifly.Artists.extended.allArtists>[1]
+    >((_: R<SpotifyApi.MultipleArtistsResponse>) => null);
+  });
+  test('Tracks', async () => {
+    expectType<R<SpotifyApi.SingleTrackResponse>>(
+      await Spotifly.Tracks.SingleTrack.get({ trackId: '' })
+    );
+
+    expectType<R<SpotifyApi.MultipleTracksResponse>>(
+      await Spotifly.Tracks.MultipleTracks.get({ trackIds: [] })
+    );
+
+    expectType<R<SpotifyApi.UsersSavedTracksResponse>>(
+      await Spotifly.Tracks.UsersSaved.get()
+    );
+
+    expectType<R<SpotifyApi.UsersSavedTracksResponse>[]>(
+      await Spotifly.Tracks.extended.allUserSavedTracks()
+    );
+
+    expectAssignable<
+      Parameters<typeof Spotifly.Tracks.extended.allUserSavedTracks>[0]
+    >((_: R<SpotifyApi.UsersSavedTracksResponse>) => null);
+
+    expectType<R<SpotifyApi.SaveTracksForUserResponse>>(
+      await Spotifly.Tracks.UsersSaved.save({ trackIds: [''] })
+    );
+
+    expectType<R<SpotifyApi.RemoveUsersSavedTracksResponse>>(
+      await Spotifly.Tracks.UsersSaved.remove({ trackIds: [''] })
+    );
+
+    expectType<R<SpotifyApi.CheckUsersSavedTracksResponse>>(
+      await Spotifly.Tracks.UsersSaved.check({ trackIds: [''] })
+    );
+
+    expectType<R<SpotifyApi.AudioFeaturesResponse>>(
+      await Spotifly.Tracks.Features.get({ trackId: '' })
+    );
+
+    expectType<R<SpotifyApi.MultipleAudioFeaturesResponse>>(
+      await Spotifly.Tracks.Features.getMultiple({ trackIds: [''] })
+    );
+
+    expectType<R<SpotifyApi.AudioAnalysisResponse>>(
+      await Spotifly.Tracks.Analysis.get({ trackId: '' })
+    );
+
+    expectType<R<SpotifyApi.RecommendationsFromSeedsResponse>>(
+      await Spotifly.Tracks.Recommendations.get({
+        seed_artists: '',
+        seed_genres: '',
+        seed_tracks: '',
+      })
+    );
   });
 });

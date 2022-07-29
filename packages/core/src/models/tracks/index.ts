@@ -1,6 +1,5 @@
 import { AuthInitOptions } from '../../abstract';
 import * as factory from '../../factory';
-import { merge } from '../../utils';
 import {
   CheckUsersSavedTracks,
   GetAudioAnalysis,
@@ -16,46 +15,39 @@ import {
 
 export default function Tracks(authInitOpts: AuthInitOptions) {
   const GetUserSaved = new GetUsersSavedTracks(authInitOpts);
-  const GetMultiple = new GetMultipleTracks(authInitOpts);
+  const MultipleTracks = new GetMultipleTracks(authInitOpts);
+  const MultipleFeatures = new GetMultipleAudioFeatures(authInitOpts);
 
   return {
     SingleTrack: new GetSingleTrack(authInitOpts),
-    MultipleTracks: GetMultiple,
+    MultipleTracks,
     Analysis: new GetAudioAnalysis(authInitOpts),
     Features: {
       get: new GetAudioFeatures(authInitOpts).get,
-      getMultiple: new GetMultipleAudioFeatures(authInitOpts).get,
+      getMultiple: MultipleFeatures.get,
     },
     Recommendations: new GetRecommendations(authInitOpts),
-    UsersSaved: merge(GetUserSaved, {
+    UsersSaved: {
+      get: GetUserSaved.get,
       save: new SaveTracksForUser(authInitOpts).put,
       remove: new RemoveUsersSavedTracks(authInitOpts).delete,
       check: new CheckUsersSavedTracks(authInitOpts).get,
-    }),
+    },
     extended: {
       allUserSavedTracks: factory.getAllFromPaginated(
         GetUserSaved.get,
         GetUserSaved.limit
       ),
       allTracks: factory.getAllFromLimited(
-        GetMultiple.get,
+        MultipleTracks.get,
         'trackIds',
-        GetMultiple.limit
+        MultipleTracks.limit
       ),
-      allFeatures: null,
+      allFeatures: factory.getAllFromLimited(
+        MultipleFeatures.get,
+        'trackIds',
+        MultipleFeatures.limit
+      ),
     },
   } as const;
 }
-
-export const TrackModels = {
-  CheckUsersSavedTracks,
-  GetAudioAnalysis,
-  GetAudioFeatures,
-  GetMultipleAudioFeatures,
-  GetMultipleTracks,
-  GetRecommendations,
-  GetSingleTrack,
-  GetUsersSavedTracks,
-  RemoveUsersSavedTracks,
-  SaveTracksForUser,
-};

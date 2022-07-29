@@ -2,13 +2,13 @@ import { expectAssignable, expectNotAssignable, expectType } from 'tsd-lite';
 import { DataPromise, DataResponse } from '../src/abstract';
 import * as factory from '../src/factory';
 
+type Custom = { prop: string };
+
 type ReadOnlyParams<T extends (...args: any) => any> = T extends (
   ...args: infer P
 ) => any
   ? Readonly<P>
   : never;
-
-type Custom = { prop: string };
 
 declare function fetchFn(params: {
   limit: number;
