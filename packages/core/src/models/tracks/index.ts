@@ -1,5 +1,5 @@
 import { AuthInitOptions } from '../../abstract';
-import { getAllFromPaginated } from '../../factory';
+import * as factory from '../../factory';
 import { merge } from '../../utils';
 import {
   CheckUsersSavedTracks,
@@ -16,10 +16,11 @@ import {
 
 export default function Tracks(authInitOpts: AuthInitOptions) {
   const GetUserSaved = new GetUsersSavedTracks(authInitOpts);
+  const GetMultiple = new GetMultipleTracks(authInitOpts);
 
   return {
     SingleTrack: new GetSingleTrack(authInitOpts),
-    MultipleTracks: new GetMultipleTracks(authInitOpts),
+    MultipleTracks: GetMultiple,
     Analysis: new GetAudioAnalysis(authInitOpts),
     Features: {
       get: new GetAudioFeatures(authInitOpts).get,
@@ -32,10 +33,16 @@ export default function Tracks(authInitOpts: AuthInitOptions) {
       check: new CheckUsersSavedTracks(authInitOpts).get,
     }),
     extended: {
-      allUserSavedTracks: getAllFromPaginated(
+      allUserSavedTracks: factory.getAllFromPaginated(
         GetUserSaved.get,
         GetUserSaved.limit
       ),
+      allTracks: factory.getAllFromLimited(
+        GetMultiple.get,
+        'trackIds',
+        GetMultiple.limit
+      ),
+      allFeatures: null,
     },
   } as const;
 }
