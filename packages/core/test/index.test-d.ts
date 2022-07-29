@@ -13,10 +13,10 @@ describe('Lib type definitions', () => {
       await Spotifly.Artists.getMultiple({ artistIds: [] })
     );
     expectAssignable<
-      Parameters<typeof Spotifly.Artists.extended.allArtists>[0]
+      Parameters<typeof Spotifly.Artists.extended.getAllArtists>[0]
     >({ artistIds: [] });
     expectAssignable<
-      Parameters<typeof Spotifly.Artists.extended.allArtists>[1]
+      Parameters<typeof Spotifly.Artists.extended.getAllArtists>[1]
     >((_: R<SpotifyApi.MultipleArtistsResponse>) => null);
   });
   test('Tracks', async () => {
