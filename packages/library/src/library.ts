@@ -28,7 +28,7 @@ export const getLibrary = async (
 
   progress.start(0, 0);
 
-  await Spotifly.Tracks.extended.allUserSavedTracks(({ data }) => {
+  await Spotifly.Tracks.extended.getAllUserSavedTracks(({ data }) => {
     progress.setTotal(data.total);
     progress.increment(data.items.length);
 
@@ -64,21 +64,18 @@ export const getLibrary = async (
   // Add genres if specified
   if (config.genres) {
     const artists = lib.library.map(t => t.track.artists.map(a => a.id)).flat();
-    const artistIds = new Set<string>(artists);
+    const artistIds = [...new Set<string>(artists)];
     const genres: Record<string, string[]> = {};
 
     progress = createProgressBar('artists');
-    progress.start(artistIds.size, 0);
+    progress.start(artistIds.length, 0);
 
-    await Spotifly.Artists.extended.getAllArtists(
-      { artistIds: [...artistIds] },
-      ({ data }) => {
-        data.artists.forEach(artist => {
-          genres[artist.id] = artist.genres;
-        });
-        progress.increment(50);
-      }
-    );
+    await Spotifly.Artists.extended.getAllArtists({ artistIds }, ({ data }) => {
+      data.artists.forEach(artist => {
+        genres[artist.id] = artist.genres;
+      });
+      progress.increment(data.artists.length);
+    });
 
     progress.stop();
     lib.library.forEach(({ track }) => {
@@ -91,18 +88,17 @@ export const getLibrary = async (
     const trackIds = lib.library.map(t => t.track.id);
     const features: Record<string, SpotifyApi.AudioFeaturesObject> = {};
 
-    const chunkSize = 50;
     progress = createProgressBar('audio features');
 
     progress.start(trackIds.length, 0);
 
-    await Spotifly.Tracks.extended.allAudioFeatures(
+    await Spotifly.Tracks.extended.getAllAudioFeatures(
       { trackIds },
       ({ data }) => {
         data.audio_features.forEach(f => {
           features[f.id] = f;
         });
-        progress.increment(chunkSize);
+        progress.increment(data.audio_features.length);
       }
     );
 

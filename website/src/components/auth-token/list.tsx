@@ -52,7 +52,7 @@ export const AuthTokenList = ({
           <ListItemText primary="Scopes" secondary={scopes} />
         </ListItem>
         <ListItemButton onClick={() => handleClickToken(accessToken)}>
-          <Tooltip title="Copy access token" placement="top">
+          <Tooltip title="Click to copy access token" placement="top">
             <ListItemText primary="Access token" secondary={accessToken} />
           </Tooltip>
         </ListItemButton>
