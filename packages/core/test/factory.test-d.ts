@@ -24,7 +24,7 @@ declare function badFetchFn2(
   params: null
 ): DataPromise<SpotifyApi.PagingObject<Custom>>;
 
-describe('Factory, pagination endpoint', () => {
+describe('Factory, pagination handling', () => {
   const getAll = factory.getAllFromPaginated(fetchFn, 10);
 
   test('parameters', async () => {
@@ -48,7 +48,7 @@ declare function limitedFn(params: {
   market?: string;
 }): DataPromise<Custom>;
 
-describe('Factory, limited endpoint', () => {
+describe('Factory, limited endpoint handling', () => {
   const getAll = factory.getAllFromLimited(limitedFn, 'ids', 10);
   test('parameters', async () => {
     type Params = ReadOnlyParams<typeof factory.getAllFromLimited>;
