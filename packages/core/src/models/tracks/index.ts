@@ -18,39 +18,46 @@ import {
 
 export default function Tracks(provider: AuthProvider) {
   return {
-    get: getSingleTrack(provider),
-    getMultiple: getMultipleTracks(provider),
+    Track: {
+      get: getSingleTrack(provider),
+      getMultiple: getMultipleTracks(provider),
+      extended: {
+        getAll(ids: string[]) {
+          return factory
+            .forLimited(getMultipleTracks(provider), getMultipleTracksLimit)
+            .bind(null, ids);
+        },
+      } as const,
+    } as const,
     AudioAnalysis: {
       get: getAudioAnalysis(provider),
     } as const,
     AudioFeatures: {
       get: getSingleAudioFeatures(provider),
       getMultiple: getMultipleAudioFeatures(provider),
+      extended: {
+        getAll(ids: string[]) {
+          return factory.forLimited(
+            getMultipleAudioFeatures(provider).bind(null, ids),
+            getMultipleAudioFeaturesLimit
+          );
+        },
+      } as const,
     } as const,
     Recommendations: {
       get: getRecommendations(provider),
     } as const,
     UsersSaved: {
-      get: getUsersSavedTracks(provider),
+      get: getUsersSavedTracks(provider).bind(null, null),
       save: saveTracksForUser(provider),
       remove: removeUsersSavedTracks(provider),
       check: checkUsersSavedTracks(provider),
-    } as const,
-    extended: {
-      getAllUserSavedTracks: factory.getAllFromPaginated(
-        getUsersSavedTracks(provider),
-        getUsersSavedTracksLimit
-      ),
-      getAllTracks: factory.getAllFromLimited(
-        getMultipleTracks(provider),
-        'trackIds',
-        getMultipleTracksLimit
-      ),
-      getAllAudioFeatures: factory.getAllFromLimited(
-        getMultipleAudioFeatures(provider),
-        'trackIds',
-        getMultipleAudioFeaturesLimit
-      ),
+      extended: {
+        getAll: factory.forPaginated(
+          getUsersSavedTracks(provider).bind(null, null),
+          getUsersSavedTracksLimit
+        ),
+      } as const,
     } as const,
   } as const;
 }

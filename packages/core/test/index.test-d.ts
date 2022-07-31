@@ -4,28 +4,34 @@ import { DataResponse as R } from '../src/request';
 
 const Spotifly = init({ accessToken: '' });
 
+type CurriedParameters<T> = T extends (
+  ...args: any[]
+) => (...args: infer A) => any
+  ? A
+  : never;
+
 describe('Lib type definitions', () => {
   test('Artists', async () => {
     expectType<R<SpotifyApi.SingleArtistResponse>>(
-      await Spotifly.Artists.get({ artistId: '' })
+      await Spotifly.Artists.Artist.get('')
     );
     expectType<R<SpotifyApi.MultipleArtistsResponse>>(
-      await Spotifly.Artists.getMultiple({ artistIds: [] })
+      await Spotifly.Artists.Artist.getMultiple([''])
     );
     expectAssignable<
-      Parameters<typeof Spotifly.Artists.extended.getAllArtists>[0]
-    >({ artistIds: [] });
+      Parameters<typeof Spotifly.Artists.Artist.extended.getAll>[0]
+    >([]);
     expectAssignable<
-      Parameters<typeof Spotifly.Artists.extended.getAllArtists>[1]
+      CurriedParameters<typeof Spotifly.Artists.Artist.extended.getAll>[0]
     >((_: R<SpotifyApi.MultipleArtistsResponse>) => null);
   });
   test('Tracks', async () => {
     expectType<R<SpotifyApi.SingleTrackResponse>>(
-      await Spotifly.Tracks.get({ trackId: '' })
+      await Spotifly.Tracks.Track.get('')
     );
 
     expectType<R<SpotifyApi.MultipleTracksResponse>>(
-      await Spotifly.Tracks.getMultiple({ trackIds: [] })
+      await Spotifly.Tracks.Track.getMultiple([])
     );
 
     expectType<R<SpotifyApi.UsersSavedTracksResponse>>(
@@ -33,35 +39,37 @@ describe('Lib type definitions', () => {
     );
 
     expectType<R<SpotifyApi.UsersSavedTracksResponse>[]>(
-      await Spotifly.Tracks.extended.getAllUserSavedTracks()
+      await Spotifly.Tracks.UsersSaved.extended.getAll()()
     );
 
     expectAssignable<
-      Parameters<typeof Spotifly.Tracks.extended.getAllUserSavedTracks>[0]
+      Parameters<
+        ReturnType<typeof Spotifly.Tracks.UsersSaved.extended.getAll>
+      >[0]
     >((_: R<SpotifyApi.UsersSavedTracksResponse>) => null);
 
     expectType<R<SpotifyApi.SaveTracksForUserResponse>>(
-      await Spotifly.Tracks.UsersSaved.save({ trackIds: [''] })
+      await Spotifly.Tracks.UsersSaved.save([])
     );
 
     expectType<R<SpotifyApi.RemoveUsersSavedTracksResponse>>(
-      await Spotifly.Tracks.UsersSaved.remove({ trackIds: [''] })
+      await Spotifly.Tracks.UsersSaved.remove([])
     );
 
     expectType<R<SpotifyApi.CheckUsersSavedTracksResponse>>(
-      await Spotifly.Tracks.UsersSaved.check({ trackIds: [''] })
+      await Spotifly.Tracks.UsersSaved.check([])
     );
 
     expectType<R<SpotifyApi.AudioFeaturesResponse>>(
-      await Spotifly.Tracks.AudioFeatures.get({ trackId: '' })
+      await Spotifly.Tracks.AudioFeatures.get('')
     );
 
     expectType<R<SpotifyApi.MultipleAudioFeaturesResponse>>(
-      await Spotifly.Tracks.AudioFeatures.getMultiple({ trackIds: [''] })
+      await Spotifly.Tracks.AudioFeatures.getMultiple([])
     );
 
     expectType<R<SpotifyApi.AudioAnalysisResponse>>(
-      await Spotifly.Tracks.AudioAnalysis.get({ trackId: '' })
+      await Spotifly.Tracks.AudioAnalysis.get('')
     );
 
     expectType<R<SpotifyApi.RecommendationsFromSeedsResponse>>(

@@ -1,4 +1,0 @@
-{
-  "main": "dist/spotifly-core-models.cjs.js",
-  "module": "dist/spotifly-core-models.esm.js"
-}
