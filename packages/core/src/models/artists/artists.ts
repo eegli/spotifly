@@ -1,29 +1,30 @@
-import { Methods, transformResponse, WithProvider } from '../../request';
+import { AsyncFnWithProvider, Methods, transformResponse } from '../../request';
 
-export const getSingleArtist: WithProvider<
-  { artistId: string },
-  SpotifyApi.SingleArtistResponse
-> = provider => async params =>
+export const getSingleArtist: AsyncFnWithProvider<
+  SpotifyApi.SingleArtistResponse,
+  string
+> = provider => async artistId =>
   transformResponse(
     await provider.request({
       method: Methods.GET,
-      url: `artists/${params.artistId}`,
+      url: `artists/${artistId}`,
     })
   );
 
-export const getMultipleArtists: WithProvider<
-  { artistIds: string[] },
-  SpotifyApi.MultipleArtistsResponse
-> = provider => async params =>
+export const getMultipleArtists: AsyncFnWithProvider<
+  SpotifyApi.MultipleArtistsResponse,
+  string[]
+> = provider => async artistIds =>
   transformResponse(
     await provider.request({
       method: Methods.GET,
       url: 'artists',
       params: {
-        ids: params.artistIds.join(','),
+        ids: artistIds.join(','),
       },
     })
   );
+
 export const getMultipleArtistsLimit = 50;
 
 type GroupType = 'album' | 'single' | 'appears_on' | 'compilation';
@@ -33,44 +34,45 @@ type Group =
   | `${GroupType},${GroupType},${GroupType}`
   | `${GroupType},${GroupType},${GroupType},${GroupType}`;
 
-export const getArtistsAlbums: WithProvider<
+export const getArtistsAlbums: AsyncFnWithProvider<
+  SpotifyApi.ArtistsAlbumsResponse,
+  string,
   {
-    artistId: string;
-    include_groups?: Group;
-    offset?: number;
-    limit?: number;
-    market?: string;
-  },
-  SpotifyApi.ArtistsAlbumsResponse
-> = provider => async params =>
+    include_groups: Group;
+    offset: number;
+    limit: number;
+    market: string;
+  }
+> = provider => async (artistId, params) =>
   transformResponse(
     await provider.request({
       method: Methods.GET,
-      url: `artists/${params.artistId}/albums`,
+      url: `artists/${artistId}/albums`,
       params,
     })
   );
 export const getArtistsAlbumsLimit = 50;
 
-export const getArtistsTopTracks: WithProvider<
-  { artistId: string; market?: string },
-  SpotifyApi.ArtistsTopTracksResponse
-> = provider => async params =>
+export const getArtistsTopTracks: AsyncFnWithProvider<
+  SpotifyApi.ArtistsTopTracksResponse,
+  string,
+  { market: string }
+> = provider => async (artistId, params) =>
   transformResponse(
     await provider.request({
       method: Methods.GET,
-      url: `artists/${params.artistId}/top-tracks`,
+      url: `artists/${artistId}/top-tracks`,
       params,
     })
   );
 
-export const getArtistsRelatedArtists: WithProvider<
-  { artistId: string },
-  SpotifyApi.ArtistsRelatedArtistsResponse
-> = provider => async params =>
+export const getArtistsRelatedArtists: AsyncFnWithProvider<
+  SpotifyApi.ArtistsRelatedArtistsResponse,
+  string
+> = provider => async artistId =>
   transformResponse(
     await provider.request({
       method: Methods.GET,
-      url: `artists/${params.artistId}/related-artists`,
+      url: `artists/${artistId}/related-artists`,
     })
   );

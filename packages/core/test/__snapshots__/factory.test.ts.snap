@@ -7,6 +7,7 @@ exports[`Factory, limited endpoint handling handles max 1 item with limit of 5: 
       "data": [
         {
           "id": 1,
+          "market": "CH",
         },
       ],
       "headers": {},
@@ -22,6 +23,7 @@ exports[`Factory, limited endpoint handling handles max 1 item with limit of 5: 
     "data": [
       {
         "id": 1,
+        "market": "CH",
       },
     ],
     "headers": {},
@@ -37,18 +39,23 @@ exports[`Factory, limited endpoint handling handles max 5 item with limit of 5: 
       "data": [
         {
           "id": 1,
+          "market": "CH",
         },
         {
           "id": 1,
+          "market": "CH",
         },
         {
           "id": 1,
+          "market": "CH",
         },
         {
           "id": 1,
+          "market": "CH",
         },
         {
           "id": 1,
+          "market": "CH",
         },
       ],
       "headers": {},
@@ -64,18 +71,23 @@ exports[`Factory, limited endpoint handling handles max 5 item with limit of 5: 
     "data": [
       {
         "id": 1,
+        "market": "CH",
       },
       {
         "id": 1,
+        "market": "CH",
       },
       {
         "id": 1,
+        "market": "CH",
       },
       {
         "id": 1,
+        "market": "CH",
       },
       {
         "id": 1,
+        "market": "CH",
       },
     ],
     "headers": {},
@@ -91,18 +103,23 @@ exports[`Factory, limited endpoint handling handles max 8 item with limit of 5: 
       "data": [
         {
           "id": 1,
+          "market": "CH",
         },
         {
           "id": 1,
+          "market": "CH",
         },
         {
           "id": 1,
+          "market": "CH",
         },
         {
           "id": 1,
+          "market": "CH",
         },
         {
           "id": 1,
+          "market": "CH",
         },
       ],
       "headers": {},
@@ -114,12 +131,15 @@ exports[`Factory, limited endpoint handling handles max 8 item with limit of 5: 
       "data": [
         {
           "id": 1,
+          "market": "CH",
         },
         {
           "id": 1,
+          "market": "CH",
         },
         {
           "id": 1,
+          "market": "CH",
         },
       ],
       "headers": {},
@@ -135,18 +155,23 @@ exports[`Factory, limited endpoint handling handles max 8 item with limit of 5: 
     "data": [
       {
         "id": 1,
+        "market": "CH",
       },
       {
         "id": 1,
+        "market": "CH",
       },
       {
         "id": 1,
+        "market": "CH",
       },
       {
         "id": 1,
+        "market": "CH",
       },
       {
         "id": 1,
+        "market": "CH",
       },
     ],
     "headers": {},
@@ -156,12 +181,15 @@ exports[`Factory, limited endpoint handling handles max 8 item with limit of 5: 
     "data": [
       {
         "id": 1,
+        "market": "CH",
       },
       {
         "id": 1,
+        "market": "CH",
       },
       {
         "id": 1,
+        "market": "CH",
       },
     ],
     "headers": {},
@@ -177,41 +205,23 @@ exports[`Factory, limited endpoint handling handles max 12 item with limit of 5:
       "data": [
         {
           "id": 1,
+          "market": "CH",
         },
         {
           "id": 1,
+          "market": "CH",
         },
         {
           "id": 1,
+          "market": "CH",
         },
         {
           "id": 1,
+          "market": "CH",
         },
         {
           "id": 1,
-        },
-      ],
-      "headers": {},
-      "statusCode": 200,
-    },
-  ],
-  [
-    {
-      "data": [
-        {
-          "id": 1,
-        },
-        {
-          "id": 1,
-        },
-        {
-          "id": 1,
-        },
-        {
-          "id": 1,
-        },
-        {
-          "id": 1,
+          "market": "CH",
         },
       ],
       "headers": {},
@@ -223,9 +233,39 @@ exports[`Factory, limited endpoint handling handles max 12 item with limit of 5:
       "data": [
         {
           "id": 1,
+          "market": "CH",
         },
         {
           "id": 1,
+          "market": "CH",
+        },
+        {
+          "id": 1,
+          "market": "CH",
+        },
+        {
+          "id": 1,
+          "market": "CH",
+        },
+        {
+          "id": 1,
+          "market": "CH",
+        },
+      ],
+      "headers": {},
+      "statusCode": 200,
+    },
+  ],
+  [
+    {
+      "data": [
+        {
+          "id": 1,
+          "market": "CH",
+        },
+        {
+          "id": 1,
+          "market": "CH",
         },
       ],
       "headers": {},
@@ -241,39 +281,23 @@ exports[`Factory, limited endpoint handling handles max 12 item with limit of 5:
     "data": [
       {
         "id": 1,
+        "market": "CH",
       },
       {
         "id": 1,
+        "market": "CH",
       },
       {
         "id": 1,
+        "market": "CH",
       },
       {
         "id": 1,
+        "market": "CH",
       },
       {
         "id": 1,
-      },
-    ],
-    "headers": {},
-    "statusCode": 200,
-  },
-  {
-    "data": [
-      {
-        "id": 1,
-      },
-      {
-        "id": 1,
-      },
-      {
-        "id": 1,
-      },
-      {
-        "id": 1,
-      },
-      {
-        "id": 1,
+        "market": "CH",
       },
     ],
     "headers": {},
@@ -283,9 +307,37 @@ exports[`Factory, limited endpoint handling handles max 12 item with limit of 5:
     "data": [
       {
         "id": 1,
+        "market": "CH",
       },
       {
         "id": 1,
+        "market": "CH",
+      },
+      {
+        "id": 1,
+        "market": "CH",
+      },
+      {
+        "id": 1,
+        "market": "CH",
+      },
+      {
+        "id": 1,
+        "market": "CH",
+      },
+    ],
+    "headers": {},
+    "statusCode": 200,
+  },
+  {
+    "data": [
+      {
+        "id": 1,
+        "market": "CH",
+      },
+      {
+        "id": 1,
+        "market": "CH",
       },
     ],
     "headers": {},
@@ -297,7 +349,9 @@ exports[`Factory, limited endpoint handling handles max 12 item with limit of 5:
 exports[`Factory, pagination handling gets all 1 items and invokes callback in between: api invocation 1`] = `
 [
   [
+    "id",
     {
+      "0": "id",
       "limit": 6,
       "offset": 0,
     },
@@ -354,7 +408,9 @@ exports[`Factory, pagination handling gets all 1 items and invokes callback in b
 exports[`Factory, pagination handling gets all 5 items and invokes callback in between: api invocation 1`] = `
 [
   [
+    "id",
     {
+      "0": "id",
       "limit": 6,
       "offset": 0,
     },
@@ -435,13 +491,17 @@ exports[`Factory, pagination handling gets all 5 items and invokes callback in b
 exports[`Factory, pagination handling gets all 12 items and invokes callback in between: api invocation 1`] = `
 [
   [
+    "id",
     {
+      "0": "id",
       "limit": 6,
       "offset": 0,
     },
   ],
   [
+    "id",
     {
+      "0": "id",
       "limit": 6,
       "offset": 6,
     },
@@ -594,25 +654,33 @@ exports[`Factory, pagination handling gets all 12 items and invokes callback in 
 exports[`Factory, pagination handling gets all 20 items and invokes callback in between: api invocation 1`] = `
 [
   [
+    "id",
     {
+      "0": "id",
       "limit": 6,
       "offset": 0,
     },
   ],
   [
+    "id",
     {
+      "0": "id",
       "limit": 6,
       "offset": 6,
     },
   ],
   [
+    "id",
     {
+      "0": "id",
       "limit": 6,
       "offset": 12,
     },
   ],
   [
+    "id",
     {
+      "0": "id",
       "limit": 6,
       "offset": 18,
     },
