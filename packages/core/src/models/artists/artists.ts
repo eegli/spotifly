@@ -1,4 +1,5 @@
 import { AsyncFnWithProvider, Methods, transformResponse } from '../../request';
+import type { Permutations } from '../../types';
 
 export const getSingleArtist: AsyncFnWithProvider<
   SpotifyApi.SingleArtistResponse,
@@ -27,18 +28,13 @@ export const getMultipleArtists: AsyncFnWithProvider<
 
 export const getMultipleArtistsLimit = 50;
 
-type GroupType = 'album' | 'single' | 'appears_on' | 'compilation';
-type Group =
-  | `${GroupType}`
-  | `${GroupType},${GroupType}`
-  | `${GroupType},${GroupType},${GroupType}`
-  | `${GroupType},${GroupType},${GroupType},${GroupType}`;
-
 export const getArtistsAlbums: AsyncFnWithProvider<
   SpotifyApi.ArtistsAlbumsResponse,
   string,
   {
-    include_groups: Group;
+    include_groups: Permutations<
+      'album' | 'single' | 'appears_on' | 'compilation'
+    >;
     offset: number;
     limit: number;
     market: string;
