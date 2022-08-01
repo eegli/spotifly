@@ -44,6 +44,7 @@ jobs:
         uses: codecov/codecov-action@v3
         if: matrix.node == '17'
         with:
+          token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: true
           files: ./coverage/coverage-final.json
           name: codecov-spotifly
