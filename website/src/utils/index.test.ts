@@ -1,5 +1,5 @@
 import { describe, expect, test } from '@jest/globals';
-import { flagsFromObject } from './utils';
+import { flagsFromObject } from './';
 
 describe('Utils, flagsFromObject', () => {
   [

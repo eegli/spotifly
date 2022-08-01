@@ -8,13 +8,14 @@ export type DataResponse<T = unknown> = {
 };
 export type DataPromise<T = unknown> = Promise<DataResponse<T>>;
 
-export type WithProvider<P, R> = (
-  provider: AuthProvider
-) => (params: P) => DataPromise<R>;
+export type AsyncFn<Return, Required, Optional = unknown> = (
+  required: Required,
+  optional?: Partial<Optional>
+) => DataPromise<Return>;
 
-export type WithProviderOptional<P, R> = (
+export type AsyncFnWithProvider<Return, Required, Optional = unknown> = (
   provider: AuthProvider
-) => (params?: P) => DataPromise<R>;
+) => AsyncFn<Return, Required, Optional>;
 
 export enum Methods {
   GET = 'GET',

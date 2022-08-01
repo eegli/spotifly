@@ -17,6 +17,9 @@
     "plugin:jest/style",
     "prettier"
   ],
+  "rules": {
+    "@typescript-eslint/no-explicit-any": ["error", { "ignoreRestArgs": true }]
+  },
   "overrides": [
     {
       "files": ["**.ts", "**.tsx"],

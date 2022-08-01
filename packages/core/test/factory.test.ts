@@ -21,23 +21,17 @@ function* createPaginatedBackend(
     };
   }
 }
-const createPaginatedAPI = function ({
-  itemCount,
-  limit,
-}: {
-  itemCount: number;
-  limit: number;
-}) {
-  const backend = createPaginatedBackend(itemCount, limit);
+const setupTest = function (itemCount: number, beLimit: number) {
+  const backend = createPaginatedBackend(itemCount, beLimit);
 
   return jest.fn(
-    ({
-      limit,
-      offset,
-    }: {
-      limit: number;
-      offset: number;
-    }): DataPromise<SpotifyApi.PagingObject<{ id: number }>> => {
+    (
+      _: string,
+      params?: {
+        limit?: number;
+        offset?: number;
+      }
+    ) => {
       let next: string | null = 'next';
       const nextValue = backend.next().value;
       if (!nextValue) throw new Error();
@@ -51,9 +45,9 @@ const createPaginatedAPI = function ({
         data: {
           href: 'href',
           items: nextValue.items,
-          limit,
+          limit: params?.limit || 20,
           next,
-          offset,
+          offset: params?.offset || 0,
           previous: null,
           total: 1,
         },
@@ -72,12 +66,13 @@ describe('Factory, pagination handling', () => {
   ].forEach(testCase => {
     const { limit, itemCount, expectedCalls } = testCase;
     test(`gets all ${itemCount} items and invokes callback in between`, async () => {
-      const mockAPI = createPaginatedAPI({ itemCount, limit });
+      const mockAPI = setupTest(itemCount, limit);
 
-      const result = await factory.getAllFromPaginated(
-        mockAPI,
-        limit
-      )(args => mockCb(args));
+      const fetch = factory.forPaginated(mockAPI, limit);
+
+      const result = await fetch('id', { limit: 111, offset: 111 })(args =>
+        mockCb(args)
+      );
 
       expect(result).toHaveLength(expectedCalls);
       const allItems = result.reduce(
@@ -105,7 +100,10 @@ describe('Factory, pagination handling', () => {
 
 const createLimitedAPI = function (limit: number) {
   return jest.fn(
-    ({ ids }: { ids: string[] }): DataPromise<{ id: number }[]> => {
+    (
+      ids: string[],
+      rest?: { market?: string }
+    ): DataPromise<{ id: number; market: string }[]> => {
       if (ids.length > limit) {
         throw new Error();
       }
@@ -113,7 +111,10 @@ const createLimitedAPI = function (limit: number) {
       return Promise.resolve({
         statusCode: 200,
         headers: {},
-        data: Array.from({ length: ids.length }).map(() => ({ id: 1 })),
+        data: Array.from({ length: ids.length }).map(() => ({
+          id: 1,
+          market: rest?.market || 'unknown',
+        })),
       });
     }
   );
@@ -131,14 +132,12 @@ describe('Factory, limited endpoint handling', () => {
     const { limit, itemCount, expectedCalls } = testCase;
     test(`handles max ${itemCount} item with limit of ${limit}`, async () => {
       const mockAPI = createLimitedAPI(limit);
+      const fetch = factory.forLimited(mockAPI, limit);
 
-      const result = await factory.getAllFromLimited(
-        mockAPI,
-        'ids',
-        limit
-      )({ ids: Array.from({ length: itemCount }, () => 'test') }, args =>
-        mockCb(args)
-      );
+      const result = await fetch(
+        Array.from({ length: itemCount }, () => 'id'),
+        { market: 'CH' }
+      )(args => mockCb(args));
       expect(result).toHaveLength(expectedCalls);
       const allItems = result.reduce(
         (acc, curr) => [...acc, ...curr.data],
@@ -149,7 +148,7 @@ describe('Factory, limited endpoint handling', () => {
 
       expect(mockAPI).toHaveBeenCalledTimes(expectedCalls);
       mockAPI.mock.calls.forEach(call =>
-        expect(call[0].ids.length).toBeLessThanOrEqual(limit)
+        expect(call[0].length).toBeLessThanOrEqual(limit)
       );
 
       expect(mockCb).toHaveBeenCalledTimes(expectedCalls);

@@ -1,51 +1,52 @@
 import { chunkify } from '@spotifly/utils';
-import type { ConditionalKeys } from 'type-fest';
-import { DataPromise } from './request';
+import { AsyncFn } from './request';
 
 type PaginationParams = {
   limit: number;
   offset: number;
 };
 
-type PaginationReturn = DataPromise<SpotifyApi.PagingObject<unknown>>;
-
-export function getAllFromPaginated<
-  F extends (arg: PaginationParams) => PaginationReturn,
+export function forPaginated<
+  F extends AsyncFn<SpotifyApi.PagingObject<unknown>, string, PaginationParams>,
+  P extends Parameters<F>,
   R extends Awaited<ReturnType<F>>
 >(getFn: F, limit: number) {
-  return async function (cb?: (param: R) => unknown): Promise<R[]> {
-    let nextPage: string | null = null;
-    let offset = 0;
-    const responses = [];
-    do {
-      const response = (await getFn({
-        limit,
-        offset,
-      })) as R;
-      responses.push(response);
-      nextPage = response.data.next;
-      offset += limit;
-      if (cb) await cb(response);
-    } while (nextPage);
-    return responses;
+  // TODO omit keyof PaginationParams from args
+  return function (args1: P[0], args2?: P[1]) {
+    return async function (cb?: (param: R) => unknown): Promise<R[]> {
+      let nextPage: string | null = null;
+      let offset = 0;
+      const responses = [];
+      do {
+        const response = (await getFn(args1, {
+          ...args2,
+          limit,
+          offset,
+        })) as R;
+        responses.push(response);
+        nextPage = response.data.next;
+        offset += limit;
+        if (cb) await cb(response);
+      } while (nextPage);
+      return responses;
+    };
   };
 }
 
-type FirstParam<T> = T extends (arg: infer A) => any ? A : never;
-
-export function getAllFromLimited<
-  F extends (...args: any[]) => DataPromise,
-  P extends FirstParam<F>,
-  S extends ConditionalKeys<P, string[]>,
+export function forLimited<
+  F extends AsyncFn<unknown, string[], unknown>,
   R extends Awaited<ReturnType<F>>
->(getFn: F, toSlice: S, limit: number) {
-  return async function (args: P, cb?: (param: R) => unknown): Promise<R[]> {
-    const chunks = chunkify(args[toSlice], limit);
-    return chunks.reduce(async (acc, curr) => {
-      const res = (await getFn({ ...args, [toSlice]: curr })) as R;
-      if (cb) await cb(res);
-      (await acc).push(res);
-      return acc;
-    }, Promise.resolve([] as R[]));
+>(getFn: F, limit: number) {
+  return function (...args: Parameters<F>) {
+    const [ids, ...rest] = args;
+    return async function (cb?: (param: R) => unknown): Promise<R[]> {
+      const chunks = chunkify(ids, limit);
+      return chunks.reduce(async (acc, curr) => {
+        const res = (await getFn(curr, ...rest)) as R;
+        if (cb) await cb(res);
+        (await acc).push(res);
+        return acc;
+      }, Promise.resolve([] as R[]));
+    };
   };
 }
