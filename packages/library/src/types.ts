@@ -1,5 +1,3 @@
-import { AxiosResponse } from 'axios';
-
 type PickActual<T, P extends keyof T> = T[P];
 
 type ExportedLibrary = 'full' | 'light';
@@ -43,6 +41,3 @@ export type Library<T = unknown> = {
     features?: SpotifyApi.AudioFeaturesObject;
   };
 }[];
-
-export type MultipleAudioFeatures =
-  AxiosResponse<SpotifyApi.MultipleAudioFeaturesResponse>;
