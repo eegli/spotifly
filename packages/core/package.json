@@ -23,7 +23,8 @@
   "main": "dist/spotifly-core.cjs.js",
   "module": "dist/spotifly-core.esm.js",
   "files": [
-    "dist"
+    "dist",
+    "provider"
   ],
   "dependencies": {
     "@spotifly/utils": "workspace:^",
@@ -34,5 +35,11 @@
   },
   "publishConfig": {
     "directory": "_release/package"
+  },
+  "preconstruct": {
+    "entrypoints": [
+      "index.ts",
+      "provider/index.ts"
+    ]
   }
 }

@@ -50,6 +50,16 @@ module.exports = {
     },
     {
       ...common,
+      displayName: {
+        name: 'core-integration',
+        color: 'magenta',
+      },
+      rootDir: 'packages/core',
+      roots: ['<rootDir>/integration'],
+      setupFiles: ['dotenv/config'],
+    },
+    {
+      ...common,
       displayName: 'library',
       rootDir: 'packages/library',
       roots: ['<rootDir>/src', '<rootDir>/test'],
