@@ -24,10 +24,10 @@ export default function Tracks(provider: AuthProvider) {
     Track: {
       get: getSingleTrack(provider),
       getSeveral: getSeveralTracks(provider),
-      getAll: (ids: string[]) =>
-        factory
-          .forLimited(getSeveralTracks(provider), getSeveralTracksLimit)
-          .bind(null, ids),
+      getAll: factory.forLimited(
+        getSeveralTracks(provider),
+        getSeveralTracksLimit
+      ),
     } as const,
     AudioAnalysis: {
       get: getAudioAnalysis(provider),
@@ -35,21 +35,19 @@ export default function Tracks(provider: AuthProvider) {
     AudioFeatures: {
       get: getSingleAudioFeatures(provider),
       getSeveral: getSeveralAudioFeatures(provider),
-      getAll: (ids: string[]) =>
-        factory.forLimited(
-          getSeveralAudioFeatures(provider).bind(null, ids),
-          getSeveralAudioFeaturesLimit
-        ),
+      getAll: factory.forLimited(
+        getSeveralAudioFeatures(provider),
+        getSeveralAudioFeaturesLimit
+      ),
     } as const,
     Recommendations: {
       get: getRecommendations(provider),
     } as const,
     UsersSaved: {
       get: getUsersSavedTracks(provider).bind(null, null),
-      getAll: factory.forPaginated(
-        getUsersSavedTracks(provider).bind(null, null),
-        getUsersSavedTracksLimit
-      ),
+      getAll: factory
+        .forPaginated(getUsersSavedTracks(provider), getUsersSavedTracksLimit)
+        .bind(null, null),
       save: saveTracksForUser(provider),
       saveAll: factory.forLimited(
         saveTracksForUser(provider),

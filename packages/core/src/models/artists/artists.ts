@@ -48,6 +48,8 @@ export const getArtistsAlbums: AsyncFnWithProvider<
     })
   );
 
+export const getArtistsAlbumsLimit = 50;
+
 export const getArtistsTopTracks: AsyncFnWithProvider<
   SpotifyApi.ArtistsTopTracksResponse,
   string,
