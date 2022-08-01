@@ -10,7 +10,7 @@ type CurriedParameters<T> = T extends (
   ? A
   : never;
 
-const stringId: string = 'id';
+const stringId = 'id';
 const stringIds: string[] = [];
 
 describe('Lib type definitions - Artists', () => {
