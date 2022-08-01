@@ -13,9 +13,15 @@ export type OmitFromIterable<
   ? AnyObject extends First
     ? [Omit<First, K>, ...OmitFromIterable<Rest, K>]
     : [First, ...OmitFromIterable<Rest, K>]
-  : [`wtf`];
+  : T;
 
 // https://github.com/microsoft/TypeScript/issues/39556
 export type BetterOmit<T, E> = {
   [P in keyof T as Exclude<P, E>]: T[P];
 };
+
+export type ReadOnlyParams<T extends (...args: any[]) => unknown> = T extends (
+  ...args: infer P
+) => unknown
+  ? Readonly<P>
+  : never;

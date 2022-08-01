@@ -1,14 +1,9 @@
 import { expectAssignable, expectNotAssignable, expectType } from 'tsd-lite';
 import * as factory from '../src/factory';
 import { DataPromise, DataResponse } from '../src/request';
+import { ReadOnlyParams } from '../src/types';
 
 type Custom = { prop: string };
-
-type ReadOnlyParams<T extends (...args: any[]) => unknown> = T extends (
-  ...args: infer P
-) => unknown
-  ? Readonly<P>
-  : never;
 
 declare function fetchFn(
   id: string,
