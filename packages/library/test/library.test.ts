@@ -1,4 +1,4 @@
-import { AuthProvider } from '@spotifly/core';
+import { AuthProvider } from '@spotifly/core/provider';
 import * as utils from '@spotifly/utils';
 import { getLibrary } from '../src/library';
 import {
@@ -19,11 +19,10 @@ beforeEach(() => {
   jest.clearAllMocks();
 });
 
-// TODO enable again
-describe.skip('Library', () => {
+describe('Library', () => {
   it('gets light library', async () => {
     providerSpy.mockResolvedValueOnce(RES_USER_SAVED_TRACKS);
-    const res = await getLibrary({ token: '123x' });
+    const res = await getLibrary({ token: 'mytoken' });
     expect(res.meta.output_type).toBe('light');
     expect(res.meta.date_generated).toEqual(expect.any(String));
     expect(res.library[0]).toMatchSnapshot('light track');
@@ -32,7 +31,7 @@ describe.skip('Library', () => {
   it('gets full library', async () => {
     providerSpy.mockResolvedValueOnce(RES_USER_SAVED_TRACKS);
     const res = await getLibrary({
-      token: '123x',
+      token: 'mytoken',
       type: 'full',
     });
     expect(res.meta.output_type).toBe('full');
@@ -45,7 +44,7 @@ describe.skip('Library', () => {
       .mockResolvedValueOnce(RES_USER_SAVED_TRACKS)
       .mockResolvedValueOnce(RES_MULTIPLE_ARTISTS);
     const res = await getLibrary({
-      token: '123x',
+      token: 'mytoken',
       genres: true,
     });
     expect(res.library[0].track.genres).toBeTruthy();
@@ -57,7 +56,7 @@ describe.skip('Library', () => {
       .mockResolvedValueOnce(RES_USER_SAVED_TRACKS)
       .mockResolvedValueOnce(RES_MULTIPLE_AUDIO_FEATURES);
     const res = await getLibrary({
-      token: '123x',
+      token: 'mytoken',
       features: true,
     });
     expect(res.library[0].track.features).toBeTruthy();
@@ -67,7 +66,7 @@ describe.skip('Library', () => {
   it('writes library', async () => {
     providerSpy.mockResolvedValueOnce(RES_USER_SAVED_TRACKS);
     await getLibrary({
-      token: '123x',
+      token: 'mytoken',
     });
     expect(writeSpy).toHaveBeenCalledTimes(1);
   });

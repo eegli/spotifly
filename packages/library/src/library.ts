@@ -24,11 +24,12 @@ export const getLibrary = async (
     },
     library: [],
   };
+
   let progress = createProgressBar('user library');
 
   progress.start(0, 0);
 
-  await Spotifly.Tracks.extended.getAllUserSavedTracks(({ data }) => {
+  await Spotifly.Tracks.UsersSaved.getAll()(({ data }) => {
     progress.setTotal(data.total);
     progress.increment(data.items.length);
 
@@ -70,7 +71,7 @@ export const getLibrary = async (
     progress = createProgressBar('artists');
     progress.start(artistIds.length, 0);
 
-    await Spotifly.Artists.extended.getAllArtists({ artistIds }, ({ data }) => {
+    await Spotifly.Artists.Artist.getAll(artistIds)(({ data }) => {
       data.artists.forEach(artist => {
         genres[artist.id] = artist.genres;
       });
@@ -92,15 +93,12 @@ export const getLibrary = async (
 
     progress.start(trackIds.length, 0);
 
-    await Spotifly.Tracks.extended.getAllAudioFeatures(
-      { trackIds },
-      ({ data }) => {
-        data.audio_features.forEach(f => {
-          features[f.id] = f;
-        });
-        progress.increment(data.audio_features.length);
-      }
-    );
+    await Spotifly.Tracks.AudioFeatures.getAll(trackIds)(({ data }) => {
+      data.audio_features.forEach(f => {
+        features[f.id] = f;
+      });
+      progress.increment(data.audio_features.length);
+    });
 
     progress.stop();
     lib.library.forEach(({ track }) => {
