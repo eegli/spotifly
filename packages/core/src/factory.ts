@@ -1,23 +1,19 @@
 import { chunkify } from '@spotifly/utils';
 import { AsyncFn, DataPromise } from './request';
-import type { OmitFromIterable } from './types';
 
 type PaginationParams = {
   limit: number;
   offset: number;
 };
 
-type Params = [{ limit: number; offset?: number; market?: string }];
-const x: OmitFromIterable<Params, 'limit'> = [{ offset: 0, market: 'US' }];
-
 export function forPaginated<
   F extends (
     params?: PaginationParams
   ) => DataPromise<SpotifyApi.PagingObject<any>>,
-  R extends Awaited<ReturnType<F>>,
-  A extends OmitFromIterable<Parameters<F>, keyof PaginationParams>
+  R extends Awaited<ReturnType<F>>
 >(getFn: F, limit: number) {
-  return function (...args: A) {
+  // TODO omit keyof PaginationParams from args
+  return function (...args: Parameters<F>) {
     return async function (cb?: (param: R) => unknown): Promise<R[]> {
       let nextPage: string | null = null;
       let offset = 0;

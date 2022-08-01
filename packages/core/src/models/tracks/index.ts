@@ -21,13 +21,10 @@ export default function Tracks(provider: AuthProvider) {
     Track: {
       get: getSingleTrack(provider),
       getMultiple: getMultipleTracks(provider),
-      extended: {
-        getAll(ids: string[]) {
-          return factory
-            .forLimited(getMultipleTracks(provider), getMultipleTracksLimit)
-            .bind(null, ids);
-        },
-      } as const,
+      getAll: (ids: string[]) =>
+        factory
+          .forLimited(getMultipleTracks(provider), getMultipleTracksLimit)
+          .bind(null, ids),
     } as const,
     AudioAnalysis: {
       get: getAudioAnalysis(provider),
@@ -35,29 +32,24 @@ export default function Tracks(provider: AuthProvider) {
     AudioFeatures: {
       get: getSingleAudioFeatures(provider),
       getMultiple: getMultipleAudioFeatures(provider),
-      extended: {
-        getAll(ids: string[]) {
-          return factory.forLimited(
-            getMultipleAudioFeatures(provider).bind(null, ids),
-            getMultipleAudioFeaturesLimit
-          );
-        },
-      } as const,
+      getAll: (ids: string[]) =>
+        factory.forLimited(
+          getMultipleAudioFeatures(provider).bind(null, ids),
+          getMultipleAudioFeaturesLimit
+        ),
     } as const,
     Recommendations: {
       get: getRecommendations(provider),
     } as const,
     UsersSaved: {
       get: getUsersSavedTracks(provider).bind(null, null),
+      getAll: factory.forPaginated(
+        getUsersSavedTracks(provider).bind(null, null),
+        getUsersSavedTracksLimit
+      ),
       save: saveTracksForUser(provider),
       remove: removeUsersSavedTracks(provider),
       check: checkUsersSavedTracks(provider),
-      extended: {
-        getAll: factory.forPaginated(
-          getUsersSavedTracks(provider).bind(null, null),
-          getUsersSavedTracksLimit
-        ),
-      } as const,
     } as const,
   } as const;
 }

@@ -18,11 +18,9 @@ describe('Lib type definitions', () => {
     expectType<R<SpotifyApi.MultipleArtistsResponse>>(
       await Spotifly.Artists.Artist.getMultiple([''])
     );
+    expectAssignable<Parameters<typeof Spotifly.Artists.Artist.getAll>[0]>([]);
     expectAssignable<
-      Parameters<typeof Spotifly.Artists.Artist.extended.getAll>[0]
-    >([]);
-    expectAssignable<
-      CurriedParameters<typeof Spotifly.Artists.Artist.extended.getAll>[0]
+      CurriedParameters<typeof Spotifly.Artists.Artist.getAll>[0]
     >((_: R<SpotifyApi.MultipleArtistsResponse>) => null);
   });
   test('Tracks', async () => {
@@ -39,13 +37,11 @@ describe('Lib type definitions', () => {
     );
 
     expectType<R<SpotifyApi.UsersSavedTracksResponse>[]>(
-      await Spotifly.Tracks.UsersSaved.extended.getAll()()
+      await Spotifly.Tracks.UsersSaved.getAll()()
     );
 
     expectAssignable<
-      Parameters<
-        ReturnType<typeof Spotifly.Tracks.UsersSaved.extended.getAll>
-      >[0]
+      CurriedParameters<typeof Spotifly.Tracks.UsersSaved.getAll>[0]
     >((_: R<SpotifyApi.UsersSavedTracksResponse>) => null);
 
     expectType<R<SpotifyApi.SaveTracksForUserResponse>>(

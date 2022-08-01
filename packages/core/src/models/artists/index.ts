@@ -15,23 +15,18 @@ export default function Artists(provider: AuthProvider) {
     Artist: {
       get: getSingleArtist(provider),
       getMultiple: getMultipleArtists(provider),
-      extended: {
-        getAll: factory.forLimited(
-          getMultipleArtists(provider),
-          getMultipleArtistsLimit
-        ),
-      } as const,
+      getAll: factory.forLimited(
+        getMultipleArtists(provider),
+        getMultipleArtistsLimit
+      ),
     } as const,
     Albums: {
       get: getArtistsAlbums(provider),
-      extended: {
-        getAll(ids: string) {
-          return factory.forPaginated(
-            getArtistsAlbums(provider).bind(null, ids),
-            getArtistsAlbumsLimit
-          );
-        },
-      } as const,
+      getAll: (ids: string) =>
+        factory.forPaginated(
+          getArtistsAlbums(provider).bind(null, ids),
+          getArtistsAlbumsLimit
+        ),
     } as const,
     TopTracks: {
       get: getArtistsTopTracks(provider),

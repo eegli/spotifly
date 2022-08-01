@@ -15,15 +15,8 @@ type CommonConfig = {
   refreshAfterSeconds?: number;
 };
 
-type AuthProviderCtrArgs = CommonConfig &
+export type AuthInitOptions = CommonConfig &
   (AccessTokenConfig | RefreshTokenConfig);
-
-// https://github.com/microsoft/TypeScript/issues/39556
-type BetterOmit<T, E> = {
-  [P in keyof T as Exclude<P, E>]: T[P];
-};
-
-export type AuthInitOptions = BetterOmit<AuthProviderCtrArgs, 'requestConfig'>;
 
 export class AuthProvider {
   // Must be smaller than 60 minutes
@@ -40,7 +33,7 @@ export class AuthProvider {
     expiresAt: Date;
   };
 
-  constructor(ctrArgs: AuthProviderCtrArgs) {
+  constructor(ctrArgs: AuthInitOptions) {
     const { refreshAfterSeconds, requestConfig, ...tokenConfig } = ctrArgs;
     this.#axios = axios.create(requestConfig);
     this.#auth = {
