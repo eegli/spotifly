@@ -41,13 +41,13 @@ jobs:
       - name: Run tests
         run: yarn test --coverage --verbose
       - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
-      if: matrix.node == '17'
-      with:
-        fail_ci_if_error: true
-        files: ./coverage/coverage-final.json
-        name: codecov-spotifly
-        verbose: true       
+        uses: codecov/codecov-action@v3
+        if: matrix.node == '17'
+        with:
+          fail_ci_if_error: true
+          files: ./coverage/coverage-final.json
+          name: codecov-spotifly
+          verbose: true
   build:
     name: Build packages
     runs-on: [ubuntu-latest]
