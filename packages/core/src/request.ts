@@ -8,12 +8,12 @@ export type DataResponse<T = unknown> = {
 };
 export type DataPromise<T = unknown> = Promise<DataResponse<T>>;
 
-export type AsyncFn<Return, Required, Optional = any> = (
+export type AsyncFn<Return, Required, Optional = unknown> = (
   required: Required,
   optional?: Partial<Optional>
 ) => DataPromise<Return>;
 
-export type AsyncFnWithProvider<Return, Required, Optional = any> = (
+export type AsyncFnWithProvider<Return, Required, Optional = unknown> = (
   provider: AuthProvider
 ) => AsyncFn<Return, Required, Optional>;
 

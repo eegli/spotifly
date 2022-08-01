@@ -2,16 +2,18 @@ import { AsyncFnWithProvider, Methods, transformResponse } from '../../request';
 
 export const getSingleTrack: AsyncFnWithProvider<
   SpotifyApi.SingleTrackResponse,
-  string
-> = provider => async trackId =>
+  string,
+  { market: string }
+> = provider => async (trackId, params) =>
   transformResponse(
     await provider.request({
       method: Methods.GET,
       url: `tracks/${trackId}`,
+      params,
     })
   );
 
-export const getMultipleTracks: AsyncFnWithProvider<
+export const getSeveralTracks: AsyncFnWithProvider<
   SpotifyApi.MultipleTracksResponse,
   string[],
   { market: string }
@@ -26,7 +28,7 @@ export const getMultipleTracks: AsyncFnWithProvider<
     })
   );
 
-export const getMultipleTracksLimit = 50;
+export const getSeveralTracksLimit = 50;
 
 export const getUsersSavedTracks: AsyncFnWithProvider<
   SpotifyApi.UsersSavedTracksResponse,
@@ -102,7 +104,7 @@ export const getSingleAudioFeatures: AsyncFnWithProvider<
     })
   );
 
-export const getMultipleAudioFeatures: AsyncFnWithProvider<
+export const getSeveralAudioFeatures: AsyncFnWithProvider<
   SpotifyApi.MultipleAudioFeaturesResponse,
   string[]
 > = provider => async trackIds =>
@@ -116,7 +118,7 @@ export const getMultipleAudioFeatures: AsyncFnWithProvider<
     })
   );
 
-export const getMultipleAudioFeaturesLimit = 100;
+export const getSeveralAudioFeaturesLimit = 100;
 
 export const getAudioAnalysis: AsyncFnWithProvider<
   SpotifyApi.AudioAnalysisResponse,

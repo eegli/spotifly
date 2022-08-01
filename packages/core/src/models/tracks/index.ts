@@ -2,28 +2,31 @@ import * as factory from '../../factory';
 import { AuthProvider } from '../../provider';
 import {
   checkUsersSavedTracks,
+  checkUsersSavedTracksLimit,
   getAudioAnalysis,
-  getMultipleAudioFeatures,
-  getMultipleAudioFeaturesLimit,
-  getMultipleTracks,
-  getMultipleTracksLimit,
   getRecommendations,
+  getSeveralAudioFeatures,
+  getSeveralAudioFeaturesLimit,
+  getSeveralTracks,
+  getSeveralTracksLimit,
   getSingleAudioFeatures,
   getSingleTrack,
   getUsersSavedTracks,
   getUsersSavedTracksLimit,
   removeUsersSavedTracks,
+  removeUsersSavedTracksLimit,
   saveTracksForUser,
+  saveTracksForUserLimit,
 } from './tracks';
 
 export default function Tracks(provider: AuthProvider) {
   return {
     Track: {
       get: getSingleTrack(provider),
-      getMultiple: getMultipleTracks(provider),
+      getSeveral: getSeveralTracks(provider),
       getAll: (ids: string[]) =>
         factory
-          .forLimited(getMultipleTracks(provider), getMultipleTracksLimit)
+          .forLimited(getSeveralTracks(provider), getSeveralTracksLimit)
           .bind(null, ids),
     } as const,
     AudioAnalysis: {
@@ -31,11 +34,11 @@ export default function Tracks(provider: AuthProvider) {
     } as const,
     AudioFeatures: {
       get: getSingleAudioFeatures(provider),
-      getMultiple: getMultipleAudioFeatures(provider),
+      getSeveral: getSeveralAudioFeatures(provider),
       getAll: (ids: string[]) =>
         factory.forLimited(
-          getMultipleAudioFeatures(provider).bind(null, ids),
-          getMultipleAudioFeaturesLimit
+          getSeveralAudioFeatures(provider).bind(null, ids),
+          getSeveralAudioFeaturesLimit
         ),
     } as const,
     Recommendations: {
@@ -48,8 +51,20 @@ export default function Tracks(provider: AuthProvider) {
         getUsersSavedTracksLimit
       ),
       save: saveTracksForUser(provider),
+      saveAll: factory.forLimited(
+        saveTracksForUser(provider),
+        saveTracksForUserLimit
+      ),
       remove: removeUsersSavedTracks(provider),
+      removeAll: factory.forLimited(
+        removeUsersSavedTracks(provider),
+        removeUsersSavedTracksLimit
+      ),
       check: checkUsersSavedTracks(provider),
+      checkAll: factory.forLimited(
+        checkUsersSavedTracks(provider),
+        checkUsersSavedTracksLimit
+      ),
     } as const,
   } as const;
 }

@@ -12,7 +12,7 @@ export const getSingleArtist: AsyncFnWithProvider<
     })
   );
 
-export const getMultipleArtists: AsyncFnWithProvider<
+export const getSeveralArtists: AsyncFnWithProvider<
   SpotifyApi.MultipleArtistsResponse,
   string[]
 > = provider => async artistIds =>
@@ -26,7 +26,7 @@ export const getMultipleArtists: AsyncFnWithProvider<
     })
   );
 
-export const getMultipleArtistsLimit = 50;
+export const getSeveralArtistsLimit = 50;
 
 export const getArtistsAlbums: AsyncFnWithProvider<
   SpotifyApi.ArtistsAlbumsResponse,
@@ -47,7 +47,6 @@ export const getArtistsAlbums: AsyncFnWithProvider<
       params,
     })
   );
-export const getArtistsAlbumsLimit = 50;
 
 export const getArtistsTopTracks: AsyncFnWithProvider<
   SpotifyApi.ArtistsTopTracksResponse,

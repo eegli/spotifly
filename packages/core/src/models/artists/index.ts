@@ -2,11 +2,10 @@ import * as factory from '../../factory';
 import { AuthProvider } from '../../provider';
 import {
   getArtistsAlbums,
-  getArtistsAlbumsLimit,
   getArtistsRelatedArtists,
   getArtistsTopTracks,
-  getMultipleArtists,
-  getMultipleArtistsLimit,
+  getSeveralArtists,
+  getSeveralArtistsLimit,
   getSingleArtist,
 } from './artists';
 
@@ -14,18 +13,18 @@ export default function Artists(provider: AuthProvider) {
   return {
     Artist: {
       get: getSingleArtist(provider),
-      getMultiple: getMultipleArtists(provider),
+      getSeveral: getSeveralArtists(provider),
       getAll: factory.forLimited(
-        getMultipleArtists(provider),
-        getMultipleArtistsLimit
+        getSeveralArtists(provider),
+        getSeveralArtistsLimit
       ),
     } as const,
     Albums: {
       get: getArtistsAlbums(provider),
-      getAll: (ids: string) =>
+      getAll: (artistId: string) =>
         factory.forPaginated(
-          getArtistsAlbums(provider).bind(null, ids),
-          getArtistsAlbumsLimit
+          getArtistsAlbums(provider).bind(null, artistId),
+          50
         ),
     } as const,
     TopTracks: {
