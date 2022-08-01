@@ -9,7 +9,7 @@ type PaginationParams = {
 export function forPaginated<
   F extends (
     params?: PaginationParams
-  ) => DataPromise<SpotifyApi.PagingObject<any>>,
+  ) => DataPromise<SpotifyApi.PagingObject<unknown>>,
   R extends Awaited<ReturnType<F>>
 >(getFn: F, limit: number) {
   // TODO omit keyof PaginationParams from args
@@ -35,7 +35,7 @@ export function forPaginated<
 }
 
 export function forLimited<
-  F extends AsyncFn<unknown, string[], any>,
+  F extends AsyncFn<unknown, string[], unknown>,
   R extends Awaited<ReturnType<F>>
 >(getFn: F, limit: number) {
   return function (...args: Parameters<F>) {

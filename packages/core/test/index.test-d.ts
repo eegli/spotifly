@@ -6,7 +6,7 @@ const Spotifly = init({ accessToken: '' });
 
 type CurriedParameters<T> = T extends (
   ...args: any[]
-) => (...args: infer A) => any
+) => (...args: infer A) => unknown
   ? A
   : never;
 
@@ -23,7 +23,7 @@ describe('Lib type definitions', () => {
     expectAssignable<Parameters<typeof Spotifly.Artists.Artist.getAll>[0]>([]);
     expectAssignable<
       CurriedParameters<typeof Spotifly.Artists.Artist.getAll>[0]
-    >((_: R<SpotifyApi.MultipleArtistsResponse>) => null);
+    >((data: R<SpotifyApi.MultipleArtistsResponse>) => data);
 
     expectType<R<SpotifyApi.ArtistsAlbumsResponse>>(
       await Spotifly.Artists.Albums.get('')
@@ -64,7 +64,7 @@ describe('Lib type definitions', () => {
 
     expectAssignable<
       CurriedParameters<typeof Spotifly.Tracks.UsersSaved.getAll>[0]
-    >((_: R<SpotifyApi.UsersSavedTracksResponse>) => null);
+    >((data: R<SpotifyApi.UsersSavedTracksResponse>) => data);
 
     expectType<R<SpotifyApi.SaveTracksForUserResponse>>(
       await Spotifly.Tracks.UsersSaved.save([])

@@ -23,6 +23,7 @@ export const getSeveralTracks: AsyncFnWithProvider<
       method: Methods.GET,
       url: 'tracks',
       params: {
+        ...params,
         ids: trackIds.join(','),
       },
     })

@@ -4,9 +4,9 @@ import { DataPromise, DataResponse } from '../src/request';
 
 type Custom = { prop: string };
 
-type ReadOnlyParams<T extends (...args: any) => any> = T extends (
+type ReadOnlyParams<T extends (...args: any[]) => unknown> = T extends (
   ...args: infer P
-) => any
+) => unknown
   ? Readonly<P>
   : never;
 
