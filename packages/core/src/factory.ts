@@ -1,5 +1,5 @@
 import { chunkify } from '@spotifly/utils';
-import { AsyncFn, DataPromise } from './request';
+import { AsyncFn } from './request';
 
 type PaginationParams = {
   limit: number;
@@ -7,10 +7,7 @@ type PaginationParams = {
 };
 
 export function forPaginated<
-  F extends (
-    arg1: string,
-    arg2?: PaginationParams
-  ) => DataPromise<SpotifyApi.PagingObject<unknown>>,
+  F extends AsyncFn<SpotifyApi.PagingObject<unknown>, string, PaginationParams>,
   P extends Parameters<F>,
   R extends Awaited<ReturnType<F>>
 >(getFn: F, limit: number) {

@@ -13,22 +13,23 @@ type ReadOnlyParams<T extends (...args: any[]) => unknown> = T extends (
 declare function fetchFn(
   id: string,
   params?: {
-    limit: number;
-    offset: number;
+    limit?: number;
+    offset?: number;
   }
 ): DataPromise<SpotifyApi.PagingObject<Custom>>;
 
 declare function badFetchFn1(
   id: string,
-  params: {
-    limit: number;
-    offset: number;
+  params?: {
+    limit?: number;
+    offset?: number;
   }
 ): DataPromise<null>;
 
-declare function badFetchFn2(
-  params: null
-): DataPromise<SpotifyApi.PagingObject<Custom>>;
+declare function badFetchFn2(params?: {
+  limit?: number;
+  offset?: number;
+}): DataPromise<SpotifyApi.PagingObject<Custom>>;
 
 describe('Factory, pagination handling', () => {
   const getAll = factory.forPaginated(fetchFn, 10)('');
