@@ -8,18 +8,18 @@ type PaginationParams = {
 
 export function forPaginated<
   F extends AsyncFn<SpotifyApi.PagingObject<unknown>, string, PaginationParams>,
-  P extends Parameters<F>,
   R extends Awaited<ReturnType<F>>
 >(getFn: F, limit: number) {
   // TODO omit keyof PaginationParams from args
-  return function (args1: P[0], args2?: P[1]) {
+  return function (...args: Parameters<F>) {
     return async function (cb?: (param: R) => unknown): Promise<R[]> {
+      const [arg1, arg2] = args;
       let nextPage: string | null = null;
       let offset = 0;
       const responses = [];
       do {
-        const response = (await getFn(args1, {
-          ...args2,
+        const response = (await getFn(arg1, {
+          ...arg2,
           limit,
           offset,
         })) as R;

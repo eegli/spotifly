@@ -12,7 +12,7 @@ Please do not use any of the packages from @spotifly yet, they are still lacking
 
 Run `yarn spotifly`
 
-## Known Issues / TODOS
+## Open Issues
 
 - Wait for changeset to resolve open issue related to replacing yarn workspace ranges before publishing ([#issue432](https://github.com/changesets/changesets/issues/432),[#pull674](https://github.com/changesets/changesets/pull/674))
 
