@@ -97,10 +97,13 @@ export default function HomepageFeatures(): JSX.Element {
       })}
       <MuiLink
         href="docs/overview"
-        variant="body1"
+        component="button"
         sx={{
           px: 2,
           py: 1,
+          mb: 5,
+          fontWeight: 'bold',
+          fontSize: '1rem',
           borderRadius: '4px',
           backgroundColor: 'primary.main',
           color: 'primary.contrastText',

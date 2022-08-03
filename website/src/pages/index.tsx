@@ -16,14 +16,14 @@ function HomepageHeader() {
         flexDirection: 'column',
         alignItems: 'center',
         padding: 5,
-        backgroundColor: 'primary.main',
+        backgroundColor: 'secondary.main',
         color: 'primary.contrastText',
       }}
     >
-      <Box component="h1" fontSize="4rem" fontFamily="'Oswald', sans-serif">
+      <Box component="h1" fontSize="4rem">
         {siteConfig.title}
       </Box>
-      <Box component="p" fontSize="1.5rem">
+      <Box component="p" fontSize="1.5rem" textAlign="center">
         {siteConfig.tagline}
       </Box>
     </Box>

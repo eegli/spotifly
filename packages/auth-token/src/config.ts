@@ -16,12 +16,10 @@ export const { parse, help } = createParser(defaultConfig, {
     clientId: {
       required: true,
       description: 'The client id of your Spotify application',
-      shortFlag: '-ci',
     },
     clientSecret: {
       required: true,
       description: 'The client secret of your Spotify application',
-      shortFlag: '-cs',
     },
     scopes: {
       shortFlag: '-s',

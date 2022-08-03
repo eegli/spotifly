@@ -27,13 +27,13 @@ spotifly [package] [args...]
 Instead of installing the CLI, every package can also be invoked directly with `npx`. This will download and save the executable in npm's local cache but not permanently add it to the PATH. [How NPX works](https://docs.npmjs.com/cli/v7/commands/npx).
 
 ```bash
-npx @spotifly/auth-token@latest [...args]
+npx @spotifly/cli@latest [...args]
 ```
 
 Alternatively, if you're in a workspace that uses [Yarn Berry](https://yarnpkg.com/cli/dlx), you can use `yarn dlx`.
 
 ```bash
-yarn dlx @spotifly/auth-token@latest [...args]
+yarn dlx @spotifly/cli@latest [...args]
 ```
 
 :::tip
@@ -41,7 +41,7 @@ yarn dlx @spotifly/auth-token@latest [...args]
 If a package is invoked with `npx` and not in the cache, a prompt will ask you to install it. You can suppress the prompt by adding `--yes` right after `npx`. This is useful if you want to run any command in a CI/CD environment.
 
 ```bash
-npx --yes @spotifly/auth-token@latest [...args]
+npx --yes @spotifly/cli@latest [...args]
 ```
 
 :::
