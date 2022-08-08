@@ -1,5 +1,5 @@
 import * as factory from '../../factory';
-import { AuthProvider } from '../../provider';
+import { AsyncProvider } from '../../types';
 import {
   checkUsersSavedTracks,
   checkUsersSavedTracksLimit,
@@ -19,7 +19,7 @@ import {
   saveTracksForUserLimit,
 } from './tracks';
 
-export default function Tracks(provider: AuthProvider) {
+export default function Tracks(provider: AsyncProvider) {
   return {
     Track: {
       get: getSingleTrack(provider),
@@ -28,10 +28,10 @@ export default function Tracks(provider: AuthProvider) {
         getSeveralTracks(provider),
         getSeveralTracksLimit
       ),
-    } as const,
+    },
     AudioAnalysis: {
       get: getAudioAnalysis(provider),
-    } as const,
+    },
     AudioFeatures: {
       get: getSingleAudioFeatures(provider),
       getSeveral: getSeveralAudioFeatures(provider),
@@ -39,10 +39,10 @@ export default function Tracks(provider: AuthProvider) {
         getSeveralAudioFeatures(provider),
         getSeveralAudioFeaturesLimit
       ),
-    } as const,
+    },
     Recommendations: {
       get: getRecommendations(provider),
-    } as const,
+    },
     UsersSaved: {
       get: getUsersSavedTracks(provider).bind(null, null),
       getAll: factory
@@ -63,6 +63,6 @@ export default function Tracks(provider: AuthProvider) {
         checkUsersSavedTracks(provider),
         checkUsersSavedTracksLimit
       ),
-    } as const,
+    },
   } as const;
 }

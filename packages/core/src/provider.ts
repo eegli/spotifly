@@ -1,4 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import { AsyncProvider } from './types';
 
 type AccessTokenConfig = {
   accessToken: string;
@@ -18,13 +19,13 @@ type CommonConfig = {
 export type AuthInitOptions = CommonConfig &
   (AccessTokenConfig | RefreshTokenConfig);
 
-export class AuthProvider {
+export class AuthProvider implements AsyncProvider {
   // Must be smaller than 60 minutes
-  #REFRESH_AFTER_SECONDS = 59 * 60;
+  private REFRESH_AFTER_SECONDS = 59 * 60;
 
-  #axios: AxiosInstance;
+  private axios: AxiosInstance;
 
-  #auth: {
+  private auth: {
     type: 'access_token' | 'refresh_token';
     clientId: string;
     clientSecret: string;
@@ -35,8 +36,8 @@ export class AuthProvider {
 
   constructor(ctrArgs: AuthInitOptions) {
     const { refreshAfterSeconds, requestConfig, ...tokenConfig } = ctrArgs;
-    this.#axios = axios.create(requestConfig);
-    this.#auth = {
+    this.axios = axios.create(requestConfig);
+    this.auth = {
       type: 'accessToken' in tokenConfig ? 'access_token' : 'refresh_token',
       accessToken: '',
       expiresAt: new Date(),
@@ -46,7 +47,7 @@ export class AuthProvider {
       ...tokenConfig,
     };
     if (refreshAfterSeconds) {
-      this.#REFRESH_AFTER_SECONDS = refreshAfterSeconds;
+      this.REFRESH_AFTER_SECONDS = refreshAfterSeconds;
     }
   }
 
@@ -56,35 +57,35 @@ export class AuthProvider {
     if (this.needsNewToken) {
       await this.refreshAccessToken();
     }
-    return this.#axios({
-      headers: { Authorization: `Bearer ${this.#auth.accessToken}` },
+    return this.axios({
+      headers: { Authorization: `Bearer ${this.auth.accessToken}` },
       ...req,
     });
   }
 
   private get needsNewToken() {
-    if (this.#auth.type === 'access_token') return false;
+    if (this.auth.type === 'access_token') return false;
     return (
-      !this.#auth.accessToken ||
-      (this.#auth.expiresAt && this.#auth.expiresAt < new Date())
+      !this.auth.accessToken ||
+      (this.auth.expiresAt && this.auth.expiresAt < new Date())
     );
   }
 
   private async refreshAccessToken() {
     const { access_token } = await AuthProvider.getAccessToken(
-      this.#auth.clientId,
-      this.#auth.clientSecret,
-      this.#auth.refreshToken
+      this.auth.clientId,
+      this.auth.clientSecret,
+      this.auth.refreshToken
     );
 
     // Access tokens expire after 1 hour.
-    this.#auth.accessToken = access_token;
-    this.#auth.expiresAt = new Date();
+    this.auth.accessToken = access_token;
+    this.auth.expiresAt = new Date();
 
     // Set to expire after 59 minutes 30 seconds so we have time to
     // refresh
-    this.#auth.expiresAt.setTime(
-      this.#auth.expiresAt.getTime() + this.#REFRESH_AFTER_SECONDS * 1000
+    this.auth.expiresAt.setTime(
+      this.auth.expiresAt.getTime() + this.REFRESH_AFTER_SECONDS * 1000
     );
   }
 

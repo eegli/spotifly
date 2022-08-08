@@ -1,5 +1,5 @@
 import * as factory from '../src/factory';
-import { DataPromise } from '../src/request';
+import { DataPromise } from '../src/types';
 
 beforeEach(() => {
   jest.clearAllMocks();

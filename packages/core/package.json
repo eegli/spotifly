@@ -38,8 +38,7 @@
   },
   "preconstruct": {
     "entrypoints": [
-      "index.ts",
-      "provider/index.ts"
+      "index.ts"
     ]
   }
 }

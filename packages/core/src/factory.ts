@@ -1,5 +1,5 @@
 import { chunkify } from '@spotifly/utils';
-import { AsyncFn } from './request';
+import { AsyncFn } from './types';
 
 type PaginationParams = {
   limit: number;

@@ -1,12 +1,13 @@
-import { AsyncFnWithProvider, Methods, transformResponse } from '../../request';
+import { Methods, transformResponse } from '../../request';
+import { AsyncFnWithProvider } from '../../types';
 
 export const getSingleTrack: AsyncFnWithProvider<
   SpotifyApi.SingleTrackResponse,
   string,
   { market: string }
-> = provider => async (trackId, params) =>
+> = p => async (trackId, params) =>
   transformResponse(
-    await provider.request({
+    await p.request({
       method: Methods.GET,
       url: `tracks/${trackId}`,
       params,
@@ -17,9 +18,9 @@ export const getSeveralTracks: AsyncFnWithProvider<
   SpotifyApi.MultipleTracksResponse,
   string[],
   { market: string }
-> = provider => async (trackIds, params) =>
+> = p => async (trackIds, params) =>
   transformResponse(
-    await provider.request({
+    await p.request({
       method: Methods.GET,
       url: 'tracks',
       params: {
@@ -35,9 +36,9 @@ export const getUsersSavedTracks: AsyncFnWithProvider<
   SpotifyApi.UsersSavedTracksResponse,
   unknown,
   { limit: number; market: string; offset: number }
-> = provider => async (_, params) =>
+> = p => async (_, params) =>
   transformResponse(
-    await provider.request({
+    await p.request({
       method: Methods.GET,
       url: 'me/tracks',
       params,
@@ -49,9 +50,9 @@ export const getUsersSavedTracksLimit = 50;
 export const saveTracksForUser: AsyncFnWithProvider<
   SpotifyApi.SaveTracksForUserResponse,
   string[]
-> = provider => async trackIds =>
+> = p => async trackIds =>
   transformResponse(
-    await provider.request({
+    await p.request({
       method: Methods.PUT,
       url: 'me/tracks',
       params: {
@@ -65,9 +66,9 @@ export const saveTracksForUserLimit = 50;
 export const removeUsersSavedTracks: AsyncFnWithProvider<
   SpotifyApi.RemoveUsersSavedTracksResponse,
   string[]
-> = provider => async trackIds =>
+> = p => async trackIds =>
   transformResponse(
-    await provider.request({
+    await p.request({
       method: Methods.DELETE,
       url: 'me/tracks',
       params: {
@@ -81,9 +82,9 @@ export const removeUsersSavedTracksLimit = 50;
 export const checkUsersSavedTracks: AsyncFnWithProvider<
   SpotifyApi.CheckUsersSavedTracksResponse,
   string[]
-> = provider => async trackIds =>
+> = p => async trackIds =>
   transformResponse(
-    await provider.request({
+    await p.request({
       method: Methods.GET,
       url: 'me/tracks/contains',
       params: {
@@ -97,9 +98,9 @@ export const checkUsersSavedTracksLimit = 50;
 export const getSingleAudioFeatures: AsyncFnWithProvider<
   SpotifyApi.AudioFeaturesResponse,
   string
-> = provider => async trackId =>
+> = p => async trackId =>
   transformResponse(
-    await provider.request({
+    await p.request({
       method: Methods.GET,
       url: `audio-features/${trackId}`,
     })
@@ -108,9 +109,9 @@ export const getSingleAudioFeatures: AsyncFnWithProvider<
 export const getSeveralAudioFeatures: AsyncFnWithProvider<
   SpotifyApi.MultipleAudioFeaturesResponse,
   string[]
-> = provider => async trackIds =>
+> = p => async trackIds =>
   transformResponse(
-    await provider.request({
+    await p.request({
       method: Methods.GET,
       url: 'audio-features',
       params: {
@@ -124,9 +125,9 @@ export const getSeveralAudioFeaturesLimit = 100;
 export const getAudioAnalysis: AsyncFnWithProvider<
   SpotifyApi.AudioAnalysisResponse,
   string
-> = provider => async trackId =>
+> = p => async trackId =>
   transformResponse(
-    await provider.request({
+    await p.request({
       method: Methods.GET,
       url: `audio-analysis/${trackId}`,
     })
@@ -181,9 +182,9 @@ export const getRecommendations: AsyncFnWithProvider<
     target_time_signature: number;
     target_valence: number;
   }
-> = provider => async (seed, params) =>
+> = p => async (seed, params) =>
   transformResponse(
-    await provider.request({
+    await p.request({
       method: Methods.GET,
       url: 'recommendations',
       params: { ...seed, ...params },

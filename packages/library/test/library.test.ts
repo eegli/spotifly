@@ -1,5 +1,6 @@
-import { AuthProvider } from '@spotifly/core/provider';
+import * as Spotifly from '@spotifly/core';
 import * as utils from '@spotifly/utils';
+import { mockDeep } from 'jest-mock-extended';
 import { getLibrary } from '../src/library';
 import {
   RES_MULTIPLE_ARTISTS,
@@ -7,13 +8,36 @@ import {
   RES_USER_SAVED_TRACKS,
 } from './fixtures';
 
-jest.mock('axios');
+const mockSpotify = mockDeep<ReturnType<typeof Spotifly.init>>();
+
+mockSpotify.Tracks.UsersSaved.getAll.mockImplementation(() => {
+  return cb => {
+    if (cb) cb(RES_USER_SAVED_TRACKS);
+    return Promise.resolve([RES_USER_SAVED_TRACKS]);
+  };
+});
+
+mockSpotify.Tracks.AudioFeatures.getAll.mockImplementation(() => {
+  return cb => {
+    if (cb) cb(RES_MULTIPLE_AUDIO_FEATURES);
+    return Promise.resolve([RES_MULTIPLE_AUDIO_FEATURES]);
+  };
+});
+
+mockSpotify.Artists.Artist.getAll.mockImplementation(() => {
+  return cb => {
+    if (cb) cb(RES_MULTIPLE_ARTISTS);
+    return Promise.resolve([RES_MULTIPLE_ARTISTS]);
+  };
+});
 
 const writeSpy = jest
   .spyOn(utils, 'writeJSON')
   .mockImplementation(opts => Promise.resolve(opts.path));
 
-const providerSpy = jest.spyOn(AuthProvider.prototype, 'request');
+jest.spyOn(Spotifly, 'init').mockReturnValue(mockSpotify);
+
+jest.useFakeTimers({ now: new Date(0) });
 
 beforeEach(() => {
   jest.clearAllMocks();
@@ -21,53 +45,23 @@ beforeEach(() => {
 
 describe('Library', () => {
   it('gets light library', async () => {
-    providerSpy.mockResolvedValueOnce(RES_USER_SAVED_TRACKS);
     const res = await getLibrary({ token: 'mytoken' });
     expect(res.meta.output_type).toBe('light');
-    expect(res.meta.date_generated).toEqual(expect.any(String));
-    expect(res.library[0]).toMatchSnapshot('light track');
-    expect(providerSpy).toHaveBeenCalledTimes(1);
+    expect(res.library[0].track.genres).toBeUndefined();
+    expect(res.library[0].track.features).toBeUndefined();
+    expect(writeSpy).toHaveBeenCalledTimes(1);
+    expect(res).toMatchSnapshot();
   });
-  it('gets full library', async () => {
-    providerSpy.mockResolvedValueOnce(RES_USER_SAVED_TRACKS);
+  it('gets full library with genres and features', async () => {
     const res = await getLibrary({
       token: 'mytoken',
       type: 'full',
-    });
-    expect(res.meta.output_type).toBe('full');
-    expect(res.meta.date_generated).toEqual(expect.any(String));
-    expect(res.library[0]).toMatchObject(RES_USER_SAVED_TRACKS.data.items[0]);
-    expect(providerSpy).toHaveBeenCalledTimes(1);
-  });
-  it('with genres', async () => {
-    providerSpy
-      .mockResolvedValueOnce(RES_USER_SAVED_TRACKS)
-      .mockResolvedValueOnce(RES_MULTIPLE_ARTISTS);
-    const res = await getLibrary({
-      token: 'mytoken',
       genres: true,
-    });
-    expect(res.library[0].track.genres).toBeTruthy();
-    expect(res.library[0].track.genres).toMatchSnapshot('genres');
-    expect(providerSpy).toHaveBeenCalledTimes(2);
-  });
-  it('with audio features', async () => {
-    providerSpy
-      .mockResolvedValueOnce(RES_USER_SAVED_TRACKS)
-      .mockResolvedValueOnce(RES_MULTIPLE_AUDIO_FEATURES);
-    const res = await getLibrary({
-      token: 'mytoken',
       features: true,
     });
+    expect(res.meta.output_type).toBe('full');
+    expect(res.library[0].track.genres).toBeTruthy();
     expect(res.library[0].track.features).toBeTruthy();
-    expect(res.library[0].track.features).toMatchSnapshot('features');
-    expect(providerSpy).toHaveBeenCalledTimes(2);
-  });
-  it('writes library', async () => {
-    providerSpy.mockResolvedValueOnce(RES_USER_SAVED_TRACKS);
-    await getLibrary({
-      token: 'mytoken',
-    });
-    expect(writeSpy).toHaveBeenCalledTimes(1);
+    expect(res).toMatchSnapshot();
   });
 });

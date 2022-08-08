@@ -1,6 +1,6 @@
 import { expectAssignable, expectType } from 'tsd-lite';
 import { init } from '../src/index';
-import { DataResponse as R } from '../src/request';
+import { DataResponse as R } from '../src/types';
 
 const Spotifly = init({ accessToken: 'stringId' });
 

@@ -1,5 +1,5 @@
-import { AsyncFnWithProvider, Methods, transformResponse } from '../../request';
-import type { Permutations } from '../../types';
+import { Methods, transformResponse } from '../../request';
+import type { AsyncFnWithProvider, Permutations } from '../../types';
 
 export const getSingleArtist: AsyncFnWithProvider<
   SpotifyApi.SingleArtistResponse,

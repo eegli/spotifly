@@ -4105,6 +4105,7 @@ __metadata:
     eslint-plugin-jest: ^26.6.0
     eslint-plugin-react: ^7.30.1
     jest: ^28.1.3
+    jest-mock-extended: ^2.0.7
     jest-runner-tsd: ^3.1.0
     prettier: ^2.7.1
     prettier-plugin-organize-imports: ^3.0.0
@@ -10343,6 +10344,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jest-mock-extended@npm:^2.0.7":
+  version: 2.0.7
+  resolution: "jest-mock-extended@npm:2.0.7"
+  dependencies:
+    ts-essentials: ^7.0.3
+  peerDependencies:
+    jest: ^24.0.0 || ^25.0.0 || ^26.0.0 || ^27.0.0 || ^28.0.0
+    typescript: ^3.0.0 || ^4.0.0
+  checksum: e9928f1c1e4c9d1bb9746e0f0791e7b0c5b91474d10ed07c6f59e80294830b46b9f6f99b418e4ebcb3641db7957f2014317ab4267e56b676789f7013db72aa8e
+  languageName: node
+  linkType: hard
+
 "jest-mock@npm:^28.1.3":
   version: 28.1.3
   resolution: "jest-mock@npm:28.1.3"
@@ -15080,6 +15093,15 @@ __metadata:
   version: 0.2.0
   resolution: "ts-easing@npm:0.2.0"
   checksum: e67ee862acca3b2e2718e736f31999adcef862d0df76d76a0e138588728d8a87dfec9978556044640bd0e90203590ad88ac2fe8746d0e9959b8d399132315150
+  languageName: node
+  linkType: hard
+
+"ts-essentials@npm:^7.0.3":
+  version: 7.0.3
+  resolution: "ts-essentials@npm:7.0.3"
+  peerDependencies:
+    typescript: ">=3.7.0"
+  checksum: 74d75868acf7f8b95e447d8b3b7442ca21738c6894e576df9917a352423fde5eb43c5651da5f78997da6061458160ae1f6b279150b42f47ccc58b73e55acaa2f
   languageName: node
   linkType: hard
 

@@ -1,3 +1,27 @@
+import { AxiosRequestConfig, AxiosResponse } from 'axios';
+
+export type { AxiosResponse } from 'axios';
+
+export type DataResponse<T = unknown> = {
+  data: T;
+  headers: Record<string, string | number | boolean>;
+  statusCode: number;
+};
+export type DataPromise<T = unknown> = Promise<DataResponse<T>>;
+
+export type AsyncProvider = {
+  request<T>(req: AxiosRequestConfig<T>): Promise<AxiosResponse<T>>;
+};
+
+export type AsyncFn<Return, Required, Optional = unknown> = (
+  required: Required,
+  optional?: Partial<Optional>
+) => DataPromise<Return>;
+
+export type AsyncFnWithProvider<Return, Required, Optional = unknown> = (
+  provider: AsyncProvider
+) => AsyncFn<Return, Required, Optional>;
+
 export type Permutations<
   T extends string,
   U extends string = T
