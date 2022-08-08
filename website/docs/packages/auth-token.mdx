@@ -6,10 +6,11 @@ tags:
 
 ![npm (scoped)](https://img.shields.io/npm/v/@spotifly/auth-token)
 
-A simple and lightweight implementation of Spotify's Authorization Code Flow according to the [Spotify docs](https://developer.spotify.com/documentation/general/guides/authorization/code-flow/).
+## Motivation
 
-- CLI and programmatic use
-- Customizable
+This package provides a simple and lightweight implementation of Spotify's Authorization Code Flow according to the [Spotify docs](https://developer.spotify.com/documentation/general/guides/authorization/code-flow/). You authenticate with a Spotify application and get back a refresh token that can be used to access Spotify data in long-running applications. If you're not yet familiar with Spotify's authorization process, check out [this quick summary](/docs/authorization) or read [the official docs](https://developer.spotify.com/documentation/general/guides/authorization/).
+
+Usually, a refresh token only needs to be generated once. Such a token only expires when the client secret of your Spotify application is reset and otherwise lives forever.
 
 This helper was mainly developed to simplify my [Spotify history scrobbler](https://github.com/eegli/spotify-history).
 
@@ -47,7 +48,7 @@ import { CliCodeBlock } from '@site/src/components/code-blocks/codeblock';
 | `-f`, `--fileName` | ❌ Custom name for the output JSON file. Default: "spotify-token"                                            |
 | `--noEmit`         | ❌ When set to `true`, does not save the token to the file system. Default: `false`                          |
 
-## Programmatic
+## Programmatic Usage
 
 ### Installation
 

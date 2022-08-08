@@ -10,6 +10,8 @@ import {
 
 const mockSpotify = mockDeep<ReturnType<typeof Spotifly.init>>();
 
+jest.spyOn(Spotifly, 'init').mockReturnValue(mockSpotify);
+
 mockSpotify.Tracks.UsersSaved.getAll.mockImplementation(() => {
   return cb => {
     if (cb) cb(RES_USER_SAVED_TRACKS);
@@ -34,8 +36,6 @@ mockSpotify.Artists.Artist.getAll.mockImplementation(() => {
 const writeSpy = jest
   .spyOn(utils, 'writeJSON')
   .mockImplementation(opts => Promise.resolve(opts.path));
-
-jest.spyOn(Spotifly, 'init').mockReturnValue(mockSpotify);
 
 jest.useFakeTimers({ now: new Date(0) });
 

@@ -31,7 +31,7 @@
     "axios": "^0.27.2"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=14"
   },
   "publishConfig": {
     "directory": "_release/package"

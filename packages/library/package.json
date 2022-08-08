@@ -37,7 +37,7 @@
     "@types/spotify-api": "^0.0.16"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=14"
   },
   "publishConfig": {
     "directory": "_release/package"
