@@ -1,4 +1,4 @@
-import { init } from '@spotifly/core';
+import * as Spotify from '@spotifly/core';
 import { writeJSON } from '@spotifly/utils';
 import { defaultConfig } from './config';
 import type {
@@ -15,7 +15,7 @@ export const getLibrary = async (
 ): Promise<LibraryExport<TrackLight | TrackFull>> => {
   const config = { ...defaultConfig, ...options };
 
-  const Spotifly = init({ accessToken: config.token });
+  const spotifyClient = Spotify.initialize({ accessToken: config.token });
 
   const lib: LibraryExport<TrackFull | TrackLight> = {
     meta: {
@@ -29,7 +29,7 @@ export const getLibrary = async (
 
   progress.start(0, 0);
 
-  await Spotifly.Tracks.UsersSaved.getAll()(({ data }) => {
+  await spotifyClient.Tracks.UsersSaved.getAll()(({ data }) => {
     progress.setTotal(data.total);
     progress.increment(data.items.length);
 
@@ -71,7 +71,7 @@ export const getLibrary = async (
     progress = createProgressBar('artists');
     progress.start(artistIds.length, 0);
 
-    await Spotifly.Artists.Artist.getAll(artistIds)(({ data }) => {
+    await spotifyClient.Artists.Artist.getAll(artistIds)(({ data }) => {
       data.artists.forEach(artist => {
         genres[artist.id] = artist.genres;
       });
@@ -93,7 +93,7 @@ export const getLibrary = async (
 
     progress.start(trackIds.length, 0);
 
-    await Spotifly.Tracks.AudioFeatures.getAll(trackIds)(({ data }) => {
+    await spotifyClient.Tracks.AudioFeatures.getAll(trackIds)(({ data }) => {
       data.audio_features.forEach(f => {
         features[f.id] = f;
       });

@@ -8,9 +8,9 @@ import {
   RES_USER_SAVED_TRACKS,
 } from './fixtures';
 
-const mockSpotify = mockDeep<ReturnType<typeof Spotifly.init>>();
+const mockSpotify = mockDeep<Spotifly.SpotifyClient>();
 
-jest.spyOn(Spotifly, 'init').mockReturnValue(mockSpotify);
+jest.spyOn(Spotifly, 'initialize').mockReturnValue(mockSpotify);
 
 mockSpotify.Tracks.UsersSaved.getAll.mockImplementation(() => {
   return cb => {

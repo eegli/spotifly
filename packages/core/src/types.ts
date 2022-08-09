@@ -4,7 +4,7 @@ export type { AxiosResponse } from 'axios';
 
 export type DataResponse<T = unknown> = {
   data: T;
-  headers: Record<string, string | number | boolean>;
+  headers: Record<string, string>;
   statusCode: number;
 };
 export type DataPromise<T = unknown> = Promise<DataResponse<T>>;
