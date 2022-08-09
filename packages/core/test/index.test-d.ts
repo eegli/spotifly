@@ -1,8 +1,8 @@
 import { expectAssignable, expectType } from 'tsd-lite';
-import { init } from '../src/index';
+import { initialize } from '../src/index';
 import { DataResponse as R } from '../src/types';
 
-const Spotifly = init({ accessToken: 'stringId' });
+const Spotifly = initialize({ accessToken: 'stringId' });
 
 type CurriedParameters<T> = T extends (
   ...args: any[]
