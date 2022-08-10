@@ -94,19 +94,11 @@ export default function HomepageFeatures(): JSX.Element {
       })}
       <MuiLink
         href="docs/overview"
+        fontSize="1.2rem"
+        fontWeight={400}
         sx={{
           px: 2,
           py: 1,
-          mb: 5,
-          mt: 2,
-          borderRadius: '4px',
-
-          backgroundColor: 'primary.main',
-          color: 'primary.contrastText',
-          '&:hover': {
-            backgroundColor: 'secondary.main',
-            color: 'text.primary',
-          },
         }}
       >
         <b>Explore the docs</b>

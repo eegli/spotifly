@@ -16,7 +16,7 @@ function HomepageHeader() {
         flexDirection: 'column',
         alignItems: 'center',
         padding: 5,
-        backgroundColor: 'secondary.main',
+        backgroundColor: 'primary.main',
         color: 'primary.contrastText',
       }}
     >
