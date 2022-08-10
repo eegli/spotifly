@@ -1,5 +1,5 @@
 import { chunkify } from '@spotifly/utils';
-import { AsyncFn } from './request';
+import { AsyncFn, OmitFromAsyncFnParams } from './types';
 
 type PaginationParams = {
   limit: number;
@@ -10,8 +10,7 @@ export function forPaginated<
   F extends AsyncFn<SpotifyApi.PagingObject<unknown>, string, PaginationParams>,
   R extends Awaited<ReturnType<F>>
 >(getFn: F, limit: number) {
-  // TODO omit keyof PaginationParams from args
-  return function (...args: Parameters<F>) {
+  return function (...args: OmitFromAsyncFnParams<F, PaginationParams>) {
     return async function (cb?: (param: R) => unknown): Promise<R[]> {
       const [arg1, arg2] = args;
       let nextPage: string | null = null;
@@ -38,11 +37,11 @@ export function forLimited<
   R extends Awaited<ReturnType<F>>
 >(getFn: F, limit: number) {
   return function (...args: Parameters<F>) {
-    const [ids, ...rest] = args;
+    const [ids, rest] = args;
     return async function (cb?: (param: R) => unknown): Promise<R[]> {
       const chunks = chunkify(ids, limit);
       return chunks.reduce(async (acc, curr) => {
-        const res = (await getFn(curr, ...rest)) as R;
+        const res = (await getFn(curr, rest)) as R;
         if (cb) await cb(res);
         (await acc).push(res);
         return acc;

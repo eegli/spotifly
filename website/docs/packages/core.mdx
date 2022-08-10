@@ -4,4 +4,212 @@ title: Core
 
 ![npm (scoped)](https://img.shields.io/npm/v/@spotifly/core)
 
-Docs coming!
+## Motivation
+
+The Spotifly core lib is a lightweight wrapper for the [Spotify Web API](https://developer.spotify.com/documentation/web-api/). Out of the box, it features:
+
+- **Strong TypeScript and IntelliSense support**
+  - All function parameters and return values are strongly typed
+- **A neatly organized, intuitive API**
+  - Sticks closely to the semantics of the Web API
+- **Convenience methods for limited and paginated endpoints**
+  - Automatically retreive all items from paginated and limited endpoints
+- **Automatic authentication**
+  - Provide your credentials once and have every request authenticate automatically with Spotify
+- **Testing with confidence**
+  - Creating stubs for the core lib is a piece of cake. Read along for testing recipes!
+
+Altough the core lib is very lightweight, it may be overkill if you're only interested in one or two Web API endpoints. However, for many other use cases, including long-running apps, it's a great fit.
+
+## Usage
+
+### Installation
+
+```bash npm2yarn
+npm install @spotifly/core
+```
+
+### Example
+
+```ts
+import * as Spotify from '@spotifly/core';
+
+const spotifyClient = Spotify.initialize({
+  accessToken: 'abc123',
+});
+
+spotifyClient.Tracks.Track.get('10oKSzRcwbZsog2uq2gb4b')
+  .then(res => {
+    return res.data.artists.map(artist => artist.id);
+  })
+  .then(artistIds => {
+    return spotifyClient.Artists.Artist.getSeveral(artistIds);
+  })
+  .then(res => {
+    console.log(res.data.artists);
+  });
+
+spotifyClient.Tracks.UsersSaved.getAll()()
+  .then(res => {
+    return res.map(res => res.data.items);
+  })
+  .then(library => {
+    console.log(library);
+  });
+```
+
+### Authentication
+
+Every Spotify client is created through a call to `initialize`. A client is bound to the **authentication method it was instantiated with**. There are multiple ways to instantiate a client:
+
+1. **With a Spotify client id, client secret and refresh token** - This method will automatically generate an initial access token and refresh it when it's about to expire after 1 hour. This is great for apps that need to run independently.
+
+```ts
+import { initialize } from '@spotifly/core';
+
+const spotifyClient = initialize({
+  clientId: process.env.SPOTIFY_CLIENT_ID || '',
+  clientSecret: process.env.SPOTIFY_CLIENT_SECRET || '',
+  refreshToken: process.env.SPOTIFY_REFRESH_TOKEN || '',
+});
+```
+
+2. **With a Spotify access token** - This method will simply include the provided token when making requests to Spotify. It's great because it does not need any secrets but requests may fail once the token has expired after 1 hour.
+
+```ts
+import { initialize } from '@spotifly/core';
+
+const spotifyClient = Spotify.initialize({
+  accessToken: 'abc123',
+});
+```
+
+Both methods return a Spotify client with the same methods.
+
+:::tip
+Usually, a refresh token only needs to be generated once. You can [generate one here](/docs/authorization) using the Authorization Code Flow.
+:::
+
+### Supported Endpoints and Methods
+
+[Web API Reference](https://developer.spotify.com/documentation/web-api/reference/#/).
+
+- ✅ - Fully supported
+- 〽️ - Partial support - work in progress
+- ❌ - Not yet suppoted - contributions are welcome!
+
+| Endpoint   | Support |
+| ---------- | ------- |
+| Albums     | ❌      |
+| Artists    | ✅      |
+| Shows      | ❌      |
+| Episodes   | ❌      |
+| Tracks     | ✅      |
+| Search     | ❌      |
+| Users      | ❌      |
+| Playlists  | ❌      |
+| Categories | ❌      |
+| Genres     | ❌      |
+| Player     | ❌      |
+| Markets    | ❌      |
+
+<details>
+  <summary>Detailed Support Table</summary>
+  <ul>
+    <li>
+      <b>Artists</b>
+      <ul>
+        <li>Artists.Albums.get</li>
+        <li>Artists.Albums.getAll</li>
+        <li>Artists.Artist.get</li>
+        <li>Artists.Artist.getAll</li>
+        <li>Artists.Artist.getSeveral</li>
+        <li>Artists.RelatedArtists.get</li>
+        <li>Artists.TopTracks.get</li>
+      </ul>
+    </li>
+    <li>
+      <b>Tracks</b>
+      <ul>
+        <li>Tracks.AudioAnalysis.get</li>
+        <li>Tracks.AudioFeatures.get</li>
+        <li>Tracks.AudioFeatures.getAll</li>
+        <li>Tracks.AudioFeatures.getSeveral</li>
+        <li>Tracks.Recommendations.get</li>
+        <li>Tracks.Track.get</li>
+        <li>Tracks.Track.getAll</li>
+        <li>Tracks.Track.getSeveral</li>
+        <li>Tracks.UsersSaved.check</li>
+        <li>Tracks.UsersSaved.checkAll</li>
+        <li>Tracks.UsersSaved.get</li>
+        <li>Tracks.UsersSaved.getAll</li>
+        <li>Tracks.UsersSaved.remove</li>
+        <li>Tracks.UsersSaved.removeAll</li>
+        <li>Tracks.UsersSaved.save</li>
+        <li>Tracks.UsersSaved.saveAll</li>
+      </ul>
+    </li>
+  </ul>
+</details>
+
+### Response Schema
+
+The core lib uses [`axios`](https://axios-http.com/) for all HTTP requests to Spotify. Each method call returns `DataResponse` object with some request metadata. Cconvenience methods will return a `DataResponse` array. `data` will hold the return value of interest.
+
+```ts
+type DataResponse<T = unknown> = {
+  data: T;
+  headers: Record<string, string>;
+  statusCode: number;
+};
+```
+
+### Convenience Methods
+
+TODO
+
+## Testing Recipes
+
+The core lib can be mocked nicely with [`Jest`](https://jestjs.io/) and the TypeScript-friendly [`jest-mock-extended`](https://www.npmjs.com/package/jest-mock-extended) extension. The following examples assume you have already setup `Jest` accordingly for your project.
+
+1. Install `jest-mock-extended`.
+
+```bash npm2yarn
+npm install -D jest-mock-extended
+```
+
+2. Mock whatever methods you are using using the `mockDeep` helper and inject this object whenever `initialize` is called in the implementation.
+
+```ts
+import * as Spotifly from '@spotifly/core';
+import { mockDeep } from 'jest-mock-extended';
+
+const mockSpotify = mockDeep<Spotifly.SpotifyClient>();
+
+const mockResponse = {
+  data: {
+    // Some response
+  },
+  statusCode: 200,
+  headers: {},
+};
+
+jest.spyOn(Spotifly, 'initialize').mockReturnValue(mockSpotify);
+
+// Mocking an ordinary method
+mockSpotify.Tracks.AudioFeatures.getSeveral.mockImplementation(() => {
+  return Promise.resolve(RES_MULTIPLE_AUDIO_FEATURES);
+});
+
+// Mocking a convenience method
+mockSpotify.Tracks.AudioFeatures.getAll.mockImplementation(() => {
+  return cb => {
+    if (cb) cb(RES_MULTIPLE_AUDIO_FEATURES);
+    return Promise.resolve([RES_MULTIPLE_AUDIO_FEATURES]);
+  };
+});
+
+describe('Test', () => {
+  // ...
+});
+```

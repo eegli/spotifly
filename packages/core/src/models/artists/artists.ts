@@ -1,12 +1,12 @@
-import { AsyncFnWithProvider, Methods, transformResponse } from '../../request';
-import type { Permutations } from '../../types';
+import { Methods, transformResponse } from '../../request';
+import type { AsyncFnWithProvider, Permutations } from '../../types';
 
 export const getSingleArtist: AsyncFnWithProvider<
   SpotifyApi.SingleArtistResponse,
   string
-> = provider => async artistId =>
+> = p => async artistId =>
   transformResponse(
-    await provider.request({
+    await p.request({
       method: Methods.GET,
       url: `artists/${artistId}`,
     })
@@ -15,9 +15,9 @@ export const getSingleArtist: AsyncFnWithProvider<
 export const getSeveralArtists: AsyncFnWithProvider<
   SpotifyApi.MultipleArtistsResponse,
   string[]
-> = provider => async artistIds =>
+> = p => async artistIds =>
   transformResponse(
-    await provider.request({
+    await p.request({
       method: Methods.GET,
       url: 'artists',
       params: {
@@ -39,9 +39,9 @@ export const getArtistsAlbums: AsyncFnWithProvider<
     limit: number;
     market: string;
   }
-> = provider => async (artistId, params) =>
+> = p => async (artistId, params) =>
   transformResponse(
-    await provider.request({
+    await p.request({
       method: Methods.GET,
       url: `artists/${artistId}/albums`,
       params,
@@ -54,9 +54,9 @@ export const getArtistsTopTracks: AsyncFnWithProvider<
   SpotifyApi.ArtistsTopTracksResponse,
   string,
   { market: string }
-> = provider => async (artistId, params) =>
+> = p => async (artistId, params) =>
   transformResponse(
-    await provider.request({
+    await p.request({
       method: Methods.GET,
       url: `artists/${artistId}/top-tracks`,
       params,
@@ -66,9 +66,9 @@ export const getArtistsTopTracks: AsyncFnWithProvider<
 export const getArtistsRelatedArtists: AsyncFnWithProvider<
   SpotifyApi.ArtistsRelatedArtistsResponse,
   string
-> = provider => async artistId =>
+> = p => async artistId =>
   transformResponse(
-    await provider.request({
+    await p.request({
       method: Methods.GET,
       url: `artists/${artistId}/related-artists`,
     })

@@ -33,11 +33,10 @@
     "cli-progress": "^3.11.2"
   },
   "devDependencies": {
-    "@types/cli-progress": "^3.11.0",
-    "@types/spotify-api": "^0.0.16"
+    "@types/cli-progress": "^3.11.0"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=14"
   },
   "publishConfig": {
     "directory": "_release/package"

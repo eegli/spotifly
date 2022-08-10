@@ -20,6 +20,12 @@
     "packages/*",
     "website"
   ],
+  "preconstruct": {
+    "packages": [
+      "packages/*",
+      "!packages/integration-tests"
+    ]
+  },
   "scripts": {
     "build": "preconstruct build",
     "build:release": "yarn build && yarn forallpackages exec rm -rf _release && yarn forallpackages pack && yarn forallpackages exec \"mkdir _release && tar zxvf package.tgz --directory _release && rm package.tgz\"",
@@ -29,7 +35,7 @@
     "format": "prettier --write packages website \"**/*.{js,ts,tsx,md}\"",
     "postinstall": "preconstruct dev",
     "lint": "yarn eslint website packages --ext .ts,.tsx,.js",
-    "list-deps": "node scripts/versions.mjs",
+    "get-endpoint-coverage": "node scripts/endpoint-coverage.mjs",
     "release": "yarn build:release && changeset publish",
     "sort-packages": "npx --yes sort-package-json \"package.json\" \"packages/*/package.json\" ",
     "status": "changeset status",
@@ -49,7 +55,8 @@
     "@preconstruct/cli": "^2.2.0",
     "@tsd/typescript": "^4.7.4",
     "@types/jest": "^28.1.6",
-    "@types/node": "^18.0.6",
+    "@types/node": "^18.6.5",
+    "@types/spotify-api": "^0.0.17",
     "@typescript-eslint/eslint-plugin": "^5.30.6",
     "@typescript-eslint/parser": "^5.30.6",
     "dotenv": "^16.0.1",
@@ -58,6 +65,7 @@
     "eslint-plugin-jest": "^26.6.0",
     "eslint-plugin-react": "^7.30.1",
     "jest": "^28.1.3",
+    "jest-mock-extended": "^2.0.7",
     "jest-runner-tsd": "^3.1.0",
     "prettier": "^2.7.1",
     "prettier-plugin-organize-imports": "^3.0.0",
@@ -67,11 +75,6 @@
   },
   "packageManager": "yarn@3.2.1",
   "engines": {
-    "node": ">=17.3"
-  },
-  "preconstruct": {
-    "packages": [
-      "packages/*"
-    ]
+    "node": ">=17.6"
   }
 }

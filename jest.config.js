@@ -3,6 +3,7 @@ const common = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   moduleFileExtensions: ['js', 'ts'],
+  maxWorkers: 1,
   snapshotFormat: {
     printBasicPrototype: false,
   },
@@ -15,10 +16,10 @@ const common = {
 
 /** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 module.exports = {
-  maxWorkers: 1,
   projects: [
     {
       ...common,
+
       displayName: 'auth-token',
       rootDir: 'packages/auth-token',
       roots: ['<rootDir>/src', '<rootDir>/test'],
@@ -48,14 +49,13 @@ module.exports = {
       testMatch: ['**/*.test-d.ts'],
       runner: 'jest-runner-tsd',
     },
-    /*     {
+    /*  {
       ...common,
       displayName: {
-        name: 'core-integration',
+        name: 'integration',
         color: 'magenta',
       },
-      rootDir: 'packages/core',
-      roots: ['<rootDir>/integration'],
+      rootDir: 'packages/integration-tests',
       setupFiles: ['dotenv/config'],
     }, */
     {

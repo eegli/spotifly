@@ -2,7 +2,6 @@ import LockOpenIcon from '@mui/icons-material/LockOpen';
 import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
 import StarIcon from '@mui/icons-material/Star';
 import Box from '@mui/material/Box';
-import Divider from '@mui/material/Divider';
 import MuiLink from '@mui/material/Link';
 import React from 'react';
 
@@ -86,22 +85,22 @@ export default function HomepageFeatures(): JSX.Element {
         alignItems: 'center',
       }}
     >
-      {FeatureList.map(({ description, title, image }, idx) => {
-        const isLast = idx === FeatureList.length - 1;
+      {FeatureList.map(({ description, title, image }) => {
         return (
-          <Box key={title} mb={isLast ? 3 : 2}>
+          <Box key={title} mb={3}>
             <Feature description={description} title={title} image={image} />
-            {!isLast && <Divider flexItem />}
           </Box>
         );
       })}
       <MuiLink
         href="docs/overview"
-        variant="body1"
         sx={{
           px: 2,
           py: 1,
+          mb: 5,
+          mt: 2,
           borderRadius: '4px',
+
           backgroundColor: 'primary.main',
           color: 'primary.contrastText',
           '&:hover': {
@@ -110,7 +109,7 @@ export default function HomepageFeatures(): JSX.Element {
           },
         }}
       >
-        Explore the docs
+        <b>Explore the docs</b>
       </MuiLink>
     </Box>
   );

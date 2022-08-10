@@ -1,51 +1,45 @@
 import { expectAssignable, expectNotAssignable, expectType } from 'tsd-lite';
 import * as factory from '../src/factory';
-import { DataPromise, DataResponse } from '../src/request';
-import { ReadOnlyParams } from '../src/types';
+import { DataPromise, DataResponse, ReadOnlyParams } from '../src/types';
 
 type Custom = { prop: string };
 
-declare function fetchFn(
+declare function paginatedFunc(
   id: string,
   params?: {
+    market?: string;
     limit?: number;
     offset?: number;
   }
 ): DataPromise<SpotifyApi.PagingObject<Custom>>;
 
-declare function badFetchFn1(
-  id: string,
-  params?: {
-    limit?: number;
-    offset?: number;
-  }
-): DataPromise<null>;
-
-declare function badFetchFn2(params?: {
-  limit?: number;
-  offset?: number;
-}): DataPromise<SpotifyApi.PagingObject<Custom>>;
-
 describe('Factory, pagination handling', () => {
-  const getAll = factory.forPaginated(fetchFn, 10)('');
+  const get = factory.forPaginated(paginatedFunc, 10);
 
-  test('parameters', async () => {
-    type Params = ReadOnlyParams<typeof factory.forPaginated>;
-    expectAssignable<Params>([fetchFn, 5] as const);
-    expectNotAssignable<Params>([badFetchFn1, 5] as const);
-    expectNotAssignable<Params>([badFetchFn2, 5] as const);
+  test('omits pagination parameters', async () => {
+    expectAssignable<ReadOnlyParams<typeof get>>(['', { market: '' }] as const);
+    expectNotAssignable<ReadOnlyParams<typeof get>>([
+      '',
+      { limit: 1 },
+    ] as const);
+    expectNotAssignable<ReadOnlyParams<typeof get>>([
+      '',
+      { offset: 1 },
+    ] as const);
   });
-  test('return type', async () => {
-    expectType<DataResponse<SpotifyApi.PagingObject<Custom>>[]>(await getAll());
+  test('infers return type', async () => {
+    expectType<DataResponse<SpotifyApi.PagingObject<Custom>>[]>(
+      await get('abc')()
+    );
   });
-  test('callback', async () => {
-    getAll(r => {
+  test('infers callback', async () => {
+    get('abc')(r => {
       expectAssignable<DataResponse<SpotifyApi.PagingObject<Custom>>>(r);
     });
   });
 });
 
-declare function limitedFn(
+declare function limitedFunc(
   ids: string[],
   params?: {
     market?: string;
@@ -53,16 +47,16 @@ declare function limitedFn(
 ): DataPromise<Custom>;
 
 describe('Factory, limited endpoint handling', () => {
-  const getAll = factory.forLimited(limitedFn, 10)([]);
-  test('parameters', async () => {
+  const get = factory.forLimited(limitedFunc, 10)([]);
+  test('infers parameters', async () => {
     type Params = ReadOnlyParams<typeof factory.forLimited>;
-    expectAssignable<Params>([limitedFn, 1] as const);
+    expectAssignable<Params>([limitedFunc, 1] as const);
   });
-  test('return type', async () => {
-    expectType<DataResponse<Custom>[]>(await getAll());
+  test('infers return type', async () => {
+    expectType<DataResponse<Custom>[]>(await get());
   });
-  test('callback', async () => {
-    getAll(r => {
+  test('infers callback', async () => {
+    get(r => {
       expectAssignable<DataResponse<Custom>>(r);
     });
   });

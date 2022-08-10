@@ -1,5 +1,5 @@
 import * as factory from '../../factory';
-import { AuthProvider } from '../../provider';
+import { AsyncProvider } from '../../types';
 import {
   getArtistsAlbums,
   getArtistsAlbumsLimit,
@@ -10,7 +10,7 @@ import {
   getSingleArtist,
 } from './artists';
 
-export default function Artists(provider: AuthProvider) {
+export default function Artists(provider: AsyncProvider) {
   return {
     Artist: {
       get: getSingleArtist(provider),
@@ -19,19 +19,19 @@ export default function Artists(provider: AuthProvider) {
         getSeveralArtists(provider),
         getSeveralArtistsLimit
       ),
-    } as const,
+    },
     Albums: {
       get: getArtistsAlbums(provider),
       getAll: factory.forPaginated(
         getArtistsAlbums(provider),
         getArtistsAlbumsLimit
       ),
-    } as const,
+    },
     TopTracks: {
       get: getArtistsTopTracks(provider),
-    } as const,
+    },
     RelatedArtists: {
       get: getArtistsRelatedArtists(provider),
-    } as const,
+    },
   } as const;
 }
