@@ -1,12 +1,10 @@
 import Artists from './models/artists';
 import Tracks from './models/tracks';
-import { AuthInitOptions, AuthProvider } from './provider';
+import type { AuthProviderOptions } from './provider';
+import { AuthProvider } from './provider';
 
-export default function initialize(authInitOptions: AuthInitOptions) {
-  const provider = new AuthProvider({
-    ...authInitOptions,
-    requestConfig: { baseURL: 'https://api.spotify.com/v1' },
-  });
+export function initialize(authOptions: AuthProviderOptions) {
+  const provider = new AuthProvider(authOptions);
   return {
     Tracks: Tracks(provider),
     Artists: Artists(provider),
@@ -14,3 +12,5 @@ export default function initialize(authInitOptions: AuthInitOptions) {
 }
 
 export type SpotifyClient = ReturnType<typeof initialize>;
+
+export type { AuthProviderOptions };

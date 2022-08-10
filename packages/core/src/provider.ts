@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { AsyncProvider } from './types';
+import { AsyncProvider, Either } from './types';
 
 type AccessTokenConfig = {
   accessToken: string;
@@ -11,13 +11,7 @@ type RefreshTokenConfig = {
   clientSecret: string;
 };
 
-type CommonConfig = {
-  requestConfig?: AxiosRequestConfig;
-  refreshAfterSeconds?: number;
-};
-
-export type AuthInitOptions = CommonConfig &
-  (AccessTokenConfig | RefreshTokenConfig);
+export type AuthProviderOptions = Either<AccessTokenConfig, RefreshTokenConfig>;
 
 export class AuthProvider implements AsyncProvider {
   // Must be smaller than 60 minutes
@@ -34,21 +28,20 @@ export class AuthProvider implements AsyncProvider {
     expiresAt: Date;
   };
 
-  constructor(ctrArgs: AuthInitOptions) {
-    const { refreshAfterSeconds, requestConfig, ...tokenConfig } = ctrArgs;
-    this.axios = axios.create(requestConfig);
+  constructor(ctrArgs: AuthProviderOptions) {
+    this.axios = axios.create({
+      baseURL: 'https://api.spotify.com/v1',
+    });
+
     this.auth = {
-      type: 'accessToken' in tokenConfig ? 'access_token' : 'refresh_token',
+      type: 'accessToken' in ctrArgs ? 'access_token' : 'refresh_token',
       accessToken: '',
       expiresAt: new Date(),
       clientId: '',
       clientSecret: '',
       refreshToken: '',
-      ...tokenConfig,
+      ...ctrArgs,
     };
-    if (refreshAfterSeconds) {
-      this.REFRESH_AFTER_SECONDS = refreshAfterSeconds;
-    }
   }
 
   public async request<T>(

@@ -113,7 +113,7 @@ const createLimitedAPI = function (limit: number) {
         headers: {},
         data: Array.from({ length: ids.length }).map(() => ({
           id: 1,
-          market: rest?.market || 'unknown',
+          market: rest?.market || 'no market specified',
         })),
       });
     }
@@ -128,7 +128,7 @@ describe('Factory, limited endpoint handling', () => {
     { limit: 5, itemCount: 5, expectedCalls: 1 },
     { limit: 5, itemCount: 8, expectedCalls: 2 },
     { limit: 5, itemCount: 12, expectedCalls: 3 },
-  ].forEach(testCase => {
+  ].forEach((testCase, idx) => {
     const { limit, itemCount, expectedCalls } = testCase;
     test(`handles max ${itemCount} item with limit of ${limit}`, async () => {
       const mockAPI = createLimitedAPI(limit);
@@ -136,8 +136,10 @@ describe('Factory, limited endpoint handling', () => {
 
       const result = await fetch(
         Array.from({ length: itemCount }, () => 'id'),
-        { market: 'CH' }
+        // Test with no optional arguments
+        idx % 2 === 0 ? { market: 'CH' } : undefined
       )(args => mockCb(args));
+
       expect(result).toHaveLength(expectedCalls);
       const allItems = result.reduce(
         (acc, curr) => [...acc, ...curr.data],

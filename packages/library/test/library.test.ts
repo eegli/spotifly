@@ -26,6 +26,10 @@ mockSpotify.Tracks.AudioFeatures.getAll.mockImplementation(() => {
   };
 });
 
+mockSpotify.Tracks.AudioFeatures.getSeveral.mockImplementation(() => {
+  return Promise.resolve(RES_MULTIPLE_AUDIO_FEATURES);
+});
+
 mockSpotify.Artists.Artist.getAll.mockImplementation(() => {
   return cb => {
     if (cb) cb(RES_MULTIPLE_ARTISTS);

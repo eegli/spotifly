@@ -4082,6 +4082,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@spotifly/integration-tests@workspace:packages/integration-tests":
+  version: 0.0.0-use.local
+  resolution: "@spotifly/integration-tests@workspace:packages/integration-tests"
+  languageName: unknown
+  linkType: soft
+
 "@spotifly/library@workspace:^, @spotifly/library@workspace:packages/library":
   version: 0.0.0-use.local
   resolution: "@spotifly/library@workspace:packages/library"
@@ -4090,7 +4096,6 @@ __metadata:
     "@spotifly/core": "workspace:^"
     "@spotifly/utils": "workspace:^"
     "@types/cli-progress": ^3.11.0
-    "@types/spotify-api": ^0.0.16
     cli-progress: ^3.11.2
   languageName: unknown
   linkType: soft
@@ -4107,7 +4112,8 @@ __metadata:
     "@preconstruct/cli": ^2.2.0
     "@tsd/typescript": ^4.7.4
     "@types/jest": ^28.1.6
-    "@types/node": ^18.0.6
+    "@types/node": ^18.6.5
+    "@types/spotify-api": ^0.0.17
     "@typescript-eslint/eslint-plugin": ^5.30.6
     "@typescript-eslint/parser": ^5.30.6
     dotenv: ^16.0.1
@@ -4677,10 +4683,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^18.0.6":
-  version: 18.0.6
-  resolution: "@types/node@npm:18.0.6"
-  checksum: 780f8885a6b6eb12f4c0246617747fdc37a451931b3c01ce8148d356c0903b705dcb16cc6a914de63d48b0dc1b002c7a3dfae681f580e1761aa551d3cd996813
+"@types/node@npm:^18.6.5":
+  version: 18.6.5
+  resolution: "@types/node@npm:18.6.5"
+  checksum: e3e66c9a84b94010a57c1b9dac882c08484278d74f9d120dbe6a3e45d00740d178bd1d34a5deee28197c94b9f4359153b637bab9b305328e865027e9987a0f3d
   languageName: node
   linkType: hard
 
@@ -4870,10 +4876,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/spotify-api@npm:^0.0.16":
-  version: 0.0.16
-  resolution: "@types/spotify-api@npm:0.0.16"
-  checksum: 0c7e5009433b82d03fc9ca45cab18e9ca8bdb26c64d643ddc3eedae42ae7ee093c7687afe2a5d7453deb5e4ad2d32ec18eb8242eb6cb0ecb359f4ef8bd32798d
+"@types/spotify-api@npm:^0.0.17":
+  version: 0.0.17
+  resolution: "@types/spotify-api@npm:0.0.17"
+  checksum: 7fb5a8762718b9e6f006ae995098e88fc17e45d4d8a289bcc26f8bbf83a7d2ee5d90db3b52b49fb60e1481928978b5945fb9e0d2cbc0f5162af39de687e8cddc
   languageName: node
   linkType: hard
 
