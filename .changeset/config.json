@@ -4,7 +4,7 @@
   "commit": false,
   "fixed": [],
   "linked": [],
-  "ignore": ["integration-tests"],
+  "ignore": [],
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "minor"
