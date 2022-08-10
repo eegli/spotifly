@@ -1,3 +1,5 @@
 {
-  "name": "@spotifly/integration-tests"
+  "name": "@spotifly/integration-tests",
+  "private": true,
+  "version": "0.0.0"
 }

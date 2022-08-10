@@ -45,6 +45,7 @@ const config = {
     ({
       colorMode: {
         defaultMode: 'dark',
+        disableSwitch: true,
       },
       navbar: {
         title: 'Spotifly',
@@ -75,7 +76,6 @@ const config = {
         darkTheme: darkCodeTheme,
       },
     }),
-  themes: ['@docusaurus/theme-live-codeblock'],
 };
 
 module.exports = config;
