@@ -154,7 +154,7 @@ Usually, a refresh token only needs to be generated once. You can [generate one 
 
 ### Response Schema
 
-The core lib uses [`axios`]("https://axios-http.com/") for all HTTP requests to Spotify. Each method call returns `DataResponse` object with some request metadata. Cconvenience methods will return a `DataResponse` array. `data` will hold the return value of interest.
+The core lib uses [`axios`](https://axios-http.com/) for all HTTP requests to Spotify. Each method call returns `DataResponse` object with some request metadata. Cconvenience methods will return a `DataResponse` array. `data` will hold the return value of interest.
 
 ```ts
 type DataResponse<T = unknown> = {
