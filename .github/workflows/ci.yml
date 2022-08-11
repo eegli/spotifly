@@ -41,14 +41,23 @@ jobs:
       - name: Run tests
         run: yarn test
   coverage:
-    name: Get coverage for packages/${{ matrix.project }}
+    name: Get coverage for proj/${{ matrix.project }}
     needs: tests
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest]
         node: ['17']
-        project: ['core', 'cli']
+        project:
+          [
+            'auth-token',
+            'cli',
+            'core',
+            'core-types',
+            'library',
+            'utils',
+            'website',
+          ]
     steps:
       - uses: actions/checkout@v3
       - name: Setup Node v${{ matrix.node }}
