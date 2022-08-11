@@ -39,8 +39,8 @@
     "release": "yarn build:release && changeset publish",
     "sort-packages": "npx --yes sort-package-json \"package.json\" \"packages/*/package.json\" ",
     "status": "changeset status",
-    "test": "jest --silent",
-    "test:pkg": "jest --selectProjects",
+    "test": "jest --silent --verbose",
+    "test:pkg": "jest --silent --verbose --selectProjects",
     "watch": "preconstruct watch"
   },
   "resolutions": {

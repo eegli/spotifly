@@ -1,4 +1,4 @@
-/** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
+/** @type {import('@jest/types').Config.InitialProjectOptions} */
 const common = {
   preset: 'ts-jest',
   testEnvironment: 'node',
@@ -14,12 +14,11 @@ const common = {
   },
 };
 
-/** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
+/** @type {import('@jest/types').Config.InitialOptions} */
 module.exports = {
   projects: [
     {
       ...common,
-
       displayName: 'auth-token',
       rootDir: 'packages/auth-token',
       roots: ['<rootDir>/src', '<rootDir>/test'],

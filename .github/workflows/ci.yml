@@ -19,7 +19,7 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'yarn'
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --immutable
       - name: Lint
         run: yarn lint
   tests:
@@ -37,15 +37,43 @@ jobs:
           cache: 'yarn'
           node-version: ${{ matrix.node }}
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --immutable
       - name: Run tests
-        run: yarn test --coverage --verbose
+        run: yarn test
+  coverage:
+    name: Get coverage for proj/${{ matrix.project }}
+    needs: tests
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: ['17']
+        project:
+          [
+            'auth-token',
+            'cli',
+            'core',
+            'core-types',
+            'library',
+            'utils',
+            'website',
+          ]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node v${{ matrix.node }}
+        uses: actions/setup-node@v3
+        with:
+          cache: 'yarn'
+          node-version: ${{ matrix.node }}
+      - name: Install dependencies
+        run: yarn install --immutable
+      - name: Run tests
+        run: yarn test:pkg ${{ matrix.project }} --coverage
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
-        if: matrix.node == '17'
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: true
+          flags: ${{ matrix.project }}
           files: ./coverage/coverage-final.json
           name: codecov-spotifly
           verbose: true
@@ -60,6 +88,6 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'yarn'
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --immutable
       - name: Build packages
         run: yarn build
