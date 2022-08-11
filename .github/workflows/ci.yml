@@ -29,6 +29,7 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         node: ['14', '16', '17']
+        project: ['cli', 'core']
     steps:
       - uses: actions/checkout@v3
       - name: Setup Node v${{ matrix.node }}
@@ -37,15 +38,15 @@ jobs:
           cache: 'yarn'
           node-version: ${{ matrix.node }}
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --immutable
       - name: Run tests
-        run: yarn test --coverage --verbose
+        run: yarn test:pkg ${{ matrix.project }} --coverage --silent --verbose
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         if: matrix.node == '17'
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: true
+          flags: ${{ matrix.project }}
           files: ./coverage/coverage-final.json
           name: codecov-spotifly
           verbose: true
