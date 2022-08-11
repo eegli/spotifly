@@ -41,16 +41,14 @@ jobs:
       - name: Run tests
         run: yarn test
   coverage:
-    name: Upload coverage to Codecov
+    name: Get coverage for packages/${{ matrix.project }}
     needs: tests
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest]
         node: ['17']
-        include:
-          - proj: 'core'
-          - proj: 'cli'
+        project: ['core', 'cli']
     steps:
       - uses: actions/checkout@v3
       - name: Setup Node v${{ matrix.node }}
