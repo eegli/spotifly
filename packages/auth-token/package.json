@@ -12,7 +12,7 @@
     "cli",
     "typescript"
   ],
-  "homepage": "https://spotifly.nougat.dev/",
+  "homepage": "https://spotifly.nougat.dev/docs/packages/auth-token",
   "repository": {
     "type": "git",
     "url": "https://github.com/eegli/spotifly"

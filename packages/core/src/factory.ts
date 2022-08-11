@@ -1,5 +1,5 @@
 import { chunkify } from '@spotifly/utils';
-import { AsyncFn, OmitFromAsyncFnParams } from './types';
+import type { AnyObject, AsyncFn, OmitFromAsyncFnParams } from './types';
 
 type PaginationParams = {
   limit: number;
@@ -33,7 +33,7 @@ export function forPaginated<
 }
 
 export function forLimited<
-  F extends AsyncFn<unknown, string[], unknown>,
+  F extends AsyncFn<unknown, string[], AnyObject>,
   R extends Awaited<ReturnType<F>>
 >(getFn: F, limit: number) {
   return function (...args: Parameters<F>) {

@@ -2,7 +2,7 @@
 title: Core
 ---
 
-![npm (scoped)](https://img.shields.io/npm/v/@spotifly/core)
+![npm (scoped)](https://img.shields.io/npm/v/@spotifly/core) ![Codecov](https://codecov.io/gh/eegli/spotifly/branch/main/graph/badge.svg?flag=core)
 
 ## Motivation
 
@@ -154,7 +154,7 @@ Usually, a refresh token only needs to be generated once. You can [generate one 
 
 ### Response Schema
 
-The core library uses [`axios`](https://axios-http.com/) for all HTTP requests to Spotify. Each method call returns `DataResponse` object with some request metadata. Cconvenience methods will return a `DataResponse` array. `data` will hold the return value of interest.
+The core library uses [`axios`](https://axios-http.com/) for all HTTP requests to Spotify. Each method call returns a `DataResponse` object with request metadata. Convenience methods will return a `DataResponse` array. `data` will hold the return value of interest.
 
 ```ts
 type DataResponse<T = unknown> = {
@@ -164,7 +164,7 @@ type DataResponse<T = unknown> = {
 };
 ```
 
-Both `DataResponse` and `DataPromise` are exposed. The latter simply wraps the former in a promise.
+Both `DataResponse` and `DataPromise` are exported so you don't have to infer them. The latter simply wraps the former in a `Promise`.
 
 ```ts
 import type { DataResponse, DataPromise } from '@spotifly/core';

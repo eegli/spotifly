@@ -11,7 +11,7 @@
     "history",
     "data"
   ],
-  "homepage": "https://spotifly.nougat.dev/",
+  "homepage": "https://spotifly.nougat.dev/docs/command-line",
   "repository": {
     "type": "git",
     "url": "https://github.com/eegli/spotifly"
