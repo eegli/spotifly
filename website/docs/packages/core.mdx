@@ -6,7 +6,7 @@ title: Core
 
 ## Motivation
 
-The Spotifly core lib is a lightweight wrapper for the [Spotify Web API](https://developer.spotify.com/documentation/web-api/). Out of the box, it features:
+The Spotifly core library is a lightweight wrapper for the [Spotify Web API](https://developer.spotify.com/documentation/web-api/). Out of the box, it features:
 
 - **Strong TypeScript and IntelliSense support**
   - All function parameters and return values are strongly typed
@@ -19,7 +19,7 @@ The Spotifly core lib is a lightweight wrapper for the [Spotify Web API](https:/
 - **Testing with confidence**
   - Creating stubs for the core lib is a piece of cake. Read along for testing recipes!
 
-Altough the core lib is very lightweight, it may be overkill if you're only interested in one or two Web API endpoints. However, for many other use cases, including long-running apps, it's a great fit.
+Although the core library is very lightweight, it may be overkill if you're only interested in one or two Web API endpoints. However, for many other use cases, including long-running apps, it's a great fit.
 
 ## Usage
 
@@ -32,9 +32,9 @@ npm install @spotifly/core
 ### Example
 
 ```ts
-import * as Spotify from '@spotifly/core';
+import * as Spotifly from '@spotifly/core';
 
-const spotifyClient = Spotify.initialize({
+const spotifyClient = Spotifly.initialize({
   accessToken: 'abc123',
 });
 
@@ -74,7 +74,7 @@ const spotifyClient = initialize({
 });
 ```
 
-2. **With a Spotify access token** - This method will simply include the provided token when making requests to Spotify. It's great because it does not need any secrets but requests may fail once the token has expired after 1 hour.
+2. **With a Spotify access token** - This method will simply attach the provided access token to requests to Spotify. No secrets are involved but requests may fail once the token has expired.
 
 ```ts
 import { initialize } from '@spotifly/core';
@@ -154,7 +154,7 @@ Usually, a refresh token only needs to be generated once. You can [generate one 
 
 ### Response Schema
 
-The core lib uses [`axios`](https://axios-http.com/) for all HTTP requests to Spotify. Each method call returns `DataResponse` object with some request metadata. Cconvenience methods will return a `DataResponse` array. `data` will hold the return value of interest.
+The core library uses [`axios`](https://axios-http.com/) for all HTTP requests to Spotify. Each method call returns `DataResponse` object with some request metadata. Cconvenience methods will return a `DataResponse` array. `data` will hold the return value of interest.
 
 ```ts
 type DataResponse<T = unknown> = {
@@ -164,13 +164,19 @@ type DataResponse<T = unknown> = {
 };
 ```
 
+Both `DataResponse` and `DataPromise` are exposed. The latter simply wraps the former in a promise.
+
+```ts
+import type { DataResponse, DataPromise } from '@spotifly/core';
+```
+
 ### Convenience Methods
 
 TODO
 
 ## Testing Recipes
 
-The core lib can be mocked nicely with [`Jest`](https://jestjs.io/) and the TypeScript-friendly [`jest-mock-extended`](https://www.npmjs.com/package/jest-mock-extended) extension. The following examples assume you have already setup `Jest` accordingly for your project.
+The core library can be mocked nicely with [`Jest`](https://jestjs.io/) and the TypeScript-friendly [`jest-mock-extended`](https://www.npmjs.com/package/jest-mock-extended) extension. The following examples assume you have already setup `Jest` accordingly for your project.
 
 1. Install `jest-mock-extended`.
 
@@ -178,34 +184,42 @@ The core lib can be mocked nicely with [`Jest`](https://jestjs.io/) and the Type
 npm install -D jest-mock-extended
 ```
 
-2. Mock whatever methods you are using using the `mockDeep` helper and inject this object whenever `initialize` is called in the implementation.
+2. Mock whatever methods you are using using the `mockDeep` helper and inject this object whenever `initialize` is called in the implementation. Using the types from `@types/spotify-api`, it's very easy to create solid mock responses.
 
 ```ts
 import * as Spotifly from '@spotifly/core';
 import { mockDeep } from 'jest-mock-extended';
 
-const mockSpotify = mockDeep<Spotifly.SpotifyClient>();
+type MockResponse =
+  Spotifly.DataResponse<SpotifyApi.MultipleAudioFeaturesResponse>;
 
-const mockResponse = {
+const mockResponse: MockResponse = {
   data: {
-    // Some response
+    audio_features: [
+      {
+        acousticness: 0.00242,
+        // ...
+        valence: 0.428,
+      },
+    ],
   },
   statusCode: 200,
   headers: {},
 };
+const mockSpotify = mockDeep<Spotifly.SpotifyClient>();
 
 jest.spyOn(Spotifly, 'initialize').mockReturnValue(mockSpotify);
 
 // Mocking an ordinary method
 mockSpotify.Tracks.AudioFeatures.getSeveral.mockImplementation(() => {
-  return Promise.resolve(RES_MULTIPLE_AUDIO_FEATURES);
+  return Promise.resolve(mockResponse);
 });
 
 // Mocking a convenience method
 mockSpotify.Tracks.AudioFeatures.getAll.mockImplementation(() => {
   return cb => {
-    if (cb) cb(RES_MULTIPLE_AUDIO_FEATURES);
-    return Promise.resolve([RES_MULTIPLE_AUDIO_FEATURES]);
+    if (cb) cb(mockResponse);
+    return Promise.resolve([mockResponse]);
   };
 });
 
