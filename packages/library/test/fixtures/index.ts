@@ -1,4 +1,4 @@
-import { DataResponse } from '@spotifly/core';
+import type { DataResponse } from '@spotifly/core';
 import { MULTIPLE_ARTISTS } from './res-artists';
 import { MULTIPLE_AUDIO_FEATURES } from './res-features';
 import { USER_SAVED_TRACKS } from './res-library';

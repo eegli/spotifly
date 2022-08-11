@@ -1,0 +1,75 @@
+coverage:
+  status:
+    project:
+      default: off
+      auth-token:
+        flags:
+          - auth-token
+      cli:
+        flags:
+          - cli
+      core:
+        flags:
+          - core
+      library:
+        flags:
+          - library
+      utils:
+        flags:
+          - utils
+
+flag_management:
+  default_rules:
+    carryforward: true
+    statuses:
+      - type: project
+        target: auto
+        threshold: 1%
+      - type: patch
+        target: 90%
+  individual_flags:
+    - name: auth-token
+      paths:
+        - packages/auth-token
+      carryforward: true
+      statuses:
+        - type: project
+          target: auto
+        - type: patch
+          target: auto
+    - name: cli
+      paths:
+        - packages/cli
+      carryforward: true
+      statuses:
+        - type: project
+          target: auto
+        - type: patch
+          target: auto
+    - name: core
+      paths:
+        - packages/core
+      carryforward: true
+      statuses:
+        - type: project
+          target: auto
+        - type: patch
+          target: auto
+    - name: library
+      paths:
+        - packages/library
+      carryforward: true
+      statuses:
+        - type: project
+          target: auto
+        - type: patch
+          target: auto
+    - name: utils
+      paths:
+        - packages/utils
+      carryforward: true
+      statuses:
+        - type: project
+          target: auto
+        - type: patch
+          target: auto
