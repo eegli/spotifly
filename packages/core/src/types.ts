@@ -14,16 +14,20 @@ export type AsyncProvider = {
 };
 
 export type AsyncFn<
-  Return,
-  Required,
-  Optional = undefined
+  Return extends unknown,
+  Required extends unknown,
+  Optional extends AnyObject | undefined = undefined
 > = Optional extends undefined
   ? (required: Required) => DataPromise<Return>
   : (required: Required, optional?: Partial<Optional>) => DataPromise<Return>;
 
-export type AsyncFnWithProvider<Return, Required, Optional = undefined> = (
-  provider: AsyncProvider
-) => AsyncFn<Return, Required, Optional>;
+export type AnyObject = Record<never, never>;
+
+export type AsyncFnWithProvider<
+  Return extends unknown,
+  Required extends unknown,
+  Optional extends AnyObject | undefined = undefined
+> = (provider: AsyncProvider) => AsyncFn<Return, Required, Optional>;
 
 export type Permutations<
   T extends string,
@@ -37,7 +41,7 @@ export type BetterOmit<T, E> = {
 
 export type OmitFromAsyncFnParams<
   F extends (...args: any[]) => unknown,
-  O extends Record<never, never>
+  O extends AnyObject
 > = F extends (arg1: infer A, arg2: infer B) => unknown
   ? [A, BetterOmit<B, keyof O>?]
   : never;
