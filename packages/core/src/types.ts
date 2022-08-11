@@ -14,8 +14,8 @@ export type AsyncProvider = {
 };
 
 export type AsyncFn<
-  Return extends unknown,
-  Required extends unknown,
+  Return,
+  Required,
   Optional extends AnyObject | undefined = undefined
 > = Optional extends undefined
   ? (required: Required) => DataPromise<Return>
@@ -24,8 +24,8 @@ export type AsyncFn<
 export type AnyObject = Record<never, never>;
 
 export type AsyncFnWithProvider<
-  Return extends unknown,
-  Required extends unknown,
+  Return,
+  Required,
   Optional extends AnyObject | undefined = undefined
 > = (provider: AsyncProvider) => AsyncFn<Return, Required, Optional>;
 
