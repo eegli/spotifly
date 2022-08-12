@@ -1,5 +1,11 @@
 # @spotifly/core
 
+## 0.1.1
+
+### Patch Changes
+
+- e7b9e4b: Import utilities from entrypoint that does not require Node's fs
+
 ## 0.1.0
 
 ### Minor Changes
