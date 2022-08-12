@@ -14,6 +14,10 @@
 
 ![npm](https://img.shields.io/npm/v/@spotifly/library) ![Codecov](https://codecov.io/gh/eegli/spotifly/branch/main/graph/badge.svg?flag=library)
 
+### spotifly/utils (internal)
+
+![npm](https://img.shields.io/npm/v/@spotifly/library) ![Codecov](https://codecov.io/gh/eegli/spotifly/branch/main/graph/badge.svg?flag=utils)
+
 Spotifly is work in progress. It joins my currently independent Spotify related packages into a monorepo.
 
 I'm a little busy now but plan to release the first major/initial versions for each package somewhere in August/September. ⚒️

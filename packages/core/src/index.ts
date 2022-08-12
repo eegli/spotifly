@@ -1,12 +1,15 @@
+import Albums from './models/albums';
 import Artists from './models/artists';
 import Search from './models/search';
 import Tracks from './models/tracks';
+
 import { AuthProvider, AuthProviderOptions } from './provider';
 
 export function initialize(authOptions: AuthProviderOptions) {
   const provider = new AuthProvider(authOptions);
   return {
     Artists: Artists(provider),
+    Albums: Albums(provider),
     Search: Search(provider),
     Tracks: Tracks(provider),
   } as const;

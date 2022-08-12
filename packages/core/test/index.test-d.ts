@@ -7,6 +7,70 @@ const Spotifly = initialize({ accessToken: '' });
 const stringId = 'id';
 const stringIds: string[] = [];
 
+describe('Albums', () => {
+  test('Album', async () => {
+    expectType<DR<SpotifyApi.SingleAlbumResponse>>(
+      await Spotifly.Albums.Album.get(stringId)
+    );
+    expectType<DR<SpotifyApi.MultipleAlbumsResponse>>(
+      await Spotifly.Albums.Album.getSeveral(stringIds)
+    );
+    expectType<DR<SpotifyApi.MultipleAlbumsResponse>[]>(
+      await Spotifly.Albums.Album.getAll(stringIds)(
+        (data: DR<SpotifyApi.MultipleAlbumsResponse>) => data
+      )
+    );
+  });
+  test('NewReleases', async () => {
+    expectType<DR<SpotifyApi.ListOfNewReleasesResponse>>(
+      await Spotifly.Albums.NewReleases.get()
+    );
+  });
+  test('Tracks', async () => {
+    expectType<DR<SpotifyApi.AlbumTracksResponse>>(
+      await Spotifly.Albums.Tracks.get(stringId)
+    );
+    expectType<DR<SpotifyApi.AlbumTracksResponse>[]>(
+      await Spotifly.Albums.Tracks.getAll(stringId)()
+    );
+  });
+  test('UsersSaved', async () => {
+    expectType<DR<SpotifyApi.UsersSavedAlbumsResponse>>(
+      await Spotifly.Albums.UsersSaved.get()
+    );
+    expectType<DR<SpotifyApi.UsersSavedAlbumsResponse>[]>(
+      await Spotifly.Albums.UsersSaved.getAll()(
+        (data: DR<SpotifyApi.UsersSavedAlbumsResponse>) => data
+      )
+    );
+
+    expectType<DR<SpotifyApi.SaveAlbumsForUserResponse>>(
+      await Spotifly.Albums.UsersSaved.save(stringIds)
+    );
+    expectType<DR<SpotifyApi.SaveAlbumsForUserResponse>[]>(
+      await Spotifly.Albums.UsersSaved.saveAll(stringIds)(
+        (data: DR<SpotifyApi.SaveAlbumsForUserResponse>) => data
+      )
+    );
+    expectType<DR<SpotifyApi.RemoveAlbumsForUserResponse>>(
+      await Spotifly.Albums.UsersSaved.remove(stringIds)
+    );
+    expectType<DR<SpotifyApi.RemoveAlbumsForUserResponse>[]>(
+      await Spotifly.Albums.UsersSaved.removeAll(stringIds)(
+        (data: DR<SpotifyApi.RemoveAlbumsForUserResponse>) => data
+      )
+    );
+    expectType<DR<SpotifyApi.CheckUserSavedAlbumsResponse>>(
+      await Spotifly.Albums.UsersSaved.check(stringIds)
+    );
+    expectType<DR<SpotifyApi.CheckUserSavedAlbumsResponse>[]>(
+      await Spotifly.Albums.UsersSaved.checkAll(stringIds)(
+        (data: DR<SpotifyApi.CheckUserSavedAlbumsResponse>) => data
+      )
+    );
+  });
+});
+
 describe('Artists', () => {
   test('Artist', async () => {
     expectType<DR<SpotifyApi.SingleArtistResponse>>(
