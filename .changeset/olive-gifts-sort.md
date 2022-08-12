@@ -1,9 +1,9 @@
 ---
-'@spotifly/auth-token': major
-'@spotifly/cli': major
-'@spotifly/core': major
-'@spotifly/library': major
-'@spotifly/utils': major
+'@spotifly/auth-token': minor
+'@spotifly/cli': minor
+'@spotifly/core': minor
+'@spotifly/library': minor
+'@spotifly/utils': minor
 ---
 
-Initial release 🚀
+Pre-release testing!
