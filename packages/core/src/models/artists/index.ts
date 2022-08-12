@@ -1,5 +1,5 @@
 import * as factory from '../../factory';
-import { AsyncProvider } from '../../types';
+import type { AsyncProvider } from '../../types';
 import {
   getArtistsAlbums,
   getArtistsAlbumsLimit,

@@ -14,16 +14,7 @@ coverage:
   strategy:
     matrix:
       os: [ubuntu-latest]
-      project:
-        [
-          'auth-token',
-          'cli',
-          'core',
-          'core-types',
-          'library',
-          'utils',
-          'website',
-        ]
+      project: ['auth-token', 'cli', 'core', 'library', 'utils']
   steps:
     - uses: actions/checkout@v3
     - name: Setup Node
