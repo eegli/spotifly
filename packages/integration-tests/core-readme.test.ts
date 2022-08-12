@@ -1,6 +1,7 @@
 import * as Spotifly from '@spotifly/core';
 
 describe('Core readme', () => {
+  console.log(process.env);
   test('general example', async () => {
     {
       Spotifly.initialize({

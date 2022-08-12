@@ -42,6 +42,25 @@ jobs:
       - name: Run tests
         run: yarn test --coverage
 
+  integration:
+    name: Integration tests / Node ${{ matrix.node }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: ['18']
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node v${{ matrix.node }}
+        uses: actions/setup-node@v3
+        with:
+          cache: 'yarn'
+          node-version: ${{ matrix.node }}
+      - name: Install dependencies
+        run: yarn install --immutable
+      - name: Run tests
+        run: SPOTIFY_CLIENT_ID=${{ secrets.SPOTIFY_CLIENT_ID }} SPOTIFY_CLIENT_SECRET=${{ secrets.SPOTIFY_CLIENT_SECRET }} SPOTIFY_REFRESH_TOKEN=${{ secrets.SPOTIFY_REFRESH_TOKEN }} yarn test:integration
+
   build:
     name: Build packages
     runs-on: [ubuntu-latest]
