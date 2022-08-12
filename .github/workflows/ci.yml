@@ -19,7 +19,7 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'yarn'
       - name: Install dependencies
-        run: yarn install:ci
+        run: yarn install --immutable
       - name: Lint
         run: yarn lint
 
@@ -38,7 +38,7 @@ jobs:
           cache: 'yarn'
           node-version: ${{ matrix.node }}
       - name: Install dependencies
-        run: yarn install:ci
+        run: yarn install --immutable
       - name: Run tests
         run: yarn test
 
@@ -53,6 +53,6 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'yarn'
       - name: Install dependencies
-        run: yarn install:ci
+        run: yarn install --immutable
       - name: Build packages
         run: yarn build
