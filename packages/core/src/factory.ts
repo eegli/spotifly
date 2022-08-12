@@ -1,4 +1,4 @@
-import { chunkify } from '@spotifly/utils';
+import { chunkify } from '@spotifly/utils/iterable';
 import type { AnyObject, AsyncFn, OmitFromAsyncFnParams } from './types';
 
 type PaginationParams = {
