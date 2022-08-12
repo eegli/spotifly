@@ -22,13 +22,14 @@ jobs:
         run: yarn install --immutable
       - name: Lint
         run: yarn lint
+
   tests:
     name: Test on Node ${{ matrix.node }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ['14', '16', '17']
+        node: ['14', '16', '17', '18']
     steps:
       - uses: actions/checkout@v3
       - name: Setup Node v${{ matrix.node }}
@@ -39,44 +40,8 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
       - name: Run tests
-        run: yarn test
-  coverage:
-    name: Get coverage for proj/${{ matrix.project }}
-    needs: tests
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node: ['17']
-        project:
-          [
-            'auth-token',
-            'cli',
-            'core',
-            'core-types',
-            'library',
-            'utils',
-            'website',
-          ]
-    steps:
-      - uses: actions/checkout@v3
-      - name: Setup Node v${{ matrix.node }}
-        uses: actions/setup-node@v3
-        with:
-          cache: 'yarn'
-          node-version: ${{ matrix.node }}
-      - name: Install dependencies
-        run: yarn install --immutable
-      - name: Run tests
-        run: yarn test:pkg ${{ matrix.project }} --coverage
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          fail_ci_if_error: true
-          flags: ${{ matrix.project }}
-          files: ./coverage/coverage-final.json
-          name: codecov-spotifly
-          verbose: true
+        run: yarn test --coverage
+
   build:
     name: Build packages
     runs-on: [ubuntu-latest]

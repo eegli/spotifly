@@ -75,8 +75,8 @@ module.exports = {
       ...common,
       displayName: 'website',
       rootDir: 'website',
-      roots: ['<rootDir>/src'],
-      collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
+      moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx'],
+      collectCoverageFrom: ['<rootDir>/src/**/*.{ts,tsx}'],
     },
   ],
 };
