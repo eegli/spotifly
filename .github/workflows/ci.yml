@@ -23,7 +23,7 @@ jobs:
       - name: Lint
         run: yarn lint
 
-  tests:
+  tests: # Tests without coverage on older Node versions
     name: Unit tests / Node ${{ matrix.node }}
     runs-on: ${{ matrix.os }}
     strategy:
@@ -42,14 +42,14 @@ jobs:
       - name: Run tests
         run: yarn test
 
-  coverage:
-    name: Get coverage for proj/${{ matrix.project }}
-    needs: tests
+  coverage: # Tests with coverage on most recent Node version
+    name: Test coverage / proj/${{ matrix.project }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest]
         node: ['18']
+        # Keep in sync with Jest projects config
         project: ['auth-token', 'cli', 'core', 'library', 'utils']
     steps:
       - uses: actions/checkout@v3

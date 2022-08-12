@@ -4043,9 +4043,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@spotifly/integration-tests@workspace:packages/integration-tests":
+"@spotifly/integration-tests@workspace:integration":
   version: 0.0.0-use.local
-  resolution: "@spotifly/integration-tests@workspace:packages/integration-tests"
+  resolution: "@spotifly/integration-tests@workspace:integration"
   languageName: unknown
   linkType: soft
 

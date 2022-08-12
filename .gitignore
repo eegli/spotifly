@@ -1,9 +1,7 @@
-node_modules
-packages/**/dist
-packages/*/node_modules
+**/dist
+**/node_modules
 .env
 coverage
-cli.txt
 yarn-error.log
 scripts/*.txt
 .pnp.*
