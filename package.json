@@ -20,12 +20,6 @@
     "packages/*",
     "website"
   ],
-  "preconstruct": {
-    "packages": [
-      "packages/*",
-      "!packages/integration-tests"
-    ]
-  },
   "scripts": {
     "build": "preconstruct build",
     "build:release": "yarn build && yarn forallpackages exec rm -rf _release && yarn forallpackages pack && yarn forallpackages exec \"mkdir _release && tar zxvf package.tgz --directory _release && rm package.tgz\"",
@@ -33,9 +27,10 @@
     "dev": "preconstruct dev",
     "forallpackages": "yarn workspaces foreach --no-private --verbose",
     "format": "prettier --write packages website \"**/*.{js,ts,tsx,md}\"",
-    "postinstall": "preconstruct dev",
-    "lint": "yarn eslint website packages --ext .ts,.tsx,.js",
     "get-endpoint-coverage": "node scripts/endpoint-coverage.mjs",
+    "postinstall": "preconstruct dev",
+    "install:ci": "yarn install --immutable",
+    "lint": "yarn eslint website packages --ext .ts,.tsx,.js",
     "release": "yarn build:release && changeset publish",
     "sort-packages": "npx --yes sort-package-json \"package.json\" \"packages/*/package.json\" ",
     "status": "changeset status",
@@ -76,5 +71,11 @@
   "packageManager": "yarn@3.2.1",
   "engines": {
     "node": ">=17.6"
+  },
+  "preconstruct": {
+    "packages": [
+      "packages/*",
+      "!packages/integration-tests"
+    ]
   }
 }

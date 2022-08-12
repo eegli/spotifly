@@ -1,4 +1,4 @@
-name: Docs - Test Deployment
+name: Docs (Build)
 
 on:
   workflow_dispatch:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   test-deploy:
-    name: Test docs deployment
+    name: Build docs
     runs-on: ubuntu-latest
     defaults:
       run:
