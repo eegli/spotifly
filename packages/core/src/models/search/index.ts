@@ -1,5 +1,5 @@
 import { AsyncProvider } from '../../types';
-import { searchForItem } from './tracks';
+import { searchForItem } from './search';
 
 export default function Search(provider: AsyncProvider) {
   return {

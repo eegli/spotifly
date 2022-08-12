@@ -38,7 +38,8 @@ const spotifyClient = Spotifly.initialize({
   accessToken: 'abc123',
 });
 
-spotifyClient.Tracks.Track.get('10oKSzRcwbZsog2uq2gb4b')
+// Deriving the genres of a track via its artists
+await spotifyClient.Tracks.Track.get('5nHc8CmiPllMzHbJhhx3KS')
   .then(res => {
     return res.data.artists.map(artist => artist.id);
   })
@@ -46,16 +47,25 @@ spotifyClient.Tracks.Track.get('10oKSzRcwbZsog2uq2gb4b')
     return spotifyClient.Artists.Artist.getSeveral(artistIds);
   })
   .then(res => {
-    console.log(res.data.artists);
+    const genres = res.data.artists.map(artist => artist.genres).flat();
+    console.log(genres); // [ 'livetronica', 'munich electronic' ]
   });
 
-spotifyClient.Tracks.UsersSaved.getAll()()
+// Getting all of a user's saved tracks
+await spotifyClient.Tracks.UsersSaved.getAll()()
   .then(res => {
-    return res.map(res => res.data.items);
+    return res.map(res => res.data.items).flat();
   })
   .then(library => {
-    console.log(library);
+    console.log(library.length); // 70
   });
+
+// Searching for an item
+await spotifyClient.Search.forItem({ query: 'eminem', type: 'album' }).then(
+  res => {
+    console.log(res.data.albums?.items[0]?.name); // 'The Eminem Show'
+  }
+);
 ```
 
 ### Authentication
@@ -224,6 +234,7 @@ const mockResponse = (length: number): MockResponse => {
   };
 };
 
+// Return a mocked client whenever the client is initialized
 jest.spyOn(Spotifly, 'initialize').mockReturnValue(mockSpotify);
 
 // Mocking an ordinary method
@@ -239,14 +250,14 @@ mockSpotify.Tracks.AudioFeatures.getAll.mockImplementation(ids => {
   };
 });
 
-describe('Test', () => {
+test('my function', async () => {
+  // Your code
   function getData() {
     const client = Spotifly.initialize({ accessToken: 'abc123' });
     return client.Tracks.AudioFeatures.getSeveral(['2takc7B', '6hsak']);
   }
-  test('get data', async () => {
-    const res = await getData();
-    expect(res.data.audio_features).toHaveLength(2);
-  });
+  // Assert anything!
+  const res = await getData();
+  expect(res.data.audio_features).toHaveLength(2);
 });
 ```

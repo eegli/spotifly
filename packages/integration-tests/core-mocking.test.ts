@@ -35,6 +35,7 @@ const mockResponse = (length: number): MockResponse => {
   };
 };
 
+// Return a mocked client whenever the client is initialized
 jest.spyOn(Spotifly, 'initialize').mockReturnValue(mockSpotify);
 
 // Mocking an ordinary method
@@ -50,13 +51,13 @@ mockSpotify.Tracks.AudioFeatures.getAll.mockImplementation(ids => {
   };
 });
 
-describe('Test', () => {
+test('my function', async () => {
+  // Your code
   function getData() {
     const client = Spotifly.initialize({ accessToken: 'abc123' });
     return client.Tracks.AudioFeatures.getSeveral(['2takc7B', '6hsak']);
   }
-  test('get data', async () => {
-    const res = await getData();
-    expect(res.data.audio_features).toHaveLength(2);
-  });
+  // Assert anything!
+  const res = await getData();
+  expect(res.data.audio_features).toHaveLength(2);
 });
