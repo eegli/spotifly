@@ -1,6 +1,6 @@
 {
   "name": "@spotifly/auth-token",
-  "version": "0.3.3",
+  "version": "0.4.0",
   "description": "A simple utility for retrieving Spotify authentication and refresh tokens. Supports programmatic and CLI use",
   "keywords": [
     "spotify",
