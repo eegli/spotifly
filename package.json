@@ -18,6 +18,7 @@
   },
   "workspaces": [
     "packages/*",
+    "integration",
     "website"
   ],
   "scripts": {
@@ -34,7 +35,8 @@
     "sort-packages": "npx --yes sort-package-json \"package.json\" \"packages/*/package.json\" ",
     "status": "changeset status",
     "test": "jest --silent --verbose",
-    "test:pkg": "jest --silent --verbose --selectProjects",
+    "test:integration": "jest --config integration/jest.config.js",
+    "test:pkg": "jest --verbose --selectProjects",
     "watch": "preconstruct watch"
   },
   "resolutions": {
@@ -73,8 +75,7 @@
   },
   "preconstruct": {
     "packages": [
-      "packages/*",
-      "!packages/integration-tests"
+      "packages/*"
     ]
   }
 }

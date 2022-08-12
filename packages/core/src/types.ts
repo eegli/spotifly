@@ -31,8 +31,9 @@ export type AsyncFnWithProvider<
 
 export type Permutations<
   T extends string,
+  D extends string,
   U extends string = T
-> = T extends unknown ? T | `${T},${Permutations<Exclude<U, T>>}` : never;
+> = T extends unknown ? T | `${T}${D}${Permutations<Exclude<U, T>, D>}` : never;
 
 // https://github.com/microsoft/TypeScript/issues/39556
 export type BetterOmit<T, E> = {

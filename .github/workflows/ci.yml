@@ -23,13 +23,13 @@ jobs:
       - name: Lint
         run: yarn lint
 
-  tests:
-    name: Test on Node ${{ matrix.node }}
+  tests: # Tests without coverage on older Node versions
+    name: Unit tests / Node ${{ matrix.node }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ['14', '16', '17', '18']
+        node: ['14', '16', '17']
     steps:
       - uses: actions/checkout@v3
       - name: Setup Node v${{ matrix.node }}
@@ -40,7 +40,59 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
       - name: Run tests
-        run: yarn test --coverage
+        run: yarn test
+
+  coverage: # Tests with coverage on most recent Node version
+    name: Test coverage / proj/${{ matrix.project }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: ['18']
+        # Keep in sync with Jest projects config
+        project: ['auth-token', 'cli', 'core', 'library', 'utils']
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          cache: 'yarn'
+          node-version: ${{ matrix.node }}
+      - name: Install dependencies
+        run: yarn install --immutable
+      - name: Run tests
+        run: yarn test:pkg ${{ matrix.project }} --coverage
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          fail_ci_if_error: true
+          flags: ${{ matrix.project }}
+          files: ./coverage/coverage-final.json
+          name: codecov-spotifly
+          verbose: true
+
+  integration:
+    name: Integration tests / Node ${{ matrix.node }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: ['18']
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node v${{ matrix.node }}
+        uses: actions/setup-node@v3
+        with:
+          cache: 'yarn'
+          node-version: ${{ matrix.node }}
+      - name: Install dependencies
+        run: yarn install --immutable
+      - name: Run tests
+        run: >
+          SPOTIFY_CLIENT_ID=${{ secrets.SPOTIFY_CLIENT_ID }}
+          SPOTIFY_CLIENT_SECRET=${{ secrets.SPOTIFY_CLIENT_SECRET }}
+          SPOTIFY_REFRESH_TOKEN=${{ secrets.SPOTIFY_REFRESH_TOKEN }}
+          yarn test:integration
 
   build:
     name: Build packages

@@ -48,15 +48,6 @@ module.exports = {
       testMatch: ['**/*.test-d.ts'],
       runner: 'jest-runner-tsd',
     },
-    /*  {
-      ...common,
-      displayName: {
-        name: 'integration',
-        color: 'magenta',
-      },
-      rootDir: 'packages/integration-tests',
-      setupFiles: ['dotenv/config'],
-    }, */
     {
       ...common,
       displayName: 'library',
@@ -80,3 +71,5 @@ module.exports = {
     },
   ],
 };
+
+module.exports.__common = common;

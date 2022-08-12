@@ -33,7 +33,8 @@ export const getArtistsAlbums: AsyncFnWithProvider<
   string,
   {
     include_groups: Permutations<
-      'album' | 'single' | 'appears_on' | 'compilation'
+      'album' | 'single' | 'appears_on' | 'compilation',
+      ','
     >;
     offset: number;
     limit: number;
