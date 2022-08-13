@@ -24,7 +24,7 @@ jobs:
         run: yarn lint
 
   tests:
-    name: Test / Package ${{ matrix.project }} / Node ${{ matrix.os }}
+    name: Test / packages/${{ matrix.project }} / Node ${{ matrix.node }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
