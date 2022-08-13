@@ -3,7 +3,6 @@ const common = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   moduleFileExtensions: ['js', 'ts'],
-  maxWorkers: 1,
   snapshotFormat: {
     printBasicPrototype: false,
   },
@@ -16,27 +15,27 @@ const common = {
 
 /** @type {import('@jest/types').Config.InitialOptions} */
 module.exports = {
+  maxWorkers: 1,
+  collectCoverageFrom: ['src/**/*.{ts,tsx}'],
   projects: [
     {
       ...common,
       displayName: 'auth-token',
       rootDir: 'packages/auth-token',
       roots: ['<rootDir>/src', '<rootDir>/test'],
-      collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
     },
     {
       ...common,
       displayName: 'cli',
       rootDir: 'packages/cli',
       roots: ['<rootDir>/src', '<rootDir>/test'],
-      collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
     },
     {
       ...common,
       displayName: 'core',
       rootDir: 'packages/core',
       roots: ['<rootDir>/src', '<rootDir>/test'],
-      collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
+      collectCoverageFrom: ['<rootDir>/src/**'],
     },
     {
       displayName: {
@@ -53,14 +52,12 @@ module.exports = {
       displayName: 'library',
       rootDir: 'packages/library',
       roots: ['<rootDir>/src', '<rootDir>/test'],
-      collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
     },
     {
       ...common,
       displayName: 'utils',
       rootDir: 'packages/utils',
       roots: ['<rootDir>/src', '<rootDir>/test'],
-      collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
     },
     {
       ...common,

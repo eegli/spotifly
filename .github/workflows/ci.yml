@@ -23,34 +23,24 @@ jobs:
       - name: Lint
         run: yarn lint
 
-  tests: # Tests without coverage on older Node versions
-    name: Unit tests / Node ${{ matrix.node }}
+  tests:
+    name: Test / proj/${{ matrix.project }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ['14', '16', '17']
-    steps:
-      - uses: actions/checkout@v3
-      - name: Setup Node v${{ matrix.node }}
-        uses: actions/setup-node@v3
-        with:
-          cache: 'yarn'
-          node-version: ${{ matrix.node }}
-      - name: Install dependencies
-        run: yarn install --immutable
-      - name: Run tests
-        run: yarn test
-
-  coverage: # Tests with coverage on most recent Node version
-    name: Test coverage / proj/${{ matrix.project }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node: ['18']
+        node: ['14', '16', '17', '18']
         # Keep in sync with Jest projects config
-        project: ['auth-token', 'cli', 'core', 'library', 'utils']
+        project:
+          [
+            'auth-token',
+            'cli',
+            'core',
+            'core-types',
+            'library',
+            'utils',
+            'website',
+          ]
     steps:
       - uses: actions/checkout@v3
       - name: Setup Node
@@ -63,6 +53,7 @@ jobs:
       - name: Run tests
         run: yarn test:pkg ${{ matrix.project }} --coverage
       - name: Upload coverage to Codecov
+        if: matrix.node == '18'
         uses: codecov/codecov-action@v3
         with:
           fail_ci_if_error: true
