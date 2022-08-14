@@ -29,19 +29,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ['14', '16', '17', '18']
-        # Keep in sync with Jest projects config
-        include:
-          - proj: auth-token
-            node: '18'
-          - proj: cli
-            node: '18'
-          - proj: core
-            node: '18'
-          - proj: library
-            node: '18'
-          - proj: utils
-            node: '18'
+        node: ['14', '16', '17']
     steps:
       - uses: actions/checkout@v3
       - name: Setup Node
@@ -54,11 +42,28 @@ jobs:
       - name: Run tests without coverage
         if: ${{ !matrix.proj }}
         run: yarn test
+
+  coverage-tests:
+    name: Coverage Test / Node ${{ matrix.node }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: ['18']
+        # Keep in sync with Jest projects config
+        proj: ['auth-token', 'cli', 'core', 'library', 'utils']
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          cache: 'yarn'
+          node-version: ${{ matrix.node }}
+      - name: Install dependencies
+        run: yarn install --immutable
       - name: Run tests with coverage
-        if: ${{ matrix.proj }}
         run: yarn test:pkg ${{ matrix.proj }} --coverage
       - name: Upload coverage to Codecov
-        if: ${{ matrix.proj }}
         uses: codecov/codecov-action@v3
         with:
           fail_ci_if_error: true
