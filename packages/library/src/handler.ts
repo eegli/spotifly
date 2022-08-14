@@ -1,29 +1,15 @@
 import * as Spotify from '@spotifly/core';
 import { writeJSON } from '@spotifly/utils';
 import { defaultConfig } from './config';
-import type {
-  Library,
-  LibraryExport,
-  Options,
-  TrackFull,
-  TrackLight,
-} from './types';
+import type { Library, LibraryHandler, TrackLight } from './types';
 import { createProgressBar } from './utils';
 
-export const getLibrary = async (
-  options: Options
-): Promise<LibraryExport<TrackLight | TrackFull>> => {
+export const libraryHandler: LibraryHandler = async options => {
   const config = { ...defaultConfig, ...options };
 
   const spotifyClient = Spotify.initialize({ accessToken: config.token });
 
-  const lib: LibraryExport<TrackFull | TrackLight> = {
-    meta: {
-      date_generated: new Date().toISOString(),
-      output_type: config.type,
-    },
-    library: [],
-  };
+  let library: Library = [];
 
   let progress = createProgressBar('user library');
 
@@ -34,7 +20,7 @@ export const getLibrary = async (
     progress.increment(data.items.length);
 
     data.items.forEach(el => {
-      lib.library.push(el);
+      library.push(el);
     });
   });
 
@@ -42,7 +28,7 @@ export const getLibrary = async (
 
   // Reduce library if necessary
   if (config.type === 'light') {
-    lib.library = lib.library.reduce((acc, curr) => {
+    library = library.reduce((acc, curr) => {
       acc.push({
         added_at: curr.added_at,
         track: {
@@ -64,7 +50,7 @@ export const getLibrary = async (
 
   // Add genres if specified
   if (config.genres) {
-    const artists = lib.library.map(t => t.track.artists.map(a => a.id)).flat();
+    const artists = library.map(t => t.track.artists.map(a => a.id)).flat();
     const artistIds = [...new Set<string>(artists)];
     const genres: Record<string, string[]> = {};
 
@@ -79,14 +65,14 @@ export const getLibrary = async (
     });
 
     progress.stop();
-    lib.library.forEach(({ track }) => {
+    library.forEach(({ track }) => {
       track.genres = track.artists.map(({ id }) => genres[id]);
     });
   }
 
   // Add audio features if specified
   if (config.features) {
-    const trackIds = lib.library.map(t => t.track.id);
+    const trackIds = library.map(t => t.track.id);
     const features: Record<string, SpotifyApi.AudioFeaturesObject> = {};
 
     progress = createProgressBar('audio features');
@@ -101,17 +87,25 @@ export const getLibrary = async (
     });
 
     progress.stop();
-    lib.library.forEach(({ track }) => {
+    library.forEach(({ track }) => {
       track.features = features[track.id];
     });
   }
 
+  const libExport = {
+    meta: {
+      date_generated: new Date().toISOString(),
+      output_type: config.type,
+    },
+    library,
+  };
+
   const outDir = await writeJSON({
     fileName: 'spotify-library',
     path: config.outDir,
-    data: lib,
+    data: libExport,
     compact: config.compact,
   });
   console.info("Success! Library written to '%s'", outDir);
-  return lib;
+  return libExport;
 };
