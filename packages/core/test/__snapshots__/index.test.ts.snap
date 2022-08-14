@@ -46,6 +46,27 @@ exports[`Lib matches snapshot 1`] = `
   "Search": {
     "forItem": [Function],
   },
+  "Shows": {
+    "Episodes": {
+      "get": [Function],
+      "getAll": [Function],
+    },
+    "Show": {
+      "get": [Function],
+      "getAll": [Function],
+      "getSeveral": [Function],
+    },
+    "UsersSaved": {
+      "check": [Function],
+      "checkAll": [Function],
+      "get": [Function],
+      "getAll": [Function],
+      "remove": [Function],
+      "removeAll": [Function],
+      "save": [Function],
+      "saveAll": [Function],
+    },
+  },
   "Tracks": {
     "AudioAnalysis": {
       "get": [Function],
