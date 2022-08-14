@@ -1,9 +1,9 @@
 import { parse } from './config';
-import { getLibrary } from './library';
+import { libraryHandler } from './handler';
 
 export const callback = async (): Promise<void> => {
   const config = await parse(process.argv);
-  await getLibrary(config);
+  await libraryHandler(config);
 };
 
 export { default as pkg } from '../package.json';

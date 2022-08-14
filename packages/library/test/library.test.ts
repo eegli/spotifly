@@ -1,7 +1,7 @@
 import * as Spotifly from '@spotifly/core';
 import * as utils from '@spotifly/utils';
 import { mockDeep } from 'jest-mock-extended';
-import { getLibrary } from '../src/library';
+import { libraryHandler } from '../src/handler';
 import {
   RES_MULTIPLE_ARTISTS,
   RES_MULTIPLE_AUDIO_FEATURES,
@@ -49,7 +49,7 @@ beforeEach(() => {
 
 describe('Library', () => {
   it('gets light library', async () => {
-    const res = await getLibrary({ token: 'mytoken' });
+    const res = await libraryHandler({ token: 'mytoken' });
     expect(res.meta.output_type).toBe('light');
     expect(res.library[0].track.genres).toBeUndefined();
     expect(res.library[0].track.features).toBeUndefined();
@@ -57,7 +57,7 @@ describe('Library', () => {
     expect(res).toMatchSnapshot();
   });
   it('gets full library with genres and features', async () => {
-    const res = await getLibrary({
+    const res = await libraryHandler({
       token: 'mytoken',
       type: 'full',
       genres: true,

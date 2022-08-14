@@ -15,8 +15,8 @@ const common = {
 
 /** @type {import('@jest/types').Config.InitialOptions} */
 module.exports = {
-  maxWorkers: 1,
-  collectCoverageFrom: ['src/**/*.{ts,tsx}'],
+  collectCoverageFrom: ['**/src/**/*.{ts,tsx}'],
+  coverageReporters: ['text', 'json'],
   projects: [
     {
       ...common,
@@ -35,7 +35,6 @@ module.exports = {
       displayName: 'core',
       rootDir: 'packages/core',
       roots: ['<rootDir>/src', '<rootDir>/test'],
-      collectCoverageFrom: ['<rootDir>/src/**'],
     },
     {
       displayName: {
@@ -64,9 +63,7 @@ module.exports = {
       displayName: 'website',
       rootDir: 'website',
       moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx'],
-      collectCoverageFrom: ['<rootDir>/src/**/*.{ts,tsx}'],
+      coveragePathIgnorePatterns: ['<rootDir>'],
     },
   ],
 };
-
-module.exports.__common = common;

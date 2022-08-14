@@ -1,5 +1,3 @@
-type PickActual<T, P extends keyof T> = T[P];
-
 type ExportedLibrary = 'full' | 'light';
 
 export type Options = {
@@ -24,9 +22,11 @@ export type TrackLight = {
   }[];
 };
 
-export type TrackFull = PickActual<SpotifyApi.SavedTrackObject, 'track'>;
+export type TrackFull = SpotifyApi.TrackObjectFull;
 
-export type LibraryExport<T> = {
+type AnyTrack = TrackLight | TrackFull;
+
+type LibraryExport<T> = {
   meta: {
     date_generated: string;
     output_type: ExportedLibrary;
@@ -34,10 +34,14 @@ export type LibraryExport<T> = {
   library: Library<T>;
 };
 
-export type Library<T = unknown> = {
+export type Library<T = AnyTrack> = {
   added_at: string;
   track: T & {
     genres?: string[][];
     features?: SpotifyApi.AudioFeaturesObject;
   };
 }[];
+
+export type LibraryHandler = (
+  opts: Options
+) => Promise<LibraryExport<AnyTrack>>;

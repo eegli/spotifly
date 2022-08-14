@@ -24,23 +24,24 @@ jobs:
         run: yarn lint
 
   tests:
-    name: Test / packages/${{ matrix.project }} / Node ${{ matrix.node }}
+    name: Test / Node ${{ matrix.node }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest]
         node: ['14', '16', '17', '18']
         # Keep in sync with Jest projects config
-        project:
-          [
-            'auth-token',
-            'cli',
-            'core',
-            'core-types',
-            'library',
-            'utils',
-            'website',
-          ]
+        include:
+          - proj: auth-token
+            node: '18'
+          - proj: cli
+            node: '18'
+          - proj: core
+            node: '18'
+          - proj: library
+            node: '18'
+          - proj: utils
+            node: '18'
     steps:
       - uses: actions/checkout@v3
       - name: Setup Node
@@ -50,16 +51,19 @@ jobs:
           node-version: ${{ matrix.node }}
       - name: Install dependencies
         run: yarn install --immutable
-      - name: Run tests
-        run: yarn test:pkg ${{ matrix.project }} --coverage
+      - name: Run tests without coverage
+        if: ${{ !matrix.proj }}
+        run: yarn test
+      - name: Run tests with coverage
+        if: ${{ matrix.proj }}
+        run: yarn test:pkg ${{ matrix.proj }} --coverage
       - name: Upload coverage to Codecov
-        if: matrix.node == '18'
+        if: ${{ matrix.proj }}
         uses: codecov/codecov-action@v3
         with:
           fail_ci_if_error: true
-          flags: ${{ matrix.project }}
+          flags: ${{ matrix.proj }}
           files: ./coverage/coverage-final.json
-          name: codecov-spotifly
           verbose: true
 
   integration:

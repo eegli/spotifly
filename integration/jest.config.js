@@ -1,6 +1,17 @@
 /** @type {import('@jest/types').Config.InitialOptions} */
 module.exports = {
-  ...require('../jest.config').__common,
+  preset: 'ts-jest',
+  testEnvironment: 'node',
+  moduleFileExtensions: ['js', 'ts'],
+  snapshotFormat: {
+    printBasicPrototype: false,
+  },
+  globals: {
+    'ts-jest': {
+      isolatedModules: true,
+    },
+  },
+
   displayName: {
     name: 'integration',
     color: 'magenta',
