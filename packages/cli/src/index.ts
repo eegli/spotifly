@@ -1,5 +1,1 @@
-import { run } from './cli';
-
-(async () => {
-  await run();
-})();
+export { run } from './cli';

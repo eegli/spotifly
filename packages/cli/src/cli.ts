@@ -1,9 +1,10 @@
 import * as authCli from '@spotifly/auth-token/cli';
 import * as libraryCli from '@spotifly/library/cli';
+
 import { colors } from '@spotifly/utils';
 import ownPackage from '../package.json';
 
-type Invoke = {
+export type Invoke = {
   callback: (args: string[]) => unknown;
   help: (title: string) => string;
   pkg: {
@@ -13,11 +14,11 @@ type Invoke = {
   };
 };
 
-export const invoke = async (
+const invoke = async (
   argv: string[],
   { callback, help, pkg }: Invoke
 ): Promise<unknown> => {
-  if (argv.length < 3) {
+  if (argv.length <= 3) {
     console.info(`${colors.bold(colors.cyan(`${pkg.name} v${pkg.version}`))}
 
 ${help('Command-line usage')}
@@ -30,8 +31,7 @@ ${help('Command-line usage')}
 };
 
 export const run = async (): Promise<unknown> => {
-  const argv = process.argv.slice(2);
-  const cmd = argv[0];
+  const cmd = process.argv[2];
 
   switch (cmd) {
     case '--version':
@@ -57,13 +57,13 @@ Available commands: ${colors.green(`
 For docs & help, visit ${ownPackage.homepage}`);
       return;
     case 'auth-token':
-      return invoke(argv, {
+      return invoke(process.argv, {
         callback: authCli.callback,
         help: authCli.help,
         pkg: authCli.pkg,
       });
     case 'library':
-      return invoke(argv, {
+      return invoke(process.argv, {
         callback: libraryCli.callback,
         help: libraryCli.help,
         pkg: libraryCli.pkg,
