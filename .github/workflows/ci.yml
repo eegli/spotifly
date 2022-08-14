@@ -24,7 +24,7 @@ jobs:
         run: yarn lint
 
   tests:
-    name: Test / Node ${{ matrix.node }}
+    name: Tests / Node ${{ matrix.node }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -44,7 +44,7 @@ jobs:
         run: yarn test
 
   coverage-tests:
-    name: Coverage Test / Node ${{ matrix.node }}
+    name: Coverage tests / Node ${{ matrix.node }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
