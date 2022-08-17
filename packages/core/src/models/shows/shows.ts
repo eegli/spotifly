@@ -5,9 +5,9 @@ export const getSingleShow: AsyncFnWithProvider<
   SpotifyApi.SingleShowResponse,
   string,
   { market: string }
-> = p => async (showId, params) =>
+> = provider => async (showId, params) =>
   transformResponse(
-    await p.request({
+    await provider.request({
       method: Method.GET,
       url: `shows/${showId}`,
       params,
@@ -18,9 +18,9 @@ export const getSeveralShows: AsyncFnWithProvider<
   SpotifyApi.MultipleShowsResponse,
   string[],
   { market: string }
-> = p => async (showIds, params) =>
+> = provider => async (showIds, params) =>
   transformResponse(
-    await p.request({
+    await provider.request({
       method: Method.GET,
       url: 'shows',
       params: {
@@ -36,9 +36,9 @@ export const getShowEpisodes: AsyncFnWithProvider<
   SpotifyApi.ShowEpisodesResponse,
   string,
   { limit: number; market: string; offset: number }
-> = p => async (showId, params) =>
+> = provider => async (showId, params) =>
   transformResponse(
-    await p.request({
+    await provider.request({
       method: Method.GET,
       url: `shows/${showId}/episodes`,
       params,
@@ -51,9 +51,9 @@ export const getUsersSavedShows: AsyncFnWithProvider<
   SpotifyApi.UsersSavedShowsResponse,
   unknown,
   { limit: number; offset: number }
-> = p => async (_, params) =>
+> = provider => async (_, params) =>
   transformResponse(
-    await p.request({
+    await provider.request({
       method: Method.GET,
       url: 'me/shows',
       params,
@@ -66,9 +66,9 @@ export const saveShowsForUser: AsyncFnWithProvider<
   // TODO fix this type
   SpotifyApi.SaveTracksForUserResponse,
   string[]
-> = p => async showIds =>
+> = provider => async showIds =>
   transformResponse(
-    await p.request({
+    await provider.request({
       method: Method.PUT,
       url: 'me/shows',
       params: {
@@ -83,9 +83,9 @@ export const removeUsersSavedShows: AsyncFnWithProvider<
   // TODO fix this type
   SpotifyApi.RemoveUsersSavedTracksResponse,
   string[]
-> = p => async showIds =>
+> = provider => async showIds =>
   transformResponse(
-    await p.request({
+    await provider.request({
       method: Method.DELETE,
       url: 'me/shows',
       params: {
@@ -100,9 +100,9 @@ export const checkUsersSavedShows: AsyncFnWithProvider<
   // TODO fix this type
   SpotifyApi.CheckUsersSavedTracksResponse,
   string[]
-> = p => async showIds =>
+> = provider => async showIds =>
   transformResponse(
-    await p.request({
+    await provider.request({
       method: Method.GET,
       url: 'me/shows/contains',
       params: {

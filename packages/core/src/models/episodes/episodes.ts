@@ -5,9 +5,9 @@ export const getSingleEpisode: AsyncFnWithProvider<
   SpotifyApi.SingleEpisodeResponse,
   string,
   { market: string }
-> = p => async (episodeId, params) =>
+> = provider => async (episodeId, params) =>
   transformResponse(
-    await p.request({
+    await provider.request({
       method: Method.GET,
       url: `episodes/${episodeId}`,
       params,
@@ -18,9 +18,9 @@ export const getSeveralEpisodes: AsyncFnWithProvider<
   SpotifyApi.MultipleEpisodesResponse,
   string[],
   { market: string }
-> = p => async (episodeIds, params) =>
+> = provider => async (episodeIds, params) =>
   transformResponse(
-    await p.request({
+    await provider.request({
       method: Method.GET,
       url: 'episodes',
       params: {
@@ -36,9 +36,9 @@ export const getUsersSavedEpisodes: AsyncFnWithProvider<
   SpotifyApi.UsersSavedEpisodesResponse,
   unknown,
   { limit: number; offset: number }
-> = p => async (_, params) =>
+> = provider => async (_, params) =>
   transformResponse(
-    await p.request({
+    await provider.request({
       method: Method.GET,
       url: 'me/episodes',
       params,

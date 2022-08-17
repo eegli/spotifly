@@ -31,7 +31,9 @@ describe('Albums', () => {
       await Spotifly.Albums.Tracks.get(stringId)
     );
     expectType<DR<SpotifyApi.AlbumTracksResponse>[]>(
-      await Spotifly.Albums.Tracks.getAll(stringId)()
+      await Spotifly.Albums.Tracks.getAll(stringId)(
+        (data: DR<SpotifyApi.AlbumTracksResponse>) => data
+      )
     );
   });
   test('UsersSaved', async () => {
@@ -43,7 +45,6 @@ describe('Albums', () => {
         (data: DR<SpotifyApi.UsersSavedAlbumsResponse>) => data
       )
     );
-
     expectType<DR<SpotifyApi.SaveAlbumsForUserResponse>>(
       await Spotifly.Albums.UsersSaved.save(stringIds)
     );

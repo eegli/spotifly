@@ -25,6 +25,9 @@ export default function Albums(provider: AsyncProvider) {
         LIMIT_GET_SEVERAL_ALBUMS
       ),
     },
+    NewReleases: {
+      get: getNewAlbumReleases(provider).bind(null, null),
+    },
     Tracks: {
       get: getAlbumTracks(provider),
       getAll: factory.forPaginated(
@@ -33,28 +36,25 @@ export default function Albums(provider: AsyncProvider) {
       ),
     },
     UsersSaved: {
-      get: getUsersSavedAlbums(provider).bind(null, null),
-      getAll: factory
-        .forPaginated(getUsersSavedAlbums(provider), LIMIT_GET_USER_ALBUMS)
-        .bind(null, null),
-      save: saveAlbumsForUser(provider),
-      saveAll: factory.forLimited(
-        saveAlbumsForUser(provider),
-        LIMIT_MODIFY_CHECK_USER_ALBUMS
-      ),
-      remove: removeUsersSavedAlbums(provider),
-      removeAll: factory.forLimited(
-        removeUsersSavedAlbums(provider),
-        LIMIT_MODIFY_CHECK_USER_ALBUMS
-      ),
       check: checkUsersSavedAlbums(provider),
       checkAll: factory.forLimited(
         checkUsersSavedAlbums(provider),
         LIMIT_MODIFY_CHECK_USER_ALBUMS
       ),
-    },
-    NewReleases: {
-      get: getNewAlbumReleases(provider).bind(null, null),
+      get: getUsersSavedAlbums(provider).bind(null, null),
+      getAll: factory
+        .forPaginated(getUsersSavedAlbums(provider), LIMIT_GET_USER_ALBUMS)
+        .bind(null, null),
+      remove: removeUsersSavedAlbums(provider),
+      removeAll: factory.forLimited(
+        removeUsersSavedAlbums(provider),
+        LIMIT_MODIFY_CHECK_USER_ALBUMS
+      ),
+      save: saveAlbumsForUser(provider),
+      saveAll: factory.forLimited(
+        saveAlbumsForUser(provider),
+        LIMIT_MODIFY_CHECK_USER_ALBUMS
+      ),
     },
   } as const;
 }

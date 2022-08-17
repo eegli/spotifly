@@ -30,6 +30,7 @@ const setupTest = function (itemCount: number, beLimit: number) {
       params?: {
         limit?: number;
         offset?: number;
+        market?: string;
       }
     ) => {
       let next: string | null = 'next';
@@ -70,9 +71,7 @@ describe('Factory, pagination handling', () => {
     test(`gets all ${itemCount} items and invokes callback in between`, async () => {
       const fetch = factory.forPaginated(mockAPI, limit);
 
-      const result = await fetch('id', { limit: 111, offset: 111 })(args =>
-        mockCb(args)
-      );
+      const result = await fetch('id', { market: 'CH' })(args => mockCb(args));
 
       expect(result).toHaveLength(expectedCalls);
       const allItems = result.reduce(
