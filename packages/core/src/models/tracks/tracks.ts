@@ -1,4 +1,4 @@
-import { Methods, transformResponse } from '../../request';
+import { Method, transformResponse } from '../../request';
 import { AsyncFnWithProvider } from '../../types';
 
 export const getSingleTrack: AsyncFnWithProvider<
@@ -8,7 +8,7 @@ export const getSingleTrack: AsyncFnWithProvider<
 > = p => async (trackId, params) =>
   transformResponse(
     await p.request({
-      method: Methods.GET,
+      method: Method.GET,
       url: `tracks/${trackId}`,
       params,
     })
@@ -21,7 +21,7 @@ export const getSeveralTracks: AsyncFnWithProvider<
 > = p => async (trackIds, params) =>
   transformResponse(
     await p.request({
-      method: Methods.GET,
+      method: Method.GET,
       url: 'tracks',
       params: {
         ...params,
@@ -39,7 +39,7 @@ export const getUsersSavedTracks: AsyncFnWithProvider<
 > = p => async (_, params) =>
   transformResponse(
     await p.request({
-      method: Methods.GET,
+      method: Method.GET,
       url: 'me/tracks',
       params,
     })
@@ -53,7 +53,7 @@ export const saveTracksForUser: AsyncFnWithProvider<
 > = p => async trackIds =>
   transformResponse(
     await p.request({
-      method: Methods.PUT,
+      method: Method.PUT,
       url: 'me/tracks',
       params: {
         ids: trackIds.join(','),
@@ -69,7 +69,7 @@ export const removeUsersSavedTracks: AsyncFnWithProvider<
 > = p => async trackIds =>
   transformResponse(
     await p.request({
-      method: Methods.DELETE,
+      method: Method.DELETE,
       url: 'me/tracks',
       params: {
         ids: trackIds.join(','),
@@ -85,7 +85,7 @@ export const checkUsersSavedTracks: AsyncFnWithProvider<
 > = p => async trackIds =>
   transformResponse(
     await p.request({
-      method: Methods.GET,
+      method: Method.GET,
       url: 'me/tracks/contains',
       params: {
         ids: trackIds.join(','),
@@ -101,7 +101,7 @@ export const getSingleAudioFeatures: AsyncFnWithProvider<
 > = p => async trackId =>
   transformResponse(
     await p.request({
-      method: Methods.GET,
+      method: Method.GET,
       url: `audio-features/${trackId}`,
     })
   );
@@ -112,7 +112,7 @@ export const getSeveralAudioFeatures: AsyncFnWithProvider<
 > = p => async trackIds =>
   transformResponse(
     await p.request({
-      method: Methods.GET,
+      method: Method.GET,
       url: 'audio-features',
       params: {
         ids: trackIds.join(','),
@@ -128,7 +128,7 @@ export const getAudioAnalysis: AsyncFnWithProvider<
 > = p => async trackId =>
   transformResponse(
     await p.request({
-      method: Methods.GET,
+      method: Method.GET,
       url: `audio-analysis/${trackId}`,
     })
   );
@@ -185,7 +185,7 @@ export const getRecommendations: AsyncFnWithProvider<
 > = p => async (seed, params) =>
   transformResponse(
     await p.request({
-      method: Methods.GET,
+      method: Method.GET,
       url: 'recommendations',
       params: { ...seed, ...params },
     })

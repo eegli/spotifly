@@ -4,7 +4,6 @@ import {
   checkUsersSavedShows,
   checkUsersSavedShowsLimit,
   getSeveralShows,
-  getSeveralShowsLimit,
   getShowEpisodes,
   getShowEpisodesLimit,
   getSingleShow,
@@ -36,7 +35,7 @@ export default function Shows(provider: AsyncProvider) {
     UsersSaved: {
       get: getUsersSavedShows(provider).bind(null, null),
       getAll: factory
-        .forPaginated(getUsersSavedShows(provider), getSeveralShowsLimit)
+        .forPaginated(getUsersSavedShows(provider), getUsersSavedShowsLimit)
         .bind(null, null),
       save: saveShowsForUser(provider),
       saveAll: factory.forLimited(

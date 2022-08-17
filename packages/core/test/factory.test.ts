@@ -65,9 +65,9 @@ describe('Factory, pagination handling', () => {
     { limit: 6, itemCount: 1, expectedCalls: 1 },
   ].forEach(testCase => {
     const { limit, itemCount, expectedCalls } = testCase;
-    test(`gets all ${itemCount} items and invokes callback in between`, async () => {
-      const mockAPI = setupTest(itemCount, limit);
+    const mockAPI = setupTest(itemCount, limit);
 
+    test(`gets all ${itemCount} items and invokes callback in between`, async () => {
       const fetch = factory.forPaginated(mockAPI, limit);
 
       const result = await fetch('id', { limit: 111, offset: 111 })(args =>

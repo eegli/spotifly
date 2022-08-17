@@ -1,6 +1,6 @@
 import { AxiosResponse, DataResponse } from './types';
 
-export enum Methods {
+export enum Method {
   GET = 'GET',
   POST = 'POST',
   PUT = 'PUT',

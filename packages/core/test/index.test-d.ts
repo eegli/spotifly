@@ -107,7 +107,65 @@ describe('Artists', () => {
   });
 });
 
-describe('Lib type definitions - Tracks', () => {
+describe('Episodes', () => {
+  test('Episode', async () => {
+    expectType<DR<SpotifyApi.SingleEpisodeResponse>>(
+      await Spotifly.Episodes.Episode.get(stringId)
+    );
+    expectType<DR<SpotifyApi.MultipleEpisodesResponse>>(
+      await Spotifly.Episodes.Episode.getSeveral(stringIds)
+    );
+    expectType<DR<SpotifyApi.MultipleEpisodesResponse>[]>(
+      await Spotifly.Episodes.Episode.getAll(stringIds)(
+        (data: DR<SpotifyApi.MultipleEpisodesResponse>) => data
+      )
+    );
+  });
+  test('UsersSaved', async () => {
+    expectType<DR<SpotifyApi.UsersSavedEpisodesResponse>>(
+      await Spotifly.Episodes.UsersSaved.get()
+    );
+    expectType<DR<SpotifyApi.UsersSavedEpisodesResponse>[]>(
+      await Spotifly.Episodes.UsersSaved.getAll()(
+        (data: DR<SpotifyApi.UsersSavedEpisodesResponse>) => data
+      )
+    );
+    expectType<DR<SpotifyApi.VoidResponse>>(
+      await Spotifly.Episodes.UsersSaved.save(stringIds)
+    );
+    expectType<DR<SpotifyApi.VoidResponse>[]>(
+      await Spotifly.Episodes.UsersSaved.saveAll(stringIds)(
+        (data: DR<SpotifyApi.VoidResponse>) => data
+      )
+    );
+    expectType<DR<SpotifyApi.VoidResponse>>(
+      await Spotifly.Episodes.UsersSaved.remove(stringIds)
+    );
+    expectType<DR<SpotifyApi.VoidResponse>[]>(
+      await Spotifly.Episodes.UsersSaved.removeAll(stringIds)(
+        (data: DR<SpotifyApi.VoidResponse>) => data
+      )
+    );
+    expectType<DR<boolean[]>>(
+      await Spotifly.Episodes.UsersSaved.check(stringIds)
+    );
+    expectType<DR<boolean[]>[]>(
+      await Spotifly.Episodes.UsersSaved.checkAll(stringIds)(
+        (data: DR<boolean[]>) => data
+      )
+    );
+  });
+});
+
+describe('Search', () => {
+  test('forItem', async () => {
+    expectType<DR<SpotifyApi.SearchResponse>>(
+      await Spotifly.Search.forItem({ query: stringId, type: 'episode' })
+    );
+  });
+});
+
+describe('Tracks', () => {
   test('Track', async () => {
     expectType<DR<SpotifyApi.SingleTrackResponse>>(
       await Spotifly.Tracks.Track.get(stringId)
@@ -157,7 +215,6 @@ describe('Lib type definitions - Tracks', () => {
         (data: DR<SpotifyApi.UsersSavedTracksResponse>) => data
       )
     );
-
     expectType<DR<SpotifyApi.SaveTracksForUserResponse>>(
       await Spotifly.Tracks.UsersSaved.save(stringIds)
     );
@@ -181,6 +238,94 @@ describe('Lib type definitions - Tracks', () => {
       await Spotifly.Tracks.UsersSaved.checkAll(stringIds)(
         (data: DR<SpotifyApi.CheckUsersSavedTracksResponse>) => data
       )
+    );
+  });
+});
+
+describe('Users', () => {
+  test('OwnProfile', async () => {
+    expectType<DR<SpotifyApi.UserProfileResponse>>(
+      await Spotifly.Users.OwnProfile.get()
+    );
+  });
+  test('Profile', async () => {
+    expectType<DR<SpotifyApi.UserProfileResponse>>(
+      await Spotifly.Users.Profile.get(stringId)
+    );
+  });
+  test('CheckFollows', async () => {
+    expectType<DR<SpotifyApi.UserFollowsUsersOrArtistsResponse>[]>(
+      await Spotifly.Users.CheckFollows.allArtists(stringIds)()
+    );
+    expectType<DR<SpotifyApi.UserFollowsUsersOrArtistsResponse>>(
+      await Spotifly.Users.CheckFollows.artists(stringIds)
+    );
+    expectType<DR<SpotifyApi.UserFollowsUsersOrArtistsResponse>[]>(
+      await Spotifly.Users.CheckFollows.allUsers(stringIds)()
+    );
+    expectType<DR<SpotifyApi.UserFollowsUsersOrArtistsResponse>>(
+      await Spotifly.Users.CheckFollows.users(stringIds)
+    );
+    expectType<DR<SpotifyApi.UsersFollowPlaylistResponse>>(
+      await Spotifly.Users.CheckFollows.playlist({
+        playlistId: stringId,
+        userIds: stringIds,
+      })
+    );
+  });
+  test('Follow', async () => {
+    expectType<DR<SpotifyApi.FollowArtistsOrUsersResponse>[]>(
+      await Spotifly.Users.Follow.allArtists(stringIds)()
+    );
+    expectType<DR<SpotifyApi.FollowArtistsOrUsersResponse>>(
+      await Spotifly.Users.Follow.artists(stringIds)
+    );
+    expectType<DR<SpotifyApi.FollowArtistsOrUsersResponse>[]>(
+      await Spotifly.Users.Follow.allUsers(stringIds)()
+    );
+    expectType<DR<SpotifyApi.FollowArtistsOrUsersResponse>>(
+      await Spotifly.Users.Follow.users(stringIds)
+    );
+    expectType<DR<SpotifyApi.FollowPlaylistResponse>>(
+      await Spotifly.Users.Follow.playlist(stringId)
+    );
+  });
+  test('Unfollow', async () => {
+    expectType<DR<SpotifyApi.UnfollowArtistsOrUsersResponse>[]>(
+      await Spotifly.Users.Unfollow.allArtists(stringIds)()
+    );
+    expectType<DR<SpotifyApi.UnfollowArtistsOrUsersResponse>>(
+      await Spotifly.Users.Unfollow.artists(stringIds)
+    );
+    expectType<DR<SpotifyApi.UnfollowArtistsOrUsersResponse>[]>(
+      await Spotifly.Users.Unfollow.allUsers(stringIds)()
+    );
+    expectType<DR<SpotifyApi.UnfollowArtistsOrUsersResponse>>(
+      await Spotifly.Users.Unfollow.users(stringIds)
+    );
+    expectType<DR<SpotifyApi.UnfollowPlaylistResponse>>(
+      await Spotifly.Users.Unfollow.playlist(stringId)
+    );
+  });
+  test('FollowedArtists', async () => {
+    expectType<DR<SpotifyApi.UsersFollowedArtistsResponse>>(
+      await Spotifly.Users.FollowedArtists.get()
+    );
+  });
+  test('TopArtists', async () => {
+    expectType<DR<SpotifyApi.UsersTopArtistsResponse>>(
+      await Spotifly.Users.TopArtists.get()
+    );
+    expectType<DR<SpotifyApi.UsersTopArtistsResponse>[]>(
+      await Spotifly.Users.TopArtists.getAll()()
+    );
+  });
+  test('TopTracks', async () => {
+    expectType<DR<SpotifyApi.UsersTopTracksResponse>>(
+      await Spotifly.Users.TopTracks.get()
+    );
+    expectType<DR<SpotifyApi.UsersTopTracksResponse>[]>(
+      await Spotifly.Users.TopTracks.getAll()()
     );
   });
 });

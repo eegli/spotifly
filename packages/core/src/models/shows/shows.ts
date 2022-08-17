@@ -1,4 +1,4 @@
-import { Methods, transformResponse } from '../../request';
+import { Method, transformResponse } from '../../request';
 import { AsyncFnWithProvider } from '../../types';
 
 export const getSingleShow: AsyncFnWithProvider<
@@ -8,7 +8,7 @@ export const getSingleShow: AsyncFnWithProvider<
 > = p => async (showId, params) =>
   transformResponse(
     await p.request({
-      method: Methods.GET,
+      method: Method.GET,
       url: `shows/${showId}`,
       params,
     })
@@ -21,7 +21,7 @@ export const getSeveralShows: AsyncFnWithProvider<
 > = p => async (showIds, params) =>
   transformResponse(
     await p.request({
-      method: Methods.GET,
+      method: Method.GET,
       url: 'shows',
       params: {
         ...params,
@@ -39,7 +39,7 @@ export const getShowEpisodes: AsyncFnWithProvider<
 > = p => async (showId, params) =>
   transformResponse(
     await p.request({
-      method: Methods.GET,
+      method: Method.GET,
       url: `shows/${showId}/episodes`,
       params,
     })
@@ -54,7 +54,7 @@ export const getUsersSavedShows: AsyncFnWithProvider<
 > = p => async (_, params) =>
   transformResponse(
     await p.request({
-      method: Methods.GET,
+      method: Method.GET,
       url: 'me/shows',
       params,
     })
@@ -69,7 +69,7 @@ export const saveShowsForUser: AsyncFnWithProvider<
 > = p => async showIds =>
   transformResponse(
     await p.request({
-      method: Methods.PUT,
+      method: Method.PUT,
       url: 'me/shows',
       params: {
         ids: showIds.join(','),
@@ -86,7 +86,7 @@ export const removeUsersSavedShows: AsyncFnWithProvider<
 > = p => async showIds =>
   transformResponse(
     await p.request({
-      method: Methods.DELETE,
+      method: Method.DELETE,
       url: 'me/shows',
       params: {
         ids: showIds.join(','),
@@ -103,7 +103,7 @@ export const checkUsersSavedShows: AsyncFnWithProvider<
 > = p => async showIds =>
   transformResponse(
     await p.request({
-      method: Methods.GET,
+      method: Method.GET,
       url: 'me/shows/contains',
       params: {
         ids: showIds.join(','),

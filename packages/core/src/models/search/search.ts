@@ -1,4 +1,4 @@
-import { Methods, transformResponse } from '../../request';
+import { Method, transformResponse } from '../../request';
 import { AsyncFnWithProvider, Permutations } from '../../types';
 
 type SearchTypes = Permutations<
@@ -20,7 +20,7 @@ export const searchForItem: AsyncFnWithProvider<
   async ({ query, type }, params) =>
     transformResponse(
       await p.request({
-        method: Methods.GET,
+        method: Method.GET,
         url: 'search',
         params: {
           q: query,

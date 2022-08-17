@@ -2,19 +2,17 @@ import * as factory from '../../factory';
 import { AsyncProvider } from '../../types';
 import {
   checkUsersSavedAlbums,
-  checkUsersSavedAlbumsLimit,
   getAlbumTracks,
-  getAlbumTracksLimit,
   getNewAlbumReleases,
   getSeveralAlbums,
-  getSeveralAlbumsLimit,
   getSingleAlbum,
   getUsersSavedAlbums,
-  getUsersSavedAlbumsLimit,
+  LIMIT_GET_ALBUM_TRACKS,
+  LIMIT_GET_SEVERAL_ALBUMS,
+  LIMIT_GET_USER_ALBUMS,
+  LIMIT_MODIFY_CHECK_USER_ALBUMS,
   removeUsersSavedAlbums,
-  removeUsersSavedAlbumsLimit,
   saveAlbumsForUser,
-  saveAlbumsForUserLimit,
 } from './albums';
 
 export default function Albums(provider: AsyncProvider) {
@@ -24,35 +22,35 @@ export default function Albums(provider: AsyncProvider) {
       getSeveral: getSeveralAlbums(provider),
       getAll: factory.forLimited(
         getSeveralAlbums(provider),
-        getSeveralAlbumsLimit
+        LIMIT_GET_SEVERAL_ALBUMS
       ),
     },
     Tracks: {
       get: getAlbumTracks(provider),
       getAll: factory.forPaginated(
         getAlbumTracks(provider),
-        getAlbumTracksLimit
+        LIMIT_GET_ALBUM_TRACKS
       ),
     },
     UsersSaved: {
       get: getUsersSavedAlbums(provider).bind(null, null),
       getAll: factory
-        .forPaginated(getUsersSavedAlbums(provider), getUsersSavedAlbumsLimit)
+        .forPaginated(getUsersSavedAlbums(provider), LIMIT_GET_USER_ALBUMS)
         .bind(null, null),
       save: saveAlbumsForUser(provider),
       saveAll: factory.forLimited(
         saveAlbumsForUser(provider),
-        saveAlbumsForUserLimit
+        LIMIT_MODIFY_CHECK_USER_ALBUMS
       ),
       remove: removeUsersSavedAlbums(provider),
       removeAll: factory.forLimited(
         removeUsersSavedAlbums(provider),
-        removeUsersSavedAlbumsLimit
+        LIMIT_MODIFY_CHECK_USER_ALBUMS
       ),
       check: checkUsersSavedAlbums(provider),
       checkAll: factory.forLimited(
         checkUsersSavedAlbums(provider),
-        checkUsersSavedAlbumsLimit
+        LIMIT_MODIFY_CHECK_USER_ALBUMS
       ),
     },
     NewReleases: {
