@@ -28,7 +28,7 @@
     "dev": "preconstruct dev",
     "forallpackages": "yarn workspaces foreach --no-private --verbose",
     "format": "prettier --write packages website \"**/*.{js,ts,tsx,md}\"",
-    "get-endpoint-coverage": "node scripts/endpoint-coverage.mjs",
+    "get-endpoint-coverage": "yarn build && node scripts/endpoint-coverage.mjs",
     "postinstall": "preconstruct dev",
     "lint": "yarn eslint website packages --ext .ts,.tsx,.js",
     "release": "yarn build:release && changeset publish",

@@ -1,5 +1,5 @@
 import { expectType } from 'tsd-lite';
-import { AsyncFn, DataPromise } from '../src/types';
+import { AsyncFn, DataPromise } from '../../src/types';
 
 declare function func1(arg1: string): DataPromise<unknown>;
 

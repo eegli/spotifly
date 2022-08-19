@@ -103,7 +103,7 @@ export const getNewAlbumReleases: AsyncFnWithProvider<
   SpotifyApi.ListOfNewReleasesResponse,
   unknown,
   { country: string; limit: number; offset: number }
-> = provider => async params =>
+> = provider => async (_, params) =>
   transformResponse(
     await provider.request({
       method: Method.GET,
