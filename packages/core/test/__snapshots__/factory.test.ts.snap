@@ -352,6 +352,7 @@ exports[`Factory, pagination handling gets all 1 items and invokes callback in b
     "id",
     {
       "limit": 6,
+      "market": "CH",
       "offset": 0,
     },
   ],
@@ -410,6 +411,7 @@ exports[`Factory, pagination handling gets all 5 items and invokes callback in b
     "id",
     {
       "limit": 6,
+      "market": "CH",
       "offset": 0,
     },
   ],
@@ -492,6 +494,7 @@ exports[`Factory, pagination handling gets all 12 items and invokes callback in 
     "id",
     {
       "limit": 6,
+      "market": "CH",
       "offset": 0,
     },
   ],
@@ -499,6 +502,7 @@ exports[`Factory, pagination handling gets all 12 items and invokes callback in 
     "id",
     {
       "limit": 6,
+      "market": "CH",
       "offset": 6,
     },
   ],
@@ -653,6 +657,7 @@ exports[`Factory, pagination handling gets all 20 items and invokes callback in 
     "id",
     {
       "limit": 6,
+      "market": "CH",
       "offset": 0,
     },
   ],
@@ -660,6 +665,7 @@ exports[`Factory, pagination handling gets all 20 items and invokes callback in 
     "id",
     {
       "limit": 6,
+      "market": "CH",
       "offset": 6,
     },
   ],
@@ -667,6 +673,7 @@ exports[`Factory, pagination handling gets all 20 items and invokes callback in 
     "id",
     {
       "limit": 6,
+      "market": "CH",
       "offset": 12,
     },
   ],
@@ -674,6 +681,7 @@ exports[`Factory, pagination handling gets all 20 items and invokes callback in 
     "id",
     {
       "limit": 6,
+      "market": "CH",
       "offset": 18,
     },
   ],

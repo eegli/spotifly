@@ -1,13 +1,13 @@
-import { Methods, transformResponse } from '../../request';
+import { Method, transformResponse } from '../../request';
 import type { AsyncFnWithProvider, Permutations } from '../../types';
 
 export const getSingleArtist: AsyncFnWithProvider<
   SpotifyApi.SingleArtistResponse,
   string
-> = p => async artistId =>
+> = provider => async artistId =>
   transformResponse(
-    await p.request({
-      method: Methods.GET,
+    await provider.request({
+      method: Method.GET,
       url: `artists/${artistId}`,
     })
   );
@@ -15,10 +15,10 @@ export const getSingleArtist: AsyncFnWithProvider<
 export const getSeveralArtists: AsyncFnWithProvider<
   SpotifyApi.MultipleArtistsResponse,
   string[]
-> = p => async artistIds =>
+> = provider => async artistIds =>
   transformResponse(
-    await p.request({
-      method: Methods.GET,
+    await provider.request({
+      method: Method.GET,
       url: 'artists',
       params: {
         ids: artistIds.join(','),
@@ -26,7 +26,7 @@ export const getSeveralArtists: AsyncFnWithProvider<
     })
   );
 
-export const getSeveralArtistsLimit = 50;
+export const LIMIT_GET_SEVERAL_ARTISTS = 50;
 
 export const getArtistsAlbums: AsyncFnWithProvider<
   SpotifyApi.ArtistsAlbumsResponse,
@@ -40,25 +40,25 @@ export const getArtistsAlbums: AsyncFnWithProvider<
     limit: number;
     market: string;
   }
-> = p => async (artistId, params) =>
+> = provider => async (artistId, params) =>
   transformResponse(
-    await p.request({
-      method: Methods.GET,
+    await provider.request({
+      method: Method.GET,
       url: `artists/${artistId}/albums`,
       params,
     })
   );
 
-export const getArtistsAlbumsLimit = 50;
+export const LIMIT_GET_ARTIST_ALBUMS = 50;
 
 export const getArtistsTopTracks: AsyncFnWithProvider<
   SpotifyApi.ArtistsTopTracksResponse,
   string,
   { market: string }
-> = p => async (artistId, params) =>
+> = provider => async (artistId, params) =>
   transformResponse(
-    await p.request({
-      method: Methods.GET,
+    await provider.request({
+      method: Method.GET,
       url: `artists/${artistId}/top-tracks`,
       params,
     })
@@ -67,10 +67,10 @@ export const getArtistsTopTracks: AsyncFnWithProvider<
 export const getArtistsRelatedArtists: AsyncFnWithProvider<
   SpotifyApi.ArtistsRelatedArtistsResponse,
   string
-> = p => async artistId =>
+> = provider => async artistId =>
   transformResponse(
-    await p.request({
-      method: Methods.GET,
+    await provider.request({
+      method: Method.GET,
       url: `artists/${artistId}/related-artists`,
     })
   );

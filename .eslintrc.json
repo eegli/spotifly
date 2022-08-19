@@ -18,7 +18,8 @@
     "prettier"
   ],
   "rules": {
-    "@typescript-eslint/no-explicit-any": ["error", { "ignoreRestArgs": true }]
+    "@typescript-eslint/no-explicit-any": ["error", { "ignoreRestArgs": true }],
+    "jest/valid-title": "off"
   },
   "overrides": [
     {

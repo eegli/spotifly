@@ -1,6 +1,6 @@
 import { expectAssignable, expectNotAssignable, expectType } from 'tsd-lite';
-import * as factory from '../src/factory';
-import { DataPromise, DataResponse, ReadOnlyParams } from '../src/types';
+import * as factory from '../../src/factory';
+import { DataPromise, DataResponse, ReadOnlyParams } from '../../src/types';
 
 type Custom = { prop: string };
 

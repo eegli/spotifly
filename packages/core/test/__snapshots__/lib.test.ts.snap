@@ -1,0 +1,828 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Albums Album.get 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "market": "CH",
+      },
+      "url": "albums/id1",
+    },
+  ],
+]
+`;
+
+exports[`Albums Album.getAll 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20",
+        "market": "CH",
+      },
+      "url": "albums",
+    },
+  ],
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "ids": "id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40",
+        "market": "CH",
+      },
+      "url": "albums",
+    },
+  ],
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "ids": "id41,id42,id43,id44,id45,id46,id47,id48,id49,id50,id51",
+        "market": "CH",
+      },
+      "url": "albums",
+    },
+  ],
+]
+`;
+
+exports[`Albums Album.getSeveral 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20,id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40,id41,id42,id43,id44,id45,id46,id47,id48,id49,id50,id51",
+        "market": "CH",
+      },
+      "url": "albums",
+    },
+  ],
+]
+`;
+
+exports[`Albums NewReleases.get 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "country": "UA",
+        "limit": 1,
+        "offset": 1,
+      },
+      "url": "browse/new-releases",
+    },
+  ],
+]
+`;
+
+exports[`Albums Tracks.get 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "limit": 1,
+        "market": "CH",
+        "offset": 1,
+      },
+      "url": "albums/id1/tracks",
+    },
+  ],
+]
+`;
+
+exports[`Albums Tracks.getAll 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "limit": 50,
+        "market": "CH",
+        "offset": 0,
+      },
+      "url": "albums/id1/tracks",
+    },
+  ],
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "limit": 50,
+        "market": "CH",
+        "offset": 50,
+      },
+      "url": "albums/id1/tracks",
+    },
+  ],
+]
+`;
+
+exports[`Albums UsersSaved.check 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20,id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40,id41,id42,id43,id44,id45,id46,id47,id48,id49,id50,id51",
+      },
+      "url": "me/albums/contains",
+    },
+  ],
+]
+`;
+
+exports[`Albums UsersSaved.checkAll 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20",
+      },
+      "url": "me/albums/contains",
+    },
+  ],
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "ids": "id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40",
+      },
+      "url": "me/albums/contains",
+    },
+  ],
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "ids": "id41,id42,id43,id44,id45,id46,id47,id48,id49,id50,id51",
+      },
+      "url": "me/albums/contains",
+    },
+  ],
+]
+`;
+
+exports[`Albums UsersSaved.get 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "limit": 1,
+        "market": "CH",
+        "offset": 1,
+      },
+      "url": "me/albums",
+    },
+  ],
+]
+`;
+
+exports[`Albums UsersSaved.getAll 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "limit": 50,
+        "market": "CH",
+        "offset": 0,
+      },
+      "url": "me/albums",
+    },
+  ],
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "limit": 50,
+        "market": "CH",
+        "offset": 50,
+      },
+      "url": "me/albums",
+    },
+  ],
+]
+`;
+
+exports[`Albums UsersSaved.remove 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "DELETE",
+      "params": {
+        "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20,id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40,id41,id42,id43,id44,id45,id46,id47,id48,id49,id50,id51",
+      },
+      "url": "me/albums",
+    },
+  ],
+]
+`;
+
+exports[`Albums UsersSaved.removeAll 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "DELETE",
+      "params": {
+        "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20",
+      },
+      "url": "me/albums",
+    },
+  ],
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "DELETE",
+      "params": {
+        "ids": "id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40",
+      },
+      "url": "me/albums",
+    },
+  ],
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "DELETE",
+      "params": {
+        "ids": "id41,id42,id43,id44,id45,id46,id47,id48,id49,id50,id51",
+      },
+      "url": "me/albums",
+    },
+  ],
+]
+`;
+
+exports[`Albums UsersSaved.save 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "PUT",
+      "params": {
+        "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20,id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40,id41,id42,id43,id44,id45,id46,id47,id48,id49,id50,id51",
+      },
+      "url": "me/albums",
+    },
+  ],
+]
+`;
+
+exports[`Albums UsersSaved.saveAll 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "PUT",
+      "params": {
+        "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20",
+      },
+      "url": "me/albums",
+    },
+  ],
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "PUT",
+      "params": {
+        "ids": "id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40",
+      },
+      "url": "me/albums",
+    },
+  ],
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "PUT",
+      "params": {
+        "ids": "id41,id42,id43,id44,id45,id46,id47,id48,id49,id50,id51",
+      },
+      "url": "me/albums",
+    },
+  ],
+]
+`;
+
+exports[`Artists Album.get 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "include_groups": "album,appears_on,compilation,single",
+        "limit": 1,
+        "market": "CH",
+        "offset": 1,
+      },
+      "url": "artists/id1/albums",
+    },
+  ],
+]
+`;
+
+exports[`Artists Album.getAll 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "include_groups": "album",
+        "limit": 50,
+        "market": "CH",
+        "offset": 0,
+      },
+      "url": "artists/id1/albums",
+    },
+  ],
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "include_groups": "album",
+        "limit": 50,
+        "market": "CH",
+        "offset": 50,
+      },
+      "url": "artists/id1/albums",
+    },
+  ],
+]
+`;
+
+exports[`Artists Artist.get 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "url": "artists/id1",
+    },
+  ],
+]
+`;
+
+exports[`Artists Artist.getAll 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20,id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40,id41,id42,id43,id44,id45,id46,id47,id48,id49,id50",
+      },
+      "url": "artists",
+    },
+  ],
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "ids": "id51",
+      },
+      "url": "artists",
+    },
+  ],
+]
+`;
+
+exports[`Artists Artist.getSeveral 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20,id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40,id41,id42,id43,id44,id45,id46,id47,id48,id49,id50,id51",
+      },
+      "url": "artists",
+    },
+  ],
+]
+`;
+
+exports[`Artists RelatedArtists.get 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "url": "artists/id1/related-artists",
+    },
+  ],
+]
+`;
+
+exports[`Artists TopTracks.get 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "market": "CH",
+      },
+      "url": "artists/id1/top-tracks",
+    },
+  ],
+]
+`;
+
+exports[`Shows Episodes.get 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "limit": 1,
+        "market": "CH",
+        "offset": 1,
+      },
+      "url": "shows/id1/episodes",
+    },
+  ],
+]
+`;
+
+exports[`Shows Episodes.getAll 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "limit": 50,
+        "market": "CH",
+        "offset": 0,
+      },
+      "url": "shows/id1/episodes",
+    },
+  ],
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "limit": 50,
+        "market": "CH",
+        "offset": 50,
+      },
+      "url": "shows/id1/episodes",
+    },
+  ],
+]
+`;
+
+exports[`Shows Show.get 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "market": "CH",
+      },
+      "url": "shows/id1",
+    },
+  ],
+]
+`;
+
+exports[`Shows Show.getAll 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20,id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40,id41,id42,id43,id44,id45,id46,id47,id48,id49,id50",
+        "market": "CH",
+      },
+      "url": "shows",
+    },
+  ],
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "ids": "id51",
+        "market": "CH",
+      },
+      "url": "shows",
+    },
+  ],
+]
+`;
+
+exports[`Shows Show.getSeveral 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20,id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40,id41,id42,id43,id44,id45,id46,id47,id48,id49,id50,id51",
+        "market": "CH",
+      },
+      "url": "shows",
+    },
+  ],
+]
+`;
+
+exports[`Shows UsersSaved.check 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20,id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40,id41,id42,id43,id44,id45,id46,id47,id48,id49,id50,id51",
+      },
+      "url": "me/shows/contains",
+    },
+  ],
+]
+`;
+
+exports[`Shows UsersSaved.checkAll 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20,id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40,id41,id42,id43,id44,id45,id46,id47,id48,id49,id50",
+      },
+      "url": "me/shows/contains",
+    },
+  ],
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "ids": "id51",
+      },
+      "url": "me/shows/contains",
+    },
+  ],
+]
+`;
+
+exports[`Shows UsersSaved.get 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "limit": 1,
+        "offset": 1,
+      },
+      "url": "me/shows",
+    },
+  ],
+]
+`;
+
+exports[`Shows UsersSaved.getAll 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "limit": 50,
+        "offset": 0,
+      },
+      "url": "me/shows",
+    },
+  ],
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "limit": 50,
+        "offset": 50,
+      },
+      "url": "me/shows",
+    },
+  ],
+]
+`;
+
+exports[`Shows UsersSaved.remove 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "DELETE",
+      "params": {
+        "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20,id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40,id41,id42,id43,id44,id45,id46,id47,id48,id49,id50,id51",
+      },
+      "url": "me/shows",
+    },
+  ],
+]
+`;
+
+exports[`Shows UsersSaved.removeAll 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "DELETE",
+      "params": {
+        "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20,id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40,id41,id42,id43,id44,id45,id46,id47,id48,id49,id50",
+      },
+      "url": "me/shows",
+    },
+  ],
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "DELETE",
+      "params": {
+        "ids": "id51",
+      },
+      "url": "me/shows",
+    },
+  ],
+]
+`;
+
+exports[`Shows UsersSaved.save 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "PUT",
+      "params": {
+        "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20,id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40,id41,id42,id43,id44,id45,id46,id47,id48,id49,id50,id51",
+      },
+      "url": "me/shows",
+    },
+  ],
+]
+`;
+
+exports[`Shows UsersSaved.saveAll 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "PUT",
+      "params": {
+        "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20,id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40,id41,id42,id43,id44,id45,id46,id47,id48,id49,id50",
+      },
+      "url": "me/shows",
+    },
+  ],
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "PUT",
+      "params": {
+        "ids": "id51",
+      },
+      "url": "me/shows",
+    },
+  ],
+]
+`;

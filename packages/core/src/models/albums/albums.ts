@@ -1,14 +1,14 @@
-import { Methods, transformResponse } from '../../request';
+import { Method, transformResponse } from '../../request';
 import { AsyncFnWithProvider } from '../../types';
 
 export const getSingleAlbum: AsyncFnWithProvider<
   SpotifyApi.SingleAlbumResponse,
   string,
   { market: string }
-> = p => async (albumId, params) =>
+> = provider => async (albumId, params) =>
   transformResponse(
-    await p.request({
-      method: Methods.GET,
+    await provider.request({
+      method: Method.GET,
       url: `albums/${albumId}`,
       params,
     })
@@ -18,10 +18,10 @@ export const getSeveralAlbums: AsyncFnWithProvider<
   SpotifyApi.MultipleAlbumsResponse,
   string[],
   { market: string }
-> = p => async (albumIds, params) =>
+> = provider => async (albumIds, params) =>
   transformResponse(
-    await p.request({
-      method: Methods.GET,
+    await provider.request({
+      method: Method.GET,
       url: 'albums',
       params: {
         ...params,
@@ -30,97 +30,84 @@ export const getSeveralAlbums: AsyncFnWithProvider<
     })
   );
 
-export const getSeveralAlbumsLimit = 20;
+export const LIMIT_GET_SEVERAL_ALBUMS = 20;
 
 export const getAlbumTracks: AsyncFnWithProvider<
   SpotifyApi.AlbumTracksResponse,
   string,
   { limit: number; market: string; offset: number }
-> = p => async (albumId, params) =>
+> = provider => async (albumId, params) =>
   transformResponse(
-    await p.request({
-      method: Methods.GET,
+    await provider.request({
+      method: Method.GET,
       url: `albums/${albumId}/tracks`,
       params,
     })
   );
 
-export const getAlbumTracksLimit = 50;
+export const LIMIT_GET_ALBUM_TRACKS = 50;
 
 export const getUsersSavedAlbums: AsyncFnWithProvider<
   SpotifyApi.UsersSavedAlbumsResponse,
   unknown,
   { limit: number; market: string; offset: number }
-> = p => async (_, params) =>
+> = provider => async (_, params) =>
   transformResponse(
-    await p.request({
-      method: Methods.GET,
+    await provider.request({
+      method: Method.GET,
       url: 'me/albums',
       params,
     })
   );
 
-export const getUsersSavedAlbumsLimit = 50;
+export const LIMIT_GET_USER_ALBUMS = 50;
 
-export const saveAlbumsForUser: AsyncFnWithProvider<
-  SpotifyApi.SaveAlbumsForUserResponse,
-  string[]
-> = p => async albumIds =>
-  transformResponse(
-    await p.request({
-      method: Methods.PUT,
-      url: 'me/albums',
-      params: {
-        ids: albumIds.join(','),
-      },
-    })
-  );
+const userAlbums: <Response>(conf: {
+  url: string;
+  method: Method;
+}) => AsyncFnWithProvider<Response, string[]> =
+  ({ method, url }) =>
+  provider =>
+  async ids =>
+    transformResponse(
+      await provider.request({
+        method,
+        params: {
+          ids: ids.join(','),
+        },
+        url,
+      })
+    );
 
-export const saveAlbumsForUserLimit = 20;
+export const LIMIT_MODIFY_CHECK_USER_ALBUMS = 20;
 
-export const removeUsersSavedAlbums: AsyncFnWithProvider<
-  SpotifyApi.RemoveAlbumsForUserResponse,
-  string[]
-> = p => async albumIds =>
-  transformResponse(
-    await p.request({
-      method: Methods.DELETE,
-      url: 'me/albums',
-      params: {
-        ids: albumIds.join(','),
-      },
-    })
-  );
+export const saveAlbumsForUser =
+  userAlbums<SpotifyApi.SaveAlbumsForUserResponse>({
+    method: Method.PUT,
+    url: 'me/albums',
+  });
 
-export const removeUsersSavedAlbumsLimit = 20;
+export const removeUsersSavedAlbums =
+  userAlbums<SpotifyApi.RemoveAlbumsForUserResponse>({
+    method: Method.DELETE,
+    url: 'me/albums',
+  });
 
-export const checkUsersSavedAlbums: AsyncFnWithProvider<
-  SpotifyApi.CheckUserSavedAlbumsResponse,
-  string[]
-> = p => async albumIds =>
-  transformResponse(
-    await p.request({
-      method: Methods.GET,
-      url: 'me/albums/contains',
-      params: {
-        ids: albumIds.join(','),
-      },
-    })
-  );
-
-export const checkUsersSavedAlbumsLimit = 20;
+export const checkUsersSavedAlbums =
+  userAlbums<SpotifyApi.CheckUserSavedAlbumsResponse>({
+    method: Method.GET,
+    url: 'me/albums/contains',
+  });
 
 export const getNewAlbumReleases: AsyncFnWithProvider<
   SpotifyApi.ListOfNewReleasesResponse,
   unknown,
   { country: string; limit: number; offset: number }
-> = p => async params =>
+> = provider => async (_, params) =>
   transformResponse(
-    await p.request({
-      method: Methods.GET,
+    await provider.request({
+      method: Method.GET,
       url: 'browse/new-releases',
       params,
     })
   );
-
-export const getNewAlbumReleasesLimit = 50;

@@ -10,7 +10,7 @@ export type DataResponse<T = unknown> = {
 export type DataPromise<T = unknown> = Promise<DataResponse<T>>;
 
 export type AsyncProvider = {
-  request<T>(req: AxiosRequestConfig<T>): Promise<AxiosResponse<T>>;
+  request(req: AxiosRequestConfig): Promise<AxiosResponse>;
 };
 
 export type AsyncFn<
@@ -22,6 +22,8 @@ export type AsyncFn<
   : (required: Required, optional?: Partial<Optional>) => DataPromise<Return>;
 
 export type AnyObject = Record<never, never>;
+
+export type AnyFunc = (...args: any[]) => unknown;
 
 export type AsyncFnWithProvider<
   Return,
@@ -41,13 +43,13 @@ export type BetterOmit<T, E> = {
 };
 
 export type OmitFromAsyncFnParams<
-  F extends (...args: any[]) => unknown,
+  F extends AnyFunc,
   O extends AnyObject
 > = F extends (arg1: infer A, arg2: infer B) => unknown
   ? [A, BetterOmit<B, keyof O>?]
   : never;
 
-export type ReadOnlyParams<T extends (...args: any[]) => unknown> = T extends (
+export type ReadOnlyParams<T extends AnyFunc> = T extends (
   ...args: infer P
 ) => unknown
   ? Readonly<P>

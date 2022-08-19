@@ -43,8 +43,46 @@ exports[`Lib matches snapshot 1`] = `
       "get": [Function],
     },
   },
+  "Episodes": {
+    "Episode": {
+      "get": [Function],
+      "getAll": [Function],
+      "getSeveral": [Function],
+    },
+    "UsersSaved": {
+      "check": [Function],
+      "checkAll": [Function],
+      "get": [Function],
+      "getAll": [Function],
+      "remove": [Function],
+      "removeAll": [Function],
+      "save": [Function],
+      "saveAll": [Function],
+    },
+  },
   "Search": {
     "forItem": [Function],
+  },
+  "Shows": {
+    "Episodes": {
+      "get": [Function],
+      "getAll": [Function],
+    },
+    "Show": {
+      "get": [Function],
+      "getAll": [Function],
+      "getSeveral": [Function],
+    },
+    "UsersSaved": {
+      "check": [Function],
+      "checkAll": [Function],
+      "get": [Function],
+      "getAll": [Function],
+      "remove": [Function],
+      "removeAll": [Function],
+      "save": [Function],
+      "saveAll": [Function],
+    },
   },
   "Tracks": {
     "AudioAnalysis": {
@@ -72,6 +110,46 @@ exports[`Lib matches snapshot 1`] = `
       "removeAll": [Function],
       "save": [Function],
       "saveAll": [Function],
+    },
+  },
+  "Users": {
+    "CheckFollows": {
+      "allArtists": [Function],
+      "allUsers": [Function],
+      "artists": [Function],
+      "playlist": [Function],
+      "users": [Function],
+    },
+    "Follow": {
+      "allArtists": [Function],
+      "allUsers": [Function],
+      "artists": [Function],
+      "playlist": [Function],
+      "users": [Function],
+    },
+    "FollowedArtists": {
+      "get": [Function],
+    },
+    "OwnProfile": {
+      "get": [Function],
+    },
+    "Profile": {
+      "get": [Function],
+    },
+    "TopArtists": {
+      "get": [Function],
+      "getAll": [Function],
+    },
+    "TopTracks": {
+      "get": [Function],
+      "getAll": [Function],
+    },
+    "Unfollow": {
+      "allArtists": [Function],
+      "allUsers": [Function],
+      "artists": [Function],
+      "playlist": [Function],
+      "users": [Function],
     },
   },
 }
