@@ -232,6 +232,116 @@ const tests: LibTestRunner = [
       },
     ],
   },
+  {
+    name: 'Shows',
+    tests: [
+      {
+        name: 'Show.get',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.SingleShowResponse>>(
+            Client.Shows.Show.get(stringId, { market })
+          ),
+      },
+      {
+        name: 'Show.getSeveral',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.MultipleShowsResponse>>(
+            Client.Shows.Show.getSeveral(stringIds, { market })
+          ),
+      },
+      {
+        name: 'Show.getAll',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.MultipleShowsResponse>[]>(
+            Client.Shows.Show.getAll(stringIds, { market })(
+              (data: DR<SpotifyApi.MultipleShowsResponse>) => data
+            )
+          ),
+      },
+      {
+        name: 'Episodes.get',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.ShowEpisodesResponse>>(
+            Client.Shows.Episodes.get(stringId, { market, offset, limit })
+          ),
+      },
+      {
+        name: 'Episodes.getAll',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.ShowEpisodesResponse>[]>(
+            Client.Shows.Episodes.getAll(stringId, { market })(
+              (data: DR<SpotifyApi.ShowEpisodesResponse>) => data
+            )
+          ),
+        setup: pagingResponseOnce,
+      },
+      {
+        name: 'UsersSaved.get',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.UsersSavedShowsResponse>>(
+            Client.Shows.UsersSaved.get({ offset, limit })
+          ),
+      },
+      {
+        name: 'UsersSaved.getAll',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.UsersSavedShowsResponse>[]>(
+            Client.Shows.UsersSaved.getAll()(
+              (data: DR<SpotifyApi.UsersSavedShowsResponse>) => data
+            )
+          ),
+        setup: pagingResponseOnce,
+      },
+      {
+        name: 'UsersSaved.save',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.VoidResponse>>(
+            Client.Shows.UsersSaved.save(stringIds)
+          ),
+      },
+      {
+        name: 'UsersSaved.saveAll',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.VoidResponse>[]>(
+            Client.Shows.UsersSaved.saveAll(stringIds)(
+              (data: DR<SpotifyApi.VoidResponse>) => data
+            )
+          ),
+      },
+      {
+        name: 'UsersSaved.remove',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.VoidResponse>>(
+            Client.Shows.UsersSaved.remove(stringIds, { market })
+          ),
+      },
+      {
+        name: 'UsersSaved.removeAll',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.VoidResponse>[]>(
+            Client.Shows.UsersSaved.removeAll(stringIds, { market })(
+              (data: DR<SpotifyApi.VoidResponse>) => data
+            )
+          ),
+      },
+      {
+        name: 'UsersSaved.check',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.VoidResponse>>(
+            Client.Shows.UsersSaved.check(stringIds)
+          ),
+      },
+      {
+        name: 'UsersSaved.checkAll',
+        fn: () =>
+          assertReturns<DR<Array<boolean>>[]>(
+            Client.Shows.UsersSaved.checkAll(stringIds)(
+              (data: DR<Array<boolean>>) => data
+            )
+          ),
+      },
+    ],
+  },
 ];
 
 for (const endpoint of tests) {

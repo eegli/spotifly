@@ -64,7 +64,7 @@ export const getUsersSavedShowsLimit = 50;
 
 export const saveShowsForUser: AsyncFnWithProvider<
   // TODO fix this type
-  SpotifyApi.SaveTracksForUserResponse,
+  SpotifyApi.VoidResponse,
   string[]
 > = provider => async showIds =>
   transformResponse(
@@ -81,8 +81,9 @@ export const saveShowsForUserLimit = 50;
 
 export const removeUsersSavedShows: AsyncFnWithProvider<
   // TODO fix this type
-  SpotifyApi.RemoveUsersSavedTracksResponse,
-  string[]
+  SpotifyApi.VoidResponse,
+  string[],
+  { market: string }
 > = provider => async showIds =>
   transformResponse(
     await provider.request({
@@ -98,7 +99,7 @@ export const removeUsersSavedShowsLimit = 50;
 
 export const checkUsersSavedShows: AsyncFnWithProvider<
   // TODO fix this type
-  SpotifyApi.CheckUsersSavedTracksResponse,
+  Array<boolean>,
   string[]
 > = provider => async showIds =>
   transformResponse(
