@@ -323,6 +323,21 @@ const tests: LibTestRunner = [
       },
     ],
   },
+  {
+    name: 'Search',
+    tests: [
+      {
+        name: 'Search.get',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.SearchResponse>>(
+            Client.Search.forItem({
+              query: 'x',
+              type: 'track,album,artist,episode',
+            })
+          ),
+      },
+    ],
+  },
 ];
 
 for (const endpoint of tests) {
