@@ -17,50 +17,6 @@ exports[`Albums Album.get 1`] = `
 ]
 `;
 
-exports[`Albums Album.getAll 1`] = `
-[
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "GET",
-      "params": {
-        "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20",
-        "market": "CH",
-      },
-      "url": "albums",
-    },
-  ],
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "GET",
-      "params": {
-        "ids": "id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40",
-        "market": "CH",
-      },
-      "url": "albums",
-    },
-  ],
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "GET",
-      "params": {
-        "ids": "id41,id42,id43,id44,id45,id46,id47,id48,id49,id50,id51",
-        "market": "CH",
-      },
-      "url": "albums",
-    },
-  ],
-]
-`;
-
 exports[`Albums Album.getSeveral 1`] = `
 [
   [
@@ -117,39 +73,6 @@ exports[`Albums Tracks.get 1`] = `
 ]
 `;
 
-exports[`Albums Tracks.getAll 1`] = `
-[
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "GET",
-      "params": {
-        "limit": 50,
-        "market": "CH",
-        "offset": 0,
-      },
-      "url": "albums/id1/tracks",
-    },
-  ],
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "GET",
-      "params": {
-        "limit": 50,
-        "market": "CH",
-        "offset": 50,
-      },
-      "url": "albums/id1/tracks",
-    },
-  ],
-]
-`;
-
 exports[`Albums UsersSaved.check 1`] = `
 [
   [
@@ -160,47 +83,6 @@ exports[`Albums UsersSaved.check 1`] = `
       "method": "GET",
       "params": {
         "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20,id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40,id41,id42,id43,id44,id45,id46,id47,id48,id49,id50,id51",
-      },
-      "url": "me/albums/contains",
-    },
-  ],
-]
-`;
-
-exports[`Albums UsersSaved.checkAll 1`] = `
-[
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "GET",
-      "params": {
-        "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20",
-      },
-      "url": "me/albums/contains",
-    },
-  ],
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "GET",
-      "params": {
-        "ids": "id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40",
-      },
-      "url": "me/albums/contains",
-    },
-  ],
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "GET",
-      "params": {
-        "ids": "id41,id42,id43,id44,id45,id46,id47,id48,id49,id50,id51",
       },
       "url": "me/albums/contains",
     },
@@ -227,39 +109,6 @@ exports[`Albums UsersSaved.get 1`] = `
 ]
 `;
 
-exports[`Albums UsersSaved.getAll 1`] = `
-[
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "GET",
-      "params": {
-        "limit": 50,
-        "market": "CH",
-        "offset": 0,
-      },
-      "url": "me/albums",
-    },
-  ],
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "GET",
-      "params": {
-        "limit": 50,
-        "market": "CH",
-        "offset": 50,
-      },
-      "url": "me/albums",
-    },
-  ],
-]
-`;
-
 exports[`Albums UsersSaved.remove 1`] = `
 [
   [
@@ -277,47 +126,6 @@ exports[`Albums UsersSaved.remove 1`] = `
 ]
 `;
 
-exports[`Albums UsersSaved.removeAll 1`] = `
-[
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "DELETE",
-      "params": {
-        "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20",
-      },
-      "url": "me/albums",
-    },
-  ],
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "DELETE",
-      "params": {
-        "ids": "id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40",
-      },
-      "url": "me/albums",
-    },
-  ],
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "DELETE",
-      "params": {
-        "ids": "id41,id42,id43,id44,id45,id46,id47,id48,id49,id50,id51",
-      },
-      "url": "me/albums",
-    },
-  ],
-]
-`;
-
 exports[`Albums UsersSaved.save 1`] = `
 [
   [
@@ -328,47 +136,6 @@ exports[`Albums UsersSaved.save 1`] = `
       "method": "PUT",
       "params": {
         "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20,id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40,id41,id42,id43,id44,id45,id46,id47,id48,id49,id50,id51",
-      },
-      "url": "me/albums",
-    },
-  ],
-]
-`;
-
-exports[`Albums UsersSaved.saveAll 1`] = `
-[
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "PUT",
-      "params": {
-        "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20",
-      },
-      "url": "me/albums",
-    },
-  ],
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "PUT",
-      "params": {
-        "ids": "id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40",
-      },
-      "url": "me/albums",
-    },
-  ],
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "PUT",
-      "params": {
-        "ids": "id41,id42,id43,id44,id45,id46,id47,id48,id49,id50,id51",
       },
       "url": "me/albums",
     },
@@ -396,41 +163,6 @@ exports[`Artists Album.get 1`] = `
 ]
 `;
 
-exports[`Artists Album.getAll 1`] = `
-[
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "GET",
-      "params": {
-        "include_groups": "album",
-        "limit": 50,
-        "market": "CH",
-        "offset": 0,
-      },
-      "url": "artists/id1/albums",
-    },
-  ],
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "GET",
-      "params": {
-        "include_groups": "album",
-        "limit": 50,
-        "market": "CH",
-        "offset": 50,
-      },
-      "url": "artists/id1/albums",
-    },
-  ],
-]
-`;
-
 exports[`Artists Artist.get 1`] = `
 [
   [
@@ -440,35 +172,6 @@ exports[`Artists Artist.get 1`] = `
       },
       "method": "GET",
       "url": "artists/id1",
-    },
-  ],
-]
-`;
-
-exports[`Artists Artist.getAll 1`] = `
-[
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "GET",
-      "params": {
-        "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20,id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40,id41,id42,id43,id44,id45,id46,id47,id48,id49,id50",
-      },
-      "url": "artists",
-    },
-  ],
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "GET",
-      "params": {
-        "ids": "id51",
-      },
-      "url": "artists",
     },
   ],
 ]
@@ -522,6 +225,58 @@ exports[`Artists TopTracks.get 1`] = `
 ]
 `;
 
+exports[`Episodes Episode.get 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "market": "CH",
+      },
+      "url": "episodes/id1",
+    },
+  ],
+]
+`;
+
+exports[`Episodes Episode.getSeveral 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20,id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40,id41,id42,id43,id44,id45,id46,id47,id48,id49,id50,id51",
+        "market": "CH",
+      },
+      "url": "episodes",
+    },
+  ],
+]
+`;
+
+exports[`Episodes UsersSaved.get 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "market": "CH",
+      },
+      "url": "me/episodes",
+    },
+  ],
+]
+`;
+
 exports[`Shows Episodes.get 1`] = `
 [
   [
@@ -541,39 +296,6 @@ exports[`Shows Episodes.get 1`] = `
 ]
 `;
 
-exports[`Shows Episodes.getAll 1`] = `
-[
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "GET",
-      "params": {
-        "limit": 50,
-        "market": "CH",
-        "offset": 0,
-      },
-      "url": "shows/id1/episodes",
-    },
-  ],
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "GET",
-      "params": {
-        "limit": 50,
-        "market": "CH",
-        "offset": 50,
-      },
-      "url": "shows/id1/episodes",
-    },
-  ],
-]
-`;
-
 exports[`Shows Show.get 1`] = `
 [
   [
@@ -586,37 +308,6 @@ exports[`Shows Show.get 1`] = `
         "market": "CH",
       },
       "url": "shows/id1",
-    },
-  ],
-]
-`;
-
-exports[`Shows Show.getAll 1`] = `
-[
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "GET",
-      "params": {
-        "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20,id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40,id41,id42,id43,id44,id45,id46,id47,id48,id49,id50",
-        "market": "CH",
-      },
-      "url": "shows",
-    },
-  ],
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "GET",
-      "params": {
-        "ids": "id51",
-        "market": "CH",
-      },
-      "url": "shows",
     },
   ],
 ]
@@ -657,35 +348,6 @@ exports[`Shows UsersSaved.check 1`] = `
 ]
 `;
 
-exports[`Shows UsersSaved.checkAll 1`] = `
-[
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "GET",
-      "params": {
-        "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20,id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40,id41,id42,id43,id44,id45,id46,id47,id48,id49,id50",
-      },
-      "url": "me/shows/contains",
-    },
-  ],
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "GET",
-      "params": {
-        "ids": "id51",
-      },
-      "url": "me/shows/contains",
-    },
-  ],
-]
-`;
-
 exports[`Shows UsersSaved.get 1`] = `
 [
   [
@@ -697,37 +359,6 @@ exports[`Shows UsersSaved.get 1`] = `
       "params": {
         "limit": 1,
         "offset": 1,
-      },
-      "url": "me/shows",
-    },
-  ],
-]
-`;
-
-exports[`Shows UsersSaved.getAll 1`] = `
-[
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "GET",
-      "params": {
-        "limit": 50,
-        "offset": 0,
-      },
-      "url": "me/shows",
-    },
-  ],
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "GET",
-      "params": {
-        "limit": 50,
-        "offset": 50,
       },
       "url": "me/shows",
     },
@@ -752,35 +383,6 @@ exports[`Shows UsersSaved.remove 1`] = `
 ]
 `;
 
-exports[`Shows UsersSaved.removeAll 1`] = `
-[
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "DELETE",
-      "params": {
-        "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20,id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40,id41,id42,id43,id44,id45,id46,id47,id48,id49,id50",
-      },
-      "url": "me/shows",
-    },
-  ],
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "DELETE",
-      "params": {
-        "ids": "id51",
-      },
-      "url": "me/shows",
-    },
-  ],
-]
-`;
-
 exports[`Shows UsersSaved.save 1`] = `
 [
   [
@@ -791,35 +393,6 @@ exports[`Shows UsersSaved.save 1`] = `
       "method": "PUT",
       "params": {
         "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20,id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40,id41,id42,id43,id44,id45,id46,id47,id48,id49,id50,id51",
-      },
-      "url": "me/shows",
-    },
-  ],
-]
-`;
-
-exports[`Shows UsersSaved.saveAll 1`] = `
-[
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "PUT",
-      "params": {
-        "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20,id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40,id41,id42,id43,id44,id45,id46,id47,id48,id49,id50",
-      },
-      "url": "me/shows",
-    },
-  ],
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "PUT",
-      "params": {
-        "ids": "id51",
       },
       "url": "me/shows",
     },
