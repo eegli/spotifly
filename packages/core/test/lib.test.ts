@@ -221,6 +221,27 @@ const tests: LibTestRunner = [
             Client.Episodes.UsersSaved.get({ market })
           ),
       },
+      {
+        name: 'UsersSaved.save',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.VoidResponse>>(
+            Client.Episodes.UsersSaved.save(stringIds)
+          ),
+      },
+      {
+        name: 'UsersSaved.remove',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.VoidResponse>>(
+            Client.Episodes.UsersSaved.remove(stringIds)
+          ),
+      },
+      {
+        name: 'UsersSaved.check',
+        fn: () =>
+          assertReturns<DR<boolean[]>>(
+            Client.Episodes.UsersSaved.check(stringIds)
+          ),
+      },
     ],
   },
 ];
