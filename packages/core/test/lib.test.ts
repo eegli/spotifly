@@ -7,7 +7,6 @@ import {
   limit,
   market,
   offset,
-  pagingResponse,
   stringId,
   stringIds,
 } from './helpers';
@@ -16,16 +15,6 @@ jest.mock('axios');
 
 const mockedAxios = axios as jest.MockedFunction<typeof axios>;
 (axios as jest.Mocked<typeof axios>).create.mockReturnValue(mockedAxios);
-
-const pagingResponseOnce = () => {
-  mockedAxios.mockResolvedValueOnce(fakeAxiosResponse(pagingResponse));
-  mockedAxios.mockResolvedValueOnce(
-    fakeAxiosResponse({
-      ...pagingResponse,
-      next: null,
-    })
-  );
-};
 
 mockedAxios.mockResolvedValue(fakeAxiosResponse(null));
 
@@ -42,7 +31,6 @@ type LibTestRunner = {
   tests: {
     name: string;
     fn: () => Promise<unknown>;
-    setup?: (...args: any[]) => unknown;
   }[];
 }[];
 
@@ -65,15 +53,6 @@ const tests: LibTestRunner = [
           ),
       },
       {
-        name: 'Album.getAll',
-        fn: () =>
-          assertReturns<DR<SpotifyApi.MultipleAlbumsResponse>[]>(
-            Client.Albums.Album.getAll(stringIds, { market })(
-              (data: DR<SpotifyApi.MultipleAlbumsResponse>) => data
-            )
-          ),
-      },
-      {
         name: 'NewReleases.get',
         fn: () =>
           assertReturns<DR<SpotifyApi.ListOfNewReleasesResponse>>(
@@ -88,31 +67,11 @@ const tests: LibTestRunner = [
           ),
       },
       {
-        name: 'Tracks.getAll',
-        fn: () =>
-          assertReturns<DR<SpotifyApi.AlbumTracksResponse>[]>(
-            Client.Albums.Tracks.getAll(stringId, { market })(
-              (data: DR<SpotifyApi.AlbumTracksResponse>) => data
-            )
-          ),
-        setup: pagingResponseOnce,
-      },
-      {
         name: 'UsersSaved.check',
         fn: () =>
           assertReturns<DR<SpotifyApi.CheckUserSavedAlbumsResponse>>(
             Client.Albums.UsersSaved.check(stringIds)
           ),
-      },
-      {
-        name: 'UsersSaved.checkAll',
-        fn: () =>
-          assertReturns<DR<SpotifyApi.CheckUserSavedAlbumsResponse>[]>(
-            Client.Albums.UsersSaved.checkAll(stringIds)(
-              (data: DR<SpotifyApi.CheckUserSavedAlbumsResponse>) => data
-            )
-          ),
-        setup: pagingResponseOnce,
       },
       {
         name: 'UsersSaved.get',
@@ -122,16 +81,6 @@ const tests: LibTestRunner = [
           ),
       },
       {
-        name: 'UsersSaved.getAll',
-        fn: () =>
-          assertReturns<DR<SpotifyApi.UsersSavedAlbumsResponse>[]>(
-            Client.Albums.UsersSaved.getAll({ market })(
-              (data: DR<SpotifyApi.UsersSavedAlbumsResponse>) => data
-            )
-          ),
-        setup: pagingResponseOnce,
-      },
-      {
         name: 'UsersSaved.remove',
         fn: () =>
           assertReturns<DR<SpotifyApi.RemoveAlbumsForUserResponse>>(
@@ -139,28 +88,10 @@ const tests: LibTestRunner = [
           ),
       },
       {
-        name: 'UsersSaved.removeAll',
-        fn: () =>
-          assertReturns<DR<SpotifyApi.RemoveAlbumsForUserResponse>[]>(
-            Client.Albums.UsersSaved.removeAll(stringIds)(
-              (data: DR<SpotifyApi.RemoveAlbumsForUserResponse>) => data
-            )
-          ),
-      },
-      {
         name: 'UsersSaved.save',
         fn: () =>
           assertReturns<DR<SpotifyApi.SaveAlbumsForUserResponse>>(
             Client.Albums.UsersSaved.save(stringIds)
-          ),
-      },
-      {
-        name: 'UsersSaved.saveAll',
-        fn: () =>
-          assertReturns<DR<SpotifyApi.SaveAlbumsForUserResponse>[]>(
-            Client.Albums.UsersSaved.saveAll(stringIds)(
-              (data: DR<SpotifyApi.SaveAlbumsForUserResponse>) => data
-            )
           ),
       },
     ],
@@ -183,15 +114,6 @@ const tests: LibTestRunner = [
           ),
       },
       {
-        name: 'Artist.getAll',
-        fn: () =>
-          assertReturns<DR<SpotifyApi.MultipleArtistsResponse>[]>(
-            Client.Artists.Artist.getAll(stringIds)(
-              (data: DR<SpotifyApi.MultipleArtistsResponse>) => data
-            )
-          ),
-      },
-      {
         name: 'Album.get',
         fn: () =>
           assertReturns<DR<SpotifyApi.ArtistsAlbumsResponse>>(
@@ -202,17 +124,6 @@ const tests: LibTestRunner = [
               include_groups: 'album,appears_on,compilation,single',
             })
           ),
-      },
-      {
-        name: 'Album.getAll',
-        fn: () =>
-          assertReturns<DR<SpotifyApi.ArtistsAlbumsResponse>[]>(
-            Client.Artists.Albums.getAll(stringId, {
-              market,
-              include_groups: 'album',
-            })((data: DR<SpotifyApi.ArtistsAlbumsResponse>) => data)
-          ),
-        setup: pagingResponseOnce,
       },
       {
         name: 'TopTracks.get',
@@ -250,30 +161,11 @@ const tests: LibTestRunner = [
           ),
       },
       {
-        name: 'Show.getAll',
-        fn: () =>
-          assertReturns<DR<SpotifyApi.MultipleShowsResponse>[]>(
-            Client.Shows.Show.getAll(stringIds, { market })(
-              (data: DR<SpotifyApi.MultipleShowsResponse>) => data
-            )
-          ),
-      },
-      {
         name: 'Episodes.get',
         fn: () =>
           assertReturns<DR<SpotifyApi.ShowEpisodesResponse>>(
             Client.Shows.Episodes.get(stringId, { market, offset, limit })
           ),
-      },
-      {
-        name: 'Episodes.getAll',
-        fn: () =>
-          assertReturns<DR<SpotifyApi.ShowEpisodesResponse>[]>(
-            Client.Shows.Episodes.getAll(stringId, { market })(
-              (data: DR<SpotifyApi.ShowEpisodesResponse>) => data
-            )
-          ),
-        setup: pagingResponseOnce,
       },
       {
         name: 'UsersSaved.get',
@@ -283,29 +175,10 @@ const tests: LibTestRunner = [
           ),
       },
       {
-        name: 'UsersSaved.getAll',
-        fn: () =>
-          assertReturns<DR<SpotifyApi.UsersSavedShowsResponse>[]>(
-            Client.Shows.UsersSaved.getAll()(
-              (data: DR<SpotifyApi.UsersSavedShowsResponse>) => data
-            )
-          ),
-        setup: pagingResponseOnce,
-      },
-      {
         name: 'UsersSaved.save',
         fn: () =>
           assertReturns<DR<SpotifyApi.VoidResponse>>(
             Client.Shows.UsersSaved.save(stringIds)
-          ),
-      },
-      {
-        name: 'UsersSaved.saveAll',
-        fn: () =>
-          assertReturns<DR<SpotifyApi.VoidResponse>[]>(
-            Client.Shows.UsersSaved.saveAll(stringIds)(
-              (data: DR<SpotifyApi.VoidResponse>) => data
-            )
           ),
       },
       {
@@ -316,28 +189,265 @@ const tests: LibTestRunner = [
           ),
       },
       {
-        name: 'UsersSaved.removeAll',
-        fn: () =>
-          assertReturns<DR<SpotifyApi.VoidResponse>[]>(
-            Client.Shows.UsersSaved.removeAll(stringIds, { market })(
-              (data: DR<SpotifyApi.VoidResponse>) => data
-            )
-          ),
-      },
-      {
         name: 'UsersSaved.check',
         fn: () =>
           assertReturns<DR<SpotifyApi.VoidResponse>>(
             Client.Shows.UsersSaved.check(stringIds)
           ),
       },
+    ],
+  },
+  {
+    name: 'Episodes',
+    tests: [
       {
-        name: 'UsersSaved.checkAll',
+        name: 'Episode.get',
         fn: () =>
-          assertReturns<DR<Array<boolean>>[]>(
-            Client.Shows.UsersSaved.checkAll(stringIds)(
-              (data: DR<Array<boolean>>) => data
-            )
+          assertReturns<DR<SpotifyApi.SingleEpisodeResponse>>(
+            Client.Episodes.Episode.get(stringId, { market })
+          ),
+      },
+      {
+        name: 'Episode.getSeveral',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.MultipleEpisodesResponse>>(
+            Client.Episodes.Episode.getSeveral(stringIds, { market })
+          ),
+      },
+      {
+        name: 'UsersSaved.get',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.UsersSavedEpisodesResponse>>(
+            Client.Episodes.UsersSaved.get({ market })
+          ),
+      },
+      {
+        name: 'UsersSaved.save',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.VoidResponse>>(
+            Client.Episodes.UsersSaved.save(stringIds)
+          ),
+      },
+      {
+        name: 'UsersSaved.remove',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.VoidResponse>>(
+            Client.Episodes.UsersSaved.remove(stringIds)
+          ),
+      },
+      {
+        name: 'UsersSaved.check',
+        fn: () =>
+          assertReturns<DR<boolean[]>>(
+            Client.Episodes.UsersSaved.check(stringIds)
+          ),
+      },
+    ],
+  },
+  {
+    name: 'Tracks',
+    tests: [
+      {
+        name: 'Track.get',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.SingleTrackResponse>>(
+            Client.Tracks.Track.get(stringId, { market })
+          ),
+      },
+      {
+        name: 'Track.getSeveral',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.MultipleTracksResponse>>(
+            Client.Tracks.Track.getSeveral(stringIds, { market })
+          ),
+      },
+      {
+        name: 'UsersSaved.get',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.UsersSavedTracksResponse>>(
+            Client.Tracks.UsersSaved.get({ market, limit, offset })
+          ),
+      },
+      {
+        name: 'UsersSaved.save',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.SaveTracksForUserResponse>>(
+            Client.Tracks.UsersSaved.save(stringIds)
+          ),
+      },
+      {
+        name: 'UsersSaved.remove',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.RemoveUsersSavedTracksResponse>>(
+            Client.Tracks.UsersSaved.remove(stringIds)
+          ),
+      },
+      {
+        name: 'UsersSaved.check',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.CheckUsersSavedTracksResponse>>(
+            Client.Tracks.UsersSaved.check(stringIds)
+          ),
+      },
+      {
+        name: 'AudioFeatures.getSeveral',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.MultipleAudioFeaturesResponse>>(
+            Client.Tracks.AudioFeatures.getSeveral(stringIds)
+          ),
+      },
+      {
+        name: 'AudioFeatures.get',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.AudioFeaturesResponse>>(
+            Client.Tracks.AudioFeatures.get(stringId)
+          ),
+      },
+      {
+        name: 'AudioAnalysis.get',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.AudioAnalysisResponse>>(
+            Client.Tracks.AudioAnalysis.get(stringId)
+          ),
+      },
+      {
+        name: 'Recommendations.get',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.RecommendationsFromSeedsResponse>>(
+            Client.Tracks.Recommendations.get({
+              seed_artists: '',
+              seed_genres: '',
+              seed_tracks: '',
+            })
+          ),
+      },
+    ],
+  },
+  {
+    name: 'Search',
+    tests: [
+      {
+        name: 'Search.get',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.SearchResponse>>(
+            Client.Search.forItem({
+              query: 'x',
+              type: 'track,album,artist,episode',
+            })
+          ),
+      },
+    ],
+  },
+  {
+    name: 'Users',
+    tests: [
+      {
+        name: 'OwnProfile.get',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.UserProfileResponse>>(
+            Client.Users.OwnProfile.get()
+          ),
+      },
+      {
+        name: 'Profile.get',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.UserProfileResponse>>(
+            Client.Users.Profile.get(stringId)
+          ),
+      },
+      {
+        name: 'TopArtists.get',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.UsersTopArtistsResponse>>(
+            Client.Users.TopArtists.get({
+              limit,
+              offset,
+              time_range: 'long_term ',
+            })
+          ),
+      },
+      {
+        name: 'TopTracks.get',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.UsersTopTracksResponse>>(
+            Client.Users.TopTracks.get({
+              limit,
+              offset,
+              time_range: 'long_term ',
+            })
+          ),
+      },
+      {
+        name: 'FollowedArtists.get',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.UsersFollowedArtistsResponse>>(
+            Client.Users.FollowedArtists.get({ limit, after: stringId })
+          ),
+      },
+      {
+        name: 'Follow.artists',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.FollowArtistsOrUsersResponse>>(
+            Client.Users.Follow.artists(stringIds)
+          ),
+      },
+      {
+        name: 'Follow.users',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.FollowArtistsOrUsersResponse>>(
+            Client.Users.Follow.users(stringIds)
+          ),
+      },
+      {
+        name: 'Follow.playlist',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.FollowPlaylistResponse>>(
+            Client.Users.Follow.playlist(stringId, { public: true })
+          ),
+      },
+      {
+        name: 'Unfollow.artists',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.UnfollowArtistsOrUsersResponse>>(
+            Client.Users.Unfollow.artists(stringIds)
+          ),
+      },
+      {
+        name: 'Unfollow.users',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.UnfollowArtistsOrUsersResponse>>(
+            Client.Users.Unfollow.users(stringIds)
+          ),
+      },
+      {
+        name: 'Unfollow.playlist',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.UnfollowPlaylistResponse>>(
+            Client.Users.Unfollow.playlist(stringId)
+          ),
+      },
+      {
+        name: 'CheckFollows.artists',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.UserFollowsUsersOrArtistsResponse>>(
+            Client.Users.CheckFollows.artists(stringIds)
+          ),
+      },
+      {
+        name: 'CheckFollows.users',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.UserFollowsUsersOrArtistsResponse>>(
+            Client.Users.CheckFollows.users(stringIds)
+          ),
+      },
+      {
+        name: 'CheckFollows.playlist',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.UsersFollowPlaylistResponse>>(
+            Client.Users.CheckFollows.playlist({
+              playlistId: stringId,
+              userIds: stringIds,
+            })
           ),
       },
     ],
@@ -346,9 +456,8 @@ const tests: LibTestRunner = [
 
 for (const endpoint of tests) {
   describe(endpoint.name, () => {
-    for (const { name, fn, setup } of endpoint.tests) {
+    for (const { name, fn } of endpoint.tests) {
       test(name, async () => {
-        if (setup) await setup();
         await fn();
         expect(mockedAxios).toHaveBeenCalled();
         expect(mockedAxios.mock.calls).toMatchSnapshot();

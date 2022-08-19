@@ -35,7 +35,7 @@ export const getSeveralEpisodesLimit = 50;
 export const getUsersSavedEpisodes: AsyncFnWithProvider<
   SpotifyApi.UsersSavedEpisodesResponse,
   unknown,
-  { limit: number; offset: number }
+  { limit: number; offset: number; market: string }
 > = provider => async (_, params) =>
   transformResponse(
     await provider.request({

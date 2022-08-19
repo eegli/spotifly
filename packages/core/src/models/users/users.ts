@@ -23,9 +23,9 @@ export const getUsersProfile: AsyncFnWithProvider<
     })
   );
 
-const getUsersTop: <Response>(conf: {
-  type: 'artists' | 'tracks';
-}) => AsyncFnWithProvider<
+const getUsersTop: <Response>(
+  type: 'artists' | 'tracks'
+) => AsyncFnWithProvider<
   Response,
   unknown,
   {
@@ -43,10 +43,9 @@ const getUsersTop: <Response>(conf: {
 
 export const USERS_TOP_LIMIT = 50;
 export const getUsersTopArtists =
-  getUsersTop<SpotifyApi.UsersTopArtistsResponse>({ type: 'artists' });
-export const getUsersTopTracks = getUsersTop<SpotifyApi.UsersTopTracksResponse>(
-  { type: 'tracks' }
-);
+  getUsersTop<SpotifyApi.UsersTopArtistsResponse>('artists');
+export const getUsersTopTracks =
+  getUsersTop<SpotifyApi.UsersTopTracksResponse>('tracks');
 
 export const followPlaylist: AsyncFnWithProvider<
   SpotifyApi.FollowPlaylistResponse,
@@ -80,8 +79,11 @@ export const getUsersFollowedArtists: AsyncFnWithProvider<
   transformResponse(
     await provider.request({
       method: Method.GET,
-      params,
-      url: 'me/following/artist',
+      params: {
+        ...params,
+        type: 'artist',
+      },
+      url: 'me/following',
     })
   );
 
