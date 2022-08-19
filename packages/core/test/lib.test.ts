@@ -17,7 +17,7 @@ jest.mock('axios');
 const mockedAxios = axios as jest.MockedFunction<typeof axios>;
 (axios as jest.Mocked<typeof axios>).create.mockReturnValue(mockedAxios);
 
-export const pagingResponseOnce = () => {
+const pagingResponseOnce = () => {
   mockedAxios.mockResolvedValueOnce(fakeAxiosResponse(pagingResponse));
   mockedAxios.mockResolvedValueOnce(
     fakeAxiosResponse({
