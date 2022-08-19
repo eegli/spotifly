@@ -50,17 +50,48 @@ export default function Episodes(provider: AsyncProvider) {
       getAll: factory
         .forPaginated(getUsersSavedEpisodes(provider), userEpisodesLimit)
         .bind(null, null),
+      /**
+       * Save one or more episodes to the current user's library.
+       * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/save-episodes-user Save Episodes for User}
+       */
       save: saveEpisodesForUser(provider),
+      /**
+       * Save one or more episodes to the current user's library.
+       *
+       * This method takes care of chunking the ids and making multiple requests to the Spotify API.
+       * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/save-episodes-user Save Episodes for User}
+       */
       saveAll: factory.forLimited(
         saveEpisodesForUser(provider),
         userEpisodesLimit
       ),
+      /**
+       * Remove one or more episodes from the current user's library.
+       * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/remove-episodes-user Remove User's Saved Episodes}
+       */
       remove: removeUsersSavedEpisodes(provider),
+      /**
+       * Remove one or more episodes from the current user's library.
+       *
+       * This method takes care of chunking the ids and making multiple requests to the Spotify API.
+       * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/remove-episodes-user Remove User's Saved Episodes}
+       */
       removeAll: factory.forLimited(
         removeUsersSavedEpisodes(provider),
         userEpisodesLimit
       ),
+
+      /**
+       * Check if one or more episodes is already saved in the current Spotify user's 'Your Episodes' library.
+       * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/check-users-saved-episodes Check User's Saved Episodes}
+       */
       check: checkUsersSavedEpisodes(provider),
+      /**
+       * Check if one or more episodes is already saved in the current Spotify user's 'Your Episodes' library.
+       *
+       * This method takes care of chunking the ids and making multiple requests to the Spotify API.
+       * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/check-users-saved-episodes Check User's Saved Episodes}
+       */
       checkAll: factory.forLimited(
         checkUsersSavedEpisodes(provider),
         userEpisodesLimit
