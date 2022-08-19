@@ -244,6 +244,85 @@ const tests: LibTestRunner = [
       },
     ],
   },
+  {
+    name: 'Tracks',
+    tests: [
+      {
+        name: 'Track.get',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.SingleTrackResponse>>(
+            Client.Tracks.Track.get(stringId, { market })
+          ),
+      },
+      {
+        name: 'Track.getSeveral',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.MultipleTracksResponse>>(
+            Client.Tracks.Track.getSeveral(stringIds, { market })
+          ),
+      },
+      {
+        name: 'UsersSaved.get',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.UsersSavedTracksResponse>>(
+            Client.Tracks.UsersSaved.get({ market, limit, offset })
+          ),
+      },
+      {
+        name: 'UsersSaved.save',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.SaveTracksForUserResponse>>(
+            Client.Tracks.UsersSaved.save(stringIds)
+          ),
+      },
+      {
+        name: 'UsersSaved.remove',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.RemoveUsersSavedTracksResponse>>(
+            Client.Tracks.UsersSaved.remove(stringIds)
+          ),
+      },
+      {
+        name: 'UsersSaved.check',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.CheckUsersSavedTracksResponse>>(
+            Client.Tracks.UsersSaved.check(stringIds)
+          ),
+      },
+      {
+        name: 'AudioFeatures.getSeveral',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.MultipleAudioFeaturesResponse>>(
+            Client.Tracks.AudioFeatures.getSeveral(stringIds)
+          ),
+      },
+      {
+        name: 'AudioFeatures.get',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.AudioFeaturesResponse>>(
+            Client.Tracks.AudioFeatures.get(stringId)
+          ),
+      },
+      {
+        name: 'AudioAnalysis.get',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.AudioAnalysisResponse>>(
+            Client.Tracks.AudioAnalysis.get(stringId)
+          ),
+      },
+      {
+        name: 'Recommendations.get',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.RecommendationsFromSeedsResponse>>(
+            Client.Tracks.Recommendations.get({
+              seed_artists: '',
+              seed_genres: '',
+              seed_tracks: '',
+            })
+          ),
+      },
+    ],
+  },
 ];
 
 for (const endpoint of tests) {

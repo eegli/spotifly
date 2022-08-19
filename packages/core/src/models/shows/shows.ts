@@ -99,7 +99,7 @@ export const removeUsersSavedShowsLimit = 50;
 
 export const checkUsersSavedShows: AsyncFnWithProvider<
   // TODO fix this type
-  Array<boolean>,
+  boolean[],
   string[]
 > = provider => async showIds =>
   transformResponse(
