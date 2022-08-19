@@ -169,6 +169,29 @@ const tests: LibTestRunner = [
     name: 'Artists',
     tests: [
       {
+        name: 'Artist.get',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.SingleArtistResponse>>(
+            Client.Artists.Artist.get(stringId)
+          ),
+      },
+      {
+        name: 'Artist.getSeveral',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.MultipleArtistsResponse>>(
+            Client.Artists.Artist.getSeveral(stringIds)
+          ),
+      },
+      {
+        name: 'Artist.getAll',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.MultipleArtistsResponse>[]>(
+            Client.Artists.Artist.getAll(stringIds)(
+              (data: DR<SpotifyApi.MultipleArtistsResponse>) => data
+            )
+          ),
+      },
+      {
         name: 'Album.get',
         fn: () =>
           assertReturns<DR<SpotifyApi.ArtistsAlbumsResponse>>(
@@ -178,6 +201,33 @@ const tests: LibTestRunner = [
               offset,
               include_groups: 'album,appears_on,compilation,single',
             })
+          ),
+      },
+      {
+        name: 'Album.getAll',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.ArtistsAlbumsResponse>[]>(
+            Client.Artists.Albums.getAll(stringId, {
+              market,
+              include_groups: 'album',
+            })((data: DR<SpotifyApi.ArtistsAlbumsResponse>) => data)
+          ),
+        setup: pagingResponseOnce,
+      },
+      {
+        name: 'TopTracks.get',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.ArtistsTopTracksResponse>>(
+            Client.Artists.TopTracks.get(stringId, {
+              market,
+            })
+          ),
+      },
+      {
+        name: 'RelatedArtists.get',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.ArtistsRelatedArtistsResponse>>(
+            Client.Artists.RelatedArtists.get(stringId)
           ),
       },
     ],
