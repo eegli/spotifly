@@ -1,8 +1,8 @@
 import { authorize } from './authorize';
 import { parse } from './config';
 
-export const callback = async (): Promise<void> => {
-  const config = await parse(process.argv);
+export const callback = async (argv: string[]): Promise<void> => {
+  const config = await parse(argv);
   await authorize(config);
 };
 
