@@ -452,6 +452,47 @@ const tests: LibTestRunner = [
       },
     ],
   },
+  {
+    name: 'Categories',
+    tests: [
+      {
+        name: 'Category.get',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.SingleCategoryResponse>>(
+            Client.Categories.Category.get(stringId, {
+              country: 'CH',
+              locale: 'de_DE',
+            })
+          ),
+      },
+      {
+        name: 'Category.get',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.MultipleCategoriesResponse>>(
+            Client.Categories.Category.getSeveral({
+              country: 'CH',
+              locale: 'de_DE',
+            })
+          ),
+      },
+    ],
+  },
+  {
+    name: 'Playlists',
+    tests: [
+      {
+        name: 'Playlist.get',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.SinglePlaylistResponse>>(
+            Client.Playlists.Playlist.get(stringId, {
+              additional_types: 'track,episode',
+              fields: 'fields',
+              market: 'CH',
+            })
+          ),
+      },
+    ],
+  },
 ];
 
 for (const endpoint of tests) {

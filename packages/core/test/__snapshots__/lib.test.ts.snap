@@ -225,6 +225,42 @@ exports[`Artists TopTracks.get 1`] = `
 ]
 `;
 
+exports[`Categories Category.get 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "country": "CH",
+        "locale": "de_DE",
+      },
+      "url": "browse/categories/id1",
+    },
+  ],
+]
+`;
+
+exports[`Categories Category.get 2`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "country": "CH",
+        "locale": "de_DE",
+      },
+      "url": "browse/categories",
+    },
+  ],
+]
+`;
+
 exports[`Episodes Episode.get 1`] = `
 [
   [
@@ -323,6 +359,25 @@ exports[`Episodes UsersSaved.save 1`] = `
         "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20,id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40,id41,id42,id43,id44,id45,id46,id47,id48,id49,id50,id51",
       },
       "url": "me/episodes",
+    },
+  ],
+]
+`;
+
+exports[`Playlists Playlist.get 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "additional_types": "track,episode",
+        "fields": "fields",
+        "market": "CH",
+      },
+      "url": "playlists/id1",
     },
   ],
 ]

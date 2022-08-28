@@ -43,6 +43,12 @@ exports[`Lib matches snapshot 1`] = `
       "get": [Function],
     },
   },
+  "Categories": {
+    "Category": {
+      "get": [Function],
+      "getSeveral": [Function],
+    },
+  },
   "Episodes": {
     "Episode": {
       "get": [Function],
@@ -58,6 +64,11 @@ exports[`Lib matches snapshot 1`] = `
       "removeAll": [Function],
       "save": [Function],
       "saveAll": [Function],
+    },
+  },
+  "Playlists": {
+    "Playlist": {
+      "get": [Function],
     },
   },
   "Search": {
