@@ -10,6 +10,8 @@ import type {
   Market,
   Offset,
   PlaylistId,
+  ReorderParams,
+  SnapshotId,
   Timestamp,
   UserId,
 } from '../../types';
@@ -62,26 +64,22 @@ export const getPlaylistItemsLimit = 50;
 
 export const addPlaylistItems: AsyncFnWithProvider<
   SpotifyApi.AddTracksToPlaylistResponse,
-  {
-    playlistId: string;
-    uris: string[];
-  },
+  PlaylistId,
   {
     position: number;
+    uris: string[];
   }
-> =
-  provider =>
-  async ({ playlistId, uris }, data) =>
-    transformResponse(
-      await provider.request({
-        method: Method.POST,
-        url: `playlists/${playlistId}/tracks`,
-        data: {
-          position: data?.position,
-          uris: uris.join(','),
-        },
-      })
-    );
+> = provider => async (playlistId, data) =>
+  transformResponse(
+    await provider.request({
+      method: Method.POST,
+      url: `playlists/${playlistId}/tracks`,
+      data: {
+        position: data?.position,
+        uris: data?.uris?.join(','),
+      },
+    })
+  );
 
 export const reorderPlaylistItems: AsyncFnWithProvider<
   SpotifyApi.ReorderPlaylistTracksResponse,
@@ -90,8 +88,7 @@ export const reorderPlaylistItems: AsyncFnWithProvider<
     range_start: number;
     insert_before: number;
     range_length: number;
-    snapshot_id: string;
-  }
+  } & SnapshotId
 > =
   provider =>
   async ({ playlistId, ...data }) =>
@@ -125,7 +122,7 @@ export const replacePlaylistItems: AsyncFnWithProvider<
 export const removePlaylistItems: AsyncFnWithProvider<
   SpotifyApi.RemoveTracksFromPlaylistResponse,
   { playlistId: string; tracks: { uri: string }[] },
-  PlaylistId
+  SnapshotId
 > =
   provider =>
   async ({ playlistId, tracks }, snapshotId) =>

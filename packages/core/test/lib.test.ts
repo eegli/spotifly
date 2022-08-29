@@ -496,7 +496,7 @@ const tests: LibTestRunner = [
           ),
       },
       {
-        name: 'Playlist.change',
+        name: 'changePlaylist',
         fn: () =>
           assertReturns<DR<SpotifyApi.ChangePlaylistDetailsResponse>>(
             Client.Playlists.changePlaylist(stringId, {
@@ -515,6 +515,8 @@ const tests: LibTestRunner = [
               additional_types: 'track,episode',
               fields,
               market,
+              limit,
+              offset,
             })
           ),
       },
@@ -522,10 +524,7 @@ const tests: LibTestRunner = [
         name: 'addPlaylistItems',
         fn: () =>
           assertReturns<DR<SpotifyApi.AddTracksToPlaylistResponse>>(
-            Client.Playlists.addPlaylistItems(
-              { playlistId: stringId, uris },
-              { position: 0 }
-            )
+            Client.Playlists.addPlaylistItems(stringId, { position: 0, uris })
           ),
       },
       {
@@ -534,7 +533,7 @@ const tests: LibTestRunner = [
           assertReturns<DR<SpotifyApi.ReorderPlaylistTracksResponse>>(
             Client.Playlists.reorderPlaylistItems({
               playlistId: stringId,
-              range_start: 0,
+              range_start: 1,
               range_length: 1,
               insert_before: 1,
               snapshot_id: 'snapshot_id',
@@ -544,7 +543,7 @@ const tests: LibTestRunner = [
       {
         name: 'replacePlaylistItems',
         fn: () =>
-          assertReturns<DR<SpotifyApi.ReorderPlaylistTracksResponse>>(
+          assertReturns<DR<SpotifyApi.ReplacePlaylistTracksResponse>>(
             Client.Playlists.replacePlaylistItems({
               playlistId: stringId,
               uris,
@@ -552,11 +551,32 @@ const tests: LibTestRunner = [
           ),
       },
       {
-        name: 'replacePlaylistItems',
+        name: 'removePlaylistItems',
         fn: () =>
-          assertReturns<DR<SpotifyApi.CategoryPlaylistsResponse>>(
-            Client.Playlists.getCategoryPlaylists(stringId, {
-              country,
+          assertReturns<DR<SpotifyApi.RemoveTracksFromPlaylistResponse>>(
+            Client.Playlists.removePlaylistItems(
+              { playlistId: stringId, tracks: [{ uri: 'spt:track:1' }] },
+              {
+                snapshot_id: stringId,
+              }
+            )
+          ),
+      },
+      {
+        name: 'getCurrentUsersPlaylists',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.ListOfUsersPlaylistsResponse>>(
+            Client.Playlists.getCurrentUsersPlaylists({
+              limit,
+              offset,
+            })
+          ),
+      },
+      {
+        name: 'getUsersPlaylists',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.ListOfUsersPlaylistsResponse>>(
+            Client.Playlists.getUsersPlaylists(stringId, {
               limit,
               offset,
             })

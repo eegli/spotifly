@@ -114,16 +114,18 @@ Usually, a refresh token only needs to be generated once. You can [generate one 
 | ---------- | ------- |
 | Albums     | ✅      |
 | Artists    | ✅      |
-| Categories | ❌      |
-| Episodes   | ❌      |
+| Categories | ✅      |
+| Episodes   | ✅      |
 | Genres     | ❌      |
 | Markets    | ❌      |
 | Player     | ❌      |
-| Playlists  | ❌      |
+| Playlists  | 〽️      |
 | Search     | ✅      |
-| Shows      | ❌      |
+| Shows      | ✅      |
 | Tracks     | ✅      |
-| Users      | ❌      |
+| Users      | ✅      |
+
+- Playlists, missing: [Add Custom Playlist Cover Image](https://developer.spotify.com/documentation/web-api/reference/#/operations/upload-custom-playlist-cover)
 
 <details>
   <summary>Detailed Support Table</summary>
@@ -160,9 +162,71 @@ Usually, a refresh token only needs to be generated once. You can [generate one 
       </ul>
     </li>
     <li>
+      <b>Categories</b>
+      <ul>
+        <li>Categories.Category.get</li>
+        <li>Categories.Category.getSeveral</li>
+      </ul>
+    </li>
+    <li>
+      <b>Episodes</b>
+      <ul>
+        <li>Episodes.Episode.get</li>
+        <li>Episodes.Episode.getAll</li>
+        <li>Episodes.Episode.getSeveral</li>
+        <li>Episodes.UsersSaved.check</li>
+        <li>Episodes.UsersSaved.checkAll</li>
+        <li>Episodes.UsersSaved.get</li>
+        <li>Episodes.UsersSaved.getAll</li>
+        <li>Episodes.UsersSaved.remove</li>
+        <li>Episodes.UsersSaved.removeAll</li>
+        <li>Episodes.UsersSaved.save</li>
+        <li>Episodes.UsersSaved.saveAll</li>
+      </ul>
+    </li>
+    <li>
+      <b>Playlists</b>
+      <ul>
+        <li>Playlists.addPlaylistItems</li>
+        <li>Playlists.changePlaylist</li>
+        <li>Playlists.createPlaylist</li>
+        <li>Playlists.getAllCurrentUsersPlaylists</li>
+        <li>Playlists.getAllPlaylistItems</li>
+        <li>Playlists.getAllUsersPlaylists</li>
+        <li>Playlists.getCategoryPlaylists</li>
+        <li>Playlists.getCurrentUsersPlaylists</li>
+        <li>Playlists.getFeaturedPlaylists</li>
+        <li>Playlists.getPlaylist</li>
+        <li>Playlists.getPlaylistCoverImage</li>
+        <li>Playlists.getPlaylistItems</li>
+        <li>Playlists.getUsersPlaylists</li>
+        <li>Playlists.removePlaylistItems</li>
+        <li>Playlists.reorderPlaylistItems</li>
+        <li>Playlists.replacePlaylistItems</li>
+      </ul>
+    </li>
+    <li>
       <b>Search</b>
       <ul>
         <li>Search.forItem</li>
+      </ul>
+    </li>
+    <li>
+      <b>Shows</b>
+      <ul>
+        <li>Shows.Episodes.get</li>
+        <li>Shows.Episodes.getAll</li>
+        <li>Shows.Show.get</li>
+        <li>Shows.Show.getAll</li>
+        <li>Shows.Show.getSeveral</li>
+        <li>Shows.UsersSaved.check</li>
+        <li>Shows.UsersSaved.checkAll</li>
+        <li>Shows.UsersSaved.get</li>
+        <li>Shows.UsersSaved.getAll</li>
+        <li>Shows.UsersSaved.remove</li>
+        <li>Shows.UsersSaved.removeAll</li>
+        <li>Shows.UsersSaved.save</li>
+        <li>Shows.UsersSaved.saveAll</li>
       </ul>
     </li>
     <li>
@@ -184,6 +248,33 @@ Usually, a refresh token only needs to be generated once. You can [generate one 
         <li>Tracks.UsersSaved.removeAll</li>
         <li>Tracks.UsersSaved.save</li>
         <li>Tracks.UsersSaved.saveAll</li>
+      </ul>
+    </li>
+    <li>
+      <b>Users</b>
+      <ul>
+        <li>Users.CheckFollows.allArtists</li>
+        <li>Users.CheckFollows.allUsers</li>
+        <li>Users.CheckFollows.artists</li>
+        <li>Users.CheckFollows.playlist</li>
+        <li>Users.CheckFollows.users</li>
+        <li>Users.Follow.allArtists</li>
+        <li>Users.Follow.allUsers</li>
+        <li>Users.Follow.artists</li>
+        <li>Users.Follow.playlist</li>
+        <li>Users.Follow.users</li>
+        <li>Users.FollowedArtists.get</li>
+        <li>Users.OwnProfile.get</li>
+        <li>Users.Profile.get</li>
+        <li>Users.TopArtists.get</li>
+        <li>Users.TopArtists.getAll</li>
+        <li>Users.TopTracks.get</li>
+        <li>Users.TopTracks.getAll</li>
+        <li>Users.Unfollow.allArtists</li>
+        <li>Users.Unfollow.allUsers</li>
+        <li>Users.Unfollow.artists</li>
+        <li>Users.Unfollow.playlist</li>
+        <li>Users.Unfollow.users</li>
       </ul>
     </li>
   </ul>

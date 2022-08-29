@@ -67,11 +67,13 @@ export type ReadOnlyParams<T extends AnyFunc> = T extends (
 
 // Branded types T = T & {} improve IntelliSense experience
 // https://github.com/microsoft/TypeScript/issues/31940#issuecomment-841712377
-export type UserId = string & AnyObject;
-export type TrackId = string & AnyObject;
+
+type _ = {};
+export type UserId = string & _;
+export type TrackId = string & _;
 export type TrackIds = TrackId[];
-export type PlaylistId = string & AnyObject;
-export type CategoryId = string & AnyObject;
+export type PlaylistId = string & _;
+export type CategoryId = string & _;
 
 export type Market = { market: string };
 export type Locale = { locale: string };
@@ -82,6 +84,10 @@ export type Fields = { fields: string };
 export type AdditionalTypes = {
   additional_types: string;
 };
+export type SnapshotId = {
+  snapshot_id: string;
+};
+export type ReorderParams = {};
 
 export type Limit = { limit: number };
 export type Offset = { offset: number };

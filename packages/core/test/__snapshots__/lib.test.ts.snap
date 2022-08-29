@@ -364,7 +364,25 @@ exports[`Episodes UsersSaved.save 1`] = `
 ]
 `;
 
-exports[`Playlists Playlist.change 1`] = `
+exports[`Playlists addPlaylistItems 1`] = `
+[
+  [
+    {
+      "data": {
+        "position": 0,
+        "uris": "spotify:track:1,spotify:episode:2",
+      },
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "POST",
+      "url": "playlists/id1/tracks",
+    },
+  ],
+]
+`;
+
+exports[`Playlists changePlaylist 1`] = `
 [
   [
     {
@@ -379,24 +397,6 @@ exports[`Playlists Playlist.change 1`] = `
       },
       "method": "PUT",
       "url": "playlists/id1",
-    },
-  ],
-]
-`;
-
-exports[`Playlists addPlaylistItems 1`] = `
-[
-  [
-    {
-      "data": {
-        "position": 0,
-        "uris": "spotify:track:1,spotify:episode:2",
-      },
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "POST",
-      "url": "playlists/id1/tracks",
     },
   ],
 ]
@@ -436,6 +436,24 @@ exports[`Playlists getCategoryPlaylists 1`] = `
         "offset": 1,
       },
       "url": "browse/categories/id1/playlists",
+    },
+  ],
+]
+`;
+
+exports[`Playlists getCurrentUsersPlaylists 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "limit": 1,
+        "offset": 1,
+      },
+      "url": "me/playlists",
     },
   ],
 ]
@@ -506,8 +524,52 @@ exports[`Playlists getPlaylistItems 1`] = `
       "params": {
         "additional_types": "track,episode",
         "fields": "total,limit",
+        "limit": 1,
         "market": "CH",
+        "offset": 1,
       },
+      "url": "playlists/id1/tracks",
+    },
+  ],
+]
+`;
+
+exports[`Playlists getUsersPlaylists 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "limit": 1,
+        "offset": 1,
+      },
+      "url": "users/id1/playlists",
+    },
+  ],
+]
+`;
+
+exports[`Playlists removePlaylistItems 1`] = `
+[
+  [
+    {
+      "data": {
+        "snapshotId": {
+          "snapshot_id": "id1",
+        },
+        "tracks": [
+          {
+            "uri": "spt:track:1",
+          },
+        ],
+      },
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "DELETE",
       "url": "playlists/id1/tracks",
     },
   ],
@@ -521,7 +583,7 @@ exports[`Playlists reorderPlaylistItems 1`] = `
       "data": {
         "insert_before": 1,
         "range_length": 1,
-        "range_start": 0,
+        "range_start": 1,
         "snapshot_id": "snapshot_id",
       },
       "headers": {
@@ -546,25 +608,6 @@ exports[`Playlists replacePlaylistItems 1`] = `
       },
       "method": "PUT",
       "url": "playlists/id1/tracks",
-    },
-  ],
-]
-`;
-
-exports[`Playlists replacePlaylistItems 2`] = `
-[
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "GET",
-      "params": {
-        "country": "UA",
-        "limit": 1,
-        "offset": 1,
-      },
-      "url": "browse/categories/id1/playlists",
     },
   ],
 ]
