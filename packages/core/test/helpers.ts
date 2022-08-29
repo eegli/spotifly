@@ -2,6 +2,10 @@ import { AxiosResponse } from 'axios';
 
 export const market = 'CH';
 export const country = 'UA';
+export const locale = 'sv_SE';
+export const fields = 'total,limit';
+export const uris = ['spotify:track:1', 'spotify:episode:2'];
+export const timestamp = '2014-10-23T09:00:00';
 
 export const limit = 1;
 export const offset = 1;

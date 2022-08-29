@@ -28,8 +28,18 @@ export type AnyFunc = (...args: any[]) => unknown;
 export type AsyncFnWithProvider<
   Return,
   Required,
-  Optional extends AnyObject | undefined = undefined
-> = (provider: AsyncProvider) => AsyncFn<Return, Required, Optional>;
+  Optional extends AnyObject | undefined = undefined,
+  RT1 = Return,
+  RQ1 = Required,
+  OPT1 extends AnyObject | undefined = Optional,
+  RT2 = Return,
+  RQ2 = Required,
+  OPT2 extends AnyObject | undefined = Optional
+> = {
+  (provider: AsyncProvider): AsyncFn<Return, Required, Optional>;
+  (provider: AsyncProvider): AsyncFn<RT1, RQ1, OPT1>;
+  (provider: AsyncProvider): AsyncFn<RT2, RQ2, OPT2>;
+};
 
 export type Permutations<
   T extends string,
@@ -55,10 +65,23 @@ export type ReadOnlyParams<T extends AnyFunc> = T extends (
   ? Readonly<P>
   : never;
 
-export type Only<T, U> = {
-  [P in keyof T]: T[P];
-} & {
-  [P in keyof U]?: never;
+// Branded types T = T & {} improve IntelliSense experience
+// https://github.com/microsoft/TypeScript/issues/31940#issuecomment-841712377
+export type UserId = string & AnyObject;
+export type TrackId = string & AnyObject;
+export type TrackIds = TrackId[];
+export type PlaylistId = string & AnyObject;
+export type CategoryId = string & AnyObject;
+
+export type Market = { market: string };
+export type Locale = { locale: string };
+export type Country = { country: string };
+export type Timestamp = { timestamp: string };
+
+export type Fields = { fields: string };
+export type AdditionalTypes = {
+  additional_types: string;
 };
 
-export type Either<T, U> = Only<T, U> | Only<U, T>;
+export type Limit = { limit: number };
+export type Offset = { offset: number };

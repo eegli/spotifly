@@ -4,11 +4,15 @@ import { DataResponse as DR } from '../src';
 import {
   country,
   fakeAxiosResponse,
+  fields,
   limit,
+  locale,
   market,
   offset,
   stringId,
   stringIds,
+  timestamp,
+  uris,
 } from './helpers';
 
 jest.mock('axios');
@@ -481,14 +485,126 @@ const tests: LibTestRunner = [
     name: 'Playlists',
     tests: [
       {
-        name: 'Playlist.get',
+        name: 'getPlaylist',
         fn: () =>
           assertReturns<DR<SpotifyApi.SinglePlaylistResponse>>(
-            Client.Playlists.Playlist.get(stringId, {
+            Client.Playlists.getPlaylist(stringId, {
               additional_types: 'track,episode',
-              fields: 'fields',
-              market: 'CH',
+              fields,
+              market,
             })
+          ),
+      },
+      {
+        name: 'Playlist.change',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.ChangePlaylistDetailsResponse>>(
+            Client.Playlists.changePlaylist(stringId, {
+              name: 'new playlist',
+              public: false,
+              collaborative: true,
+              description: 'new description',
+            })
+          ),
+      },
+      {
+        name: 'getPlaylistItems',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.PlaylistTrackResponse>>(
+            Client.Playlists.getPlaylistItems(stringId, {
+              additional_types: 'track,episode',
+              fields,
+              market,
+            })
+          ),
+      },
+      {
+        name: 'addPlaylistItems',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.AddTracksToPlaylistResponse>>(
+            Client.Playlists.addPlaylistItems(
+              { playlistId: stringId, uris },
+              { position: 0 }
+            )
+          ),
+      },
+      {
+        name: 'reorderPlaylistItems',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.ReorderPlaylistTracksResponse>>(
+            Client.Playlists.reorderPlaylistItems({
+              playlistId: stringId,
+              range_start: 0,
+              range_length: 1,
+              insert_before: 1,
+              snapshot_id: 'snapshot_id',
+            })
+          ),
+      },
+      {
+        name: 'replacePlaylistItems',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.ReorderPlaylistTracksResponse>>(
+            Client.Playlists.replacePlaylistItems({
+              playlistId: stringId,
+              uris,
+            })
+          ),
+      },
+      {
+        name: 'replacePlaylistItems',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.CategoryPlaylistsResponse>>(
+            Client.Playlists.getCategoryPlaylists(stringId, {
+              country,
+              limit,
+              offset,
+            })
+          ),
+      },
+      {
+        name: 'createPlaylist',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.CreatePlaylistResponse>>(
+            Client.Playlists.createPlaylist(
+              { userId: stringId, name: stringId },
+              {
+                public: false,
+                collaborative: true,
+                description: 'new description',
+              }
+            )
+          ),
+      },
+      {
+        name: 'getFeaturedPlaylists',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.ListOfFeaturedPlaylistsResponse>>(
+            Client.Playlists.getFeaturedPlaylists({
+              country,
+              limit,
+              locale,
+              offset,
+              timestamp,
+            })
+          ),
+      },
+      {
+        name: 'getCategoryPlaylists',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.CategoryPlaylistsResponse>>(
+            Client.Playlists.getCategoryPlaylists(stringId, {
+              country,
+              limit,
+              offset,
+            })
+          ),
+      },
+      {
+        name: 'getPlaylistCoverImage',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.ImageObject[]>>(
+            Client.Playlists.getPlaylistCoverImage(stringId)
           ),
       },
     ],

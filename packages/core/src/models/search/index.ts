@@ -8,5 +8,5 @@ export default function Search(provider: AsyncProvider) {
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/search Search for Item}
      */
     forItem: searchForItem(provider),
-  } as const;
+  };
 }
