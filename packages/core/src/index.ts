@@ -2,12 +2,12 @@ import Albums from './models/albums';
 import Artists from './models/artists';
 import Categories from './models/categories';
 import Episodes from './models/episodes';
+import Markets from './models/markets';
 import Playlists from './models/playlists';
 import Search from './models/search';
 import Shows from './models/shows';
 import Tracks from './models/tracks';
 import Users from './models/users';
-
 import { AuthProvider, AuthProviderOptions } from './provider';
 
 export function initialize(authOptions: AuthProviderOptions) {
@@ -17,6 +17,7 @@ export function initialize(authOptions: AuthProviderOptions) {
     Artists: Artists(provider),
     Categories: Categories(provider),
     Episodes: Episodes(provider),
+    Markets: Markets(provider),
     Playlists: Playlists(provider),
     Search: Search(provider),
     Shows: Shows(provider),

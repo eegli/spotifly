@@ -91,3 +91,7 @@ export type SnapshotId = {
 
 export type Limit = { limit: number };
 export type Offset = { offset: number };
+
+export type AvailableMarketsResponse = {
+  markets: string[];
+};

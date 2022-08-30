@@ -364,6 +364,20 @@ exports[`Episodes UsersSaved.save 1`] = `
 ]
 `;
 
+exports[`Markets getAvailableMarkets 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "url": "markets",
+    },
+  ],
+]
+`;
+
 exports[`Playlists addPlaylistItems 1`] = `
 [
   [

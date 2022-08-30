@@ -66,6 +66,9 @@ exports[`Lib matches snapshot 1`] = `
       "saveAll": [Function],
     },
   },
+  "Markets": {
+    "getAvailableMarkets": [Function],
+  },
   "Playlists": {
     "addPlaylistItems": [Function],
     "changePlaylist": [Function],

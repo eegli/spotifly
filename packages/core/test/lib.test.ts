@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 import * as Spotify from '../src';
 import { DataResponse as DR } from '../src';
 import {
@@ -625,6 +626,18 @@ const tests: LibTestRunner = [
         fn: () =>
           assertReturns<DR<SpotifyApi.ImageObject[]>>(
             Client.Playlists.getPlaylistCoverImage(stringId)
+          ),
+      },
+    ],
+  },
+  {
+    name: 'Markets',
+    tests: [
+      {
+        name: 'getAvailableMarkets',
+        fn: () =>
+          assertReturns<DR<{ markets: string[] }>>(
+            Client.Markets.getAvailableMarkets()
           ),
       },
     ],
