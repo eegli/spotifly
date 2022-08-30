@@ -7,6 +7,7 @@ export type DataResponse<T = unknown> = {
   headers: Record<string, string>;
   statusCode: number;
 };
+
 export type DataPromise<T = unknown> = Promise<DataResponse<T>>;
 
 export type AsyncProvider = {
@@ -32,21 +33,27 @@ export type AsyncFn<
   : never;
 
 export type AsyncFnWithProvider<
-  Return,
-  P1 = undefined,
-  P2 = undefined,
-  P3 = undefined
-> = (provider: AsyncProvider) => AsyncFn<Return, P1, P2, P3>;
+  R,
+  A = undefined,
+  B = undefined,
+  C = undefined,
+  OR1 = R,
+  OA1 = A,
+  OB1 = B,
+  OC1 = C,
+  OR2 = OR1,
+  OA2 = OA1,
+  OB2 = OB1,
+  OC2 = OC1
+> = {
+  (provider: AsyncProvider): AsyncFn<R, A, B, C>;
+  (provider: AsyncProvider): AsyncFn<OR1, OA1, OB1, OC1>;
+  (provider: AsyncProvider): AsyncFn<OR2, OA2, OB2, OC2>;
+};
 
 export type AnyObject = Record<string, unknown>;
 
 export type AnyFunc = (...args: any[]) => unknown;
-
-export type Permutations<
-  T extends string,
-  D extends string,
-  U extends string = T
-> = T extends unknown ? T | `${T}${D}${Permutations<Exclude<U, T>, D>}` : never;
 
 // https://github.com/microsoft/TypeScript/issues/39556
 export type BetterOmit<T, E> = {
