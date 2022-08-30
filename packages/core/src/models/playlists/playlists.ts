@@ -10,7 +10,6 @@ import type {
   Market,
   Offset,
   PlaylistId,
-  ReorderParams,
   SnapshotId,
   Timestamp,
   UserId,

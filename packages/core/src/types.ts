@@ -65,10 +65,11 @@ export type ReadOnlyParams<T extends AnyFunc> = T extends (
   ? Readonly<P>
   : never;
 
-// Branded types T = T & {} improve IntelliSense experience
+// eslint-disable-next-line @typescript-eslint/ban-types
+// Branded types - T = T & {} - improve IntelliSense experience
 // https://github.com/microsoft/TypeScript/issues/31940#issuecomment-841712377
 
-type _ = {};
+type _ = AnyObject;
 export type UserId = string & _;
 export type TrackId = string & _;
 export type TrackIds = TrackId[];
@@ -87,7 +88,6 @@ export type AdditionalTypes = {
 export type SnapshotId = {
   snapshot_id: string;
 };
-export type ReorderParams = {};
 
 export type Limit = { limit: number };
 export type Offset = { offset: number };
