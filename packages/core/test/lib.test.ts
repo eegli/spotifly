@@ -336,7 +336,7 @@ const tests: LibTestRunner = [
         name: 'Search.get',
         fn: () =>
           assertReturns<DR<SpotifyApi.SearchResponse>>(
-            Client.Search.forItem({
+            Client.Search.search({
               query: 'x',
               type: 'track,album,artist,episode',
             })

@@ -1,8 +1,8 @@
 import { Method, transformResponse } from '../../request';
-import { AsyncFnWithProvider, SinglePropertyResponse } from '../../types';
+import { AsyncFnWithProvider } from '../../types';
 
 export const getAvailableGenreSeeds: AsyncFnWithProvider<
-  SinglePropertyResponse<'genres'>
+  SpotifyApi.AvailableGenreSeedsResponse
 > = provider => async () =>
   transformResponse(
     await provider.request({

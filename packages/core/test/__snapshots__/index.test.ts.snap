@@ -94,7 +94,7 @@ exports[`Lib matches snapshot 1`] = `
     "replacePlaylistItems": [Function],
   },
   "Search": {
-    "forItem": [Function],
+    "search": [Function],
   },
   "Shows": {
     "Episodes": {
