@@ -65,16 +65,15 @@ export type ReadOnlyParams<T extends AnyFunc> = T extends (
   ? Readonly<P>
   : never;
 
-// eslint-disable-next-line @typescript-eslint/ban-types
 // Branded types - T = T & {} - improve IntelliSense experience
 // https://github.com/microsoft/TypeScript/issues/31940#issuecomment-841712377
-
 type _ = AnyObject;
 export type UserId = string & _;
 export type TrackId = string & _;
 export type TrackIds = TrackId[];
 export type PlaylistId = string & _;
 export type CategoryId = string & _;
+export type DeviceId = string & _;
 
 export type Market = { market: string };
 export type Locale = { locale: string };
@@ -92,6 +91,6 @@ export type SnapshotId = {
 export type Limit = { limit: number };
 export type Offset = { offset: number };
 
-export type AvailableMarketsResponse = {
-  markets: string[];
+export type SinglePropertyResponse<K extends string> = {
+  [P in K]: string[];
 };

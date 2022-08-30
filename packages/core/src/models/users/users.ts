@@ -87,8 +87,6 @@ export const getUsersFollowedArtists: AsyncFnWithProvider<
     })
   );
 
-export const getUsersFollowedArtistsLimit = 50;
-
 const follow: <Response>(conf: {
   url: string;
   type: 'artist' | 'user';

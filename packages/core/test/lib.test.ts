@@ -3,6 +3,7 @@ import axios from 'axios';
 import * as Spotify from '../src';
 import { DataResponse as DR } from '../src';
 import {
+  additional_types,
   country,
   fakeAxiosResponse,
   fields,
@@ -347,10 +348,10 @@ const tests: LibTestRunner = [
     name: 'Users',
     tests: [
       {
-        name: 'OwnProfile.get',
+        name: 'getCurrentUsersProfile',
         fn: () =>
           assertReturns<DR<SpotifyApi.UserProfileResponse>>(
-            Client.Users.OwnProfile.get()
+            Client.Users.getCurrentUsersProfile()
           ),
       },
       {
@@ -361,10 +362,10 @@ const tests: LibTestRunner = [
           ),
       },
       {
-        name: 'TopArtists.get',
+        name: 'getUsersTopArtists',
         fn: () =>
           assertReturns<DR<SpotifyApi.UsersTopArtistsResponse>>(
-            Client.Users.TopArtists.get({
+            Client.Users.getUsersTopArtists({
               limit,
               offset,
               time_range: 'long_term ',
@@ -461,22 +462,24 @@ const tests: LibTestRunner = [
     name: 'Categories',
     tests: [
       {
-        name: 'Category.get',
+        name: 'getSingleCategory',
         fn: () =>
           assertReturns<DR<SpotifyApi.SingleCategoryResponse>>(
-            Client.Categories.Category.get(stringId, {
+            Client.Categories.getSingleCategory(stringId, {
               country: 'CH',
               locale: 'de_DE',
             })
           ),
       },
       {
-        name: 'Category.get',
+        name: 'getSeveralCategories',
         fn: () =>
           assertReturns<DR<SpotifyApi.MultipleCategoriesResponse>>(
-            Client.Categories.Category.getSeveral({
+            Client.Categories.getSeveralCategories({
               country: 'CH',
               locale: 'de_DE',
+              limit,
+              offset,
             })
           ),
       },
@@ -626,6 +629,44 @@ const tests: LibTestRunner = [
         fn: () =>
           assertReturns<DR<SpotifyApi.ImageObject[]>>(
             Client.Playlists.getPlaylistCoverImage(stringId)
+          ),
+      },
+    ],
+  },
+  {
+    name: 'Genres',
+    tests: [
+      {
+        name: 'getAvailableGenreSeeds',
+        fn: () =>
+          assertReturns<DR<{ genres: string[] }>>(
+            Client.Genres.getAvailableGenreSeeds()
+          ),
+      },
+    ],
+  },
+  {
+    name: 'Player',
+    tests: [
+      {
+        name: 'getPlaybackState',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.CurrentlyPlayingResponse>>(
+            Client.Player.getPlaybackState({ additional_types, market })
+          ),
+      },
+      {
+        name: 'transferPlayback',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.VoidResponse>>(
+            Client.Player.transferPlayback([stringId], { play: true })
+          ),
+      },
+      {
+        name: 'getAvailableDevices',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.UserDevicesResponse>>(
+            Client.Player.getAvailableDevices()
           ),
       },
     ],

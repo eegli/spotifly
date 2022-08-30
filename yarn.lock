@@ -2952,10 +2952,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eegli/tinyparse@npm:^0.6.0":
-  version: 0.6.0
-  resolution: "@eegli/tinyparse@npm:0.6.0"
-  checksum: 172de98d27786f3ae86dced07aaecb33324e2820e67a302196d53520964cd44c9cf486e42340e769379de324d1d904487dcf475fc9aa91ecde97529717314ae0
+"@eegli/tinyparse@npm:^0.7.0":
+  version: 0.7.0
+  resolution: "@eegli/tinyparse@npm:0.7.0"
+  checksum: df62ea7330fb8770083cc3e80253e475734ff4e32ea2665043adbdf474a17ea703f9a6cb6a0e53d29f4233dcc9264d8a942d11c41077b3eb7ee098b5776d4977
   languageName: node
   linkType: hard
 
@@ -4014,7 +4014,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spotifly/auth-token@workspace:packages/auth-token"
   dependencies:
-    "@eegli/tinyparse": ^0.6.0
+    "@eegli/tinyparse": ^0.7.0
     "@spotifly/utils": "workspace:^"
     "@types/fs-extra": ^9.0.13
     "@types/node-fetch": ^2.6.2
@@ -4053,7 +4053,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spotifly/library@workspace:packages/library"
   dependencies:
-    "@eegli/tinyparse": ^0.6.0
+    "@eegli/tinyparse": ^0.7.0
     "@spotifly/core": "workspace:^"
     "@spotifly/utils": "workspace:^"
     "@types/cli-progress": ^3.11.0
@@ -4086,7 +4086,7 @@ __metadata:
     jest-mock-extended: ^2.0.7
     jest-runner-tsd: ^3.1.0
     prettier: ^2.7.1
-    prettier-plugin-organize-imports: ^3.0.0
+    prettier-plugin-organize-imports: ^3.1.0
     ts-jest: ^28.0.7
     type-fest: ^2.17.0
     typescript: ^4.8
@@ -12640,13 +12640,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier-plugin-organize-imports@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "prettier-plugin-organize-imports@npm:3.0.0"
+"prettier-plugin-organize-imports@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "prettier-plugin-organize-imports@npm:3.1.0"
   peerDependencies:
+    "@volar/vue-typescript": ">=0.39.0"
     prettier: ">=2.0"
     typescript: ">=2.9"
-  checksum: 6ff49f5532b9c33e0574c9dc10ba9fd990801efb207b640126a0c136dbcb673d2ca131fd5ffd0007a56c2c08d80c0a4b11a179ac5ca86e54445f18df5188c6ca
+  peerDependenciesMeta:
+    "@volar/vue-typescript":
+      optional: true
+  checksum: 3b22bf4ec44dd64a4b2e3d958633276c290590c49df440ea9f5b66182925d83979f4f42319ed788d5b5b0ef6d262559f888145c40fc95f29064dcd13f325a3a4
   languageName: node
   linkType: hard
 

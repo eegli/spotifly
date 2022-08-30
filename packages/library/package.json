@@ -27,7 +27,7 @@
     "cli"
   ],
   "dependencies": {
-    "@eegli/tinyparse": "^0.6.0",
+    "@eegli/tinyparse": "^0.7.0",
     "@spotifly/core": "workspace:^",
     "@spotifly/utils": "workspace:^",
     "cli-progress": "^3.11.2"

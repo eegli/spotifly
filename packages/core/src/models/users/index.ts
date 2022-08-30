@@ -21,29 +21,25 @@ import {
 
 export default function Users(provider: AsyncProvider) {
   return {
-    OwnProfile: {
-      /**
-       * Get detailed profile information about the current user (including the current user's username).
-       * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/get-current-users-profile Get Current User's Profile}
-       */
-      get: getCurrentUsersProfile(provider).bind(null, null),
-    },
-    TopArtists: {
-      /**
-       * Get the current user's top artists based on calculated affinity.
-       * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/get-users-top-artists-and-tracks Get User's Top Items}
-       */
-      get: getUsersTopArtists(provider).bind(null, null),
-      /**
-       * Get the current user's top artists based on calculated affinity.
-       *
-       * This method automatically handles pagination and fetches all items.
-       * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/get-users-top-artists-and-tracks Get User's Top Items}
-       */
-      getAll: factory
-        .forPaginated(getUsersTopArtists(provider), USERS_TOP_LIMIT)
-        .bind(null, null),
-    },
+    /**
+     * Get detailed profile information about the current user (including the current user's username).
+     * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/get-current-users-profile Get Current User's Profile}
+     */
+    getCurrentUsersProfile: getCurrentUsersProfile(provider).bind(null, null),
+    /**
+     * Get the current user's top artists based on calculated affinity.
+     * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/get-users-top-artists-and-tracks Get User's Top Items}
+     */
+    getUsersTopArtists: getUsersTopArtists(provider).bind(null, null),
+    /**
+     * Get the current user's top artists based on calculated affinity.
+     *
+     * This method automatically handles pagination and fetches all items.
+     * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/get-users-top-artists-and-tracks Get User's Top Items}
+     */
+    getAllUsersTopArtists: factory
+      .forPaginated(getUsersTopArtists(provider), USERS_TOP_LIMIT)
+      .bind(null, null),
     TopTracks: {
       /**
        * Get the current user's top tracks based on calculated affinity.
@@ -174,5 +170,5 @@ export default function Users(provider: AsyncProvider) {
        */
       playlist: checkUsersFollowPlaylists(provider),
     },
-  } as const;
+  };
 }

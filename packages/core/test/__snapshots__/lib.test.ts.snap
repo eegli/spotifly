@@ -225,7 +225,27 @@ exports[`Artists TopTracks.get 1`] = `
 ]
 `;
 
-exports[`Categories Category.get 1`] = `
+exports[`Categories getSeveralCategories 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "country": "CH",
+        "limit": 1,
+        "locale": "de_DE",
+        "offset": 1,
+      },
+      "url": "browse/categories",
+    },
+  ],
+]
+`;
+
+exports[`Categories getSingleCategory 1`] = `
 [
   [
     {
@@ -238,24 +258,6 @@ exports[`Categories Category.get 1`] = `
         "locale": "de_DE",
       },
       "url": "browse/categories/id1",
-    },
-  ],
-]
-`;
-
-exports[`Categories Category.get 2`] = `
-[
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "GET",
-      "params": {
-        "country": "CH",
-        "locale": "de_DE",
-      },
-      "url": "browse/categories",
     },
   ],
 ]
@@ -364,6 +366,20 @@ exports[`Episodes UsersSaved.save 1`] = `
 ]
 `;
 
+exports[`Genres getAvailableGenreSeeds 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "url": "recommendations/available-genre-seeds",
+    },
+  ],
+]
+`;
+
 exports[`Markets getAvailableMarkets 1`] = `
 [
   [
@@ -373,6 +389,58 @@ exports[`Markets getAvailableMarkets 1`] = `
       },
       "method": "GET",
       "url": "markets",
+    },
+  ],
+]
+`;
+
+exports[`Player getAvailableDevices 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "url": "me/player/devices",
+    },
+  ],
+]
+`;
+
+exports[`Player getPlaybackState 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "additional_types": "track,episode",
+        "market": "CH",
+      },
+      "url": "me/player",
+    },
+  ],
+]
+`;
+
+exports[`Player transferPlayback 1`] = `
+[
+  [
+    {
+      "data": {
+        "device_ids": [
+          "id1",
+        ],
+        "play": true,
+      },
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "PUT",
+      "url": "me/player",
     },
   ],
 ]
@@ -1062,20 +1130,6 @@ exports[`Users FollowedArtists.get 1`] = `
 ]
 `;
 
-exports[`Users OwnProfile.get 1`] = `
-[
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "GET",
-      "url": "me",
-    },
-  ],
-]
-`;
-
 exports[`Users Profile.get 1`] = `
 [
   [
@@ -1085,20 +1139,6 @@ exports[`Users Profile.get 1`] = `
       },
       "method": "GET",
       "url": "users/id1",
-    },
-  ],
-]
-`;
-
-exports[`Users TopArtists.get 1`] = `
-[
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "GET",
-      "url": "me/top/artists",
     },
   ],
 ]
@@ -1163,6 +1203,34 @@ exports[`Users Unfollow.users 1`] = `
         "type": "user",
       },
       "url": "me/following",
+    },
+  ],
+]
+`;
+
+exports[`Users getCurrentUsersProfile 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "url": "me",
+    },
+  ],
+]
+`;
+
+exports[`Users getUsersTopArtists 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "url": "me/top/artists",
     },
   ],
 ]

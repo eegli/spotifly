@@ -44,10 +44,8 @@ exports[`Lib matches snapshot 1`] = `
     },
   },
   "Categories": {
-    "Category": {
-      "get": [Function],
-      "getSeveral": [Function],
-    },
+    "getSeveralCategories": [Function],
+    "getSingleCategory": [Function],
   },
   "Episodes": {
     "Episode": {
@@ -66,8 +64,16 @@ exports[`Lib matches snapshot 1`] = `
       "saveAll": [Function],
     },
   },
+  "Genres": {
+    "getAvailableGenreSeeds": [Function],
+  },
   "Markets": {
     "getAvailableMarkets": [Function],
+  },
+  "Player": {
+    "getAvailableDevices": [Function],
+    "getPlaybackState": [Function],
+    "transferPlayback": [Function],
   },
   "Playlists": {
     "addPlaylistItems": [Function],
@@ -157,15 +163,8 @@ exports[`Lib matches snapshot 1`] = `
     "FollowedArtists": {
       "get": [Function],
     },
-    "OwnProfile": {
-      "get": [Function],
-    },
     "Profile": {
       "get": [Function],
-    },
-    "TopArtists": {
-      "get": [Function],
-      "getAll": [Function],
     },
     "TopTracks": {
       "get": [Function],
@@ -178,6 +177,9 @@ exports[`Lib matches snapshot 1`] = `
       "playlist": [Function],
       "users": [Function],
     },
+    "getAllUsersTopArtists": [Function],
+    "getCurrentUsersProfile": [Function],
+    "getUsersTopArtists": [Function],
   },
 }
 `;
