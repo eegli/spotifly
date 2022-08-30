@@ -14,32 +14,33 @@ export type AsyncProvider = {
 };
 
 export type AsyncFn<
-  Return,
-  Required,
-  Optional extends AnyObject | undefined = undefined
-> = Optional extends undefined
-  ? (required: Required) => DataPromise<Return>
-  : (required: Required, optional?: Partial<Optional>) => DataPromise<Return>;
-
-export type AnyObject = Record<never, never>;
-
-export type AnyFunc = (...args: any[]) => unknown;
+  R,
+  P1 = undefined,
+  P2 = undefined,
+  P3 = undefined,
+  RT = DataPromise<R>
+> = P1 extends undefined
+  ? () => RT
+  : P2 extends undefined
+  ? (required: P1) => RT
+  : P3 extends undefined
+  ? P2 extends AnyObject
+    ? (required: P1, optional?: Partial<P2>) => RT
+    : (required1: P1, required2: P2) => RT
+  : P3 extends AnyObject
+  ? (required1: P1, required2: P2, optional?: Partial<P3>) => RT
+  : never;
 
 export type AsyncFnWithProvider<
   Return,
-  Required,
-  Optional extends AnyObject | undefined = undefined,
-  RT1 = Return,
-  RQ1 = Required,
-  OPT1 extends AnyObject | undefined = Optional,
-  RT2 = Return,
-  RQ2 = Required,
-  OPT2 extends AnyObject | undefined = Optional
-> = {
-  (provider: AsyncProvider): AsyncFn<Return, Required, Optional>;
-  (provider: AsyncProvider): AsyncFn<RT1, RQ1, OPT1>;
-  (provider: AsyncProvider): AsyncFn<RT2, RQ2, OPT2>;
-};
+  P1 = undefined,
+  P2 = undefined,
+  P3 = undefined
+> = (provider: AsyncProvider) => AsyncFn<Return, P1, P2, P3>;
+
+export type AnyObject = Record<string, unknown>;
+
+export type AnyFunc = (...args: any[]) => unknown;
 
 export type Permutations<
   T extends string,
@@ -67,10 +68,11 @@ export type ReadOnlyParams<T extends AnyFunc> = T extends (
 
 // Branded types - T = T & {} - improve IntelliSense experience
 // https://github.com/microsoft/TypeScript/issues/31940#issuecomment-841712377
-type _ = AnyObject;
+type _ = Record<never, never>;
 export type UserId = string & _;
 export type TrackId = string & _;
 export type TrackIds = TrackId[];
+export type Uris = string[];
 export type PlaylistId = string & _;
 export type CategoryId = string & _;
 export type DeviceId = string & _;

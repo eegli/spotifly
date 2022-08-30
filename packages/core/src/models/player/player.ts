@@ -33,8 +33,7 @@ export const transferPlayback: AsyncFnWithProvider<
   );
 
 export const getAvailableDevices: AsyncFnWithProvider<
-  SpotifyApi.UserDevicesResponse,
-  unknown
+  SpotifyApi.UserDevicesResponse
 > = provider => async () =>
   transformResponse(
     await provider.request({

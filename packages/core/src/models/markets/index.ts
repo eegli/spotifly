@@ -7,6 +7,6 @@ export default function Markets(provider: AsyncProvider) {
      * Get the list of markets where Spotify is available.
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/get-available-markets Get Available Markets}
      */
-    getAvailableMarkets: getAvailableMarkets(provider).bind(null, null),
+    getAvailableMarkets: getAvailableMarkets(provider),
   };
 }

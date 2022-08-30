@@ -2,8 +2,7 @@ import { Method, transformResponse } from '../../request';
 import { AsyncFnWithProvider, SinglePropertyResponse } from '../../types';
 
 export const getAvailableGenreSeeds: AsyncFnWithProvider<
-  SinglePropertyResponse<'genres'>,
-  unknown
+  SinglePropertyResponse<'genres'>
 > = provider => async () =>
   transformResponse(
     await provider.request({

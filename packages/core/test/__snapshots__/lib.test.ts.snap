@@ -491,7 +491,7 @@ exports[`Playlists createPlaylist 1`] = `
       "data": {
         "collaborative": true,
         "description": "new description",
-        "name": "id1",
+        "name": "playlist",
         "public": false,
       },
       "headers": {
@@ -639,9 +639,7 @@ exports[`Playlists removePlaylistItems 1`] = `
   [
     {
       "data": {
-        "snapshotId": {
-          "snapshot_id": "id1",
-        },
+        "snapshot_id": "id1",
         "tracks": [
           {
             "uri": "spt:track:1",

@@ -12,6 +12,7 @@ import type {
   PlaylistId,
   SnapshotId,
   Timestamp,
+  Uris,
   UserId,
 } from '../../types';
 
@@ -64,77 +65,70 @@ export const getPlaylistItemsLimit = 50;
 export const addPlaylistItems: AsyncFnWithProvider<
   SpotifyApi.AddTracksToPlaylistResponse,
   PlaylistId,
+  Uris,
   {
     position: number;
-    uris: string[];
   }
-> = provider => async (playlistId, data) =>
+> = provider => async (playlistId, uris, data) =>
   transformResponse(
     await provider.request({
       method: Method.POST,
       url: `playlists/${playlistId}/tracks`,
       data: {
         position: data?.position,
-        uris: data?.uris?.join(','),
+        uris: uris.join(','),
       },
     })
   );
 
 export const reorderPlaylistItems: AsyncFnWithProvider<
   SpotifyApi.ReorderPlaylistTracksResponse,
+  PlaylistId,
   {
-    playlistId: string;
     range_start: number;
     insert_before: number;
     range_length: number;
   } & SnapshotId
-> =
-  provider =>
-  async ({ playlistId, ...data }) =>
-    transformResponse(
-      await provider.request({
-        method: Method.PUT,
-        url: `playlists/${playlistId}/tracks`,
-        data,
-      })
-    );
+> = provider => async (playlistId, data) =>
+  transformResponse(
+    await provider.request({
+      method: Method.PUT,
+      url: `playlists/${playlistId}/tracks`,
+      data,
+    })
+  );
 
 export const replacePlaylistItems: AsyncFnWithProvider<
   SpotifyApi.ReplacePlaylistTracksResponse,
-  {
-    playlistId: string;
-    uris: string[];
-  }
-> =
-  provider =>
-  async ({ playlistId, uris }) =>
-    transformResponse(
-      await provider.request({
-        method: Method.PUT,
-        url: `playlists/${playlistId}/tracks`,
-        data: {
-          uris: uris.join(','),
-        },
-      })
-    );
+  PlaylistId,
+  Uris
+> = provider => async (playlistId, uris) =>
+  transformResponse(
+    await provider.request({
+      method: Method.PUT,
+      url: `playlists/${playlistId}/tracks`,
+      data: {
+        uris: uris.join(','),
+      },
+    })
+  );
 
 export const removePlaylistItems: AsyncFnWithProvider<
   SpotifyApi.RemoveTracksFromPlaylistResponse,
-  { playlistId: string; tracks: { uri: string }[] },
+  PlaylistId,
+  { uri: string }[],
   SnapshotId
-> =
-  provider =>
-  async ({ playlistId, tracks }, snapshotId) =>
-    transformResponse(
-      await provider.request({
-        method: Method.DELETE,
-        url: `playlists/${playlistId}/tracks`,
-        data: {
-          snapshotId,
-          tracks,
-        },
-      })
-    );
+> = provider => async (playlistId, tracks, data) =>
+  transformResponse(
+    await provider.request({
+      method: Method.DELETE,
+      url: `playlists/${playlistId}/tracks`,
+      data: {
+        ...data,
+        tracks,
+      },
+    })
+  );
 
 export const getCurrentUsersPlaylists: AsyncFnWithProvider<
   SpotifyApi.ListOfUsersPlaylistsResponse,
@@ -166,25 +160,24 @@ export const usersPlaylistsLimit = 50;
 
 export const createPlaylist: AsyncFnWithProvider<
   SpotifyApi.CreatePlaylistResponse,
-  { userId: string; name: string },
+  UserId,
+  string,
   {
     public: boolean;
     collaborative: boolean;
     description: string;
   }
-> =
-  provider =>
-  async ({ userId, name }, data) =>
-    transformResponse(
-      await provider.request({
-        method: Method.POST,
-        url: `users/${userId}/playlists`,
-        data: {
-          name,
-          ...data,
-        },
-      })
-    );
+> = provider => async (userId, name, data) =>
+  transformResponse(
+    await provider.request({
+      method: Method.POST,
+      url: `users/${userId}/playlists`,
+      data: {
+        name,
+        ...data,
+      },
+    })
+  );
 
 export const getFeaturedPlaylists: AsyncFnWithProvider<
   SpotifyApi.ListOfFeaturedPlaylistsResponse,

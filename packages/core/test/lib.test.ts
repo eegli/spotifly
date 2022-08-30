@@ -528,15 +528,14 @@ const tests: LibTestRunner = [
         name: 'addPlaylistItems',
         fn: () =>
           assertReturns<DR<SpotifyApi.AddTracksToPlaylistResponse>>(
-            Client.Playlists.addPlaylistItems(stringId, { position: 0, uris })
+            Client.Playlists.addPlaylistItems(stringId, uris, { position: 0 })
           ),
       },
       {
         name: 'reorderPlaylistItems',
         fn: () =>
           assertReturns<DR<SpotifyApi.ReorderPlaylistTracksResponse>>(
-            Client.Playlists.reorderPlaylistItems({
-              playlistId: stringId,
+            Client.Playlists.reorderPlaylistItems(stringId, {
               range_start: 1,
               range_length: 1,
               insert_before: 1,
@@ -548,10 +547,7 @@ const tests: LibTestRunner = [
         name: 'replacePlaylistItems',
         fn: () =>
           assertReturns<DR<SpotifyApi.ReplacePlaylistTracksResponse>>(
-            Client.Playlists.replacePlaylistItems({
-              playlistId: stringId,
-              uris,
-            })
+            Client.Playlists.replacePlaylistItems(stringId, uris)
           ),
       },
       {
@@ -559,7 +555,8 @@ const tests: LibTestRunner = [
         fn: () =>
           assertReturns<DR<SpotifyApi.RemoveTracksFromPlaylistResponse>>(
             Client.Playlists.removePlaylistItems(
-              { playlistId: stringId, tracks: [{ uri: 'spt:track:1' }] },
+              stringId,
+              [{ uri: 'spt:track:1' }],
               {
                 snapshot_id: stringId,
               }
@@ -590,14 +587,11 @@ const tests: LibTestRunner = [
         name: 'createPlaylist',
         fn: () =>
           assertReturns<DR<SpotifyApi.CreatePlaylistResponse>>(
-            Client.Playlists.createPlaylist(
-              { userId: stringId, name: stringId },
-              {
-                public: false,
-                collaborative: true,
-                description: 'new description',
-              }
-            )
+            Client.Playlists.createPlaylist(stringId, 'playlist', {
+              public: false,
+              collaborative: true,
+              description: 'new description',
+            })
           ),
       },
       {

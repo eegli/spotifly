@@ -7,6 +7,6 @@ export default function Genres(provider: AsyncProvider) {
      * Retrieve a list of available genres seed parameter values for recommendations.
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recommendation-genres Get Available Genre Seeds}
      */
-    getAvailableGenreSeeds: getAvailableGenreSeeds(provider).bind(null, null),
+    getAvailableGenreSeeds: getAvailableGenreSeeds(provider),
   };
 }

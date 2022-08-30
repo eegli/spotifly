@@ -21,6 +21,6 @@ export default function Player(provider: AsyncProvider) {
      * Get information about a user’s available devices.
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/get-a-users-available-devices Get Available Devices}
      */
-    getAvailableDevices: getAvailableDevices(provider).bind(null, null),
+    getAvailableDevices: getAvailableDevices(provider),
   };
 }
