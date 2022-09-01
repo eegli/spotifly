@@ -1,6 +1,7 @@
 import { Method, transformResponse } from '../../request';
 import {
   After,
+  ArtistId,
   AsyncFnWithProvider,
   Limit,
   Offset,
@@ -76,7 +77,7 @@ export const unfollowPlaylist: AsyncFnWithProvider<
     })
   );
 
-export const getFollowedArtists: AsyncFnWithProvider<
+export const getUsersFollowedArtists: AsyncFnWithProvider<
   SpotifyApi.UsersFollowedArtistsResponse,
   unknown,
   After & Limit
@@ -92,19 +93,36 @@ export const getFollowedArtists: AsyncFnWithProvider<
     })
   );
 
-const follow: <Response>(conf: {
+const artists: <R>(conf: {
   url: string;
-  type: 'artist' | 'user';
   method: Method;
-}) => AsyncFnWithProvider<Response, string[]> =
-  ({ method, type, url }) =>
+}) => AsyncFnWithProvider<R, ArtistId[]> =
+  ({ method, url }) =>
   provider =>
   async ids =>
     transformResponse(
       await provider.request({
         method,
         params: {
-          type,
+          type: 'artist',
+          ids: ids.join(','),
+        },
+        url,
+      })
+    );
+
+const users: <R>(conf: {
+  url: string;
+  method: Method;
+}) => AsyncFnWithProvider<R, UserId[]> =
+  ({ method, url }) =>
+  provider =>
+  async ids =>
+    transformResponse(
+      await provider.request({
+        method,
+        params: {
+          type: 'user',
           ids: ids.join(','),
         },
         url,
@@ -112,52 +130,45 @@ const follow: <Response>(conf: {
     );
 
 export const FOLLOW_LIMIT = 50;
-export const followArtists = follow<SpotifyApi.FollowArtistsOrUsersResponse>({
-  type: 'artist',
+export const followArtists = artists<SpotifyApi.FollowArtistsOrUsersResponse>({
   url: 'me/following',
   method: Method.PUT,
 });
-export const followUsers = follow<SpotifyApi.FollowArtistsOrUsersResponse>({
-  type: 'user',
+export const followUsers = users<SpotifyApi.FollowArtistsOrUsersResponse>({
   url: 'me/following',
   method: Method.PUT,
 });
 export const unfollowArtists =
-  follow<SpotifyApi.UnfollowArtistsOrUsersResponse>({
-    type: 'artist',
+  artists<SpotifyApi.UnfollowArtistsOrUsersResponse>({
     url: 'me/following',
     method: Method.DELETE,
   });
-export const unfollowUsers = follow<SpotifyApi.UnfollowArtistsOrUsersResponse>({
-  type: 'user',
+export const unfollowUsers = users<SpotifyApi.UnfollowArtistsOrUsersResponse>({
   url: 'me/following',
   method: Method.DELETE,
 });
 export const checkFollowsArtists =
-  follow<SpotifyApi.UserFollowsUsersOrArtistsResponse>({
-    type: 'artist',
+  artists<SpotifyApi.UserFollowsUsersOrArtistsResponse>({
     url: 'me/following/contains',
     method: Method.GET,
   });
 export const checkFollowsUsers =
-  follow<SpotifyApi.UserFollowsUsersOrArtistsResponse>({
-    type: 'user',
+  users<SpotifyApi.UserFollowsUsersOrArtistsResponse>({
     url: 'me/following/contains',
     method: Method.GET,
   });
 
 export const checkUsersFollowPlaylist: AsyncFnWithProvider<
   SpotifyApi.UsersFollowPlaylistResponse,
-  { playlistId: string; userIds: string[] }
-> =
-  provider =>
-  async ({ playlistId, userIds }) =>
-    transformResponse(
-      await provider.request({
-        method: Method.GET,
-        params: {
-          ids: userIds.join(','),
-        },
-        url: `playlists/${playlistId}/followers/contains`,
-      })
-    );
+  PlaylistId,
+  UserId[]
+> = provider => async (playlistId, userIds) =>
+  transformResponse(
+    await provider.request({
+      method: Method.GET,
+      params: {
+        ids: userIds.join(','),
+      },
+      url: `playlists/${playlistId}/followers/contains`,
+    })
+  );

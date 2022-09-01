@@ -9,7 +9,7 @@ import {
   followUsers,
   FOLLOW_LIMIT,
   getCurrentUsersProfile,
-  getFollowedArtists,
+  getUsersFollowedArtists,
   getUsersProfile,
   getUsersTopArtists,
   getUsersTopTracks,
@@ -125,7 +125,7 @@ export default function Users(provider: AsyncProvider) {
      * Get the current user's followed artists.
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/get-followed Get Followed Artists}
      */
-    getFollowedArtists: getFollowedArtists(provider).bind(null, null),
+    getUsersFollowedArtists: getUsersFollowedArtists(provider).bind(null, null),
     /**
      * Check to see if the current user is following one or more artists.
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/check-current-user-follows Check If User Follows Artists or Users}

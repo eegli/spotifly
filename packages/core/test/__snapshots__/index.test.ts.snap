@@ -159,7 +159,7 @@ exports[`Lib matches snapshot 1`] = `
     "getAllUsersTopArtists": [Function],
     "getAllUsersTopTracks": [Function],
     "getCurrentUsersProfile": [Function],
-    "getFollowedArtists": [Function],
+    "getUsersFollowedArtists": [Function],
     "getUsersProfile": [Function],
     "getUsersTopArtists": [Function],
     "getUsersTopTracks": [Function],

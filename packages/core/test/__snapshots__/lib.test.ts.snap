@@ -1123,7 +1123,7 @@ exports[`Users getCurrentUsersProfile 1`] = `
 ]
 `;
 
-exports[`Users getFollowedArtists 1`] = `
+exports[`Users getUsersFollowedArtists 1`] = `
 [
   [
     {

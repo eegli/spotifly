@@ -34,20 +34,8 @@ export type AsyncFnWithProvider<
   R,
   A = undefined,
   B = undefined,
-  C = undefined,
-  OR1 = R,
-  OA1 = A,
-  OB1 = B,
-  OC1 = C,
-  OR2 = OR1,
-  OA2 = OA1,
-  OB2 = OB1,
-  OC2 = OC1
-> = {
-  (provider: AsyncProvider): AsyncFn<R, A, B, C>;
-  (provider: AsyncProvider): AsyncFn<OR1, OA1, OB1, OC1>;
-  (provider: AsyncProvider): AsyncFn<OR2, OA2, OB2, OC2>;
-};
+  C = undefined
+> = (provider: AsyncProvider) => AsyncFn<R, A, B, C>;
 
 export type AnyObject = Record<string, unknown>;
 
@@ -75,8 +63,8 @@ export type ReadOnlyParams<T extends AnyFunc> = T extends (
 // https://github.com/microsoft/TypeScript/issues/31940#issuecomment-841712377
 type _ = Record<never, never>;
 export type UserId = string & _;
+export type ArtistId = string & _;
 export type TrackId = string & _;
-export type TrackIds = TrackId[];
 export type Uris = string[];
 export type PlaylistId = string & _;
 export type CategoryId = string & _;

@@ -384,10 +384,10 @@ const tests: LibTestRunner = [
           ),
       },
       {
-        name: 'getFollowedArtists',
+        name: 'getUsersFollowedArtists',
         fn: () =>
           assertReturns<DR<SpotifyApi.UsersFollowedArtistsResponse>>(
-            Client.Users.getFollowedArtists({ limit, after: stringId })
+            Client.Users.getUsersFollowedArtists({ limit, after: stringId })
           ),
       },
       {
@@ -450,37 +450,7 @@ const tests: LibTestRunner = [
         name: 'checkUsersFollowPlaylist',
         fn: () =>
           assertReturns<DR<SpotifyApi.UsersFollowPlaylistResponse>>(
-            Client.Users.checkUsersFollowPlaylist({
-              playlistId: stringId,
-              userIds: stringIds,
-            })
-          ),
-      },
-    ],
-  },
-  {
-    name: 'Categories',
-    tests: [
-      {
-        name: 'getSingleCategory',
-        fn: () =>
-          assertReturns<DR<SpotifyApi.SingleCategoryResponse>>(
-            Client.Categories.getSingleCategory(stringId, {
-              country: 'CH',
-              locale: 'de_DE',
-            })
-          ),
-      },
-      {
-        name: 'getSeveralCategories',
-        fn: () =>
-          assertReturns<DR<SpotifyApi.MultipleCategoriesResponse>>(
-            Client.Categories.getSeveralCategories({
-              country: 'CH',
-              locale: 'de_DE',
-              limit,
-              offset,
-            })
+            Client.Users.checkUsersFollowPlaylist(stringId, stringIds)
           ),
       },
     ],
@@ -623,6 +593,33 @@ const tests: LibTestRunner = [
         fn: () =>
           assertReturns<DR<SpotifyApi.ImageObject[]>>(
             Client.Playlists.getPlaylistCoverImage(stringId)
+          ),
+      },
+    ],
+  },
+  {
+    name: 'Categories',
+    tests: [
+      {
+        name: 'getSingleCategory',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.SingleCategoryResponse>>(
+            Client.Categories.getSingleCategory(stringId, {
+              country: 'CH',
+              locale: 'de_DE',
+            })
+          ),
+      },
+      {
+        name: 'getSeveralCategories',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.MultipleCategoriesResponse>>(
+            Client.Categories.getSeveralCategories({
+              country: 'CH',
+              locale: 'de_DE',
+              limit,
+              offset,
+            })
           ),
       },
     ],
