@@ -355,13 +355,6 @@ const tests: LibTestRunner = [
           ),
       },
       {
-        name: 'getUsersProfile',
-        fn: () =>
-          assertReturns<DR<SpotifyApi.UserProfileResponse>>(
-            Client.Users.getUsersProfile(stringId)
-          ),
-      },
-      {
         name: 'getUsersTopArtists',
         fn: () =>
           assertReturns<DR<SpotifyApi.UsersTopArtistsResponse>>(
@@ -381,6 +374,27 @@ const tests: LibTestRunner = [
               offset,
               time_range: 'long_term ',
             })
+          ),
+      },
+      {
+        name: 'getUsersProfile',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.UserProfileResponse>>(
+            Client.Users.getUsersProfile(stringId)
+          ),
+      },
+      {
+        name: 'followPlaylist',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.FollowPlaylistResponse>>(
+            Client.Users.followPlaylist(stringId, { public: true })
+          ),
+      },
+      {
+        name: 'unfollowPlaylist',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.UnfollowPlaylistResponse>>(
+            Client.Users.unfollowPlaylist(stringId)
           ),
       },
       {
@@ -404,13 +418,7 @@ const tests: LibTestRunner = [
             Client.Users.followUsers(stringIds)
           ),
       },
-      {
-        name: 'followPlaylist',
-        fn: () =>
-          assertReturns<DR<SpotifyApi.FollowPlaylistResponse>>(
-            Client.Users.followPlaylist(stringId, { public: true })
-          ),
-      },
+
       {
         name: 'unfollowArtists',
         fn: () =>
@@ -425,13 +433,7 @@ const tests: LibTestRunner = [
             Client.Users.unfollowUsers(stringIds)
           ),
       },
-      {
-        name: 'unfollowPlaylist',
-        fn: () =>
-          assertReturns<DR<SpotifyApi.UnfollowPlaylistResponse>>(
-            Client.Users.unfollowPlaylist(stringId)
-          ),
-      },
+
       {
         name: 'checkFollowsArtists',
         fn: () =>
