@@ -1,9 +1,9 @@
 import { Method, transformResponse } from '../../request';
-import { AsyncFnWithProvider } from '../../types';
+import { AsyncFnWithProvider, TrackId } from '../../types';
 
 export const getSingleTrack: AsyncFnWithProvider<
   SpotifyApi.SingleTrackResponse,
-  string,
+  TrackId,
   { market: string }
 > = provider => async (trackId, params) =>
   transformResponse(
@@ -16,7 +16,7 @@ export const getSingleTrack: AsyncFnWithProvider<
 
 export const getSeveralTracks: AsyncFnWithProvider<
   SpotifyApi.MultipleTracksResponse,
-  string[],
+  TrackId[],
   { market: string }
 > = provider => async (trackIds, params) =>
   transformResponse(
@@ -30,7 +30,9 @@ export const getSeveralTracks: AsyncFnWithProvider<
     })
   );
 
-export const getSeveralTracksLimit = 50;
+export const SEVERAL_TRACKS_LIMIT = 50;
+
+export const USER_SAVED_LIMIT = 50;
 
 export const getUsersSavedTracks: AsyncFnWithProvider<
   SpotifyApi.UsersSavedTracksResponse,
@@ -45,11 +47,9 @@ export const getUsersSavedTracks: AsyncFnWithProvider<
     })
   );
 
-export const getUsersSavedTracksLimit = 50;
-
 export const saveTracksForUser: AsyncFnWithProvider<
   SpotifyApi.SaveTracksForUserResponse,
-  string[]
+  TrackId[]
 > = provider => async trackIds =>
   transformResponse(
     await provider.request({
@@ -61,11 +61,9 @@ export const saveTracksForUser: AsyncFnWithProvider<
     })
   );
 
-export const saveTracksForUserLimit = 50;
-
 export const removeUsersSavedTracks: AsyncFnWithProvider<
   SpotifyApi.RemoveUsersSavedTracksResponse,
-  string[]
+  TrackId[]
 > = provider => async trackIds =>
   transformResponse(
     await provider.request({
@@ -77,11 +75,9 @@ export const removeUsersSavedTracks: AsyncFnWithProvider<
     })
   );
 
-export const removeUsersSavedTracksLimit = 50;
-
 export const checkUsersSavedTracks: AsyncFnWithProvider<
   SpotifyApi.CheckUsersSavedTracksResponse,
-  string[]
+  TrackId[]
 > = provider => async trackIds =>
   transformResponse(
     await provider.request({
@@ -93,11 +89,9 @@ export const checkUsersSavedTracks: AsyncFnWithProvider<
     })
   );
 
-export const checkUsersSavedTracksLimit = 50;
-
 export const getSingleAudioFeatures: AsyncFnWithProvider<
   SpotifyApi.AudioFeaturesResponse,
-  string
+  TrackId
 > = provider => async trackId =>
   transformResponse(
     await provider.request({
@@ -108,7 +102,7 @@ export const getSingleAudioFeatures: AsyncFnWithProvider<
 
 export const getSeveralAudioFeatures: AsyncFnWithProvider<
   SpotifyApi.MultipleAudioFeaturesResponse,
-  string[]
+  TrackId[]
 > = provider => async trackIds =>
   transformResponse(
     await provider.request({
@@ -120,11 +114,11 @@ export const getSeveralAudioFeatures: AsyncFnWithProvider<
     })
   );
 
-export const getSeveralAudioFeaturesLimit = 100;
+export const SEVERAL_AUDIO_FEATURES_LIMIT = 100;
 
 export const getAudioAnalysis: AsyncFnWithProvider<
   SpotifyApi.AudioAnalysisResponse,
-  string
+  TrackId
 > = provider => async trackId =>
   transformResponse(
     await provider.request({

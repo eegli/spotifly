@@ -254,73 +254,73 @@ const tests: LibTestRunner = [
     name: 'Tracks',
     tests: [
       {
-        name: 'Track.get',
+        name: 'getSingleTrack',
         fn: () =>
           assertReturns<DR<SpotifyApi.SingleTrackResponse>>(
-            Client.Tracks.Track.get(stringId, { market })
+            Client.Tracks.getSingleTrack(stringId, { market })
           ),
       },
       {
-        name: 'Track.getSeveral',
+        name: 'getSeveralTracks',
         fn: () =>
           assertReturns<DR<SpotifyApi.MultipleTracksResponse>>(
-            Client.Tracks.Track.getSeveral(stringIds, { market })
+            Client.Tracks.getSeveralTracks(stringIds, { market })
           ),
       },
       {
-        name: 'UsersSaved.get',
+        name: 'getUsersSavedTracks',
         fn: () =>
           assertReturns<DR<SpotifyApi.UsersSavedTracksResponse>>(
-            Client.Tracks.UsersSaved.get({ market, limit, offset })
+            Client.Tracks.getUsersSavedTracks({ market, limit, offset })
           ),
       },
       {
-        name: 'UsersSaved.save',
+        name: 'saveTracksForUser',
         fn: () =>
           assertReturns<DR<SpotifyApi.SaveTracksForUserResponse>>(
-            Client.Tracks.UsersSaved.save(stringIds)
+            Client.Tracks.saveTracksForUser(stringIds)
           ),
       },
       {
-        name: 'UsersSaved.remove',
+        name: 'removeUsersSavedTracks',
         fn: () =>
           assertReturns<DR<SpotifyApi.RemoveUsersSavedTracksResponse>>(
-            Client.Tracks.UsersSaved.remove(stringIds)
+            Client.Tracks.removeUsersSavedTracks(stringIds)
           ),
       },
       {
-        name: 'UsersSaved.check',
+        name: 'checkUsersSavedTracks',
         fn: () =>
           assertReturns<DR<SpotifyApi.CheckUsersSavedTracksResponse>>(
-            Client.Tracks.UsersSaved.check(stringIds)
+            Client.Tracks.checkUsersSavedTracks(stringIds)
           ),
       },
       {
-        name: 'AudioFeatures.getSeveral',
+        name: 'getSeveralAudioFeatures',
         fn: () =>
           assertReturns<DR<SpotifyApi.MultipleAudioFeaturesResponse>>(
-            Client.Tracks.AudioFeatures.getSeveral(stringIds)
+            Client.Tracks.getSeveralAudioFeatures(stringIds)
           ),
       },
       {
-        name: 'AudioFeatures.get',
+        name: 'getAudioFeatures',
         fn: () =>
           assertReturns<DR<SpotifyApi.AudioFeaturesResponse>>(
-            Client.Tracks.AudioFeatures.get(stringId)
+            Client.Tracks.getAudioFeatures(stringId)
           ),
       },
       {
-        name: 'AudioAnalysis.get',
+        name: 'getAudioAnalysis',
         fn: () =>
           assertReturns<DR<SpotifyApi.AudioAnalysisResponse>>(
-            Client.Tracks.AudioAnalysis.get(stringId)
+            Client.Tracks.getAudioAnalysis(stringId)
           ),
       },
       {
-        name: 'Recommendations.get',
+        name: 'getRecommendations',
         fn: () =>
           assertReturns<DR<SpotifyApi.RecommendationsFromSeedsResponse>>(
-            Client.Tracks.Recommendations.get({
+            Client.Tracks.getRecommendations({
               seed_artists: '',
               seed_genres: '',
               seed_tracks: '',
