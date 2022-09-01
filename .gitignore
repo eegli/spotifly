@@ -12,3 +12,4 @@ scripts/*.txt
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+test.js

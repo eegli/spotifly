@@ -1,14 +1,20 @@
 import axios from 'axios';
+
 import * as Spotify from '../src';
 import { DataResponse as DR } from '../src';
 import {
+  additional_types,
   country,
   fakeAxiosResponse,
+  fields,
   limit,
+  locale,
   market,
   offset,
   stringId,
   stringIds,
+  timestamp,
+  uris,
 } from './helpers';
 
 jest.mock('axios');
@@ -330,7 +336,7 @@ const tests: LibTestRunner = [
         name: 'Search.get',
         fn: () =>
           assertReturns<DR<SpotifyApi.SearchResponse>>(
-            Client.Search.forItem({
+            Client.Search.search({
               query: 'x',
               type: 'track,album,artist,episode',
             })
@@ -342,24 +348,24 @@ const tests: LibTestRunner = [
     name: 'Users',
     tests: [
       {
-        name: 'OwnProfile.get',
+        name: 'getCurrentUsersProfile',
         fn: () =>
           assertReturns<DR<SpotifyApi.UserProfileResponse>>(
-            Client.Users.OwnProfile.get()
+            Client.Users.getCurrentUsersProfile()
           ),
       },
       {
-        name: 'Profile.get',
+        name: 'getUsersProfile',
         fn: () =>
           assertReturns<DR<SpotifyApi.UserProfileResponse>>(
-            Client.Users.Profile.get(stringId)
+            Client.Users.getUsersProfile(stringId)
           ),
       },
       {
-        name: 'TopArtists.get',
+        name: 'getUsersTopArtists',
         fn: () =>
           assertReturns<DR<SpotifyApi.UsersTopArtistsResponse>>(
-            Client.Users.TopArtists.get({
+            Client.Users.getUsersTopArtists({
               limit,
               offset,
               time_range: 'long_term ',
@@ -367,10 +373,10 @@ const tests: LibTestRunner = [
           ),
       },
       {
-        name: 'TopTracks.get',
+        name: 'getUsersTopTracks',
         fn: () =>
           assertReturns<DR<SpotifyApi.UsersTopTracksResponse>>(
-            Client.Users.TopTracks.get({
+            Client.Users.getUsersTopTracks({
               limit,
               offset,
               time_range: 'long_term ',
@@ -378,76 +384,292 @@ const tests: LibTestRunner = [
           ),
       },
       {
-        name: 'FollowedArtists.get',
+        name: 'getUsersFollowedArtists',
         fn: () =>
           assertReturns<DR<SpotifyApi.UsersFollowedArtistsResponse>>(
-            Client.Users.FollowedArtists.get({ limit, after: stringId })
+            Client.Users.getUsersFollowedArtists({ limit, after: stringId })
           ),
       },
       {
-        name: 'Follow.artists',
+        name: 'followArtists',
         fn: () =>
           assertReturns<DR<SpotifyApi.FollowArtistsOrUsersResponse>>(
-            Client.Users.Follow.artists(stringIds)
+            Client.Users.followArtists(stringIds)
           ),
       },
       {
-        name: 'Follow.users',
+        name: 'followUsers',
         fn: () =>
           assertReturns<DR<SpotifyApi.FollowArtistsOrUsersResponse>>(
-            Client.Users.Follow.users(stringIds)
+            Client.Users.followUsers(stringIds)
           ),
       },
       {
-        name: 'Follow.playlist',
+        name: 'followPlaylist',
         fn: () =>
           assertReturns<DR<SpotifyApi.FollowPlaylistResponse>>(
-            Client.Users.Follow.playlist(stringId, { public: true })
+            Client.Users.followPlaylist(stringId, { public: true })
           ),
       },
       {
-        name: 'Unfollow.artists',
+        name: 'unfollowArtists',
         fn: () =>
           assertReturns<DR<SpotifyApi.UnfollowArtistsOrUsersResponse>>(
-            Client.Users.Unfollow.artists(stringIds)
+            Client.Users.unfollowArtists(stringIds)
           ),
       },
       {
-        name: 'Unfollow.users',
+        name: 'unfollowUsers',
         fn: () =>
           assertReturns<DR<SpotifyApi.UnfollowArtistsOrUsersResponse>>(
-            Client.Users.Unfollow.users(stringIds)
+            Client.Users.unfollowUsers(stringIds)
           ),
       },
       {
-        name: 'Unfollow.playlist',
+        name: 'unfollowPlaylist',
         fn: () =>
           assertReturns<DR<SpotifyApi.UnfollowPlaylistResponse>>(
-            Client.Users.Unfollow.playlist(stringId)
+            Client.Users.unfollowPlaylist(stringId)
           ),
       },
       {
-        name: 'CheckFollows.artists',
+        name: 'checkFollowsArtists',
         fn: () =>
           assertReturns<DR<SpotifyApi.UserFollowsUsersOrArtistsResponse>>(
-            Client.Users.CheckFollows.artists(stringIds)
+            Client.Users.checkFollowsArtists(stringIds)
           ),
       },
       {
-        name: 'CheckFollows.users',
+        name: 'checkFollowsUsers',
         fn: () =>
           assertReturns<DR<SpotifyApi.UserFollowsUsersOrArtistsResponse>>(
-            Client.Users.CheckFollows.users(stringIds)
+            Client.Users.checkFollowsUsers(stringIds)
           ),
       },
       {
-        name: 'CheckFollows.playlist',
+        name: 'checkUsersFollowPlaylist',
         fn: () =>
           assertReturns<DR<SpotifyApi.UsersFollowPlaylistResponse>>(
-            Client.Users.CheckFollows.playlist({
-              playlistId: stringId,
-              userIds: stringIds,
+            Client.Users.checkUsersFollowPlaylist(stringId, stringIds)
+          ),
+      },
+    ],
+  },
+  {
+    name: 'Playlists',
+    tests: [
+      {
+        name: 'getPlaylist',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.SinglePlaylistResponse>>(
+            Client.Playlists.getPlaylist(stringId, {
+              additional_types: 'track,episode',
+              fields,
+              market,
             })
+          ),
+      },
+      {
+        name: 'changePlaylist',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.ChangePlaylistDetailsResponse>>(
+            Client.Playlists.changePlaylist(stringId, {
+              name: 'new playlist',
+              public: false,
+              collaborative: true,
+              description: 'new description',
+            })
+          ),
+      },
+      {
+        name: 'getPlaylistItems',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.PlaylistTrackResponse>>(
+            Client.Playlists.getPlaylistItems(stringId, {
+              additional_types: 'track,episode',
+              fields,
+              market,
+              limit,
+              offset,
+            })
+          ),
+      },
+      {
+        name: 'addPlaylistItems',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.AddTracksToPlaylistResponse>>(
+            Client.Playlists.addPlaylistItems(stringId, uris, { position: 0 })
+          ),
+      },
+      {
+        name: 'reorderPlaylistItems',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.ReorderPlaylistTracksResponse>>(
+            Client.Playlists.reorderPlaylistItems(stringId, {
+              range_start: 1,
+              range_length: 1,
+              insert_before: 1,
+              snapshot_id: 'snapshot_id',
+            })
+          ),
+      },
+      {
+        name: 'replacePlaylistItems',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.ReplacePlaylistTracksResponse>>(
+            Client.Playlists.replacePlaylistItems(stringId, uris)
+          ),
+      },
+      {
+        name: 'removePlaylistItems',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.RemoveTracksFromPlaylistResponse>>(
+            Client.Playlists.removePlaylistItems(
+              stringId,
+              [{ uri: 'spt:track:1' }],
+              {
+                snapshot_id: stringId,
+              }
+            )
+          ),
+      },
+      {
+        name: 'getCurrentUsersPlaylists',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.ListOfUsersPlaylistsResponse>>(
+            Client.Playlists.getCurrentUsersPlaylists({
+              limit,
+              offset,
+            })
+          ),
+      },
+      {
+        name: 'getUsersPlaylists',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.ListOfUsersPlaylistsResponse>>(
+            Client.Playlists.getUsersPlaylists(stringId, {
+              limit,
+              offset,
+            })
+          ),
+      },
+      {
+        name: 'createPlaylist',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.CreatePlaylistResponse>>(
+            Client.Playlists.createPlaylist(stringId, 'playlist', {
+              public: false,
+              collaborative: true,
+              description: 'new description',
+            })
+          ),
+      },
+      {
+        name: 'getFeaturedPlaylists',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.ListOfFeaturedPlaylistsResponse>>(
+            Client.Playlists.getFeaturedPlaylists({
+              country,
+              limit,
+              locale,
+              offset,
+              timestamp,
+            })
+          ),
+      },
+      {
+        name: 'getCategoryPlaylists',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.CategoryPlaylistsResponse>>(
+            Client.Playlists.getCategoryPlaylists(stringId, {
+              country,
+              limit,
+              offset,
+            })
+          ),
+      },
+      {
+        name: 'getPlaylistCoverImage',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.ImageObject[]>>(
+            Client.Playlists.getPlaylistCoverImage(stringId)
+          ),
+      },
+    ],
+  },
+  {
+    name: 'Categories',
+    tests: [
+      {
+        name: 'getSingleCategory',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.SingleCategoryResponse>>(
+            Client.Categories.getSingleCategory(stringId, {
+              country: 'CH',
+              locale: 'de_DE',
+            })
+          ),
+      },
+      {
+        name: 'getSeveralCategories',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.MultipleCategoriesResponse>>(
+            Client.Categories.getSeveralCategories({
+              country: 'CH',
+              locale: 'de_DE',
+              limit,
+              offset,
+            })
+          ),
+      },
+    ],
+  },
+  {
+    name: 'Genres',
+    tests: [
+      {
+        name: 'getAvailableGenreSeeds',
+        fn: () =>
+          assertReturns<DR<{ genres: string[] }>>(
+            Client.Genres.getAvailableGenreSeeds()
+          ),
+      },
+    ],
+  },
+  {
+    name: 'Player',
+    tests: [
+      {
+        name: 'getPlaybackState',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.CurrentlyPlayingResponse>>(
+            Client.Player.getPlaybackState({ additional_types, market })
+          ),
+      },
+      {
+        name: 'transferPlayback',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.VoidResponse>>(
+            Client.Player.transferPlayback([stringId], { play: true })
+          ),
+      },
+      {
+        name: 'getAvailableDevices',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.UserDevicesResponse>>(
+            Client.Player.getAvailableDevices()
+          ),
+      },
+    ],
+  },
+  {
+    name: 'Markets',
+    tests: [
+      {
+        name: 'getAvailableMarkets',
+        fn: () =>
+          assertReturns<DR<{ markets: string[] }>>(
+            Client.Markets.getAvailableMarkets()
           ),
       },
     ],

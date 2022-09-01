@@ -43,6 +43,10 @@ exports[`Lib matches snapshot 1`] = `
       "get": [Function],
     },
   },
+  "Categories": {
+    "getSeveralCategories": [Function],
+    "getSingleCategory": [Function],
+  },
   "Episodes": {
     "Episode": {
       "get": [Function],
@@ -60,8 +64,37 @@ exports[`Lib matches snapshot 1`] = `
       "saveAll": [Function],
     },
   },
+  "Genres": {
+    "getAvailableGenreSeeds": [Function],
+  },
+  "Markets": {
+    "getAvailableMarkets": [Function],
+  },
+  "Player": {
+    "getAvailableDevices": [Function],
+    "getPlaybackState": [Function],
+    "transferPlayback": [Function],
+  },
+  "Playlists": {
+    "addPlaylistItems": [Function],
+    "changePlaylist": [Function],
+    "createPlaylist": [Function],
+    "getAllCurrentUsersPlaylists": [Function],
+    "getAllPlaylistItems": [Function],
+    "getAllUsersPlaylists": [Function],
+    "getCategoryPlaylists": [Function],
+    "getCurrentUsersPlaylists": [Function],
+    "getFeaturedPlaylists": [Function],
+    "getPlaylist": [Function],
+    "getPlaylistCoverImage": [Function],
+    "getPlaylistItems": [Function],
+    "getUsersPlaylists": [Function],
+    "removePlaylistItems": [Function],
+    "reorderPlaylistItems": [Function],
+    "replacePlaylistItems": [Function],
+  },
   "Search": {
-    "forItem": [Function],
+    "search": [Function],
   },
   "Shows": {
     "Episodes": {
@@ -113,44 +146,28 @@ exports[`Lib matches snapshot 1`] = `
     },
   },
   "Users": {
-    "CheckFollows": {
-      "allArtists": [Function],
-      "allUsers": [Function],
-      "artists": [Function],
-      "playlist": [Function],
-      "users": [Function],
-    },
-    "Follow": {
-      "allArtists": [Function],
-      "allUsers": [Function],
-      "artists": [Function],
-      "playlist": [Function],
-      "users": [Function],
-    },
-    "FollowedArtists": {
-      "get": [Function],
-    },
-    "OwnProfile": {
-      "get": [Function],
-    },
-    "Profile": {
-      "get": [Function],
-    },
-    "TopArtists": {
-      "get": [Function],
-      "getAll": [Function],
-    },
-    "TopTracks": {
-      "get": [Function],
-      "getAll": [Function],
-    },
-    "Unfollow": {
-      "allArtists": [Function],
-      "allUsers": [Function],
-      "artists": [Function],
-      "playlist": [Function],
-      "users": [Function],
-    },
+    "checkFollowsAllArtists": [Function],
+    "checkFollowsAllUsers": [Function],
+    "checkFollowsArtists": [Function],
+    "checkFollowsUsers": [Function],
+    "checkUsersFollowPlaylist": [Function],
+    "followAllArtists": [Function],
+    "followAllUsers": [Function],
+    "followArtists": [Function],
+    "followPlaylist": [Function],
+    "followUsers": [Function],
+    "getAllUsersTopArtists": [Function],
+    "getAllUsersTopTracks": [Function],
+    "getCurrentUsersProfile": [Function],
+    "getUsersFollowedArtists": [Function],
+    "getUsersProfile": [Function],
+    "getUsersTopArtists": [Function],
+    "getUsersTopTracks": [Function],
+    "unfollowAllArtists": [Function],
+    "unfollowAllUsers": [Function],
+    "unfollowArtists": [Function],
+    "unfollowPlaylist": [Function],
+    "unfollowUsers": [Function],
   },
 }
 `;

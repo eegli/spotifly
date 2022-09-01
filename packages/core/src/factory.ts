@@ -1,5 +1,6 @@
-import { chunkify } from '@spotifly/utils/iterable';
 import type { AnyObject, AsyncFn, OmitFromAsyncFnParams } from './types';
+
+type PagingObject<T> = SpotifyApi.PagingObject<T>;
 
 type PaginationParams = {
   limit: number;
@@ -7,7 +8,7 @@ type PaginationParams = {
 };
 
 export function forPaginated<
-  F extends AsyncFn<SpotifyApi.PagingObject<unknown>, string, PaginationParams>,
+  F extends AsyncFn<PagingObject<unknown>, any, PaginationParams>,
   R extends Awaited<ReturnType<F>>
 >(getFn: F, limit: number) {
   return function (...args: OmitFromAsyncFnParams<F, PaginationParams>) {
@@ -39,13 +40,14 @@ export function forLimited<
   return function (...args: Parameters<F>) {
     const [ids, rest] = args;
     return async function (cb?: (param: R) => unknown): Promise<R[]> {
-      const chunks = chunkify(ids, limit);
-      return chunks.reduce(async (acc, curr) => {
-        const res = (await getFn(curr, rest)) as R;
-        if (cb) await cb(res);
-        (await acc).push(res);
-        return acc;
-      }, Promise.resolve([] as R[]));
+      const responses: R[] = [];
+      for (let i = 0; i < ids.length; i += limit) {
+        const chunk = ids.slice(i, i + limit);
+        const response = (await getFn(chunk, rest)) as R;
+        if (cb) await cb(response);
+        responses.push(response);
+      }
+      return responses;
     };
   };
 }

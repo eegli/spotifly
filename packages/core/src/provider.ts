@@ -51,8 +51,11 @@ export class AuthProvider implements AsyncProvider {
       await this.refreshAccessToken();
     }
     return this.axios({
-      headers: { Authorization: `Bearer ${this.auth.accessToken}` },
       ...req,
+      headers: {
+        ...req.headers,
+        Authorization: `Bearer ${this.auth.accessToken}`,
+      },
     });
   }
 

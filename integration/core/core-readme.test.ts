@@ -36,7 +36,7 @@ describe('Core readme', () => {
       });
 
     // Searching for an item
-    await spotifyClient.Search.forItem({ query: 'eminem', type: 'album' }).then(
+    await spotifyClient.Search.search({ query: 'eminem', type: 'album' }).then(
       res => {
         console.log(res.data.albums?.items[0]?.name); // 'The Eminem Show'
       }

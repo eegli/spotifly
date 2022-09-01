@@ -2952,10 +2952,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eegli/tinyparse@npm:^0.6.0":
-  version: 0.6.0
-  resolution: "@eegli/tinyparse@npm:0.6.0"
-  checksum: 172de98d27786f3ae86dced07aaecb33324e2820e67a302196d53520964cd44c9cf486e42340e769379de324d1d904487dcf475fc9aa91ecde97529717314ae0
+"@eegli/tinyparse@npm:^0.7.0":
+  version: 0.7.0
+  resolution: "@eegli/tinyparse@npm:0.7.0"
+  checksum: df62ea7330fb8770083cc3e80253e475734ff4e32ea2665043adbdf474a17ea703f9a6cb6a0e53d29f4233dcc9264d8a942d11c41077b3eb7ee098b5776d4977
   languageName: node
   linkType: hard
 
@@ -4014,7 +4014,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spotifly/auth-token@workspace:packages/auth-token"
   dependencies:
-    "@eegli/tinyparse": ^0.6.0
+    "@eegli/tinyparse": ^0.7.0
     "@spotifly/utils": "workspace:^"
     "@types/fs-extra": ^9.0.13
     "@types/node-fetch": ^2.6.2
@@ -4053,7 +4053,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spotifly/library@workspace:packages/library"
   dependencies:
-    "@eegli/tinyparse": ^0.6.0
+    "@eegli/tinyparse": ^0.7.0
     "@spotifly/core": "workspace:^"
     "@spotifly/utils": "workspace:^"
     "@types/cli-progress": ^3.11.0
@@ -4086,10 +4086,10 @@ __metadata:
     jest-mock-extended: ^2.0.7
     jest-runner-tsd: ^3.1.0
     prettier: ^2.7.1
-    prettier-plugin-organize-imports: ^3.0.0
+    prettier-plugin-organize-imports: ^3.0.1
     ts-jest: ^28.0.7
     type-fest: ^2.17.0
-    typescript: ^4.7.4
+    typescript: ^4.8
   bin:
     spotifly: packages/cli/bin.js
   languageName: unknown
@@ -12640,13 +12640,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier-plugin-organize-imports@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "prettier-plugin-organize-imports@npm:3.0.0"
+"prettier-plugin-organize-imports@npm:^3.0.1":
+  version: 3.1.0
+  resolution: "prettier-plugin-organize-imports@npm:3.1.0"
   peerDependencies:
+    "@volar/vue-typescript": ">=0.39.0"
     prettier: ">=2.0"
     typescript: ">=2.9"
-  checksum: 6ff49f5532b9c33e0574c9dc10ba9fd990801efb207b640126a0c136dbcb673d2ca131fd5ffd0007a56c2c08d80c0a4b11a179ac5ca86e54445f18df5188c6ca
+  peerDependenciesMeta:
+    "@volar/vue-typescript":
+      optional: true
+  checksum: 3b22bf4ec44dd64a4b2e3d958633276c290590c49df440ea9f5b66182925d83979f4f42319ed788d5b5b0ef6d262559f888145c40fc95f29064dcd13f325a3a4
   languageName: node
   linkType: hard
 
@@ -15111,23 +15115,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^4.7.4":
-  version: 4.7.4
-  resolution: "typescript@npm:4.7.4"
+"typescript@npm:^4.8":
+  version: 4.8.2
+  resolution: "typescript@npm:4.8.2"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 5750181b1cd7e6482c4195825547e70f944114fb47e58e4aa7553e62f11b3f3173766aef9c281783edfd881f7b8299cf35e3ca8caebe73d8464528c907a164df
+  checksum: 7f5b81d0d558c9067f952c7af52ab7f19c2e70a916817929e4a5b256c93990bf3178eccb1ac8a850bc75df35f6781b6f4cb3370ce20d8b1ded92ed462348f628
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^4.7.4#~builtin<compat/typescript>":
-  version: 4.7.4
-  resolution: "typescript@patch:typescript@npm%3A4.7.4#~builtin<compat/typescript>::version=4.7.4&hash=7ad353"
+"typescript@patch:typescript@^4.8#~builtin<compat/typescript>":
+  version: 4.8.2
+  resolution: "typescript@patch:typescript@npm%3A4.8.2#~builtin<compat/typescript>::version=4.8.2&hash=7ad353"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 9096d8f6c16cb80ef3bf96fcbbd055bf1c4a43bd14f3b7be45a9fbe7ada46ec977f604d5feed3263b4f2aa7d4c7477ce5f9cd87de0d6feedec69a983f3a4f93e
+  checksum: 6f49363af8af2fe480da1d5fa68712644438785208b06690a3cbe5e7365fd652c3a0f1e587bc8684d78fb69de3dde4de185c0bad7bb4f3664ddfc813ce8caad6
   languageName: node
   linkType: hard
 

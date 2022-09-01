@@ -17,10 +17,13 @@ const HALF_AN_HOUR_IN_MS = 30 * 60 * 1000;
 describe('Auth provider', () => {
   test('with access token', async () => {
     const provider = new AuthProvider({ accessToken: 'my-token' });
-    await provider.request({ url: 'example' });
+    await provider.request({
+      url: 'example',
+      headers: { 'x-my-header': 'value' },
+    });
     expect(mockAxios).toHaveBeenCalledWith({
       url: 'example',
-      headers: { Authorization: 'Bearer my-token' },
+      headers: { Authorization: 'Bearer my-token', 'x-my-header': 'value' },
     });
   });
   test('with client credentials', async () => {

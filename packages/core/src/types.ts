@@ -1,12 +1,11 @@
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
 
-export type { AxiosResponse } from 'axios';
-
 export type DataResponse<T = unknown> = {
   data: T;
   headers: Record<string, string>;
   statusCode: number;
 };
+
 export type DataPromise<T = unknown> = Promise<DataResponse<T>>;
 
 export type AsyncProvider = {
@@ -14,28 +13,33 @@ export type AsyncProvider = {
 };
 
 export type AsyncFn<
-  Return,
-  Required,
-  Optional extends AnyObject | undefined = undefined
-> = Optional extends undefined
-  ? (required: Required) => DataPromise<Return>
-  : (required: Required, optional?: Partial<Optional>) => DataPromise<Return>;
-
-export type AnyObject = Record<never, never>;
-
-export type AnyFunc = (...args: any[]) => unknown;
+  R,
+  P1 = undefined,
+  P2 = undefined,
+  P3 = undefined,
+  RT = DataPromise<R>
+> = P1 extends undefined
+  ? () => RT
+  : P2 extends undefined
+  ? (required: P1) => RT
+  : P3 extends undefined
+  ? P2 extends AnyObject
+    ? (required: P1, optional?: Partial<P2>) => RT
+    : (required1: P1, required2: P2) => RT
+  : P3 extends AnyObject
+  ? (required1: P1, required2: P2, optional?: Partial<P3>) => RT
+  : never;
 
 export type AsyncFnWithProvider<
-  Return,
-  Required,
-  Optional extends AnyObject | undefined = undefined
-> = (provider: AsyncProvider) => AsyncFn<Return, Required, Optional>;
+  R,
+  A = undefined,
+  B = undefined,
+  C = undefined
+> = (provider: AsyncProvider) => AsyncFn<R, A, B, C>;
 
-export type Permutations<
-  T extends string,
-  D extends string,
-  U extends string = T
-> = T extends unknown ? T | `${T}${D}${Permutations<Exclude<U, T>, D>}` : never;
+export type AnyObject = Record<string, unknown>;
+
+export type AnyFunc = (...args: any[]) => unknown;
 
 // https://github.com/microsoft/TypeScript/issues/39556
 export type BetterOmit<T, E> = {
@@ -55,10 +59,37 @@ export type ReadOnlyParams<T extends AnyFunc> = T extends (
   ? Readonly<P>
   : never;
 
-export type Only<T, U> = {
-  [P in keyof T]: T[P];
-} & {
-  [P in keyof U]?: never;
+// Branded types - T = T & {} - improve IntelliSense experience
+// https://github.com/microsoft/TypeScript/issues/31940#issuecomment-841712377
+type _ = Record<never, never>;
+export type UserId = string & _;
+export type ArtistId = string & _;
+export type TrackId = string & _;
+export type Uris = string[];
+export type PlaylistId = string & _;
+export type CategoryId = string & _;
+export type DeviceId = string & _;
+
+export type Market = { market: string };
+export type Locale = { locale: string };
+export type Country = { country: string };
+export type Timestamp = { timestamp: string };
+
+export type Fields = { fields: string };
+export type AdditionalTypes = {
+  additional_types: string;
+};
+export type SnapshotId = {
+  snapshot_id: string;
+};
+export type TimeRange = {
+  time_range: 'long_term ' | 'medium_term' | 'short_term';
 };
 
-export type Either<T, U> = Only<T, U> | Only<U, T>;
+export type After = { after: string };
+export type Limit = { limit: number };
+export type Offset = { offset: number };
+
+export type SinglePropertyResponse<K extends string> = {
+  [P in K]: string[];
+};

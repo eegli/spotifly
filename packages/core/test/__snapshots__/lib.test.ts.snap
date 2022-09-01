@@ -225,6 +225,44 @@ exports[`Artists TopTracks.get 1`] = `
 ]
 `;
 
+exports[`Categories getSeveralCategories 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "country": "CH",
+        "limit": 1,
+        "locale": "de_DE",
+        "offset": 1,
+      },
+      "url": "browse/categories",
+    },
+  ],
+]
+`;
+
+exports[`Categories getSingleCategory 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "country": "CH",
+        "locale": "de_DE",
+      },
+      "url": "browse/categories/id1",
+    },
+  ],
+]
+`;
+
 exports[`Episodes Episode.get 1`] = `
 [
   [
@@ -323,6 +361,333 @@ exports[`Episodes UsersSaved.save 1`] = `
         "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20,id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40,id41,id42,id43,id44,id45,id46,id47,id48,id49,id50,id51",
       },
       "url": "me/episodes",
+    },
+  ],
+]
+`;
+
+exports[`Genres getAvailableGenreSeeds 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "url": "recommendations/available-genre-seeds",
+    },
+  ],
+]
+`;
+
+exports[`Markets getAvailableMarkets 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "url": "markets",
+    },
+  ],
+]
+`;
+
+exports[`Player getAvailableDevices 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "url": "me/player/devices",
+    },
+  ],
+]
+`;
+
+exports[`Player getPlaybackState 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "additional_types": "track,episode",
+        "market": "CH",
+      },
+      "url": "me/player",
+    },
+  ],
+]
+`;
+
+exports[`Player transferPlayback 1`] = `
+[
+  [
+    {
+      "data": {
+        "device_ids": [
+          "id1",
+        ],
+        "play": true,
+      },
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "PUT",
+      "url": "me/player",
+    },
+  ],
+]
+`;
+
+exports[`Playlists addPlaylistItems 1`] = `
+[
+  [
+    {
+      "data": {
+        "position": 0,
+        "uris": "spotify:track:1,spotify:episode:2",
+      },
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "POST",
+      "url": "playlists/id1/tracks",
+    },
+  ],
+]
+`;
+
+exports[`Playlists changePlaylist 1`] = `
+[
+  [
+    {
+      "data": {
+        "collaborative": true,
+        "description": "new description",
+        "name": "new playlist",
+        "public": false,
+      },
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "PUT",
+      "url": "playlists/id1",
+    },
+  ],
+]
+`;
+
+exports[`Playlists createPlaylist 1`] = `
+[
+  [
+    {
+      "data": {
+        "collaborative": true,
+        "description": "new description",
+        "name": "playlist",
+        "public": false,
+      },
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "POST",
+      "url": "users/id1/playlists",
+    },
+  ],
+]
+`;
+
+exports[`Playlists getCategoryPlaylists 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "country": "UA",
+        "limit": 1,
+        "offset": 1,
+      },
+      "url": "browse/categories/id1/playlists",
+    },
+  ],
+]
+`;
+
+exports[`Playlists getCurrentUsersPlaylists 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "limit": 1,
+        "offset": 1,
+      },
+      "url": "me/playlists",
+    },
+  ],
+]
+`;
+
+exports[`Playlists getFeaturedPlaylists 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "country": "UA",
+        "limit": 1,
+        "locale": "sv_SE",
+        "offset": 1,
+        "timestamp": "2014-10-23T09:00:00",
+      },
+      "url": "browse/featured-playlists",
+    },
+  ],
+]
+`;
+
+exports[`Playlists getPlaylist 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "additional_types": "track,episode",
+        "fields": "total,limit",
+        "market": "CH",
+      },
+      "url": "playlists/id1",
+    },
+  ],
+]
+`;
+
+exports[`Playlists getPlaylistCoverImage 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "url": "playlists/id1/images",
+    },
+  ],
+]
+`;
+
+exports[`Playlists getPlaylistItems 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "additional_types": "track,episode",
+        "fields": "total,limit",
+        "limit": 1,
+        "market": "CH",
+        "offset": 1,
+      },
+      "url": "playlists/id1/tracks",
+    },
+  ],
+]
+`;
+
+exports[`Playlists getUsersPlaylists 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "limit": 1,
+        "offset": 1,
+      },
+      "url": "users/id1/playlists",
+    },
+  ],
+]
+`;
+
+exports[`Playlists removePlaylistItems 1`] = `
+[
+  [
+    {
+      "data": {
+        "snapshot_id": "id1",
+        "tracks": [
+          {
+            "uri": "spt:track:1",
+          },
+        ],
+      },
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "DELETE",
+      "url": "playlists/id1/tracks",
+    },
+  ],
+]
+`;
+
+exports[`Playlists reorderPlaylistItems 1`] = `
+[
+  [
+    {
+      "data": {
+        "insert_before": 1,
+        "range_length": 1,
+        "range_start": 1,
+        "snapshot_id": "snapshot_id",
+      },
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "PUT",
+      "url": "playlists/id1/tracks",
+    },
+  ],
+]
+`;
+
+exports[`Playlists replacePlaylistItems 1`] = `
+[
+  [
+    {
+      "data": {
+        "uris": "spotify:track:1,spotify:episode:2",
+      },
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "PUT",
+      "url": "playlists/id1/tracks",
     },
   ],
 ]
@@ -638,7 +1003,7 @@ exports[`Tracks UsersSaved.save 1`] = `
 ]
 `;
 
-exports[`Users CheckFollows.artists 1`] = `
+exports[`Users checkFollowsArtists 1`] = `
 [
   [
     {
@@ -656,7 +1021,25 @@ exports[`Users CheckFollows.artists 1`] = `
 ]
 `;
 
-exports[`Users CheckFollows.playlist 1`] = `
+exports[`Users checkFollowsUsers 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20,id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40,id41,id42,id43,id44,id45,id46,id47,id48,id49,id50,id51",
+        "type": "user",
+      },
+      "url": "me/following/contains",
+    },
+  ],
+]
+`;
+
+exports[`Users checkUsersFollowPlaylist 1`] = `
 [
   [
     {
@@ -673,25 +1056,7 @@ exports[`Users CheckFollows.playlist 1`] = `
 ]
 `;
 
-exports[`Users CheckFollows.users 1`] = `
-[
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "GET",
-      "params": {
-        "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20,id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40,id41,id42,id43,id44,id45,id46,id47,id48,id49,id50,id51",
-        "type": "user",
-      },
-      "url": "me/following/contains",
-    },
-  ],
-]
-`;
-
-exports[`Users Follow.artists 1`] = `
+exports[`Users followArtists 1`] = `
 [
   [
     {
@@ -709,7 +1074,7 @@ exports[`Users Follow.artists 1`] = `
 ]
 `;
 
-exports[`Users Follow.playlist 1`] = `
+exports[`Users followPlaylist 1`] = `
 [
   [
     {
@@ -726,7 +1091,7 @@ exports[`Users Follow.playlist 1`] = `
 ]
 `;
 
-exports[`Users Follow.users 1`] = `
+exports[`Users followUsers 1`] = `
 [
   [
     {
@@ -744,7 +1109,21 @@ exports[`Users Follow.users 1`] = `
 ]
 `;
 
-exports[`Users FollowedArtists.get 1`] = `
+exports[`Users getCurrentUsersProfile 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "url": "me",
+    },
+  ],
+]
+`;
+
+exports[`Users getUsersFollowedArtists 1`] = `
 [
   [
     {
@@ -763,21 +1142,7 @@ exports[`Users FollowedArtists.get 1`] = `
 ]
 `;
 
-exports[`Users OwnProfile.get 1`] = `
-[
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "GET",
-      "url": "me",
-    },
-  ],
-]
-`;
-
-exports[`Users Profile.get 1`] = `
+exports[`Users getUsersProfile 1`] = `
 [
   [
     {
@@ -791,7 +1156,7 @@ exports[`Users Profile.get 1`] = `
 ]
 `;
 
-exports[`Users TopArtists.get 1`] = `
+exports[`Users getUsersTopArtists 1`] = `
 [
   [
     {
@@ -799,13 +1164,18 @@ exports[`Users TopArtists.get 1`] = `
         "Authorization": "Bearer token-xyz",
       },
       "method": "GET",
+      "params": {
+        "limit": 1,
+        "offset": 1,
+        "time_range": "long_term ",
+      },
       "url": "me/top/artists",
     },
   ],
 ]
 `;
 
-exports[`Users TopTracks.get 1`] = `
+exports[`Users getUsersTopTracks 1`] = `
 [
   [
     {
@@ -813,13 +1183,18 @@ exports[`Users TopTracks.get 1`] = `
         "Authorization": "Bearer token-xyz",
       },
       "method": "GET",
+      "params": {
+        "limit": 1,
+        "offset": 1,
+        "time_range": "long_term ",
+      },
       "url": "me/top/tracks",
     },
   ],
 ]
 `;
 
-exports[`Users Unfollow.artists 1`] = `
+exports[`Users unfollowArtists 1`] = `
 [
   [
     {
@@ -837,7 +1212,7 @@ exports[`Users Unfollow.artists 1`] = `
 ]
 `;
 
-exports[`Users Unfollow.playlist 1`] = `
+exports[`Users unfollowPlaylist 1`] = `
 [
   [
     {
@@ -851,7 +1226,7 @@ exports[`Users Unfollow.playlist 1`] = `
 ]
 `;
 
-exports[`Users Unfollow.users 1`] = `
+exports[`Users unfollowUsers 1`] = `
 [
   [
     {

@@ -1,10 +1,5 @@
 import { Method, transformResponse } from '../../request';
-import { AsyncFnWithProvider, Permutations } from '../../types';
-
-type SearchTypes = Permutations<
-  'album' | 'artist' | 'playlist' | 'track' | 'show' | 'episode',
-  ','
->;
+import { AsyncFnWithProvider } from '../../types';
 
 type Optional = {
   include_external: 'audio';
@@ -15,7 +10,7 @@ type Optional = {
 
 export const searchForItem: AsyncFnWithProvider<
   SpotifyApi.SearchResponse,
-  { query: string; type: SearchTypes },
+  { query: string; type: string },
   Optional
 > =
   provider =>

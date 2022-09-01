@@ -1,8 +1,8 @@
 import { parse } from './config';
 import { libraryHandler } from './handler';
 
-export const callback = async (): Promise<void> => {
-  const config = await parse(process.argv);
+export const callback = async (argv: string[]): Promise<void> => {
+  const config = await parse(argv);
   await libraryHandler(config);
 };
 
