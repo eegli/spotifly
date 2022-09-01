@@ -60,7 +60,7 @@ export const getPlaylistItems: AsyncFnWithProvider<
     })
   );
 
-export const getPlaylistItemsLimit = 50;
+export const PLAYLIST_ITEMS_LIMIT = 50;
 
 export const addPlaylistItems: AsyncFnWithProvider<
   SpotifyApi.AddTracksToPlaylistResponse,
@@ -76,7 +76,7 @@ export const addPlaylistItems: AsyncFnWithProvider<
       url: `playlists/${playlistId}/tracks`,
       data: {
         position: data?.position,
-        uris: uris.join(','),
+        uris,
       },
     })
   );
@@ -95,21 +95,6 @@ export const reorderPlaylistItems: AsyncFnWithProvider<
       method: Method.PUT,
       url: `playlists/${playlistId}/tracks`,
       data,
-    })
-  );
-
-export const replacePlaylistItems: AsyncFnWithProvider<
-  SpotifyApi.ReplacePlaylistTracksResponse,
-  PlaylistId,
-  Uris
-> = provider => async (playlistId, uris) =>
-  transformResponse(
-    await provider.request({
-      method: Method.PUT,
-      url: `playlists/${playlistId}/tracks`,
-      data: {
-        uris: uris.join(','),
-      },
     })
   );
 
@@ -156,7 +141,7 @@ export const getUsersPlaylists: AsyncFnWithProvider<
     })
   );
 
-export const usersPlaylistsLimit = 50;
+export const USERS_PLAYLISTS_LIMIT = 50;
 
 export const createPlaylist: AsyncFnWithProvider<
   SpotifyApi.CreatePlaylistResponse,
@@ -191,8 +176,6 @@ export const getFeaturedPlaylists: AsyncFnWithProvider<
       params,
     })
   );
-
-export const getFeaturedPlaylistsLimit = 50;
 
 export const getCategoryPlaylists: AsyncFnWithProvider<
   SpotifyApi.CategoryPlaylistsResponse,

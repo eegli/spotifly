@@ -514,13 +514,6 @@ const tests: LibTestRunner = [
           ),
       },
       {
-        name: 'replacePlaylistItems',
-        fn: () =>
-          assertReturns<DR<SpotifyApi.ReplacePlaylistTracksResponse>>(
-            Client.Playlists.replacePlaylistItems(stringId, uris)
-          ),
-      },
-      {
         name: 'removePlaylistItems',
         fn: () =>
           assertReturns<DR<SpotifyApi.RemoveTracksFromPlaylistResponse>>(

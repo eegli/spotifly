@@ -33,5 +33,3 @@ export const getSeveralCategories: AsyncFnWithProvider<
       params,
     })
   );
-
-export const getSeveralCategoriesLimit = 50;
