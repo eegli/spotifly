@@ -41,7 +41,7 @@ const spotifyClient = Spotifly.initialize({
 });
 
 // Deriving the genres of a track via its artists
-await spotifyClient.Tracks.Track.get('5nHc8CmiPllMzHbJhhx3KS')
+await spotifyClient.Tracks.getSingleTrack('5nHc8CmiPllMzHbJhhx3KS')
   .then(res => {
     return res.data.artists.map(artist => artist.id);
   })
@@ -54,7 +54,7 @@ await spotifyClient.Tracks.Track.get('5nHc8CmiPllMzHbJhhx3KS')
   });
 
 // Getting all of a user's saved tracks
-await spotifyClient.Tracks.UsersSaved.getAll()()
+await spotifyClient.Tracks.getAllUsersSavedTracks()()
   .then(res => {
     return res.map(res => res.data.items).flat();
   })
@@ -63,7 +63,7 @@ await spotifyClient.Tracks.UsersSaved.getAll()()
   });
 
 // Searching for an item
-await spotifyClient.Search.forItem({ query: 'eminem', type: 'album' }).then(
+await spotifyClient.Search.search({ query: 'eminem', type: 'album' }).then(
   res => {
     console.log(res.data.albums?.items[0]?.name); // 'The Eminem Show'
   }
@@ -165,8 +165,8 @@ Usually, a refresh token only needs to be generated once. You can [generate one 
     <li>
       <b>Categories</b>
       <ul>
-        <li>Categories.Category.get</li>
-        <li>Categories.Category.getSeveral</li>
+        <li>Categories.getSeveralCategories</li>
+        <li>Categories.getSingleCategory</li>
       </ul>
     </li>
     <li>
@@ -198,6 +198,14 @@ Usually, a refresh token only needs to be generated once. You can [generate one 
       </ul>
     </li>
     <li>
+      <b>Player</b>
+      <ul>
+        <li>Player.getAvailableDevices</li>
+        <li>Player.getPlaybackState</li>
+        <li>Player.transferPlayback</li>
+      </ul>
+    </li>
+    <li>
       <b>Playlists</b>
       <ul>
         <li>Playlists.addPlaylistItems</li>
@@ -215,13 +223,12 @@ Usually, a refresh token only needs to be generated once. You can [generate one 
         <li>Playlists.getUsersPlaylists</li>
         <li>Playlists.removePlaylistItems</li>
         <li>Playlists.reorderPlaylistItems</li>
-        <li>Playlists.replacePlaylistItems</li>
       </ul>
     </li>
     <li>
       <b>Search</b>
       <ul>
-        <li>Search.forItem</li>
+        <li>Search.search</li>
       </ul>
     </li>
     <li>
@@ -245,49 +252,49 @@ Usually, a refresh token only needs to be generated once. You can [generate one 
     <li>
       <b>Tracks</b>
       <ul>
-        <li>Tracks.AudioAnalysis.get</li>
-        <li>Tracks.AudioFeatures.get</li>
-        <li>Tracks.AudioFeatures.getAll</li>
-        <li>Tracks.AudioFeatures.getSeveral</li>
-        <li>Tracks.Recommendations.get</li>
-        <li>Tracks.Track.get</li>
-        <li>Tracks.Track.getAll</li>
-        <li>Tracks.Track.getSeveral</li>
-        <li>Tracks.UsersSaved.check</li>
-        <li>Tracks.UsersSaved.checkAll</li>
-        <li>Tracks.UsersSaved.get</li>
-        <li>Tracks.UsersSaved.getAll</li>
-        <li>Tracks.UsersSaved.remove</li>
-        <li>Tracks.UsersSaved.removeAll</li>
-        <li>Tracks.UsersSaved.save</li>
-        <li>Tracks.UsersSaved.saveAll</li>
+        <li>Tracks.checkAllUsersSavedTracks</li>
+        <li>Tracks.checkUsersSavedTracks</li>
+        <li>Tracks.getAllAudioFeatures</li>
+        <li>Tracks.getAllTracks</li>
+        <li>Tracks.getAllUsersSavedTracks</li>
+        <li>Tracks.getAudioAnalysis</li>
+        <li>Tracks.getAudioFeatures</li>
+        <li>Tracks.getRecommendations</li>
+        <li>Tracks.getSeveralAudioFeatures</li>
+        <li>Tracks.getSeveralTracks</li>
+        <li>Tracks.getSingleTrack</li>
+        <li>Tracks.getUsersSavedTracks</li>
+        <li>Tracks.removeAllUsersTracksForUser</li>
+        <li>Tracks.removeUsersSavedTracks</li>
+        <li>Tracks.saveAllTracksForUser</li>
+        <li>Tracks.saveTracksForUser</li>
       </ul>
     </li>
     <li>
       <b>Users</b>
       <ul>
-        <li>Users.CheckFollows.allArtists</li>
-        <li>Users.CheckFollows.allUsers</li>
-        <li>Users.CheckFollows.artists</li>
-        <li>Users.CheckFollows.playlist</li>
-        <li>Users.CheckFollows.users</li>
-        <li>Users.Follow.allArtists</li>
-        <li>Users.Follow.allUsers</li>
-        <li>Users.Follow.artists</li>
-        <li>Users.Follow.playlist</li>
-        <li>Users.Follow.users</li>
-        <li>Users.FollowedArtists.get</li>
-        <li>Users.OwnProfile.get</li>
-        <li>Users.Profile.get</li>
-        <li>Users.TopArtists.get</li>
-        <li>Users.TopArtists.getAll</li>
-        <li>Users.TopTracks.get</li>
-        <li>Users.TopTracks.getAll</li>
-        <li>Users.Unfollow.allArtists</li>
-        <li>Users.Unfollow.allUsers</li>
-        <li>Users.Unfollow.artists</li>
-        <li>Users.Unfollow.playlist</li>
-        <li>Users.Unfollow.users</li>
+        <li>Users.checkFollowsAllArtists</li>
+        <li>Users.checkFollowsAllUsers</li>
+        <li>Users.checkFollowsArtists</li>
+        <li>Users.checkFollowsUsers</li>
+        <li>Users.checkUsersFollowPlaylist</li>
+        <li>Users.followAllArtists</li>
+        <li>Users.followAllUsers</li>
+        <li>Users.followArtists</li>
+        <li>Users.followPlaylist</li>
+        <li>Users.followUsers</li>
+        <li>Users.getAllUsersTopArtists</li>
+        <li>Users.getAllUsersTopTracks</li>
+        <li>Users.getCurrentUsersProfile</li>
+        <li>Users.getUsersFollowedArtists</li>
+        <li>Users.getUsersProfile</li>
+        <li>Users.getUsersTopArtists</li>
+        <li>Users.getUsersTopTracks</li>
+        <li>Users.unfollowAllArtists</li>
+        <li>Users.unfollowAllUsers</li>
+        <li>Users.unfollowArtists</li>
+        <li>Users.unfollowPlaylist</li>
+        <li>Users.unfollowUsers</li>
       </ul>
     </li>
   </ul>
@@ -371,12 +378,12 @@ const mockSpotify = mockDeep<Spotifly.SpotifyClient>();
 jest.spyOn(Spotifly, 'initialize').mockReturnValue(mockSpotify);
 
 // Mocking an ordinary method
-mockSpotify.Tracks.AudioFeatures.getSeveral.mockImplementation(ids => {
+mockSpotify.Tracks.getSeveralAudioFeatures.mockImplementation(ids => {
   return Promise.resolve(mockResponse(ids.length));
 });
 
 // Mocking a convenience method
-mockSpotify.Tracks.AudioFeatures.getAll.mockImplementation(ids => {
+mockSpotify.Tracks.getAllAudioFeatures.mockImplementation(ids => {
   return cb => {
     if (cb) cb(mockResponse(ids.length));
     return Promise.resolve([mockResponse(ids.length)]);
@@ -387,7 +394,7 @@ test('my function', async () => {
   // Your code
   function getData() {
     const client = Spotifly.initialize({ accessToken: 'abc123' });
-    return client.Tracks.AudioFeatures.getSeveral(['2takc7B', '6hsak']);
+    return client.Tracks.getSeveralAudioFeatures(['2takc7B', '6hsak']);
   }
   // Assert anything!
   const res = await getData();

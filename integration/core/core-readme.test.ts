@@ -14,7 +14,7 @@ describe('Core readme', () => {
     });
 
     // Deriving the genres of a track via its artists
-    await spotifyClient.Tracks.Track.get('5nHc8CmiPllMzHbJhhx3KS')
+    await spotifyClient.Tracks.getSingleTrack('5nHc8CmiPllMzHbJhhx3KS')
       .then(res => {
         return res.data.artists.map(artist => artist.id);
       })
@@ -27,7 +27,7 @@ describe('Core readme', () => {
       });
 
     // Getting all of a user's saved tracks
-    await spotifyClient.Tracks.UsersSaved.getAll()()
+    await spotifyClient.Tracks.getAllUsersSavedTracks()()
       .then(res => {
         return res.map(res => res.data.items).flat();
       })
