@@ -1,7 +1,5 @@
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
 
-export type { AxiosResponse } from 'axios';
-
 export type DataResponse<T = unknown> = {
   data: T;
   headers: Record<string, string>;
@@ -96,7 +94,11 @@ export type AdditionalTypes = {
 export type SnapshotId = {
   snapshot_id: string;
 };
+export type TimeRange = {
+  time_range: 'long_term ' | 'medium_term' | 'short_term';
+};
 
+export type After = { after: string };
 export type Limit = { limit: number };
 export type Offset = { offset: number };
 

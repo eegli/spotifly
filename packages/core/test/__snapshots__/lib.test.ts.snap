@@ -1003,7 +1003,7 @@ exports[`Tracks UsersSaved.save 1`] = `
 ]
 `;
 
-exports[`Users CheckFollows.artists 1`] = `
+exports[`Users checkFollowsArtists 1`] = `
 [
   [
     {
@@ -1021,7 +1021,25 @@ exports[`Users CheckFollows.artists 1`] = `
 ]
 `;
 
-exports[`Users CheckFollows.playlist 1`] = `
+exports[`Users checkFollowsUsers 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20,id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40,id41,id42,id43,id44,id45,id46,id47,id48,id49,id50,id51",
+        "type": "user",
+      },
+      "url": "me/following/contains",
+    },
+  ],
+]
+`;
+
+exports[`Users checkUsersFollowPlaylist 1`] = `
 [
   [
     {
@@ -1038,25 +1056,7 @@ exports[`Users CheckFollows.playlist 1`] = `
 ]
 `;
 
-exports[`Users CheckFollows.users 1`] = `
-[
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "GET",
-      "params": {
-        "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20,id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40,id41,id42,id43,id44,id45,id46,id47,id48,id49,id50,id51",
-        "type": "user",
-      },
-      "url": "me/following/contains",
-    },
-  ],
-]
-`;
-
-exports[`Users Follow.artists 1`] = `
+exports[`Users followArtists 1`] = `
 [
   [
     {
@@ -1074,7 +1074,7 @@ exports[`Users Follow.artists 1`] = `
 ]
 `;
 
-exports[`Users Follow.playlist 1`] = `
+exports[`Users followPlaylist 1`] = `
 [
   [
     {
@@ -1091,7 +1091,7 @@ exports[`Users Follow.playlist 1`] = `
 ]
 `;
 
-exports[`Users Follow.users 1`] = `
+exports[`Users followUsers 1`] = `
 [
   [
     {
@@ -1099,103 +1099,6 @@ exports[`Users Follow.users 1`] = `
         "Authorization": "Bearer token-xyz",
       },
       "method": "PUT",
-      "params": {
-        "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20,id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40,id41,id42,id43,id44,id45,id46,id47,id48,id49,id50,id51",
-        "type": "user",
-      },
-      "url": "me/following",
-    },
-  ],
-]
-`;
-
-exports[`Users FollowedArtists.get 1`] = `
-[
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "GET",
-      "params": {
-        "after": "id1",
-        "limit": 1,
-        "type": "artist",
-      },
-      "url": "me/following",
-    },
-  ],
-]
-`;
-
-exports[`Users Profile.get 1`] = `
-[
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "GET",
-      "url": "users/id1",
-    },
-  ],
-]
-`;
-
-exports[`Users TopTracks.get 1`] = `
-[
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "GET",
-      "url": "me/top/tracks",
-    },
-  ],
-]
-`;
-
-exports[`Users Unfollow.artists 1`] = `
-[
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "DELETE",
-      "params": {
-        "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20,id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40,id41,id42,id43,id44,id45,id46,id47,id48,id49,id50,id51",
-        "type": "artist",
-      },
-      "url": "me/following",
-    },
-  ],
-]
-`;
-
-exports[`Users Unfollow.playlist 1`] = `
-[
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "DELETE",
-      "url": "playlists/id1/followers",
-    },
-  ],
-]
-`;
-
-exports[`Users Unfollow.users 1`] = `
-[
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "DELETE",
       "params": {
         "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20,id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40,id41,id42,id43,id44,id45,id46,id47,id48,id49,id50,id51",
         "type": "user",
@@ -1220,6 +1123,39 @@ exports[`Users getCurrentUsersProfile 1`] = `
 ]
 `;
 
+exports[`Users getFollowedArtists 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "after": "id1",
+        "limit": 1,
+        "type": "artist",
+      },
+      "url": "me/following",
+    },
+  ],
+]
+`;
+
+exports[`Users getUsersProfile 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "url": "users/id1",
+    },
+  ],
+]
+`;
+
 exports[`Users getUsersTopArtists 1`] = `
 [
   [
@@ -1228,7 +1164,81 @@ exports[`Users getUsersTopArtists 1`] = `
         "Authorization": "Bearer token-xyz",
       },
       "method": "GET",
+      "params": {
+        "limit": 1,
+        "offset": 1,
+        "time_range": "long_term ",
+      },
       "url": "me/top/artists",
+    },
+  ],
+]
+`;
+
+exports[`Users getUsersTopTracks 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "limit": 1,
+        "offset": 1,
+        "time_range": "long_term ",
+      },
+      "url": "me/top/tracks",
+    },
+  ],
+]
+`;
+
+exports[`Users unfollowArtists 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "DELETE",
+      "params": {
+        "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20,id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40,id41,id42,id43,id44,id45,id46,id47,id48,id49,id50,id51",
+        "type": "artist",
+      },
+      "url": "me/following",
+    },
+  ],
+]
+`;
+
+exports[`Users unfollowPlaylist 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "DELETE",
+      "url": "playlists/id1/followers",
+    },
+  ],
+]
+`;
+
+exports[`Users unfollowUsers 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "DELETE",
+      "params": {
+        "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20,id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40,id41,id42,id43,id44,id45,id46,id47,id48,id49,id50,id51",
+        "type": "user",
+      },
+      "url": "me/following",
     },
   ],
 ]

@@ -355,10 +355,10 @@ const tests: LibTestRunner = [
           ),
       },
       {
-        name: 'Profile.get',
+        name: 'getUsersProfile',
         fn: () =>
           assertReturns<DR<SpotifyApi.UserProfileResponse>>(
-            Client.Users.Profile.get(stringId)
+            Client.Users.getUsersProfile(stringId)
           ),
       },
       {
@@ -373,10 +373,10 @@ const tests: LibTestRunner = [
           ),
       },
       {
-        name: 'TopTracks.get',
+        name: 'getUsersTopTracks',
         fn: () =>
           assertReturns<DR<SpotifyApi.UsersTopTracksResponse>>(
-            Client.Users.TopTracks.get({
+            Client.Users.getUsersTopTracks({
               limit,
               offset,
               time_range: 'long_term ',
@@ -384,73 +384,73 @@ const tests: LibTestRunner = [
           ),
       },
       {
-        name: 'FollowedArtists.get',
+        name: 'getFollowedArtists',
         fn: () =>
           assertReturns<DR<SpotifyApi.UsersFollowedArtistsResponse>>(
-            Client.Users.FollowedArtists.get({ limit, after: stringId })
+            Client.Users.getFollowedArtists({ limit, after: stringId })
           ),
       },
       {
-        name: 'Follow.artists',
+        name: 'followArtists',
         fn: () =>
           assertReturns<DR<SpotifyApi.FollowArtistsOrUsersResponse>>(
-            Client.Users.Follow.artists(stringIds)
+            Client.Users.followArtists(stringIds)
           ),
       },
       {
-        name: 'Follow.users',
+        name: 'followUsers',
         fn: () =>
           assertReturns<DR<SpotifyApi.FollowArtistsOrUsersResponse>>(
-            Client.Users.Follow.users(stringIds)
+            Client.Users.followUsers(stringIds)
           ),
       },
       {
-        name: 'Follow.playlist',
+        name: 'followPlaylist',
         fn: () =>
           assertReturns<DR<SpotifyApi.FollowPlaylistResponse>>(
-            Client.Users.Follow.playlist(stringId, { public: true })
+            Client.Users.followPlaylist(stringId, { public: true })
           ),
       },
       {
-        name: 'Unfollow.artists',
+        name: 'unfollowArtists',
         fn: () =>
           assertReturns<DR<SpotifyApi.UnfollowArtistsOrUsersResponse>>(
-            Client.Users.Unfollow.artists(stringIds)
+            Client.Users.unfollowArtists(stringIds)
           ),
       },
       {
-        name: 'Unfollow.users',
+        name: 'unfollowUsers',
         fn: () =>
           assertReturns<DR<SpotifyApi.UnfollowArtistsOrUsersResponse>>(
-            Client.Users.Unfollow.users(stringIds)
+            Client.Users.unfollowUsers(stringIds)
           ),
       },
       {
-        name: 'Unfollow.playlist',
+        name: 'unfollowPlaylist',
         fn: () =>
           assertReturns<DR<SpotifyApi.UnfollowPlaylistResponse>>(
-            Client.Users.Unfollow.playlist(stringId)
+            Client.Users.unfollowPlaylist(stringId)
           ),
       },
       {
-        name: 'CheckFollows.artists',
+        name: 'checkFollowsArtists',
         fn: () =>
           assertReturns<DR<SpotifyApi.UserFollowsUsersOrArtistsResponse>>(
-            Client.Users.CheckFollows.artists(stringIds)
+            Client.Users.checkFollowsArtists(stringIds)
           ),
       },
       {
-        name: 'CheckFollows.users',
+        name: 'checkFollowsUsers',
         fn: () =>
           assertReturns<DR<SpotifyApi.UserFollowsUsersOrArtistsResponse>>(
-            Client.Users.CheckFollows.users(stringIds)
+            Client.Users.checkFollowsUsers(stringIds)
           ),
       },
       {
-        name: 'CheckFollows.playlist',
+        name: 'checkUsersFollowPlaylist',
         fn: () =>
           assertReturns<DR<SpotifyApi.UsersFollowPlaylistResponse>>(
-            Client.Users.CheckFollows.playlist({
+            Client.Users.checkUsersFollowPlaylist({
               playlistId: stringId,
               userIds: stringIds,
             })

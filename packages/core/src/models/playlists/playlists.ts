@@ -192,6 +192,8 @@ export const getFeaturedPlaylists: AsyncFnWithProvider<
     })
   );
 
+export const getFeaturedPlaylistsLimit = 50;
+
 export const getCategoryPlaylists: AsyncFnWithProvider<
   SpotifyApi.CategoryPlaylistsResponse,
   CategoryId,

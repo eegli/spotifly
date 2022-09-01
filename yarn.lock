@@ -4086,7 +4086,7 @@ __metadata:
     jest-mock-extended: ^2.0.7
     jest-runner-tsd: ^3.1.0
     prettier: ^2.7.1
-    prettier-plugin-organize-imports: ^3.1.0
+    prettier-plugin-organize-imports: ^3.0.1
     ts-jest: ^28.0.7
     type-fest: ^2.17.0
     typescript: ^4.8
@@ -12640,7 +12640,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier-plugin-organize-imports@npm:^3.1.0":
+"prettier-plugin-organize-imports@npm:^3.0.1":
   version: 3.1.0
   resolution: "prettier-plugin-organize-imports@npm:3.1.0"
   peerDependencies:

@@ -1,5 +1,4 @@
 import { AuthProvider, AuthProviderOptions } from './provider';
-import axios from 'axios';
 
 import Albums from './models/albums';
 import Artists from './models/artists';
@@ -34,6 +33,6 @@ export function initialize(authOptions: AuthProviderOptions) {
 
 export type SpotifyClient = ReturnType<typeof initialize>;
 
+export { isError } from './request';
 export type { DataPromise, DataResponse } from './types';
 export type { AuthProviderOptions };
-export const isError = axios.isAxiosError;

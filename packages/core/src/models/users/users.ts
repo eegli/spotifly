@@ -1,5 +1,13 @@
 import { Method, transformResponse } from '../../request';
-import { AsyncFnWithProvider } from '../../types';
+import {
+  After,
+  AsyncFnWithProvider,
+  Limit,
+  Offset,
+  PlaylistId,
+  TimeRange,
+  UserId,
+} from '../../types';
 
 export const getCurrentUsersProfile: AsyncFnWithProvider<
   SpotifyApi.UserProfileResponse,
@@ -14,7 +22,7 @@ export const getCurrentUsersProfile: AsyncFnWithProvider<
 
 export const getUsersProfile: AsyncFnWithProvider<
   SpotifyApi.UserProfileResponse,
-  string
+  UserId
 > = provider => async userId =>
   transformResponse(
     await provider.request({
@@ -23,33 +31,30 @@ export const getUsersProfile: AsyncFnWithProvider<
     })
   );
 
-const getUsersTop: <Response>(
-  type: 'artists' | 'tracks'
-) => AsyncFnWithProvider<
-  Response,
-  unknown,
-  {
-    limit: number;
-    offset: number;
-    time_range: 'long_term ' | 'medium_term' | 'short_term';
-  }
-> = type => provider => async () =>
-  transformResponse(
-    await provider.request({
-      method: Method.GET,
-      url: `me/top/${type}`,
-    })
-  );
+const getUsersTop: <
+  T extends 'artists' | 'tracks',
+  R = T extends 'artists'
+    ? SpotifyApi.UsersTopArtistsResponse
+    : SpotifyApi.UsersTopTracksResponse
+>(
+  type: T
+) => AsyncFnWithProvider<R, unknown, TimeRange & Limit & Offset> =
+  type => provider => async (_, params) =>
+    transformResponse(
+      await provider.request({
+        method: Method.GET,
+        url: `me/top/${type}`,
+        params,
+      })
+    );
 
 export const USERS_TOP_LIMIT = 50;
-export const getUsersTopArtists =
-  getUsersTop<SpotifyApi.UsersTopArtistsResponse>('artists');
-export const getUsersTopTracks =
-  getUsersTop<SpotifyApi.UsersTopTracksResponse>('tracks');
+export const getUsersTopArtists = getUsersTop('artists');
+export const getUsersTopTracks = getUsersTop('tracks');
 
 export const followPlaylist: AsyncFnWithProvider<
   SpotifyApi.FollowPlaylistResponse,
-  string,
+  PlaylistId,
   { public: boolean }
 > = provider => async (playlistId, data) =>
   transformResponse(
@@ -62,7 +67,7 @@ export const followPlaylist: AsyncFnWithProvider<
 
 export const unfollowPlaylist: AsyncFnWithProvider<
   SpotifyApi.UnfollowPlaylistResponse,
-  string
+  PlaylistId
 > = provider => async playlistId =>
   transformResponse(
     await provider.request({
@@ -71,10 +76,10 @@ export const unfollowPlaylist: AsyncFnWithProvider<
     })
   );
 
-export const getUsersFollowedArtists: AsyncFnWithProvider<
+export const getFollowedArtists: AsyncFnWithProvider<
   SpotifyApi.UsersFollowedArtistsResponse,
   unknown,
-  { after: string; limit: number }
+  After & Limit
 > = provider => async (_, params) =>
   transformResponse(
     await provider.request({
@@ -128,20 +133,20 @@ export const unfollowUsers = follow<SpotifyApi.UnfollowArtistsOrUsersResponse>({
   url: 'me/following',
   method: Method.DELETE,
 });
-export const checkUserFollowsArtist =
+export const checkFollowsArtists =
   follow<SpotifyApi.UserFollowsUsersOrArtistsResponse>({
     type: 'artist',
     url: 'me/following/contains',
     method: Method.GET,
   });
-export const checkUserFollowsUsers =
+export const checkFollowsUsers =
   follow<SpotifyApi.UserFollowsUsersOrArtistsResponse>({
     type: 'user',
     url: 'me/following/contains',
     method: Method.GET,
   });
 
-export const checkUsersFollowPlaylists: AsyncFnWithProvider<
+export const checkUsersFollowPlaylist: AsyncFnWithProvider<
   SpotifyApi.UsersFollowPlaylistResponse,
   { playlistId: string; userIds: string[] }
 > =
