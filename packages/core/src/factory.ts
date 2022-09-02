@@ -11,7 +11,7 @@ type PagingObject<T> = SpotifyApi.PagingObject<T>;
 type PaginationParams = Limit & Offset;
 
 export function forPaginated<
-  F extends AsyncFn<PagingObject<unknown>, string, PaginationParams>,
+  F extends AsyncFn<PagingObject<unknown>, any, PaginationParams>,
   R extends Awaited<ReturnType<F>>
 >(getFn: F, limit: number) {
   return function (...args: OmitFromAsyncFnParams<F, PaginationParams>) {

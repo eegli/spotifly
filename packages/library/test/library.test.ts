@@ -12,21 +12,21 @@ const mockSpotify = mockDeep<Spotifly.SpotifyClient>();
 
 jest.spyOn(Spotifly, 'initialize').mockReturnValue(mockSpotify);
 
-mockSpotify.Tracks.UsersSaved.getAll.mockImplementation(() => {
+mockSpotify.Tracks.getAllUsersSavedTracks.mockImplementation(() => {
   return cb => {
     if (cb) cb(RES_USER_SAVED_TRACKS);
     return Promise.resolve([RES_USER_SAVED_TRACKS]);
   };
 });
 
-mockSpotify.Tracks.AudioFeatures.getAll.mockImplementation(() => {
+mockSpotify.Tracks.getAllAudioFeatures.mockImplementation(() => {
   return cb => {
     if (cb) cb(RES_MULTIPLE_AUDIO_FEATURES);
     return Promise.resolve([RES_MULTIPLE_AUDIO_FEATURES]);
   };
 });
 
-mockSpotify.Tracks.AudioFeatures.getSeveral.mockImplementation(() => {
+mockSpotify.Tracks.getSeveralAudioFeatures.mockImplementation(() => {
   return Promise.resolve(RES_MULTIPLE_AUDIO_FEATURES);
 });
 
