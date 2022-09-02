@@ -1,10 +1,16 @@
 import { Method, transformResponse } from '../../request';
-import { AsyncFnWithProvider, TrackId } from '../../types';
+import {
+  AsyncFnWithProvider,
+  Limit,
+  Market,
+  Offset,
+  TrackId,
+} from '../../types';
 
 export const getSingleTrack: AsyncFnWithProvider<
   SpotifyApi.SingleTrackResponse,
   TrackId,
-  { market: string }
+  Market
 > = provider => async (trackId, params) =>
   transformResponse(
     await provider.request({
@@ -17,7 +23,7 @@ export const getSingleTrack: AsyncFnWithProvider<
 export const getSeveralTracks: AsyncFnWithProvider<
   SpotifyApi.MultipleTracksResponse,
   TrackId[],
-  { market: string }
+  Market
 > = provider => async (trackIds, params) =>
   transformResponse(
     await provider.request({
@@ -37,7 +43,7 @@ export const USER_SAVED_LIMIT = 50;
 export const getUsersSavedTracks: AsyncFnWithProvider<
   SpotifyApi.UsersSavedTracksResponse,
   unknown,
-  { limit: number; market: string; offset: number }
+  Limit & Market & Offset
 > = provider => async (_, params) =>
   transformResponse(
     await provider.request({

@@ -24,7 +24,7 @@
   "scripts": {
     "build": "preconstruct build",
     "build:release": "yarn build && yarn forallpackages exec rm -rf _release && yarn forallpackages pack && yarn forallpackages exec \"mkdir _release && tar zxvf package.tgz --directory _release && rm package.tgz\"",
-    "check-types": "tsc",
+    "check-types": "tsc --project tsconfig.prod.json",
     "dev": "preconstruct dev",
     "forallpackages": "yarn workspaces foreach --no-private --verbose",
     "format": "prettier --write packages website \"**/*.{js,ts,tsx,md}\"",
