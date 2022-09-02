@@ -8,8 +8,8 @@ on:
     branches: [main]
 
 jobs:
-  eslint:
-    name: ESLint
+  checks:
+    name: TSC, ESLint and build
     runs-on: [ubuntu-latest]
     steps:
       - uses: actions/checkout@v3
@@ -20,11 +20,16 @@ jobs:
           cache: 'yarn'
       - name: Install dependencies
         run: yarn install --immutable
+      - name: Check types
+        run: yarn check-types
       - name: Lint
         run: yarn lint
+      - name: Build packages
+        run: yarn build
 
   tests:
     name: Tests / Node ${{ matrix.node }}
+    needs: checks
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -45,6 +50,7 @@ jobs:
 
   coverage-tests:
     name: Coverage tests / Node ${{ matrix.node }}
+    needs: checks
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -73,6 +79,7 @@ jobs:
 
   integration:
     name: Integration tests / Node ${{ matrix.node }}
+    needs: checks
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -93,18 +100,3 @@ jobs:
           SPOTIFY_CLIENT_SECRET=${{ secrets.SPOTIFY_CLIENT_SECRET }}
           SPOTIFY_REFRESH_TOKEN=${{ secrets.SPOTIFY_REFRESH_TOKEN }}
           yarn test:integration
-
-  build:
-    name: Build packages
-    runs-on: [ubuntu-latest]
-    steps:
-      - uses: actions/checkout@v3
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version-file: '.nvmrc'
-          cache: 'yarn'
-      - name: Install dependencies
-        run: yarn install --immutable
-      - name: Build packages
-        run: yarn build

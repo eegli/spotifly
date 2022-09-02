@@ -15,7 +15,7 @@ export const libraryHandler: LibraryHandler = async options => {
 
   progress.start(0, 0);
 
-  await spotifyClient.Tracks.UsersSaved.getAll()(({ data }) => {
+  await spotifyClient.Tracks.getAllUsersSavedTracks()(({ data }) => {
     progress.setTotal(data.total);
     progress.increment(data.items.length);
 
@@ -79,7 +79,7 @@ export const libraryHandler: LibraryHandler = async options => {
 
     progress.start(trackIds.length, 0);
 
-    await spotifyClient.Tracks.AudioFeatures.getAll(trackIds)(({ data }) => {
+    await spotifyClient.Tracks.getAllAudioFeatures(trackIds)(({ data }) => {
       data.audio_features.forEach(f => {
         features[f.id] = f;
       });

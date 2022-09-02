@@ -17,5 +17,7 @@
     "noEmit": true,
     "checkJs": true,
     "experimentalDecorators": false
-  }
+  },
+  "include": ["packages/**/src/**/*.ts"],
+  "exclude": ["**/dist/*"]
 }
