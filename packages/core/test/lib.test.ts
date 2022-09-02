@@ -46,59 +46,59 @@ const tests: LibTestRunner = [
     name: 'Albums',
     tests: [
       {
-        name: 'Album.get',
+        name: 'getAlbum',
         fn: () =>
           assertReturns<DR<SpotifyApi.SingleAlbumResponse>>(
-            Client.Albums.Album.get(stringId, { market })
+            Client.Albums.getAlbum(stringId, { market })
           ),
       },
       {
-        name: 'Album.getSeveral',
+        name: 'getSeveralAlbums',
         fn: () =>
           assertReturns<DR<SpotifyApi.MultipleAlbumsResponse>>(
-            Client.Albums.Album.getSeveral(stringIds, { market })
+            Client.Albums.getSeveralAlbums(stringIds, { market })
           ),
       },
       {
-        name: 'NewReleases.get',
-        fn: () =>
-          assertReturns<DR<SpotifyApi.ListOfNewReleasesResponse>>(
-            Client.Albums.NewReleases.get({ country, limit, offset })
-          ),
-      },
-      {
-        name: 'Tracks.get',
+        name: 'getAlbumTracks',
         fn: () =>
           assertReturns<DR<SpotifyApi.AlbumTracksResponse>>(
-            Client.Albums.Tracks.get(stringId, { limit, market, offset })
+            Client.Albums.getAlbumTracks(stringId, { limit, market, offset })
           ),
       },
       {
-        name: 'UsersSaved.check',
-        fn: () =>
-          assertReturns<DR<SpotifyApi.CheckUserSavedAlbumsResponse>>(
-            Client.Albums.UsersSaved.check(stringIds)
-          ),
-      },
-      {
-        name: 'UsersSaved.get',
+        name: 'getUsersSavedAlbums',
         fn: () =>
           assertReturns<DR<SpotifyApi.UsersSavedAlbumsResponse>>(
-            Client.Albums.UsersSaved.get({ limit, offset, market })
+            Client.Albums.getUsersSavedAlbums({ limit, offset, market })
           ),
       },
       {
-        name: 'UsersSaved.remove',
-        fn: () =>
-          assertReturns<DR<SpotifyApi.RemoveAlbumsForUserResponse>>(
-            Client.Albums.UsersSaved.remove(stringIds)
-          ),
-      },
-      {
-        name: 'UsersSaved.save',
+        name: 'saveAlbumsForUser',
         fn: () =>
           assertReturns<DR<SpotifyApi.SaveAlbumsForUserResponse>>(
-            Client.Albums.UsersSaved.save(stringIds)
+            Client.Albums.saveAlbumsForUser(stringIds)
+          ),
+      },
+      {
+        name: 'removeUsersSavedAlbums',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.RemoveAlbumsForUserResponse>>(
+            Client.Albums.removeUsersSavedAlbums(stringIds)
+          ),
+      },
+      {
+        name: 'checkUsersSavedAlbums',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.CheckUserSavedAlbumsResponse>>(
+            Client.Albums.checkUsersSavedAlbums(stringIds)
+          ),
+      },
+      {
+        name: 'getNewAlbumReleases',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.ListOfNewReleasesResponse>>(
+            Client.Albums.getNewAlbumReleases({ country, limit, offset })
           ),
       },
     ],

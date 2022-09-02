@@ -1,10 +1,17 @@
 import { Method, transformResponse } from '../../request';
-import { AsyncFnWithProvider } from '../../types';
+import {
+  AlbumId,
+  AsyncFnWithProvider,
+  Country,
+  Limit,
+  Market,
+  Offset,
+} from '../../types';
 
 export const getAlbum: AsyncFnWithProvider<
   SpotifyApi.SingleAlbumResponse,
-  string,
-  { market: string }
+  AlbumId,
+  Market
 > = provider => async (albumId, params) =>
   transformResponse(
     await provider.request({
@@ -16,8 +23,8 @@ export const getAlbum: AsyncFnWithProvider<
 
 export const getSeveralAlbums: AsyncFnWithProvider<
   SpotifyApi.MultipleAlbumsResponse,
-  string[],
-  { market: string }
+  AlbumId[],
+  Market
 > = provider => async (albumIds, params) =>
   transformResponse(
     await provider.request({
@@ -30,12 +37,12 @@ export const getSeveralAlbums: AsyncFnWithProvider<
     })
   );
 
-export const LIMIT_GET_SEVERAL_ALBUMS = 20;
+export const LIMIT_SEVERAL_ALBUMS = 20;
 
 export const getAlbumTracks: AsyncFnWithProvider<
   SpotifyApi.AlbumTracksResponse,
-  string,
-  { limit: number; market: string; offset: number }
+  AlbumId,
+  Limit & Market & Offset
 > = provider => async (albumId, params) =>
   transformResponse(
     await provider.request({
@@ -45,12 +52,12 @@ export const getAlbumTracks: AsyncFnWithProvider<
     })
   );
 
-export const LIMIT_GET_ALBUM_TRACKS = 50;
+export const LIMIT_ALBUM_TRACKS = 50;
 
 export const getUsersSavedAlbums: AsyncFnWithProvider<
   SpotifyApi.UsersSavedAlbumsResponse,
   unknown,
-  { limit: number; market: string; offset: number }
+  Limit & Market & Offset
 > = provider => async (_, params) =>
   transformResponse(
     await provider.request({
@@ -60,12 +67,12 @@ export const getUsersSavedAlbums: AsyncFnWithProvider<
     })
   );
 
-export const LIMIT_GET_USER_ALBUMS = 50;
+export const LIMIT_USER_ALBUMS_GET = 50;
 
 const userAlbums: <Response>(conf: {
   url: string;
   method: Method;
-}) => AsyncFnWithProvider<Response, string[]> =
+}) => AsyncFnWithProvider<Response, AlbumId[]> =
   ({ method, url }) =>
   provider =>
   async ids =>
@@ -79,7 +86,7 @@ const userAlbums: <Response>(conf: {
       })
     );
 
-export const LIMIT_MODIFY_CHECK_USER_ALBUMS = 20;
+export const LIMIT_USER_ALBUMS_MODIFY_CHECK = 20;
 
 export const saveAlbumsForUser =
   userAlbums<SpotifyApi.SaveAlbumsForUserResponse>({
@@ -102,7 +109,7 @@ export const checkUsersSavedAlbums =
 export const getNewAlbumReleases: AsyncFnWithProvider<
   SpotifyApi.ListOfNewReleasesResponse,
   unknown,
-  { country: string; limit: number; offset: number }
+  Country & Limit & Offset
 > = provider => async (_, params) =>
   transformResponse(
     await provider.request({

@@ -1,6 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Albums Album.get 1`] = `
+exports[`Albums checkUsersSavedAlbums 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20,id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40,id41,id42,id43,id44,id45,id46,id47,id48,id49,id50,id51",
+      },
+      "url": "me/albums/contains",
+    },
+  ],
+]
+`;
+
+exports[`Albums getAlbum 1`] = `
 [
   [
     {
@@ -17,44 +34,7 @@ exports[`Albums Album.get 1`] = `
 ]
 `;
 
-exports[`Albums Album.getSeveral 1`] = `
-[
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "GET",
-      "params": {
-        "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20,id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40,id41,id42,id43,id44,id45,id46,id47,id48,id49,id50,id51",
-        "market": "CH",
-      },
-      "url": "albums",
-    },
-  ],
-]
-`;
-
-exports[`Albums NewReleases.get 1`] = `
-[
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "GET",
-      "params": {
-        "country": "UA",
-        "limit": 1,
-        "offset": 1,
-      },
-      "url": "browse/new-releases",
-    },
-  ],
-]
-`;
-
-exports[`Albums Tracks.get 1`] = `
+exports[`Albums getAlbumTracks 1`] = `
 [
   [
     {
@@ -73,7 +53,26 @@ exports[`Albums Tracks.get 1`] = `
 ]
 `;
 
-exports[`Albums UsersSaved.check 1`] = `
+exports[`Albums getNewAlbumReleases 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "country": "UA",
+        "limit": 1,
+        "offset": 1,
+      },
+      "url": "browse/new-releases",
+    },
+  ],
+]
+`;
+
+exports[`Albums getSeveralAlbums 1`] = `
 [
   [
     {
@@ -83,14 +82,15 @@ exports[`Albums UsersSaved.check 1`] = `
       "method": "GET",
       "params": {
         "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20,id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40,id41,id42,id43,id44,id45,id46,id47,id48,id49,id50,id51",
+        "market": "CH",
       },
-      "url": "me/albums/contains",
+      "url": "albums",
     },
   ],
 ]
 `;
 
-exports[`Albums UsersSaved.get 1`] = `
+exports[`Albums getUsersSavedAlbums 1`] = `
 [
   [
     {
@@ -109,7 +109,7 @@ exports[`Albums UsersSaved.get 1`] = `
 ]
 `;
 
-exports[`Albums UsersSaved.remove 1`] = `
+exports[`Albums removeUsersSavedAlbums 1`] = `
 [
   [
     {
@@ -126,7 +126,7 @@ exports[`Albums UsersSaved.remove 1`] = `
 ]
 `;
 
-exports[`Albums UsersSaved.save 1`] = `
+exports[`Albums saveAlbumsForUser 1`] = `
 [
   [
     {

@@ -3,28 +3,20 @@
 exports[`Lib matches snapshot 1`] = `
 {
   "Albums": {
-    "Album": {
-      "get": [Function],
-      "getAll": [Function],
-      "getSeveral": [Function],
-    },
-    "NewReleases": {
-      "get": [Function],
-    },
-    "Tracks": {
-      "get": [Function],
-      "getAll": [Function],
-    },
-    "UsersSaved": {
-      "check": [Function],
-      "checkAll": [Function],
-      "get": [Function],
-      "getAll": [Function],
-      "remove": [Function],
-      "removeAll": [Function],
-      "save": [Function],
-      "saveAll": [Function],
-    },
+    "checkAllUsersSavedAlbums": [Function],
+    "checkUsersSavedAlbums": [Function],
+    "getAlbum": [Function],
+    "getAlbumTracks": [Function],
+    "getAllAlbumTracks": [Function],
+    "getAllAlbums": [Function],
+    "getAllUsersSavedAlbums": [Function],
+    "getNewAlbumReleases": [Function],
+    "getSeveralAlbums": [Function],
+    "getUsersSavedAlbums": [Function],
+    "removeAllUsersSavedAlbums": [Function],
+    "removeUsersSavedAlbums": [Function],
+    "saveAlbumsForUser": [Function],
+    "saveAllAlbumsForUser": [Function],
   },
   "Artists": {
     "getAllArtists": [Function],
