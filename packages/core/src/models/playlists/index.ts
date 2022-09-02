@@ -10,12 +10,11 @@ import {
   getPlaylist,
   getPlaylistCoverImage,
   getPlaylistItems,
-  getPlaylistItemsLimit,
   getUsersPlaylists,
+  PLAYLIST_ITEMS_LIMIT,
   removePlaylistItems,
   reorderPlaylistItems,
-  replacePlaylistItems,
-  usersPlaylistsLimit,
+  USERS_PLAYLISTS_LIMIT,
 } from './playlists';
 
 export default function Playlists(provider: AsyncProvider) {
@@ -43,7 +42,7 @@ export default function Playlists(provider: AsyncProvider) {
      */
     getAllPlaylistItems: factory.forPaginated(
       getPlaylistItems(provider),
-      getPlaylistItemsLimit
+      PLAYLIST_ITEMS_LIMIT
     ),
     /**
      * Add one or more items to a user's playlist.
@@ -55,11 +54,6 @@ export default function Playlists(provider: AsyncProvider) {
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/reorder-or-replace-playlists-tracks Update Playlist Items}
      */
     reorderPlaylistItems: reorderPlaylistItems(provider),
-    /**
-     * Replace items in a playlist.
-     * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/reorder-or-replace-playlists-tracks Update Playlist Items}
-     */
-    replacePlaylistItems: replacePlaylistItems(provider),
     /**
      * Remove one or more items from a user's playlist.
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/remove-tracks-playlist Remove Playlist Items}
@@ -80,7 +74,7 @@ export default function Playlists(provider: AsyncProvider) {
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/get-a-list-of-current-users-playlists Get Current User's Playlists}
      */
     getAllCurrentUsersPlaylists: factory
-      .forPaginated(getCurrentUsersPlaylists(provider), usersPlaylistsLimit)
+      .forPaginated(getCurrentUsersPlaylists(provider), USERS_PLAYLISTS_LIMIT)
       .bind(null, null),
     /**
      * Get a list of the playlists owned or followed by a Spotify user.
@@ -95,7 +89,7 @@ export default function Playlists(provider: AsyncProvider) {
      */
     getAllUsersPlaylists: factory.forPaginated(
       getUsersPlaylists(provider),
-      usersPlaylistsLimit
+      USERS_PLAYLISTS_LIMIT
     ),
     /**
      * Create a playlist for a Spotify user. (The playlist will be empty until you add tracks.)

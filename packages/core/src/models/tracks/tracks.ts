@@ -1,10 +1,16 @@
 import { Method, transformResponse } from '../../request';
-import { AsyncFnWithProvider } from '../../types';
+import {
+  AsyncFnWithProvider,
+  Limit,
+  Market,
+  Offset,
+  TrackId,
+} from '../../types';
 
-export const getSingleTrack: AsyncFnWithProvider<
+export const getTrack: AsyncFnWithProvider<
   SpotifyApi.SingleTrackResponse,
-  string,
-  { market: string }
+  TrackId,
+  Market
 > = provider => async (trackId, params) =>
   transformResponse(
     await provider.request({
@@ -16,8 +22,8 @@ export const getSingleTrack: AsyncFnWithProvider<
 
 export const getSeveralTracks: AsyncFnWithProvider<
   SpotifyApi.MultipleTracksResponse,
-  string[],
-  { market: string }
+  TrackId[],
+  Market
 > = provider => async (trackIds, params) =>
   transformResponse(
     await provider.request({
@@ -30,12 +36,14 @@ export const getSeveralTracks: AsyncFnWithProvider<
     })
   );
 
-export const getSeveralTracksLimit = 50;
+export const SEVERAL_TRACKS_LIMIT = 50;
+
+export const USER_SAVED_LIMIT = 50;
 
 export const getUsersSavedTracks: AsyncFnWithProvider<
   SpotifyApi.UsersSavedTracksResponse,
   unknown,
-  { limit: number; market: string; offset: number }
+  Limit & Market & Offset
 > = provider => async (_, params) =>
   transformResponse(
     await provider.request({
@@ -45,11 +53,9 @@ export const getUsersSavedTracks: AsyncFnWithProvider<
     })
   );
 
-export const getUsersSavedTracksLimit = 50;
-
 export const saveTracksForUser: AsyncFnWithProvider<
   SpotifyApi.SaveTracksForUserResponse,
-  string[]
+  TrackId[]
 > = provider => async trackIds =>
   transformResponse(
     await provider.request({
@@ -61,11 +67,9 @@ export const saveTracksForUser: AsyncFnWithProvider<
     })
   );
 
-export const saveTracksForUserLimit = 50;
-
 export const removeUsersSavedTracks: AsyncFnWithProvider<
   SpotifyApi.RemoveUsersSavedTracksResponse,
-  string[]
+  TrackId[]
 > = provider => async trackIds =>
   transformResponse(
     await provider.request({
@@ -77,11 +81,9 @@ export const removeUsersSavedTracks: AsyncFnWithProvider<
     })
   );
 
-export const removeUsersSavedTracksLimit = 50;
-
 export const checkUsersSavedTracks: AsyncFnWithProvider<
   SpotifyApi.CheckUsersSavedTracksResponse,
-  string[]
+  TrackId[]
 > = provider => async trackIds =>
   transformResponse(
     await provider.request({
@@ -93,11 +95,9 @@ export const checkUsersSavedTracks: AsyncFnWithProvider<
     })
   );
 
-export const checkUsersSavedTracksLimit = 50;
-
-export const getSingleAudioFeatures: AsyncFnWithProvider<
+export const getAudioFeatures: AsyncFnWithProvider<
   SpotifyApi.AudioFeaturesResponse,
-  string
+  TrackId
 > = provider => async trackId =>
   transformResponse(
     await provider.request({
@@ -108,7 +108,7 @@ export const getSingleAudioFeatures: AsyncFnWithProvider<
 
 export const getSeveralAudioFeatures: AsyncFnWithProvider<
   SpotifyApi.MultipleAudioFeaturesResponse,
-  string[]
+  TrackId[]
 > = provider => async trackIds =>
   transformResponse(
     await provider.request({
@@ -120,11 +120,11 @@ export const getSeveralAudioFeatures: AsyncFnWithProvider<
     })
   );
 
-export const getSeveralAudioFeaturesLimit = 100;
+export const SEVERAL_AUDIO_FEATURES_LIMIT = 100;
 
 export const getAudioAnalysis: AsyncFnWithProvider<
   SpotifyApi.AudioAnalysisResponse,
-  string
+  TrackId
 > = provider => async trackId =>
   transformResponse(
     await provider.request({
@@ -135,58 +135,68 @@ export const getAudioAnalysis: AsyncFnWithProvider<
 
 export const getRecommendations: AsyncFnWithProvider<
   SpotifyApi.RecommendationsFromSeedsResponse,
-  { seed_artists: string; seed_genres: string; seed_tracks: string },
   {
-    limit: number;
-    market: string;
-    max_acousticness: number;
-    max_danceability: number;
-    max_duration_ms: number;
-    max_energy: number;
-    max_instrumentalness: number;
-    max_key: number;
-    max_liveness: number;
-    max_loudness: number;
-    max_mode: number;
-    max_popularity: number;
-    max_speechiness: number;
-    max_tempo: number;
-    max_time_signature: number;
-    max_valence: number;
-    min_acousticness: number;
-    min_danceability: number;
-    min_duration_ms: number;
-    min_energy: number;
-    min_instrumentalness: number;
-    min_key: number;
-    min_liveness: number;
-    min_loudness: number;
-    min_mode: number;
-    min_popularity: number;
-    min_speechiness: number;
-    min_tempo: number;
-    min_time_signature: number;
-    min_valence: number;
-    target_acousticness: number;
-    target_danceability: number;
-    target_duration_ms: number;
-    target_energy: number;
-    target_instrumentalness: number;
-    target_key: number;
-    target_liveness: number;
-    target_loudness: number;
-    target_mode: number;
-    target_popularity: number;
-    target_speechiness: number;
-    target_tempo: number;
-    target_time_signature: number;
-    target_valence: number;
-  }
-> = provider => async (seed, params) =>
-  transformResponse(
-    await provider.request({
-      method: Method.GET,
-      url: 'recommendations',
-      params: { ...seed, ...params },
-    })
-  );
+    seed_artists: string[];
+    seed_genres: string[];
+    seed_tracks: string[];
+  },
+  Limit &
+    Market & {
+      max_acousticness: number;
+      max_danceability: number;
+      max_duration_ms: number;
+      max_energy: number;
+      max_instrumentalness: number;
+      max_key: number;
+      max_liveness: number;
+      max_loudness: number;
+      max_mode: number;
+      max_popularity: number;
+      max_speechiness: number;
+      max_tempo: number;
+      max_time_signature: number;
+      max_valence: number;
+      min_acousticness: number;
+      min_danceability: number;
+      min_duration_ms: number;
+      min_energy: number;
+      min_instrumentalness: number;
+      min_key: number;
+      min_liveness: number;
+      min_loudness: number;
+      min_mode: number;
+      min_popularity: number;
+      min_speechiness: number;
+      min_tempo: number;
+      min_time_signature: number;
+      min_valence: number;
+      target_acousticness: number;
+      target_danceability: number;
+      target_duration_ms: number;
+      target_energy: number;
+      target_instrumentalness: number;
+      target_key: number;
+      target_liveness: number;
+      target_loudness: number;
+      target_mode: number;
+      target_popularity: number;
+      target_speechiness: number;
+      target_tempo: number;
+      target_time_signature: number;
+      target_valence: number;
+    }
+> =
+  provider =>
+  async ({ seed_artists, seed_genres, seed_tracks }, params) =>
+    transformResponse(
+      await provider.request({
+        method: Method.GET,
+        url: 'recommendations',
+        params: {
+          seed_artists: seed_artists.join(','),
+          seed_genres: seed_genres.join(','),
+          seed_tracks: seed_tracks.join(','),
+          ...params,
+        },
+      })
+    );

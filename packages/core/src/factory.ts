@@ -1,13 +1,17 @@
-import type { AnyObject, AsyncFn, OmitFromAsyncFnParams } from './types';
+import type {
+  AnyObject,
+  AsyncFn,
+  Limit,
+  Offset,
+  OmitFromAsyncFnParams,
+} from './types';
 
 type PagingObject<T> = SpotifyApi.PagingObject<T>;
 
-type PaginationParams = {
-  limit: number;
-  offset: number;
-};
+type PaginationParams = Limit & Offset;
 
 export function forPaginated<
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   F extends AsyncFn<PagingObject<unknown>, any, PaginationParams>,
   R extends Awaited<ReturnType<F>>
 >(getFn: F, limit: number) {

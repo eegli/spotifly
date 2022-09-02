@@ -32,22 +32,22 @@ export const getUsersProfile: AsyncFnWithProvider<
     })
   );
 
-const getUsersTop: <
-  T extends 'artists' | 'tracks',
-  R = T extends 'artists'
-    ? SpotifyApi.UsersTopArtistsResponse
-    : SpotifyApi.UsersTopTracksResponse
->(
+const getUsersTop: <T extends 'artists' | 'tracks'>(
   type: T
-) => AsyncFnWithProvider<R, unknown, TimeRange & Limit & Offset> =
-  type => provider => async (_, params) =>
-    transformResponse(
-      await provider.request({
-        method: Method.GET,
-        url: `me/top/${type}`,
-        params,
-      })
-    );
+) => AsyncFnWithProvider<
+  T extends 'artists'
+    ? SpotifyApi.UsersTopArtistsResponse
+    : SpotifyApi.UsersTopTracksResponse,
+  unknown,
+  TimeRange & Limit & Offset
+> = type => provider => async (_, params) =>
+  transformResponse(
+    await provider.request({
+      method: Method.GET,
+      url: `me/top/${type}`,
+      params,
+    })
+  );
 
 export const USERS_TOP_LIMIT = 50;
 export const getUsersTopArtists = getUsersTop('artists');

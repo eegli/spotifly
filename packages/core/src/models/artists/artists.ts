@@ -1,9 +1,16 @@
 import { Method, transformResponse } from '../../request';
-import type { AsyncFnWithProvider, Permutations } from '../../types';
+import type {
+  ArtistId,
+  AsyncFnWithProvider,
+  IncludeGroups,
+  Limit,
+  Market,
+  Offset,
+} from '../../types';
 
-export const getSingleArtist: AsyncFnWithProvider<
+export const getArtist: AsyncFnWithProvider<
   SpotifyApi.SingleArtistResponse,
-  string
+  ArtistId
 > = provider => async artistId =>
   transformResponse(
     await provider.request({
@@ -14,7 +21,7 @@ export const getSingleArtist: AsyncFnWithProvider<
 
 export const getSeveralArtists: AsyncFnWithProvider<
   SpotifyApi.MultipleArtistsResponse,
-  string[]
+  ArtistId[]
 > = provider => async artistIds =>
   transformResponse(
     await provider.request({
@@ -30,22 +37,19 @@ export const LIMIT_GET_SEVERAL_ARTISTS = 50;
 
 export const getArtistsAlbums: AsyncFnWithProvider<
   SpotifyApi.ArtistsAlbumsResponse,
-  string,
-  {
-    include_groups: Permutations<
-      'album' | 'single' | 'appears_on' | 'compilation',
-      ','
-    >;
-    offset: number;
-    limit: number;
-    market: string;
-  }
+  ArtistId,
+  IncludeGroups & Offset & Limit & Market
 > = provider => async (artistId, params) =>
   transformResponse(
     await provider.request({
       method: Method.GET,
       url: `artists/${artistId}/albums`,
-      params,
+      params: {
+        include_groups: params?.include_groups?.join(','),
+        offset: params?.offset,
+        limit: params?.limit,
+        market: params?.market,
+      },
     })
   );
 
@@ -53,8 +57,8 @@ export const LIMIT_GET_ARTIST_ALBUMS = 50;
 
 export const getArtistsTopTracks: AsyncFnWithProvider<
   SpotifyApi.ArtistsTopTracksResponse,
-  string,
-  { market: string }
+  ArtistId,
+  Market
 > = provider => async (artistId, params) =>
   transformResponse(
     await provider.request({
@@ -66,7 +70,7 @@ export const getArtistsTopTracks: AsyncFnWithProvider<
 
 export const getArtistsRelatedArtists: AsyncFnWithProvider<
   SpotifyApi.ArtistsRelatedArtistsResponse,
-  string
+  ArtistId
 > = provider => async artistId =>
   transformResponse(
     await provider.request({

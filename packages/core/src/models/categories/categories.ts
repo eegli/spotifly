@@ -8,7 +8,7 @@ import {
   Offset,
 } from '../../types';
 
-export const getSingleCategory: AsyncFnWithProvider<
+export const getCategory: AsyncFnWithProvider<
   SpotifyApi.SingleCategoryResponse,
   CategoryId,
   Country & Locale
@@ -33,5 +33,3 @@ export const getSeveralCategories: AsyncFnWithProvider<
       params,
     })
   );
-
-export const getSeveralCategoriesLimit = 50;

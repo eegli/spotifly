@@ -41,12 +41,12 @@ const mockSpotify = mockDeep<Spotifly.SpotifyClient>();
 jest.spyOn(Spotifly, 'initialize').mockReturnValue(mockSpotify);
 
 // Mocking an ordinary method
-mockSpotify.Tracks.AudioFeatures.getSeveral.mockImplementation(ids => {
+mockSpotify.Tracks.getSeveralAudioFeatures.mockImplementation(ids => {
   return Promise.resolve(mockResponse(ids.length));
 });
 
 // Mocking a convenience method
-mockSpotify.Tracks.AudioFeatures.getAll.mockImplementation(ids => {
+mockSpotify.Tracks.getAllAudioFeatures.mockImplementation(ids => {
   return cb => {
     if (cb) cb(mockResponse(ids.length));
     return Promise.resolve([mockResponse(ids.length)]);
@@ -57,7 +57,7 @@ test('my function', async () => {
   // Your code
   function getData() {
     const client = Spotifly.initialize({ accessToken: 'abc123' });
-    return client.Tracks.AudioFeatures.getSeveral(['2takc7B', '6hsak']);
+    return client.Tracks.getSeveralAudioFeatures(['2takc7B', '6hsak']);
   }
   // Assert anything!
   const res = await getData();

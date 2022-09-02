@@ -1,10 +1,17 @@
 import { Method, transformResponse } from '../../request';
-import { AsyncFnWithProvider } from '../../types';
+import {
+  AsyncFnWithProvider,
+  BooleanResponse,
+  EpisodeId,
+  Limit,
+  Market,
+  Offset,
+} from '../../types';
 
-export const getSingleEpisode: AsyncFnWithProvider<
+export const getEpisode: AsyncFnWithProvider<
   SpotifyApi.SingleEpisodeResponse,
-  string,
-  { market: string }
+  EpisodeId,
+  Market
 > = provider => async (episodeId, params) =>
   transformResponse(
     await provider.request({
@@ -16,8 +23,8 @@ export const getSingleEpisode: AsyncFnWithProvider<
 
 export const getSeveralEpisodes: AsyncFnWithProvider<
   SpotifyApi.MultipleEpisodesResponse,
-  string[],
-  { market: string }
+  EpisodeId[],
+  Market
 > = provider => async (episodeIds, params) =>
   transformResponse(
     await provider.request({
@@ -30,12 +37,12 @@ export const getSeveralEpisodes: AsyncFnWithProvider<
     })
   );
 
-export const getSeveralEpisodesLimit = 50;
+export const SEVERAL_EPISODES_LIMIT = 50;
 
 export const getUsersSavedEpisodes: AsyncFnWithProvider<
   SpotifyApi.UsersSavedEpisodesResponse,
   unknown,
-  { limit: number; offset: number; market: string }
+  Limit & Market & Offset
 > = provider => async (_, params) =>
   transformResponse(
     await provider.request({
@@ -45,29 +52,31 @@ export const getUsersSavedEpisodes: AsyncFnWithProvider<
     })
   );
 
-const episodesForUser: <T>(
+const episodesForUser: <Return>(
   intent: 'save' | 'delete' | 'check'
-) => AsyncFnWithProvider<T, string[]> = type => provider => async episodeIds =>
-  transformResponse(
-    await provider.request({
-      method:
-        type === 'save'
-          ? Method.PUT
-          : type === 'check'
-          ? Method.GET
-          : Method.DELETE,
-      url: type === 'check' ? 'me/episodes/contains' : 'me/episodes',
-      params: {
-        ids: episodeIds.join(','),
-      },
-    })
-  );
+) => AsyncFnWithProvider<Return, EpisodeId[]> =
+  type => provider => async episodeIds =>
+    transformResponse(
+      await provider.request({
+        method:
+          type === 'save'
+            ? Method.PUT
+            : type === 'check'
+            ? Method.GET
+            : Method.DELETE,
+        url: type === 'check' ? 'me/episodes/contains' : 'me/episodes',
+        params: {
+          ids: episodeIds.join(','),
+        },
+      })
+    );
 
 // TODO fix these types
 export const saveEpisodesForUser =
   episodesForUser<SpotifyApi.VoidResponse>('save');
 export const removeUsersSavedEpisodes =
   episodesForUser<SpotifyApi.VoidResponse>('delete');
-export const checkUsersSavedEpisodes = episodesForUser<boolean[]>('check');
+export const checkUsersSavedEpisodes =
+  episodesForUser<BooleanResponse>('check');
 
-export const userEpisodesLimit = 50;
+export const USER_EPISODES_LIMIT = 50;

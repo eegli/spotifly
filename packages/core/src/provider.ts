@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { AsyncProvider, Either } from './types';
+import { AsyncProvider } from './types';
 
 type AccessTokenConfig = {
   accessToken: string;
@@ -11,7 +11,7 @@ type RefreshTokenConfig = {
   clientSecret: string;
 };
 
-export type AuthProviderOptions = Either<AccessTokenConfig, RefreshTokenConfig>;
+export type AuthProviderOptions = AccessTokenConfig | RefreshTokenConfig;
 
 export class AuthProvider implements AsyncProvider {
   // Must be smaller than 60 minutes
@@ -61,10 +61,7 @@ export class AuthProvider implements AsyncProvider {
 
   private get needsNewToken() {
     if (this.auth.type === 'access_token') return false;
-    return (
-      !this.auth.accessToken ||
-      (this.auth.expiresAt && this.auth.expiresAt < new Date())
-    );
+    return !this.auth.accessToken || this.auth.expiresAt < new Date();
   }
 
   private async refreshAccessToken() {
