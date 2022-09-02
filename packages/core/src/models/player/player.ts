@@ -78,10 +78,10 @@ export const startOrResumePlayback: AsyncFnWithProvider<
 const playback: (
   url: string,
   method?: Method
-) => AsyncFnWithProvider<SpotifyApi.VoidResponse, unknown, DeviceId> =
+) => AsyncFnWithProvider<SpotifyApi.VoidResponse, DeviceId> =
   (url, method = Method.POST) =>
   provider =>
-  async (_, device_id) =>
+  async device_id =>
     transformResponse(
       await provider.request({
         method,
@@ -95,3 +95,19 @@ const playback: (
 export const pausePlayback = playback('me/player/pause', Method.PUT);
 export const skipToNext = playback('me/player/next');
 export const skipToPrevious = playback('me/player/previous');
+
+export const seekToPosition: AsyncFnWithProvider<
+  SpotifyApi.VoidResponse,
+  number,
+  { device_id: string }
+> = provider => async (position_ms, params) =>
+  transformResponse(
+    await provider.request({
+      method: Method.PUT,
+      url: 'me/player/seek',
+      params: {
+        ...params,
+        position_ms,
+      },
+    })
+  );

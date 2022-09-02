@@ -4,6 +4,9 @@ import {
   getCurrentlyPlayingTrack,
   getPlaybackState,
   pausePlayback,
+  seekToPosition,
+  skipToNext,
+  skipToPrevious,
   startOrResumePlayback,
   transferPlayback,
 } from './player';
@@ -39,6 +42,21 @@ export default function Player(provider: AsyncProvider) {
      * Pause playback on the user's account
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/pause-a-users-playback Pause Playback}
      */
-    pausePlayback: pausePlayback(provider).bind(null, null),
+    pausePlayback: pausePlayback(provider),
+    /**
+     * Skips to next track in the user’s queue.
+     * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/skip-users-playback-to-next-track Skip To Next}
+     */
+    skipToNext: skipToNext(provider),
+    /**
+     * Skips to previous track in the user’s queue.
+     * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/skip-users-playback-to-previous-track Skip To Previous}
+     */
+    skipToPrevious: skipToPrevious(provider),
+    /**
+     * Seeks to the given position in the user’s currently playing track.
+     * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/seek-to-position-in-currently-playing-track Seek To Position}
+     */
+    seekToPosition: seekToPosition(provider),
   };
 }
