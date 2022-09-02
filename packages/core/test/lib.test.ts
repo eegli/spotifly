@@ -207,45 +207,45 @@ const tests: LibTestRunner = [
     name: 'Episodes',
     tests: [
       {
-        name: 'Episode.get',
+        name: 'getEpisode',
         fn: () =>
           assertReturns<DR<SpotifyApi.SingleEpisodeResponse>>(
-            Client.Episodes.Episode.get(stringId, { market })
+            Client.Episodes.getEpisode(stringId, { market })
           ),
       },
       {
-        name: 'Episode.getSeveral',
+        name: 'getSeveralEpisodes',
         fn: () =>
           assertReturns<DR<SpotifyApi.MultipleEpisodesResponse>>(
-            Client.Episodes.Episode.getSeveral(stringIds, { market })
+            Client.Episodes.getSeveralEpisodes(stringIds, { market })
           ),
       },
       {
-        name: 'UsersSaved.get',
+        name: 'getUsersSavedEpisodes',
         fn: () =>
           assertReturns<DR<SpotifyApi.UsersSavedEpisodesResponse>>(
-            Client.Episodes.UsersSaved.get({ market })
+            Client.Episodes.getUsersSavedEpisodes({ market, limit, offset })
           ),
       },
       {
-        name: 'UsersSaved.save',
+        name: 'saveEpisodesForUser',
         fn: () =>
           assertReturns<DR<SpotifyApi.VoidResponse>>(
-            Client.Episodes.UsersSaved.save(stringIds)
+            Client.Episodes.saveEpisodesForUser(stringIds)
           ),
       },
       {
-        name: 'UsersSaved.remove',
+        name: 'removeUsersSavedEpisodes',
         fn: () =>
           assertReturns<DR<SpotifyApi.VoidResponse>>(
-            Client.Episodes.UsersSaved.remove(stringIds)
+            Client.Episodes.removeUsersSavedEpisodes(stringIds)
           ),
       },
       {
-        name: 'UsersSaved.check',
+        name: 'checkUsersSavedEpisodes',
         fn: () =>
           assertReturns<DR<boolean[]>>(
-            Client.Episodes.UsersSaved.check(stringIds)
+            Client.Episodes.checkUsersSavedEpisodes(stringIds)
           ),
       },
     ],
@@ -254,10 +254,10 @@ const tests: LibTestRunner = [
     name: 'Tracks',
     tests: [
       {
-        name: 'getSingleTrack',
+        name: 'getTrack',
         fn: () =>
           assertReturns<DR<SpotifyApi.SingleTrackResponse>>(
-            Client.Tracks.getSingleTrack(stringId, { market })
+            Client.Tracks.getTrack(stringId, { market })
           ),
       },
       {
@@ -321,9 +321,9 @@ const tests: LibTestRunner = [
         fn: () =>
           assertReturns<DR<SpotifyApi.RecommendationsFromSeedsResponse>>(
             Client.Tracks.getRecommendations({
-              seed_artists: '',
-              seed_genres: '',
-              seed_tracks: '',
+              seed_artists: [stringId, stringId],
+              seed_genres: [stringId],
+              seed_tracks: [stringId],
             })
           ),
       },
@@ -596,10 +596,10 @@ const tests: LibTestRunner = [
     name: 'Categories',
     tests: [
       {
-        name: 'getSingleCategory',
+        name: 'getCategory',
         fn: () =>
           assertReturns<DR<SpotifyApi.SingleCategoryResponse>>(
-            Client.Categories.getSingleCategory(stringId, {
+            Client.Categories.getCategory(stringId, {
               country: 'CH',
               locale: 'de_DE',
             })

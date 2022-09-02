@@ -1,11 +1,11 @@
 import * as factory from '../../factory';
 import type { AsyncProvider } from '../../types';
 import {
+  getArtist,
   getArtistsAlbums,
   getArtistsRelatedArtists,
   getArtistsTopTracks,
   getSeveralArtists,
-  getSingleArtist,
   LIMIT_GET_ARTIST_ALBUMS,
   LIMIT_GET_SEVERAL_ARTISTS,
 } from './artists';
@@ -17,7 +17,7 @@ export default function Artists(provider: AsyncProvider) {
        * Get Spotify catalog information for a single artist identified by their unique Spotify ID.
        * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/get-an-artist Get Artist}
        */
-      get: getSingleArtist(provider),
+      get: getArtist(provider),
       /**
        * Get Spotify catalog information for several artists based on their Spotify IDs.
        * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/get-multiple-artists Get Several Artists}

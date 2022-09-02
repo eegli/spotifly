@@ -2,10 +2,10 @@ import * as factory from '../../factory';
 import { AsyncProvider } from '../../types';
 import {
   checkUsersSavedAlbums,
+  getAlbum,
   getAlbumTracks,
   getNewAlbumReleases,
   getSeveralAlbums,
-  getSingleAlbum,
   getUsersSavedAlbums,
   LIMIT_GET_ALBUM_TRACKS,
   LIMIT_GET_SEVERAL_ALBUMS,
@@ -22,7 +22,7 @@ export default function Albums(provider: AsyncProvider) {
        * Get Spotify catalog information for a single album.
        * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/get-an-album Get Album}
        */
-      get: getSingleAlbum(provider),
+      get: getAlbum(provider),
       /**
        * Get Spotify catalog information for multiple albums identified by their Spotify IDs.
        * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/get-multiple-albums Get Several Albums}

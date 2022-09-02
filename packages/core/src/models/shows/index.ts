@@ -4,9 +4,9 @@ import {
   checkUsersSavedShows,
   checkUsersSavedShowsLimit,
   getSeveralShows,
+  getShow,
   getShowEpisodes,
   getShowEpisodesLimit,
-  getSingleShow,
   getUsersSavedShows,
   getUsersSavedShowsLimit,
   removeUsersSavedShows,
@@ -22,7 +22,7 @@ export default function Shows(provider: AsyncProvider) {
        * Get Spotify catalog information for a single show identified by its unique Spotify ID.
        * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/get-a-show Get Show}
        */
-      get: getSingleShow(provider),
+      get: getShow(provider),
       /**
        * Get Spotify catalog information for several shows based on their Spotify IDs.
        * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/get-multiple-shows Get Several Shows}

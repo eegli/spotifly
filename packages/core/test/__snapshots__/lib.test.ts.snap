@@ -225,6 +225,24 @@ exports[`Artists TopTracks.get 1`] = `
 ]
 `;
 
+exports[`Categories getCategory 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "country": "CH",
+        "locale": "de_DE",
+      },
+      "url": "browse/categories/id1",
+    },
+  ],
+]
+`;
+
 exports[`Categories getSeveralCategories 1`] = `
 [
   [
@@ -245,7 +263,7 @@ exports[`Categories getSeveralCategories 1`] = `
 ]
 `;
 
-exports[`Categories getSingleCategory 1`] = `
+exports[`Episodes checkUsersSavedEpisodes 1`] = `
 [
   [
     {
@@ -254,16 +272,15 @@ exports[`Categories getSingleCategory 1`] = `
       },
       "method": "GET",
       "params": {
-        "country": "CH",
-        "locale": "de_DE",
+        "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20,id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40,id41,id42,id43,id44,id45,id46,id47,id48,id49,id50,id51",
       },
-      "url": "browse/categories/id1",
+      "url": "me/episodes/contains",
     },
   ],
 ]
 `;
 
-exports[`Episodes Episode.get 1`] = `
+exports[`Episodes getEpisode 1`] = `
 [
   [
     {
@@ -280,7 +297,7 @@ exports[`Episodes Episode.get 1`] = `
 ]
 `;
 
-exports[`Episodes Episode.getSeveral 1`] = `
+exports[`Episodes getSeveralEpisodes 1`] = `
 [
   [
     {
@@ -298,7 +315,7 @@ exports[`Episodes Episode.getSeveral 1`] = `
 ]
 `;
 
-exports[`Episodes UsersSaved.check 1`] = `
+exports[`Episodes getUsersSavedEpisodes 1`] = `
 [
   [
     {
@@ -307,24 +324,9 @@ exports[`Episodes UsersSaved.check 1`] = `
       },
       "method": "GET",
       "params": {
-        "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20,id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40,id41,id42,id43,id44,id45,id46,id47,id48,id49,id50,id51",
-      },
-      "url": "me/episodes/contains",
-    },
-  ],
-]
-`;
-
-exports[`Episodes UsersSaved.get 1`] = `
-[
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "GET",
-      "params": {
+        "limit": 1,
         "market": "CH",
+        "offset": 1,
       },
       "url": "me/episodes",
     },
@@ -332,7 +334,7 @@ exports[`Episodes UsersSaved.get 1`] = `
 ]
 `;
 
-exports[`Episodes UsersSaved.remove 1`] = `
+exports[`Episodes removeUsersSavedEpisodes 1`] = `
 [
   [
     {
@@ -349,7 +351,7 @@ exports[`Episodes UsersSaved.remove 1`] = `
 ]
 `;
 
-exports[`Episodes UsersSaved.save 1`] = `
+exports[`Episodes saveEpisodesForUser 1`] = `
 [
   [
     {
@@ -874,9 +876,9 @@ exports[`Tracks getRecommendations 1`] = `
       },
       "method": "GET",
       "params": {
-        "seed_artists": "",
-        "seed_genres": "",
-        "seed_tracks": "",
+        "seed_artists": "id1,id1",
+        "seed_genres": "id1",
+        "seed_tracks": "id1",
       },
       "url": "recommendations",
     },
@@ -919,7 +921,7 @@ exports[`Tracks getSeveralTracks 1`] = `
 ]
 `;
 
-exports[`Tracks getSingleTrack 1`] = `
+exports[`Tracks getTrack 1`] = `
 [
   [
     {

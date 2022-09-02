@@ -1,7 +1,7 @@
 import { Method, transformResponse } from '../../request';
 import { AsyncFnWithProvider } from '../../types';
 
-export const getSingleAlbum: AsyncFnWithProvider<
+export const getAlbum: AsyncFnWithProvider<
   SpotifyApi.SingleAlbumResponse,
   string,
   { market: string }

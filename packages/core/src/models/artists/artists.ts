@@ -1,7 +1,7 @@
 import { Method, transformResponse } from '../../request';
 import type { AsyncFnWithProvider } from '../../types';
 
-export const getSingleArtist: AsyncFnWithProvider<
+export const getArtist: AsyncFnWithProvider<
   SpotifyApi.SingleArtistResponse,
   string
 > = provider => async artistId =>

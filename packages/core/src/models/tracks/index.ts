@@ -3,11 +3,11 @@ import { AsyncProvider } from '../../types';
 import {
   checkUsersSavedTracks,
   getAudioAnalysis,
+  getAudioFeatures,
   getRecommendations,
   getSeveralAudioFeatures,
   getSeveralTracks,
-  getSingleAudioFeatures,
-  getSingleTrack,
+  getTrack,
   getUsersSavedTracks,
   removeUsersSavedTracks,
   saveTracksForUser,
@@ -22,7 +22,7 @@ export default function Tracks(provider: AsyncProvider) {
      * Get Spotify catalog information for a single track identified by its unique Spotify ID.
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/get-track Get Track}
      */
-    getSingleTrack: getSingleTrack(provider),
+    getTrack: getTrack(provider),
     /**
      * Get Spotify catalog information for multiple tracks based on their Spotify IDs.
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/get-several-tracks Get Several Tracks}
@@ -101,7 +101,7 @@ export default function Tracks(provider: AsyncProvider) {
      * Get audio feature information for a single track identified by its unique Spotify ID.
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/get-audio-features Get Track's Audio Features}
      */
-    getAudioFeatures: getSingleAudioFeatures(provider),
+    getAudioFeatures: getAudioFeatures(provider),
     /**
      * Get audio features for multiple tracks based on their Spotify IDs.
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/get-several-audio-features Get Tracks' Audio Features}
