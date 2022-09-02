@@ -9,7 +9,7 @@ on:
 
 jobs:
   checks:
-    name: TSC, ESLint and build
+    name: TypeScript, lint, build
     runs-on: [ubuntu-latest]
     steps:
       - uses: actions/checkout@v3
@@ -29,7 +29,6 @@ jobs:
 
   tests:
     name: Tests / Node ${{ matrix.node }}
-    needs: checks
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -50,7 +49,6 @@ jobs:
 
   coverage-tests:
     name: Coverage tests / Node ${{ matrix.node }}
-    needs: checks
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -79,7 +77,6 @@ jobs:
 
   integration:
     name: Integration tests / Node ${{ matrix.node }}
-    needs: checks
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
