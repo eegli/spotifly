@@ -41,12 +41,12 @@ const spotifyClient = Spotifly.initialize({
 });
 
 // Deriving the genres of a track via its artists
-await spotifyClient.Tracks.getSingleTrack('5nHc8CmiPllMzHbJhhx3KS')
+await spotifyClient.Tracks.getTrack('5nHc8CmiPllMzHbJhhx3KS')
   .then(res => {
     return res.data.artists.map(artist => artist.id);
   })
   .then(artistIds => {
-    return spotifyClient.Artists.Artist.getSeveral(artistIds);
+    return spotifyClient.Artists.getSeveralArtists(artistIds);
   })
   .then(res => {
     const genres = res.data.artists.map(artist => artist.genres).flat();
@@ -118,7 +118,7 @@ Usually, a refresh token only needs to be generated once. You can [generate one 
 | Episodes   | ✅      |
 | Genres     | ✅      |
 | Markets    | ✅      |
-| Player     | ❌      |
+| Player     | 〽️      |
 | Playlists  | 〽️      |
 | Search     | ✅      |
 | Shows      | ✅      |
@@ -134,55 +134,55 @@ Usually, a refresh token only needs to be generated once. You can [generate one 
     <li>
       <b>Albums</b>
       <ul>
-        <li>Albums.Album.get</li>
-        <li>Albums.Album.getAll</li>
-        <li>Albums.Album.getSeveral</li>
-        <li>Albums.NewReleases.get</li>
-        <li>Albums.Tracks.get</li>
-        <li>Albums.Tracks.getAll</li>
-        <li>Albums.UsersSaved.check</li>
-        <li>Albums.UsersSaved.checkAll</li>
-        <li>Albums.UsersSaved.get</li>
-        <li>Albums.UsersSaved.getAll</li>
-        <li>Albums.UsersSaved.remove</li>
-        <li>Albums.UsersSaved.removeAll</li>
-        <li>Albums.UsersSaved.save</li>
-        <li>Albums.UsersSaved.saveAll</li>
+        <li>Albums.checkAllUsersSavedAlbums</li>
+        <li>Albums.checkUsersSavedAlbums</li>
+        <li>Albums.getAlbum</li>
+        <li>Albums.getAlbumTracks</li>
+        <li>Albums.getAllAlbumTracks</li>
+        <li>Albums.getAllAlbums</li>
+        <li>Albums.getAllUsersSavedAlbums</li>
+        <li>Albums.getNewAlbumReleases</li>
+        <li>Albums.getSeveralAlbums</li>
+        <li>Albums.getUsersSavedAlbums</li>
+        <li>Albums.removeAllUsersSavedAlbums</li>
+        <li>Albums.removeUsersSavedAlbums</li>
+        <li>Albums.saveAlbumsForUser</li>
+        <li>Albums.saveAllAlbumsForUser</li>
       </ul>
     </li>
     <li>
       <b>Artists</b>
       <ul>
-        <li>Artists.Albums.get</li>
-        <li>Artists.Albums.getAll</li>
-        <li>Artists.Artist.get</li>
-        <li>Artists.Artist.getAll</li>
-        <li>Artists.Artist.getSeveral</li>
-        <li>Artists.RelatedArtists.get</li>
-        <li>Artists.TopTracks.get</li>
+        <li>Artists.getAllArtists</li>
+        <li>Artists.getAllArtistsAlbums</li>
+        <li>Artists.getArtist</li>
+        <li>Artists.getArtistsAlbums</li>
+        <li>Artists.getArtistsRelatedArtists</li>
+        <li>Artists.getArtistsTopTracks</li>
+        <li>Artists.getSeveralArtists</li>
       </ul>
     </li>
     <li>
       <b>Categories</b>
       <ul>
+        <li>Categories.getCategory</li>
         <li>Categories.getSeveralCategories</li>
-        <li>Categories.getSingleCategory</li>
       </ul>
     </li>
     <li>
       <b>Episodes</b>
       <ul>
-        <li>Episodes.Episode.get</li>
-        <li>Episodes.Episode.getAll</li>
-        <li>Episodes.Episode.getSeveral</li>
-        <li>Episodes.UsersSaved.check</li>
-        <li>Episodes.UsersSaved.checkAll</li>
-        <li>Episodes.UsersSaved.get</li>
-        <li>Episodes.UsersSaved.getAll</li>
-        <li>Episodes.UsersSaved.remove</li>
-        <li>Episodes.UsersSaved.removeAll</li>
-        <li>Episodes.UsersSaved.save</li>
-        <li>Episodes.UsersSaved.saveAll</li>
+        <li>Episodes.checkAllUsersSavedEpisodes</li>
+        <li>Episodes.checkUsersSavedEpisodes</li>
+        <li>Episodes.getAllEpisodes</li>
+        <li>Episodes.getAllUsersSavedEpisodes</li>
+        <li>Episodes.getEpisode</li>
+        <li>Episodes.getSeveralEpisodes</li>
+        <li>Episodes.getUsersSavedEpisodes</li>
+        <li>Episodes.removeAllUsersSavedEpisodes</li>
+        <li>Episodes.removeUsersSavedEpisodes</li>
+        <li>Episodes.saveAllEpisodesForUser</li>
+        <li>Episodes.saveEpisodesForUser</li>
       </ul>
     </li>
     <li>
@@ -234,19 +234,19 @@ Usually, a refresh token only needs to be generated once. You can [generate one 
     <li>
       <b>Shows</b>
       <ul>
-        <li>Shows.Episodes.get</li>
-        <li>Shows.Episodes.getAll</li>
-        <li>Shows.Show.get</li>
-        <li>Shows.Show.getAll</li>
-        <li>Shows.Show.getSeveral</li>
-        <li>Shows.UsersSaved.check</li>
-        <li>Shows.UsersSaved.checkAll</li>
-        <li>Shows.UsersSaved.get</li>
-        <li>Shows.UsersSaved.getAll</li>
-        <li>Shows.UsersSaved.remove</li>
-        <li>Shows.UsersSaved.removeAll</li>
-        <li>Shows.UsersSaved.save</li>
-        <li>Shows.UsersSaved.saveAll</li>
+        <li>Shows.checkAllUsersSavedShows</li>
+        <li>Shows.checkUsersSavedShows</li>
+        <li>Shows.getAllShowEpisodes</li>
+        <li>Shows.getAllShows</li>
+        <li>Shows.getAllUsersSavedShows</li>
+        <li>Shows.getSeveralShows</li>
+        <li>Shows.getShow</li>
+        <li>Shows.getShowEpisodes</li>
+        <li>Shows.getUsersSavedShows</li>
+        <li>Shows.removeAllUsersSavedShows</li>
+        <li>Shows.removeUsersSavedShows</li>
+        <li>Shows.saveAllShowsForUser</li>
+        <li>Shows.saveShowsForUser</li>
       </ul>
     </li>
     <li>
@@ -262,7 +262,7 @@ Usually, a refresh token only needs to be generated once. You can [generate one 
         <li>Tracks.getRecommendations</li>
         <li>Tracks.getSeveralAudioFeatures</li>
         <li>Tracks.getSeveralTracks</li>
-        <li>Tracks.getSingleTrack</li>
+        <li>Tracks.getTrack</li>
         <li>Tracks.getUsersSavedTracks</li>
         <li>Tracks.removeAllUsersTracksForUser</li>
         <li>Tracks.removeUsersSavedTracks</li>
