@@ -489,7 +489,7 @@ const tests: LibTestRunner = [
         fn: () =>
           assertReturns<DR<SpotifyApi.PlaylistTrackResponse>>(
             Client.Playlists.getPlaylistItems(stringId, {
-              additional_types: 'track,episode',
+              additional_types,
               fields,
               market,
               limit,
@@ -654,6 +654,18 @@ const tests: LibTestRunner = [
         fn: () =>
           assertReturns<DR<SpotifyApi.UserDevicesResponse>>(
             Client.Player.getAvailableDevices()
+          ),
+      },
+      {
+        name: 'startOrResumePlayback',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.VoidResponse>>(
+            Client.Player.startOrResumePlayback('abc', {
+              context_uri: '',
+              offset: {},
+              position_ms: 1,
+              uris: [''],
+            })
           ),
       },
     ],

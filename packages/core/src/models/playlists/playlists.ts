@@ -12,7 +12,7 @@ import type {
   PlaylistId,
   SnapshotId,
   Timestamp,
-  Uris,
+  Uri,
   UserId,
 } from '../../types';
 
@@ -65,7 +65,7 @@ export const PLAYLIST_ITEMS_LIMIT = 50;
 export const addPlaylistItems: AsyncFnWithProvider<
   SpotifyApi.AddTracksToPlaylistResponse,
   PlaylistId,
-  Uris,
+  Uri[],
   {
     position: number;
   }

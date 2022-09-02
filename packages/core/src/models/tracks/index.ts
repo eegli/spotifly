@@ -129,5 +129,5 @@ export default function Tracks(provider: AsyncProvider) {
        * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recommendations Get Recommendations}
        */
     getRecommendations: getRecommendations(provider),
-  } as const;
+  };
 }

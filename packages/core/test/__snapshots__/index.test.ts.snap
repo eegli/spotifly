@@ -52,7 +52,10 @@ exports[`Lib matches snapshot 1`] = `
   },
   "Player": {
     "getAvailableDevices": [Function],
+    "getCurrentlyPlayingTrack": [Function],
     "getPlaybackState": [Function],
+    "pausePlayback": [Function],
+    "startOrResumePlayback": [Function],
     "transferPlayback": [Function],
   },
   "Playlists": {

@@ -428,6 +428,31 @@ exports[`Player getPlaybackState 1`] = `
 ]
 `;
 
+exports[`Player startOrResumePlayback 1`] = `
+[
+  [
+    {
+      "data": {
+        "context_uri": "",
+        "offset": {},
+        "position_ms": 1,
+        "uris": [
+          "",
+        ],
+      },
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "PUT",
+      "params": {
+        "device_id": "abc",
+      },
+      "url": "me/player/play",
+    },
+  ],
+]
+`;
+
 exports[`Player transferPlayback 1`] = `
 [
   [

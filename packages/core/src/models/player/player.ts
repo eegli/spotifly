@@ -2,8 +2,11 @@ import { Method, transformResponse } from '../../request';
 import {
   AdditionalTypes,
   AsyncFnWithProvider,
+  ContextUri,
   DeviceId,
   Market,
+  Position,
+  Uris,
 } from '../../types';
 
 export const getPlaybackState: AsyncFnWithProvider<
@@ -41,3 +44,54 @@ export const getAvailableDevices: AsyncFnWithProvider<
       url: 'me/player/devices',
     })
   );
+
+export const getCurrentlyPlayingTrack: AsyncFnWithProvider<
+  SpotifyApi.CurrentlyPlayingResponse,
+  unknown,
+  AdditionalTypes & Market
+> = provider => async (_, params) =>
+  transformResponse(
+    await provider.request({
+      method: Method.GET,
+      url: 'me/player/currently-playing',
+      params,
+    })
+  );
+
+export const startOrResumePlayback: AsyncFnWithProvider<
+  SpotifyApi.VoidResponse,
+  unknown,
+  DeviceId,
+  ContextUri & Uris & { offset: Record<string, unknown> } & Position
+> = provider => async (_, device_id, data) =>
+  transformResponse(
+    await provider.request({
+      method: Method.PUT,
+      url: 'me/player/play',
+      params: {
+        device_id,
+      },
+      data,
+    })
+  );
+
+const playback: (
+  url: string,
+  method?: Method
+) => AsyncFnWithProvider<SpotifyApi.VoidResponse, unknown, DeviceId> =
+  (url, method = Method.POST) =>
+  provider =>
+  async (_, device_id) =>
+    transformResponse(
+      await provider.request({
+        method,
+        url,
+        params: {
+          device_id,
+        },
+      })
+    );
+
+export const pausePlayback = playback('me/player/pause', Method.PUT);
+export const skipToNext = playback('me/player/next');
+export const skipToPrevious = playback('me/player/previous');

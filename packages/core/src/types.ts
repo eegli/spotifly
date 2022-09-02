@@ -72,10 +72,11 @@ export type TrackId = string & _;
 export type AlbumId = string & _;
 export type EpisodeId = string & _;
 export type ShowId = string & _;
-export type Uris = string[];
+
 export type PlaylistId = string & _;
 export type CategoryId = string & _;
 export type DeviceId = string & _;
+export type Uri = string;
 
 export type Market = { market: string };
 export type Locale = { locale: string };
@@ -95,10 +96,17 @@ export type TimeRange = {
 export type IncludeGroups = {
   include_groups: ('album' | 'single' | 'appears_on' | 'compilation')[];
 };
+export type ContextUri = {
+  context_uri: string;
+};
+export type Uris = {
+  uris: Uri[];
+};
 
 export type After = { after: string };
 export type Limit = { limit: number };
 export type Offset = { offset: number };
+export type Position = { position_ms: number };
 
 export type SinglePropertyResponse<Key extends string> = {
   [Property in Key]: string[];
