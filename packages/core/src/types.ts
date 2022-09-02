@@ -52,9 +52,9 @@ export type BetterOmit<Type, Key> = {
 
 export type OmitFromAsyncFnParams<
   Func extends AnyFunc,
-  Object extends AnyObject
+  Obj extends AnyObject
 > = Func extends (arg1: infer FirstArg, arg2: infer SecondArg) => unknown
-  ? [FirstArg, BetterOmit<SecondArg, keyof Object>?]
+  ? [FirstArg, BetterOmit<SecondArg, keyof Obj>?]
   : never;
 
 export type ReadOnlyParams<Func extends AnyFunc> = Func extends (

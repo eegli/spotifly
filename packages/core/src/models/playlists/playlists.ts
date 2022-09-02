@@ -108,10 +108,7 @@ export const removePlaylistItems: AsyncFnWithProvider<
     await provider.request({
       method: Method.DELETE,
       url: `playlists/${playlistId}/tracks`,
-      data: {
-        ...data,
-        tracks,
-      },
+      data: { ...data, tracks },
     })
   );
 
@@ -157,10 +154,7 @@ export const createPlaylist: AsyncFnWithProvider<
     await provider.request({
       method: Method.POST,
       url: `users/${userId}/playlists`,
-      data: {
-        name,
-        ...data,
-      },
+      data: { ...data, name },
     })
   );
 
