@@ -153,52 +153,52 @@ const tests: LibTestRunner = [
     name: 'Shows',
     tests: [
       {
-        name: 'Show.get',
+        name: 'getShow',
         fn: () =>
           assertReturns<DR<SpotifyApi.SingleShowResponse>>(
-            Client.Shows.Show.get(stringId, { market })
+            Client.Shows.getShow(stringId, { market })
           ),
       },
       {
-        name: 'Show.getSeveral',
+        name: 'getSeveralShows',
         fn: () =>
           assertReturns<DR<SpotifyApi.MultipleShowsResponse>>(
-            Client.Shows.Show.getSeveral(stringIds, { market })
+            Client.Shows.getSeveralShows(stringIds, { market })
           ),
       },
       {
-        name: 'Episodes.get',
+        name: 'getShowEpisodes',
         fn: () =>
           assertReturns<DR<SpotifyApi.ShowEpisodesResponse>>(
-            Client.Shows.Episodes.get(stringId, { market, offset, limit })
+            Client.Shows.getShowEpisodes(stringId, { market, offset, limit })
           ),
       },
       {
-        name: 'UsersSaved.get',
+        name: 'getUsersSavedShows',
         fn: () =>
           assertReturns<DR<SpotifyApi.UsersSavedShowsResponse>>(
-            Client.Shows.UsersSaved.get({ offset, limit })
+            Client.Shows.getUsersSavedShows({ offset, limit })
           ),
       },
       {
-        name: 'UsersSaved.save',
+        name: 'saveShowsForUser',
         fn: () =>
           assertReturns<DR<SpotifyApi.VoidResponse>>(
-            Client.Shows.UsersSaved.save(stringIds)
+            Client.Shows.saveShowsForUser(stringIds)
           ),
       },
       {
-        name: 'UsersSaved.remove',
+        name: 'removeUsersSavedShows',
         fn: () =>
           assertReturns<DR<SpotifyApi.VoidResponse>>(
-            Client.Shows.UsersSaved.remove(stringIds, { market })
+            Client.Shows.removeUsersSavedShows(stringIds, { market })
           ),
       },
       {
-        name: 'UsersSaved.check',
+        name: 'checkUsersSavedShows',
         fn: () =>
-          assertReturns<DR<SpotifyApi.VoidResponse>>(
-            Client.Shows.UsersSaved.check(stringIds)
+          assertReturns<DR<boolean[]>>(
+            Client.Shows.checkUsersSavedShows(stringIds)
           ),
       },
     ],

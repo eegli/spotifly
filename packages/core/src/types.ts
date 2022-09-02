@@ -71,6 +71,7 @@ export type ArtistId = string & _;
 export type TrackId = string & _;
 export type AlbumId = string & _;
 export type EpisodeId = string & _;
+export type ShowId = string & _;
 export type Uris = string[];
 export type PlaylistId = string & _;
 export type CategoryId = string & _;

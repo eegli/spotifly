@@ -1,10 +1,16 @@
 import { Method, transformResponse } from '../../request';
-import { AsyncFnWithProvider } from '../../types';
+import {
+  AsyncFnWithProvider,
+  Limit,
+  Market,
+  Offset,
+  ShowId,
+} from '../../types';
 
 export const getShow: AsyncFnWithProvider<
   SpotifyApi.SingleShowResponse,
-  string,
-  { market: string }
+  ShowId,
+  Market
 > = provider => async (showId, params) =>
   transformResponse(
     await provider.request({
@@ -16,8 +22,8 @@ export const getShow: AsyncFnWithProvider<
 
 export const getSeveralShows: AsyncFnWithProvider<
   SpotifyApi.MultipleShowsResponse,
-  string[],
-  { market: string }
+  ShowId[],
+  Market
 > = provider => async (showIds, params) =>
   transformResponse(
     await provider.request({
@@ -30,12 +36,12 @@ export const getSeveralShows: AsyncFnWithProvider<
     })
   );
 
-export const getSeveralShowsLimit = 50;
+export const SEVERAL_SHOWS_LIMIT = 50;
 
 export const getShowEpisodes: AsyncFnWithProvider<
   SpotifyApi.ShowEpisodesResponse,
-  string,
-  { limit: number; market: string; offset: number }
+  ShowId,
+  Limit & Market & Offset
 > = provider => async (showId, params) =>
   transformResponse(
     await provider.request({
@@ -45,12 +51,14 @@ export const getShowEpisodes: AsyncFnWithProvider<
     })
   );
 
-export const getShowEpisodesLimit = 50;
+export const SHOW_EPISODES_LIMIT = 50;
+
+export const USER_SHOW_LIMIT = 50;
 
 export const getUsersSavedShows: AsyncFnWithProvider<
   SpotifyApi.UsersSavedShowsResponse,
   unknown,
-  { limit: number; offset: number }
+  Limit & Offset
 > = provider => async (_, params) =>
   transformResponse(
     await provider.request({
@@ -60,12 +68,10 @@ export const getUsersSavedShows: AsyncFnWithProvider<
     })
   );
 
-export const getUsersSavedShowsLimit = 50;
-
 export const saveShowsForUser: AsyncFnWithProvider<
   // TODO fix this type
   SpotifyApi.VoidResponse,
-  string[]
+  ShowId[]
 > = provider => async showIds =>
   transformResponse(
     await provider.request({
@@ -77,30 +83,27 @@ export const saveShowsForUser: AsyncFnWithProvider<
     })
   );
 
-export const saveShowsForUserLimit = 50;
-
 export const removeUsersSavedShows: AsyncFnWithProvider<
   // TODO fix this type
   SpotifyApi.VoidResponse,
-  string[],
-  { market: string }
-> = provider => async showIds =>
+  ShowId[],
+  Market
+> = provider => async (showIds, params) =>
   transformResponse(
     await provider.request({
       method: Method.DELETE,
       url: 'me/shows',
       params: {
+        ...params,
         ids: showIds.join(','),
       },
     })
   );
 
-export const removeUsersSavedShowsLimit = 50;
-
 export const checkUsersSavedShows: AsyncFnWithProvider<
   // TODO fix this type
   boolean[],
-  string[]
+  ShowId[]
 > = provider => async showIds =>
   transformResponse(
     await provider.request({
@@ -111,5 +114,3 @@ export const checkUsersSavedShows: AsyncFnWithProvider<
       },
     })
   );
-
-export const checkUsersSavedShowsLimit = 50;

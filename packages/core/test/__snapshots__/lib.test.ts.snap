@@ -699,7 +699,59 @@ exports[`Search Search.get 1`] = `
 ]
 `;
 
-exports[`Shows Episodes.get 1`] = `
+exports[`Shows checkUsersSavedShows 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20,id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40,id41,id42,id43,id44,id45,id46,id47,id48,id49,id50,id51",
+      },
+      "url": "me/shows/contains",
+    },
+  ],
+]
+`;
+
+exports[`Shows getSeveralShows 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20,id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40,id41,id42,id43,id44,id45,id46,id47,id48,id49,id50,id51",
+        "market": "CH",
+      },
+      "url": "shows",
+    },
+  ],
+]
+`;
+
+exports[`Shows getShow 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "market": "CH",
+      },
+      "url": "shows/id1",
+    },
+  ],
+]
+`;
+
+exports[`Shows getShowEpisodes 1`] = `
 [
   [
     {
@@ -718,59 +770,7 @@ exports[`Shows Episodes.get 1`] = `
 ]
 `;
 
-exports[`Shows Show.get 1`] = `
-[
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "GET",
-      "params": {
-        "market": "CH",
-      },
-      "url": "shows/id1",
-    },
-  ],
-]
-`;
-
-exports[`Shows Show.getSeveral 1`] = `
-[
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "GET",
-      "params": {
-        "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20,id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40,id41,id42,id43,id44,id45,id46,id47,id48,id49,id50,id51",
-        "market": "CH",
-      },
-      "url": "shows",
-    },
-  ],
-]
-`;
-
-exports[`Shows UsersSaved.check 1`] = `
-[
-  [
-    {
-      "headers": {
-        "Authorization": "Bearer token-xyz",
-      },
-      "method": "GET",
-      "params": {
-        "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20,id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40,id41,id42,id43,id44,id45,id46,id47,id48,id49,id50,id51",
-      },
-      "url": "me/shows/contains",
-    },
-  ],
-]
-`;
-
-exports[`Shows UsersSaved.get 1`] = `
+exports[`Shows getUsersSavedShows 1`] = `
 [
   [
     {
@@ -788,7 +788,7 @@ exports[`Shows UsersSaved.get 1`] = `
 ]
 `;
 
-exports[`Shows UsersSaved.remove 1`] = `
+exports[`Shows removeUsersSavedShows 1`] = `
 [
   [
     {
@@ -798,6 +798,7 @@ exports[`Shows UsersSaved.remove 1`] = `
       "method": "DELETE",
       "params": {
         "ids": "id1,id2,id3,id4,id5,id6,id7,id8,id9,id10,id11,id12,id13,id14,id15,id16,id17,id18,id19,id20,id21,id22,id23,id24,id25,id26,id27,id28,id29,id30,id31,id32,id33,id34,id35,id36,id37,id38,id39,id40,id41,id42,id43,id44,id45,id46,id47,id48,id49,id50,id51",
+        "market": "CH",
       },
       "url": "me/shows",
     },
@@ -805,7 +806,7 @@ exports[`Shows UsersSaved.remove 1`] = `
 ]
 `;
 
-exports[`Shows UsersSaved.save 1`] = `
+exports[`Shows saveShowsForUser 1`] = `
 [
   [
     {
