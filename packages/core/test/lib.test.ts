@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import * as Spotify from '../src';
 import { DataResponse as DR } from '../src';
+import { BooleanResponse } from '../src/types';
 import {
   additional_types,
   country,
@@ -106,45 +107,45 @@ const tests: LibTestRunner = [
     name: 'Artists',
     tests: [
       {
-        name: 'Artist.get',
+        name: 'getArtist',
         fn: () =>
           assertReturns<DR<SpotifyApi.SingleArtistResponse>>(
-            Client.Artists.Artist.get(stringId)
+            Client.Artists.getArtist(stringId)
           ),
       },
       {
-        name: 'Artist.getSeveral',
+        name: 'getSeveralArtists',
         fn: () =>
           assertReturns<DR<SpotifyApi.MultipleArtistsResponse>>(
-            Client.Artists.Artist.getSeveral(stringIds)
+            Client.Artists.getSeveralArtists(stringIds)
           ),
       },
       {
-        name: 'Album.get',
+        name: 'getArtistsAlbums',
         fn: () =>
           assertReturns<DR<SpotifyApi.ArtistsAlbumsResponse>>(
-            Client.Artists.Albums.get(stringId, {
+            Client.Artists.getArtistsAlbums(stringId, {
               market,
               limit,
               offset,
-              include_groups: 'album,appears_on,compilation,single',
+              include_groups: ['album', 'appears_on', 'compilation'],
             })
           ),
       },
       {
-        name: 'TopTracks.get',
+        name: 'getArtistsTopTracks',
         fn: () =>
           assertReturns<DR<SpotifyApi.ArtistsTopTracksResponse>>(
-            Client.Artists.TopTracks.get(stringId, {
+            Client.Artists.getArtistsTopTracks(stringId, {
               market,
             })
           ),
       },
       {
-        name: 'RelatedArtists.get',
+        name: 'getArtistsRelatedArtists',
         fn: () =>
           assertReturns<DR<SpotifyApi.ArtistsRelatedArtistsResponse>>(
-            Client.Artists.RelatedArtists.get(stringId)
+            Client.Artists.getArtistsRelatedArtists(stringId)
           ),
       },
     ],
@@ -197,7 +198,7 @@ const tests: LibTestRunner = [
       {
         name: 'checkUsersSavedShows',
         fn: () =>
-          assertReturns<DR<boolean[]>>(
+          assertReturns<DR<BooleanResponse>>(
             Client.Shows.checkUsersSavedShows(stringIds)
           ),
       },

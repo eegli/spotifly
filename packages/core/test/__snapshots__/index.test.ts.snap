@@ -27,21 +27,13 @@ exports[`Lib matches snapshot 1`] = `
     },
   },
   "Artists": {
-    "Albums": {
-      "get": [Function],
-      "getAll": [Function],
-    },
-    "Artist": {
-      "get": [Function],
-      "getAll": [Function],
-      "getSeveral": [Function],
-    },
-    "RelatedArtists": {
-      "get": [Function],
-    },
-    "TopTracks": {
-      "get": [Function],
-    },
+    "getAllArtists": [Function],
+    "getAllArtistsAlbums": [Function],
+    "getArtist": [Function],
+    "getArtistsAlbums": [Function],
+    "getArtistsRelatedArtists": [Function],
+    "getArtistsTopTracks": [Function],
+    "getSeveralArtists": [Function],
   },
   "Categories": {
     "getCategory": [Function],

@@ -4,11 +4,11 @@ import {
   checkUsersSavedEpisodes,
   getEpisode,
   getSeveralEpisodes,
-  getSeveralEpisodesLimit,
   getUsersSavedEpisodes,
   removeUsersSavedEpisodes,
   saveEpisodesForUser,
-  userEpisodesLimit,
+  SEVERAL_EPISODES_LIMIT,
+  USER_EPISODES_LIMIT,
 } from './episodes';
 
 export default function Episodes(provider: AsyncProvider) {
@@ -31,7 +31,7 @@ export default function Episodes(provider: AsyncProvider) {
      */
     getAllEpisodes: factory.forLimited(
       getSeveralEpisodes(provider),
-      getSeveralEpisodesLimit
+      SEVERAL_EPISODES_LIMIT
     ),
     /**
      * Get a list of the episodes saved in the current Spotify user's library.
@@ -45,7 +45,7 @@ export default function Episodes(provider: AsyncProvider) {
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/get-users-saved-episodes Get User's Saved Episodes}
      */
     getAllUsersSavedEpisodes: factory
-      .forPaginated(getUsersSavedEpisodes(provider), userEpisodesLimit)
+      .forPaginated(getUsersSavedEpisodes(provider), USER_EPISODES_LIMIT)
       .bind(null, null),
     /**
      * Save one or more episodes to the current user's library.
@@ -60,7 +60,7 @@ export default function Episodes(provider: AsyncProvider) {
      */
     saveAllEpisodesForUser: factory.forLimited(
       saveEpisodesForUser(provider),
-      userEpisodesLimit
+      USER_EPISODES_LIMIT
     ),
     /**
      * Remove one or more episodes from the current user's library.
@@ -75,7 +75,7 @@ export default function Episodes(provider: AsyncProvider) {
      */
     removeAllUsersSavedEpisodes: factory.forLimited(
       removeUsersSavedEpisodes(provider),
-      userEpisodesLimit
+      USER_EPISODES_LIMIT
     ),
 
     /**
@@ -91,7 +91,7 @@ export default function Episodes(provider: AsyncProvider) {
      */
     checkAllUsersSavedEpisodes: factory.forLimited(
       checkUsersSavedEpisodes(provider),
-      userEpisodesLimit
+      USER_EPISODES_LIMIT
     ),
   } as const;
 }

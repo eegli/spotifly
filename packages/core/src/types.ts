@@ -92,6 +92,9 @@ export type SnapshotId = {
 export type TimeRange = {
   time_range: 'long_term ' | 'medium_term' | 'short_term';
 };
+export type IncludeGroups = {
+  include_groups: ('album' | 'single' | 'appears_on' | 'compilation')[];
+};
 
 export type After = { after: string };
 export type Limit = { limit: number };
@@ -100,3 +103,4 @@ export type Offset = { offset: number };
 export type SinglePropertyResponse<Key extends string> = {
   [Property in Key]: string[];
 };
+export type BooleanResponse = boolean[];

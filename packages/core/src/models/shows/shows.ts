@@ -1,6 +1,7 @@
 import { Method, transformResponse } from '../../request';
 import {
   AsyncFnWithProvider,
+  BooleanResponse,
   Limit,
   Market,
   Offset,
@@ -102,7 +103,7 @@ export const removeUsersSavedShows: AsyncFnWithProvider<
 
 export const checkUsersSavedShows: AsyncFnWithProvider<
   // TODO fix this type
-  boolean[],
+  BooleanResponse,
   ShowId[]
 > = provider => async showIds =>
   transformResponse(
