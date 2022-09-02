@@ -30,7 +30,7 @@ mockSpotify.Tracks.getSeveralAudioFeatures.mockImplementation(() => {
   return Promise.resolve(RES_MULTIPLE_AUDIO_FEATURES);
 });
 
-mockSpotify.Artists.Artist.getAll.mockImplementation(() => {
+mockSpotify.Artists.getAllArtists.mockImplementation(() => {
   return cb => {
     if (cb) cb(RES_MULTIPLE_ARTISTS);
     return Promise.resolve([RES_MULTIPLE_ARTISTS]);

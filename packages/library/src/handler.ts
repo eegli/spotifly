@@ -57,7 +57,7 @@ export const libraryHandler: LibraryHandler = async options => {
     progress = createProgressBar('artists');
     progress.start(artistIds.length, 0);
 
-    await spotifyClient.Artists.Artist.getAll(artistIds)(({ data }) => {
+    await spotifyClient.Artists.getAllArtists(artistIds)(({ data }) => {
       data.artists.forEach(artist => {
         genres[artist.id] = artist.genres;
       });
