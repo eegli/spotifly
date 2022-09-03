@@ -120,7 +120,7 @@ Usually, a refresh token only needs to be generated once. You can [generate one 
 | Episodes   | ✅      |
 | Genres     | ✅      |
 | Markets    | ✅      |
-| Player     | 〽️      |
+| Player     | ✅      |
 | Playlists  | 〽️      |
 | Search     | ✅      |
 | Shows      | ✅      |
@@ -202,8 +202,20 @@ Usually, a refresh token only needs to be generated once. You can [generate one 
     <li>
       <b>Player</b>
       <ul>
+        <li>Player.addToQueue</li>
         <li>Player.getAvailableDevices</li>
+        <li>Player.getCurrentlyPlayingTrack</li>
         <li>Player.getPlaybackState</li>
+        <li>Player.getRecentlyPlayedTracks</li>
+        <li>Player.getUsersQueue</li>
+        <li>Player.pausePlayback</li>
+        <li>Player.seekToPosition</li>
+        <li>Player.setPlaybackVolume</li>
+        <li>Player.setRepeatMode</li>
+        <li>Player.skipToNext</li>
+        <li>Player.skipToPrevious</li>
+        <li>Player.startOrResumePlayback</li>
+        <li>Player.togglePlaybackShuffle</li>
         <li>Player.transferPlayback</li>
       </ul>
     </li>
@@ -297,6 +309,12 @@ Usually, a refresh token only needs to be generated once. You can [generate one 
         <li>Users.unfollowArtists</li>
         <li>Users.unfollowPlaylist</li>
         <li>Users.unfollowUsers</li>
+      </ul>
+    </li>
+    <li>
+      <b>future</b>
+      <ul>
+        <li>future.request</li>
       </ul>
     </li>
   </ul>
