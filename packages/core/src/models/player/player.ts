@@ -175,6 +175,7 @@ export const getRecentlyPlayedTracks: AsyncFnWithProvider<
   );
 
 export const getUsersQueue: AsyncFnWithProvider<
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   any // TODO
 > = provider => async () =>
   transformResponse(

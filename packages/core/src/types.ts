@@ -22,7 +22,9 @@ export type AsyncFn<
   : Param2 extends undefined
   ? (required: Param1) => DataPromise<ReturnValue>
   : Param3 extends undefined
-  ? (required: Param1, optional?: Partial<Param2>) => DataPromise<ReturnValue>
+  ? Param2 extends AnyObject
+    ? (required: Param1, optional?: Partial<Param2>) => DataPromise<ReturnValue>
+    : (required1: Param1, required2: Param2) => DataPromise<ReturnValue>
   : Param3 extends AnyObject
   ? (
       required1: Param1,
