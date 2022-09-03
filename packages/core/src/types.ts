@@ -9,37 +9,36 @@ export type DataResponse<Data = unknown> = {
 export type DataPromise<Data = unknown> = Promise<DataResponse<Data>>;
 
 export type AsyncProvider = {
-  request<T>(req: AxiosRequestConfig): Promise<AxiosResponse<T>>;
+  request(req: AxiosRequestConfig): Promise<AxiosResponse>;
 };
 
 export type AsyncFn<
   ReturnValue,
   Param1 = undefined,
   Param2 = undefined,
-  Param3 = undefined,
-  ReturnType = DataPromise<ReturnValue>
+  Param3 = undefined
 > = Param1 extends undefined
-  ? () => ReturnType
+  ? () => DataPromise<ReturnValue>
   : Param2 extends undefined
-  ? (required: Param1) => ReturnType
+  ? (required: Param1) => DataPromise<ReturnValue>
   : Param3 extends undefined
-  ? Param2 extends AnyObject
-    ? (required: Param1, optional?: Partial<Param2>) => ReturnType
-    : (required1: Param1, required2: Param2) => ReturnType
+  ? (required: Param1, optional?: Partial<Param2>) => DataPromise<ReturnValue>
   : Param3 extends AnyObject
   ? (
       required1: Param1,
       required2: Param2,
       optional?: Partial<Param3>
-    ) => ReturnType
-  : never;
+    ) => DataPromise<ReturnValue>
+  : `Invalid async function`;
 
 export type AsyncFnWithProvider<
   ReturnValue,
   Param1 = undefined,
   Param2 = undefined,
   Param3 = undefined
-> = (provider: AsyncProvider) => AsyncFn<ReturnValue, Param1, Param2, Param3>;
+> = {
+  (provider: AsyncProvider): AsyncFn<ReturnValue, Param1, Param2, Param3>;
+};
 
 export type AnyObject = Record<string, unknown>;
 
@@ -78,6 +77,9 @@ export type CategoryId = string & _;
 export type DeviceId = string & _;
 export type Uri = string & _;
 
+export type PositionMS = number & _;
+export type VolumePercent = number & _;
+
 export type Params = {
   market: string;
   locale: string;
@@ -88,12 +90,14 @@ export type Params = {
   device_id: string;
   fields: string;
   time_range: 'long_term ' | 'medium_term' | 'short_term';
-  include_groups: ('album' | 'single' | 'appears_on' | 'compilation')[];
+  include_groups: string;
   context_uri: string;
   name: string;
   description: string;
   public: boolean;
   collaborative: boolean;
+  play: boolean;
+  state: boolean;
   uris: Uri[];
   after: string;
   range_start: number;

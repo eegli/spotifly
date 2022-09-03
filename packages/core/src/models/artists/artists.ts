@@ -37,12 +37,7 @@ export const getArtistsAlbums: AsyncFnWithProvider<
     await provider.request({
       method: Method.GET,
       url: `artists/${artistId}/albums`,
-      params: {
-        include_groups: params?.include_groups?.join(','),
-        offset: params?.offset,
-        limit: params?.limit,
-        market: params?.market,
-      },
+      params,
     })
   );
 

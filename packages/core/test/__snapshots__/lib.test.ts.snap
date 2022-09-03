@@ -166,7 +166,7 @@ exports[`Artists getArtistsAlbums 1`] = `
       },
       "method": "GET",
       "params": {
-        "include_groups": "album,appears_on,compilation",
+        "include_groups": "album,appears_on",
         "limit": 1,
         "market": "CH",
         "offset": 1,
@@ -411,6 +411,24 @@ exports[`Markets getAvailableMarkets 1`] = `
 ]
 `;
 
+exports[`Player addToQueue 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "POST",
+      "params": {
+        "device_id": "id1",
+        "uri": "id1",
+      },
+      "url": "me/player/queue",
+    },
+  ],
+]
+`;
+
 exports[`Player getAvailableDevices 1`] = `
 [
   [
@@ -420,6 +438,24 @@ exports[`Player getAvailableDevices 1`] = `
       },
       "method": "GET",
       "url": "me/player/devices",
+    },
+  ],
+]
+`;
+
+exports[`Player getCurrentlyPlayingTrack 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "additional_types": "track,episode",
+        "market": "CH",
+      },
+      "url": "me/player/currently-playing",
     },
   ],
 ]
@@ -443,16 +479,155 @@ exports[`Player getPlaybackState 1`] = `
 ]
 `;
 
+exports[`Player getRecentlyPlayedTracks 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "params": {
+        "after": 1,
+        "before": 1,
+        "limit": 1,
+      },
+      "url": "me/player/recently-played",
+    },
+  ],
+]
+`;
+
+exports[`Player getUsersQueue 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "GET",
+      "url": "me/player/queue",
+    },
+  ],
+]
+`;
+
+exports[`Player pausePlayback 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "PUT",
+      "params": {
+        "device_id": "id1",
+      },
+      "url": "me/player/pause",
+    },
+  ],
+]
+`;
+
+exports[`Player seekToPosition 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "PUT",
+      "params": {
+        "device_id": "id1",
+        "position_ms": 123,
+      },
+      "url": "me/player/seek",
+    },
+  ],
+]
+`;
+
+exports[`Player setPlaybackVolume 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "PUT",
+      "params": {
+        "device_id": "id1",
+        "volume_percent": 60,
+      },
+      "url": "me/player/volume",
+    },
+  ],
+]
+`;
+
+exports[`Player setRepeatMode 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "PUT",
+      "params": {
+        "device_id": "id1",
+        "state": "off",
+      },
+      "url": "me/player/repeat",
+    },
+  ],
+]
+`;
+
+exports[`Player skipToNext 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "POST",
+      "params": {
+        "device_id": "id1",
+      },
+      "url": "me/player/next",
+    },
+  ],
+]
+`;
+
+exports[`Player skipToPrevious 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "POST",
+      "params": {
+        "device_id": "id1",
+      },
+      "url": "me/player/previous",
+    },
+  ],
+]
+`;
+
 exports[`Player startOrResumePlayback 1`] = `
 [
   [
     {
       "data": {
-        "context_uri": "",
+        "context_uri": "id1",
         "offset": {},
         "position_ms": 1,
         "uris": [
-          "",
+          "spotify:track:1",
+          "spotify:episode:2",
         ],
       },
       "headers": {
@@ -460,9 +635,27 @@ exports[`Player startOrResumePlayback 1`] = `
       },
       "method": "PUT",
       "params": {
-        "device_id": "abc",
+        "device_id": "id1",
       },
       "url": "me/player/play",
+    },
+  ],
+]
+`;
+
+exports[`Player togglePlaybackShuffle 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+      },
+      "method": "PUT",
+      "params": {
+        "device_id": "id1",
+        "state": true,
+      },
+      "url": "me/player/shuffle",
     },
   ],
 ]

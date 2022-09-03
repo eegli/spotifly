@@ -8,6 +8,7 @@ import {
   country,
   fakeAxiosResponse,
   fields,
+  include_groups,
   limit,
   locale,
   market,
@@ -128,7 +129,7 @@ const tests: LibTestRunner = [
               market,
               limit,
               offset,
-              include_groups: ['album', 'appears_on', 'compilation'],
+              include_groups,
             })
           ),
       },
@@ -657,15 +658,96 @@ const tests: LibTestRunner = [
           ),
       },
       {
+        name: 'getCurrentlyPlayingTrack',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.CurrentPlaybackResponse>>(
+            Client.Player.getCurrentlyPlayingTrack({ additional_types, market })
+          ),
+      },
+      {
         name: 'startOrResumePlayback',
         fn: () =>
           assertReturns<DR<SpotifyApi.VoidResponse>>(
-            Client.Player.startOrResumePlayback('abc', {
-              context_uri: '',
+            Client.Player.startOrResumePlayback(stringId, {
+              context_uri: stringId,
               offset: {},
               position_ms: 1,
-              uris: [''],
+              uris,
             })
+          ),
+      },
+      {
+        name: 'pausePlayback',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.VoidResponse>>(
+            Client.Player.pausePlayback(stringId)
+          ),
+      },
+      {
+        name: 'skipToNext',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.VoidResponse>>(
+            Client.Player.skipToNext(stringId)
+          ),
+      },
+      {
+        name: 'skipToPrevious',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.VoidResponse>>(
+            Client.Player.skipToPrevious(stringId)
+          ),
+      },
+      {
+        name: 'seekToPosition',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.VoidResponse>>(
+            Client.Player.seekToPosition(123, { device_id: stringId })
+          ),
+      },
+      {
+        name: 'setRepeatMode',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.VoidResponse>>(
+            Client.Player.setRepeatMode('off', { device_id: stringId })
+          ),
+      },
+      {
+        name: 'setPlaybackVolume',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.VoidResponse>>(
+            Client.Player.setPlaybackVolume(60, { device_id: stringId })
+          ),
+      },
+      {
+        name: 'togglePlaybackShuffle',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.VoidResponse>>(
+            Client.Player.togglePlaybackShuffle(
+              { state: true },
+              { device_id: stringId }
+            )
+          ),
+      },
+      {
+        name: 'getRecentlyPlayedTracks',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.UsersRecentlyPlayedTracksResponse>>(
+            Client.Player.getRecentlyPlayedTracks({
+              limit: 1,
+              after: 1,
+              before: 1,
+            })
+          ),
+      },
+      {
+        name: 'getUsersQueue',
+        fn: () => assertReturns<DR<unknown>>(Client.Player.getUsersQueue()),
+      },
+      {
+        name: 'addToQueue',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.AddToQueueResponse>>(
+            Client.Player.addToQueue(stringId, { device_id: stringId })
           ),
       },
     ],

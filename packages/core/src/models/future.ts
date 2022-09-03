@@ -1,4 +1,4 @@
-import { AxiosRequestConfig } from 'axios';
+import { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { transformResponse } from '../request';
 import { AsyncProvider } from '../types';
 
@@ -8,6 +8,9 @@ export default function futureRequest(provider: AsyncProvider) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     request: async <Response = any, Data = any>(
       config: AxiosRequestConfig<Data>
-    ) => transformResponse(await provider.request<Response>(config)),
+    ) =>
+      transformResponse(
+        (await provider.request(config)) as AxiosResponse<Response>
+      ),
   };
 }

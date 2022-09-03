@@ -7,6 +7,7 @@ export const fields = 'total,limit';
 export const uris = ['spotify:track:1', 'spotify:episode:2'];
 export const timestamp = '2014-10-23T09:00:00';
 export const additional_types = 'track,episode';
+export const include_groups = 'album,appears_on';
 
 export const limit = 1;
 export const offset = 1;
