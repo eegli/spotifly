@@ -4,6 +4,7 @@ import Albums from './models/albums';
 import Artists from './models/artists';
 import Categories from './models/categories';
 import Episodes from './models/episodes';
+import future from './models/future';
 import Genres from './models/genres';
 import Markets from './models/markets';
 import Player from './models/player';
@@ -28,6 +29,7 @@ export function initialize(authOptions: AuthProviderOptions) {
     Shows: Shows(provider),
     Tracks: Tracks(provider),
     Users: Users(provider),
+    future: future(provider),
   } as const;
 }
 

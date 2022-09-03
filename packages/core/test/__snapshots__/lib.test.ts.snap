@@ -368,6 +368,21 @@ exports[`Episodes saveEpisodesForUser 1`] = `
 ]
 `;
 
+exports[`Future freestyle request 1`] = `
+[
+  [
+    {
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+        "Content-Type": "application/json",
+      },
+      "method": "POST",
+      "url": "https://example.com",
+    },
+  ],
+]
+`;
+
 exports[`Genres getAvailableGenreSeeds 1`] = `
 [
   [

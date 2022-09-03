@@ -1,18 +1,10 @@
 import { Method, transformResponse } from '../../request';
-import {
-  AdditionalTypes,
-  AsyncFnWithProvider,
-  ContextUri,
-  DeviceId,
-  Market,
-  Position,
-  Uris,
-} from '../../types';
+import { AsyncFnWithProvider, DeviceId, Params } from '../../types';
 
 export const getPlaybackState: AsyncFnWithProvider<
   SpotifyApi.CurrentlyPlayingResponse,
   unknown,
-  AdditionalTypes & Market
+  Pick<Params, 'additional_types' | 'market'>
 > = provider => async (_, params) =>
   transformResponse(
     await provider.request({
@@ -48,7 +40,7 @@ export const getAvailableDevices: AsyncFnWithProvider<
 export const getCurrentlyPlayingTrack: AsyncFnWithProvider<
   SpotifyApi.CurrentlyPlayingResponse,
   unknown,
-  AdditionalTypes & Market
+  Pick<Params, 'additional_types' | 'market'>
 > = provider => async (_, params) =>
   transformResponse(
     await provider.request({
@@ -62,7 +54,9 @@ export const startOrResumePlayback: AsyncFnWithProvider<
   SpotifyApi.VoidResponse,
   unknown,
   DeviceId,
-  ContextUri & Uris & { offset: Record<string, unknown> } & Position
+  Pick<Params, 'context_uri' | 'uris' | 'position_ms'> & {
+    offset: Record<string, unknown>;
+  }
 > = provider => async (_, device_id, data) =>
   transformResponse(
     await provider.request({
@@ -99,7 +93,7 @@ export const skipToPrevious = playback('me/player/previous');
 export const seekToPosition: AsyncFnWithProvider<
   SpotifyApi.VoidResponse,
   number,
-  { device_id: string }
+  Pick<Params, 'device_id'>
 > = provider => async (position_ms, params) =>
   transformResponse(
     await provider.request({

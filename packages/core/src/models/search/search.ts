@@ -1,14 +1,10 @@
 import { Method, transformResponse } from '../../request';
-import { AsyncFnWithProvider, Limit, Market, Offset } from '../../types';
+import { AsyncFnWithProvider, Params } from '../../types';
 
 export const searchForItem: AsyncFnWithProvider<
   SpotifyApi.SearchResponse,
   { query: string; type: string },
-  {
-    include_external: 'audio';
-  } & Limit &
-    Market &
-    Offset
+  Pick<Params, 'include_external' | 'limit' | 'market' | 'offset'>
 > =
   provider =>
   async ({ query, type }, params) =>
@@ -23,5 +19,3 @@ export const searchForItem: AsyncFnWithProvider<
         },
       })
     );
-
-export const searchForItemLimit = 50;

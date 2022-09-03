@@ -3,15 +3,13 @@ import {
   AsyncFnWithProvider,
   BooleanResponse,
   EpisodeId,
-  Limit,
-  Market,
-  Offset,
+  Params,
 } from '../../types';
 
 export const getEpisode: AsyncFnWithProvider<
   SpotifyApi.SingleEpisodeResponse,
   EpisodeId,
-  Market
+  Pick<Params, 'market'>
 > = provider => async (episodeId, params) =>
   transformResponse(
     await provider.request({
@@ -24,7 +22,7 @@ export const getEpisode: AsyncFnWithProvider<
 export const getSeveralEpisodes: AsyncFnWithProvider<
   SpotifyApi.MultipleEpisodesResponse,
   EpisodeId[],
-  Market
+  Pick<Params, 'market'>
 > = provider => async (episodeIds, params) =>
   transformResponse(
     await provider.request({
@@ -42,7 +40,7 @@ export const SEVERAL_EPISODES_LIMIT = 50;
 export const getUsersSavedEpisodes: AsyncFnWithProvider<
   SpotifyApi.UsersSavedEpisodesResponse,
   unknown,
-  Limit & Market & Offset
+  Pick<Params, 'limit' | 'market' | 'offset'>
 > = provider => async (_, params) =>
   transformResponse(
     await provider.request({

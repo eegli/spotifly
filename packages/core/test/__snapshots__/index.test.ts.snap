@@ -55,6 +55,9 @@ exports[`Lib matches snapshot 1`] = `
     "getCurrentlyPlayingTrack": [Function],
     "getPlaybackState": [Function],
     "pausePlayback": [Function],
+    "seekToPosition": [Function],
+    "skipToNext": [Function],
+    "skipToPrevious": [Function],
     "startOrResumePlayback": [Function],
     "transferPlayback": [Function],
   },
@@ -134,6 +137,9 @@ exports[`Lib matches snapshot 1`] = `
     "unfollowArtists": [Function],
     "unfollowPlaylist": [Function],
     "unfollowUsers": [Function],
+  },
+  "future": {
+    "request": [Function],
   },
 }
 `;

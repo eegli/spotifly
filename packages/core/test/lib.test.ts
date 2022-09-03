@@ -682,6 +682,24 @@ const tests: LibTestRunner = [
       },
     ],
   },
+  {
+    name: 'Future',
+    tests: [
+      {
+        name: 'freestyle request',
+        fn: () =>
+          assertReturns<DR<string[]>>(
+            Client.future.request<string[]>({
+              url: 'https://example.com',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              method: 'POST',
+            })
+          ),
+      },
+    ],
+  },
 ];
 
 for (const endpoint of tests) {

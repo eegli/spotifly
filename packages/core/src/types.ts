@@ -9,7 +9,7 @@ export type DataResponse<Data = unknown> = {
 export type DataPromise<Data = unknown> = Promise<DataResponse<Data>>;
 
 export type AsyncProvider = {
-  request(req: AxiosRequestConfig): Promise<AxiosResponse>;
+  request<T>(req: AxiosRequestConfig): Promise<AxiosResponse<T>>;
 };
 
 export type AsyncFn<
@@ -76,37 +76,35 @@ export type ShowId = string & _;
 export type PlaylistId = string & _;
 export type CategoryId = string & _;
 export type DeviceId = string & _;
-export type Uri = string;
+export type Uri = string & _;
 
-export type Market = { market: string };
-export type Locale = { locale: string };
-export type Country = { country: string };
-export type Timestamp = { timestamp: string };
-
-export type Fields = { fields: string };
-export type AdditionalTypes = {
+export type Params = {
+  market: string;
+  locale: string;
+  country: string;
+  timestamp: string;
   additional_types: string;
-};
-export type SnapshotId = {
   snapshot_id: string;
-};
-export type TimeRange = {
+  device_id: string;
+  fields: string;
   time_range: 'long_term ' | 'medium_term' | 'short_term';
-};
-export type IncludeGroups = {
   include_groups: ('album' | 'single' | 'appears_on' | 'compilation')[];
-};
-export type ContextUri = {
   context_uri: string;
-};
-export type Uris = {
+  name: string;
+  description: string;
+  public: boolean;
+  collaborative: boolean;
   uris: Uri[];
+  after: string;
+  range_start: number;
+  insert_before: number;
+  range_length: number;
+  include_external: 'audio';
+  limit: number;
+  offset: number;
+  position: number;
+  position_ms: number;
 };
-
-export type After = { after: string };
-export type Limit = { limit: number };
-export type Offset = { offset: number };
-export type Position = { position_ms: number };
 
 export type SinglePropertyResponse<Key extends string> = {
   [Property in Key]: string[];
