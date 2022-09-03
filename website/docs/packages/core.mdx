@@ -16,6 +16,8 @@ The Spotifly core library is a lightweight wrapper for the [Spotify Web API](htt
   - Automatically retreive all items from paginated and limited endpoints
 - **Automatic authentication**
   - Provide your credentials once and have every request authenticate automatically with Spotify
+- **100% future-proof**
+  - Today's wrapper API supports the Spotify endpoints of tomorrow
 - **Testing with confidence**
   - Creating stubs for the core lib is a piece of cake. Read along for testing recipes!
 
@@ -321,6 +323,16 @@ import type { DataResponse, DataPromise } from '@spotifly/core';
 ### Convenience Methods
 
 TODO
+
+### Future
+
+Today's client supports the Spotify endpoints of tomorrow. The API features a `future.request` function that acts as an escape hatch for everything that is not yet or incorretly supported by this library. Requests made through `future.request` are always authenticated.
+
+```ts
+await spotifyClient.future
+  .request<MyResponseType>({ url: 'me/new-releases' })
+  .then(console.log); // typeof MyResponseType
+```
 
 ## Testing Recipes
 
