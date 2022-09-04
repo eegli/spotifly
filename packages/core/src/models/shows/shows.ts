@@ -4,6 +4,7 @@ import {
   BooleanResponse,
   Params,
   ShowId,
+  VoidResponse,
 } from '../../types';
 
 export const getShow: AsyncFnWithProvider<
@@ -67,24 +68,20 @@ export const getUsersSavedShows: AsyncFnWithProvider<
     })
   );
 
-export const saveShowsForUser: AsyncFnWithProvider<
-  // TODO fix this type
-  SpotifyApi.VoidResponse,
-  ShowId[]
-> = provider => async showIds =>
-  transformResponse(
-    await provider.request({
-      method: Method.PUT,
-      url: 'me/shows',
-      params: {
-        ids: showIds.join(','),
-      },
-    })
-  );
+export const saveShowsForUser: AsyncFnWithProvider<VoidResponse, ShowId[]> =
+  provider => async showIds =>
+    transformResponse(
+      await provider.request({
+        method: Method.PUT,
+        url: 'me/shows',
+        params: {
+          ids: showIds.join(','),
+        },
+      })
+    );
 
 export const removeUsersSavedShows: AsyncFnWithProvider<
-  // TODO fix this type
-  SpotifyApi.VoidResponse,
+  VoidResponse,
   ShowId[],
   Pick<Params, 'market'>
 > = provider => async (showIds, params) =>
@@ -100,7 +97,6 @@ export const removeUsersSavedShows: AsyncFnWithProvider<
   );
 
 export const checkUsersSavedShows: AsyncFnWithProvider<
-  // TODO fix this type
   BooleanResponse,
   ShowId[]
 > = provider => async showIds =>

@@ -4,6 +4,7 @@ import {
   BooleanResponse,
   EpisodeId,
   Params,
+  VoidResponse,
 } from '../../types';
 
 export const getEpisode: AsyncFnWithProvider<
@@ -70,10 +71,8 @@ const episodesForUser: <Return>(
     );
 
 // TODO fix these types
-export const saveEpisodesForUser =
-  episodesForUser<SpotifyApi.VoidResponse>('save');
-export const removeUsersSavedEpisodes =
-  episodesForUser<SpotifyApi.VoidResponse>('delete');
+export const saveEpisodesForUser = episodesForUser<VoidResponse>('save');
+export const removeUsersSavedEpisodes = episodesForUser<VoidResponse>('delete');
 export const checkUsersSavedEpisodes =
   episodesForUser<BooleanResponse>('check');
 

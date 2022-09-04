@@ -1,8 +1,8 @@
 import { Method, transformResponse } from '../../request';
-import { AsyncFnWithProvider, SinglePropertyResponse } from '../../types';
+import { AsyncFnWithProvider, AvailableMarketsResponse } from '../../types';
 
 export const getAvailableMarkets: AsyncFnWithProvider<
-  SinglePropertyResponse<'markets'>
+  AvailableMarketsResponse
 > = provider => async () =>
   transformResponse(
     await provider.request({

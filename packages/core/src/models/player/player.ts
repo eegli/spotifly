@@ -1,10 +1,12 @@
 import { Method, transformResponse } from '../../request';
 import {
   AsyncFnWithProvider,
+  AsyncFnWithProvider2,
   DeviceId,
   Params,
   PositionMS,
   Uri,
+  UsersQueueResponse,
   VolumePercent,
 } from '../../types';
 
@@ -113,9 +115,9 @@ export const seekToPosition: AsyncFnWithProvider<
     })
   );
 
-export const setRepeatMode: AsyncFnWithProvider<
+export const setRepeatMode: AsyncFnWithProvider2<
   SpotifyApi.VoidResponse,
-  string, // TODO fix: 'track' | 'context' | 'off'
+  'track' | 'context' | 'off',
   Pick<Params, 'device_id'>
 > = provider => async (state, params) =>
   transformResponse(
@@ -145,9 +147,9 @@ export const setPlaybackVolume: AsyncFnWithProvider<
     })
   );
 
-export const togglePlaybackShuffle: AsyncFnWithProvider<
+export const togglePlaybackShuffle: AsyncFnWithProvider2<
   SpotifyApi.VoidResponse,
-  Pick<Params, 'state'>,
+  boolean,
   Pick<Params, 'device_id'>
 > = provider => async (state, deviceId) =>
   transformResponse(
@@ -155,7 +157,7 @@ export const togglePlaybackShuffle: AsyncFnWithProvider<
       method: Method.PUT,
       url: 'me/player/shuffle',
       params: {
-        ...state,
+        state,
         ...deviceId,
       },
     })
@@ -174,16 +176,14 @@ export const getRecentlyPlayedTracks: AsyncFnWithProvider<
     })
   );
 
-export const getUsersQueue: AsyncFnWithProvider<
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  any // TODO
-> = provider => async () =>
-  transformResponse(
-    await provider.request({
-      method: Method.GET,
-      url: 'me/player/queue',
-    })
-  );
+export const getUsersQueue: AsyncFnWithProvider<UsersQueueResponse> =
+  provider => async () =>
+    transformResponse(
+      await provider.request({
+        method: Method.GET,
+        url: 'me/player/queue',
+      })
+    );
 
 export const addToQueue: AsyncFnWithProvider<
   SpotifyApi.AddToQueueResponse,

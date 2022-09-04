@@ -16,31 +16,35 @@ export type AsyncFn<
   ReturnValue,
   Param1 = undefined,
   Param2 = undefined,
-  Param3 = undefined
+  Param3 = undefined,
+  Response = DataPromise<ReturnValue>
 > = Param1 extends undefined
-  ? () => DataPromise<ReturnValue>
+  ? () => Response
   : Param2 extends undefined
-  ? (required: Param1) => DataPromise<ReturnValue>
+  ? (required: Param1) => Response
   : Param3 extends undefined
   ? Param2 extends AnyObject
-    ? (required: Param1, optional?: Partial<Param2>) => DataPromise<ReturnValue>
-    : (required1: Param1, required2: Param2) => DataPromise<ReturnValue>
+    ? (required: Param1, optional?: Partial<Param2>) => Response
+    : (required1: Param1, required2: Param2) => Response
   : Param3 extends AnyObject
   ? (
       required1: Param1,
       required2: Param2,
       optional?: Partial<Param3>
-    ) => DataPromise<ReturnValue>
-  : `Invalid async function`;
+    ) => Response
+  : never;
 
 export type AsyncFnWithProvider<
   ReturnValue,
   Param1 = undefined,
   Param2 = undefined,
   Param3 = undefined
-> = {
-  (provider: AsyncProvider): AsyncFn<ReturnValue, Param1, Param2, Param3>;
-};
+> = (provider: AsyncProvider) => AsyncFn<ReturnValue, Param1, Param2, Param3>;
+
+// TODO: Temporary, the generic above does not work for unions
+export type AsyncFnWithProvider2<ReturnValue, Param1, Param2> = (
+  provider: AsyncProvider
+) => (required: Param1, optional?: Partial<Param2>) => DataPromise<ReturnValue>;
 
 export type AnyObject = Record<string, unknown>;
 
@@ -78,6 +82,7 @@ export type PlaylistId = string & _;
 export type CategoryId = string & _;
 export type DeviceId = string & _;
 export type Uri = string & _;
+export type State = boolean & _;
 
 export type PositionMS = number & _;
 export type VolumePercent = number & _;
@@ -112,7 +117,14 @@ export type Params = {
   position_ms: number;
 };
 
-export type SinglePropertyResponse<Key extends string> = {
+type SinglePropertyResponse<Key extends string> = {
   [Property in Key]: string[];
 };
+
+// TODO Types
+
+export type AvailableMarketsResponse = SinglePropertyResponse<'markets'>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type UsersQueueResponse = any;
 export type BooleanResponse = boolean[];
+export type VoidResponse = SpotifyApi.VoidResponse;
