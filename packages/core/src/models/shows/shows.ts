@@ -2,16 +2,15 @@ import { Method, transformResponse } from '../../request';
 import {
   AsyncFnWithProvider,
   BooleanResponse,
-  Limit,
-  Market,
-  Offset,
+  Params,
   ShowId,
+  VoidResponse,
 } from '../../types';
 
 export const getShow: AsyncFnWithProvider<
   SpotifyApi.SingleShowResponse,
   ShowId,
-  Market
+  Pick<Params, 'market'>
 > = provider => async (showId, params) =>
   transformResponse(
     await provider.request({
@@ -24,7 +23,7 @@ export const getShow: AsyncFnWithProvider<
 export const getSeveralShows: AsyncFnWithProvider<
   SpotifyApi.MultipleShowsResponse,
   ShowId[],
-  Market
+  Pick<Params, 'market'>
 > = provider => async (showIds, params) =>
   transformResponse(
     await provider.request({
@@ -42,7 +41,7 @@ export const SEVERAL_SHOWS_LIMIT = 50;
 export const getShowEpisodes: AsyncFnWithProvider<
   SpotifyApi.ShowEpisodesResponse,
   ShowId,
-  Limit & Market & Offset
+  Pick<Params, 'market' | 'limit' | 'offset'>
 > = provider => async (showId, params) =>
   transformResponse(
     await provider.request({
@@ -59,7 +58,7 @@ export const USER_SHOW_LIMIT = 50;
 export const getUsersSavedShows: AsyncFnWithProvider<
   SpotifyApi.UsersSavedShowsResponse,
   unknown,
-  Limit & Offset
+  Pick<Params, 'limit' | 'offset'>
 > = provider => async (_, params) =>
   transformResponse(
     await provider.request({
@@ -69,26 +68,22 @@ export const getUsersSavedShows: AsyncFnWithProvider<
     })
   );
 
-export const saveShowsForUser: AsyncFnWithProvider<
-  // TODO fix this type
-  SpotifyApi.VoidResponse,
-  ShowId[]
-> = provider => async showIds =>
-  transformResponse(
-    await provider.request({
-      method: Method.PUT,
-      url: 'me/shows',
-      params: {
-        ids: showIds.join(','),
-      },
-    })
-  );
+export const saveShowsForUser: AsyncFnWithProvider<VoidResponse, ShowId[]> =
+  provider => async showIds =>
+    transformResponse(
+      await provider.request({
+        method: Method.PUT,
+        url: 'me/shows',
+        params: {
+          ids: showIds.join(','),
+        },
+      })
+    );
 
 export const removeUsersSavedShows: AsyncFnWithProvider<
-  // TODO fix this type
-  SpotifyApi.VoidResponse,
+  VoidResponse,
   ShowId[],
-  Market
+  Pick<Params, 'market'>
 > = provider => async (showIds, params) =>
   transformResponse(
     await provider.request({
@@ -102,7 +97,6 @@ export const removeUsersSavedShows: AsyncFnWithProvider<
   );
 
 export const checkUsersSavedShows: AsyncFnWithProvider<
-  // TODO fix this type
   BooleanResponse,
   ShowId[]
 > = provider => async showIds =>

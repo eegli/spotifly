@@ -1,25 +1,17 @@
 import { Method, transformResponse } from '../../request';
 import type {
-  AdditionalTypes,
   AsyncFnWithProvider,
   CategoryId,
-  Country,
-  Fields,
-  Limit,
-  Locale,
-  Market,
-  Offset,
+  Params,
   PlaylistId,
-  SnapshotId,
-  Timestamp,
-  Uris,
+  Uri,
   UserId,
 } from '../../types';
 
 export const getPlaylist: AsyncFnWithProvider<
   SpotifyApi.SinglePlaylistResponse,
   PlaylistId,
-  AdditionalTypes & Market & Limit & Offset & Fields
+  Pick<Params, 'additional_types' | 'market' | 'fields'>
 > = provider => async (playlistId, params) =>
   transformResponse(
     await provider.request({
@@ -32,12 +24,7 @@ export const getPlaylist: AsyncFnWithProvider<
 export const changePlaylis: AsyncFnWithProvider<
   SpotifyApi.ChangePlaylistDetailsResponse,
   PlaylistId,
-  {
-    name: string;
-    description: string;
-    public: boolean;
-    collaborative: boolean;
-  }
+  Pick<Params, 'name' | 'description' | 'public' | 'collaborative'>
 > = provider => async (playlistId, data) =>
   transformResponse(
     await provider.request({
@@ -50,7 +37,7 @@ export const changePlaylis: AsyncFnWithProvider<
 export const getPlaylistItems: AsyncFnWithProvider<
   SpotifyApi.PlaylistTrackResponse,
   PlaylistId,
-  AdditionalTypes & Fields & Limit & Market & Offset
+  Pick<Params, 'additional_types' | 'fields' | 'limit' | 'market' | 'offset'>
 > = provider => async (playlistId, params) =>
   transformResponse(
     await provider.request({
@@ -65,10 +52,8 @@ export const PLAYLIST_ITEMS_LIMIT = 50;
 export const addPlaylistItems: AsyncFnWithProvider<
   SpotifyApi.AddTracksToPlaylistResponse,
   PlaylistId,
-  Uris,
-  {
-    position: number;
-  }
+  Uri[],
+  Pick<Params, 'position'>
 > = provider => async (playlistId, uris, data) =>
   transformResponse(
     await provider.request({
@@ -84,11 +69,7 @@ export const addPlaylistItems: AsyncFnWithProvider<
 export const reorderPlaylistItems: AsyncFnWithProvider<
   SpotifyApi.ReorderPlaylistTracksResponse,
   PlaylistId,
-  {
-    range_start: number;
-    insert_before: number;
-    range_length: number;
-  } & SnapshotId
+  Pick<Params, 'range_start' | 'insert_before' | 'range_length' | 'snapshot_id'>
 > = provider => async (playlistId, data) =>
   transformResponse(
     await provider.request({
@@ -102,7 +83,7 @@ export const removePlaylistItems: AsyncFnWithProvider<
   SpotifyApi.RemoveTracksFromPlaylistResponse,
   PlaylistId,
   { uri: string }[],
-  SnapshotId
+  Pick<Params, 'snapshot_id'>
 > = provider => async (playlistId, tracks, data) =>
   transformResponse(
     await provider.request({
@@ -115,7 +96,7 @@ export const removePlaylistItems: AsyncFnWithProvider<
 export const getCurrentUsersPlaylists: AsyncFnWithProvider<
   SpotifyApi.ListOfUsersPlaylistsResponse,
   unknown,
-  Limit & Offset
+  Pick<Params, 'limit' | 'offset'>
 > = provider => async (_, params) =>
   transformResponse(
     await provider.request({
@@ -128,7 +109,7 @@ export const getCurrentUsersPlaylists: AsyncFnWithProvider<
 export const getUsersPlaylists: AsyncFnWithProvider<
   SpotifyApi.ListOfUsersPlaylistsResponse,
   UserId,
-  Limit & Offset
+  Pick<Params, 'limit' | 'offset'>
 > = provider => async (userId, params) =>
   transformResponse(
     await provider.request({
@@ -144,11 +125,7 @@ export const createPlaylist: AsyncFnWithProvider<
   SpotifyApi.CreatePlaylistResponse,
   UserId,
   string,
-  {
-    public: boolean;
-    collaborative: boolean;
-    description: string;
-  }
+  Pick<Params, 'public' | 'collaborative' | 'description'>
 > = provider => async (userId, name, data) =>
   transformResponse(
     await provider.request({
@@ -161,7 +138,7 @@ export const createPlaylist: AsyncFnWithProvider<
 export const getFeaturedPlaylists: AsyncFnWithProvider<
   SpotifyApi.ListOfFeaturedPlaylistsResponse,
   unknown,
-  Country & Limit & Locale & Offset & Timestamp
+  Pick<Params, 'country' | 'limit' | 'locale' | 'offset' | 'timestamp'>
 > = provider => async (_, params) =>
   transformResponse(
     await provider.request({
@@ -174,11 +151,7 @@ export const getFeaturedPlaylists: AsyncFnWithProvider<
 export const getCategoryPlaylists: AsyncFnWithProvider<
   SpotifyApi.CategoryPlaylistsResponse,
   CategoryId,
-  {
-    country: string;
-    limit: number;
-    offset: number;
-  }
+  Pick<Params, 'country' | 'limit' | 'offset'>
 > = provider => async (categoryId, params) =>
   transformResponse(
     await provider.request({

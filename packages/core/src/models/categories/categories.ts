@@ -1,17 +1,10 @@
 import { Method, transformResponse } from '../../request';
-import {
-  AsyncFnWithProvider,
-  CategoryId,
-  Country,
-  Limit,
-  Locale,
-  Offset,
-} from '../../types';
+import { AsyncFnWithProvider, CategoryId, Params } from '../../types';
 
 export const getCategory: AsyncFnWithProvider<
   SpotifyApi.SingleCategoryResponse,
   CategoryId,
-  Country & Locale
+  Pick<Params, 'country' | 'locale'>
 > = provider => async (categoryId, params) =>
   transformResponse(
     await provider.request({
@@ -24,7 +17,7 @@ export const getCategory: AsyncFnWithProvider<
 export const getSeveralCategories: AsyncFnWithProvider<
   SpotifyApi.MultipleCategoriesResponse,
   unknown,
-  Country & Limit & Locale & Offset
+  Pick<Params, 'country' | 'limit' | 'locale' | 'offset'>
 > = provider => async (_, params) =>
   transformResponse(
     await provider.request({

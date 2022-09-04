@@ -93,5 +93,5 @@ export default function Episodes(provider: AsyncProvider) {
       checkUsersSavedEpisodes(provider),
       USER_EPISODES_LIMIT
     ),
-  } as const;
+  };
 }

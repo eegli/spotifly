@@ -2,12 +2,13 @@ import axios from 'axios';
 
 import * as Spotify from '../src';
 import { DataResponse as DR } from '../src';
-import { BooleanResponse } from '../src/types';
+import { BooleanResponse, VoidResponse } from '../src/types';
 import {
   additional_types,
   country,
   fakeAxiosResponse,
   fields,
+  include_groups,
   limit,
   locale,
   market,
@@ -128,7 +129,7 @@ const tests: LibTestRunner = [
               market,
               limit,
               offset,
-              include_groups: ['album', 'appears_on', 'compilation'],
+              include_groups,
             })
           ),
       },
@@ -184,14 +185,14 @@ const tests: LibTestRunner = [
       {
         name: 'saveShowsForUser',
         fn: () =>
-          assertReturns<DR<SpotifyApi.VoidResponse>>(
+          assertReturns<DR<VoidResponse>>(
             Client.Shows.saveShowsForUser(stringIds)
           ),
       },
       {
         name: 'removeUsersSavedShows',
         fn: () =>
-          assertReturns<DR<SpotifyApi.VoidResponse>>(
+          assertReturns<DR<VoidResponse>>(
             Client.Shows.removeUsersSavedShows(stringIds, { market })
           ),
       },
@@ -231,14 +232,14 @@ const tests: LibTestRunner = [
       {
         name: 'saveEpisodesForUser',
         fn: () =>
-          assertReturns<DR<SpotifyApi.VoidResponse>>(
+          assertReturns<DR<VoidResponse>>(
             Client.Episodes.saveEpisodesForUser(stringIds)
           ),
       },
       {
         name: 'removeUsersSavedEpisodes',
         fn: () =>
-          assertReturns<DR<SpotifyApi.VoidResponse>>(
+          assertReturns<DR<VoidResponse>>(
             Client.Episodes.removeUsersSavedEpisodes(stringIds)
           ),
       },
@@ -489,7 +490,7 @@ const tests: LibTestRunner = [
         fn: () =>
           assertReturns<DR<SpotifyApi.PlaylistTrackResponse>>(
             Client.Playlists.getPlaylistItems(stringId, {
-              additional_types: 'track,episode',
+              additional_types,
               fields,
               market,
               limit,
@@ -645,7 +646,7 @@ const tests: LibTestRunner = [
       {
         name: 'transferPlayback',
         fn: () =>
-          assertReturns<DR<SpotifyApi.VoidResponse>>(
+          assertReturns<DR<VoidResponse>>(
             Client.Player.transferPlayback([stringId], { play: true })
           ),
       },
@@ -654,6 +655,97 @@ const tests: LibTestRunner = [
         fn: () =>
           assertReturns<DR<SpotifyApi.UserDevicesResponse>>(
             Client.Player.getAvailableDevices()
+          ),
+      },
+      {
+        name: 'getCurrentlyPlayingTrack',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.CurrentPlaybackResponse>>(
+            Client.Player.getCurrentlyPlayingTrack({ additional_types, market })
+          ),
+      },
+      {
+        name: 'startOrResumePlayback',
+        fn: () =>
+          assertReturns<DR<VoidResponse>>(
+            Client.Player.startOrResumePlayback({
+              device_id: stringId,
+              context_uri: stringId,
+              offset: {},
+              position_ms: 1,
+              uris,
+            })
+          ),
+      },
+      {
+        name: 'pausePlayback',
+        fn: () =>
+          assertReturns<DR<VoidResponse>>(
+            Client.Player.pausePlayback({ device_id: stringId })
+          ),
+      },
+      {
+        name: 'skipToNext',
+        fn: () =>
+          assertReturns<DR<VoidResponse>>(
+            Client.Player.skipToNext({ device_id: stringId })
+          ),
+      },
+      {
+        name: 'skipToPrevious',
+        fn: () =>
+          assertReturns<DR<VoidResponse>>(
+            Client.Player.skipToPrevious({ device_id: stringId })
+          ),
+      },
+      {
+        name: 'seekToPosition',
+        fn: () =>
+          assertReturns<DR<VoidResponse>>(
+            Client.Player.seekToPosition(123, { device_id: stringId })
+          ),
+      },
+      {
+        name: 'setRepeatMode',
+        fn: () =>
+          assertReturns<DR<VoidResponse>>(
+            Client.Player.setRepeatMode('off', { device_id: stringId })
+          ),
+      },
+      {
+        name: 'setPlaybackVolume',
+        fn: () =>
+          assertReturns<DR<VoidResponse>>(
+            Client.Player.setPlaybackVolume(60, { device_id: stringId })
+          ),
+      },
+      {
+        name: 'togglePlaybackShuffle',
+        fn: () =>
+          assertReturns<DR<VoidResponse>>(
+            Client.Player.togglePlaybackShuffle(true, { device_id: stringId })
+          ),
+      },
+      {
+        name: 'getRecentlyPlayedTracks',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.UsersRecentlyPlayedTracksResponse>>(
+            Client.Player.getRecentlyPlayedTracks({
+              limit: 1,
+              after: 1,
+              before: 1,
+            })
+          ),
+      },
+      {
+        name: 'getUsersQueue',
+        fn: () => assertReturns<DR<unknown>>(Client.Player.getUsersQueue()),
+      },
+      {
+        name: 'addToQueue',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.AddToQueueResponse>>(
+            Client.Player.addToQueue(stringId, { device_id: stringId })
           ),
       },
     ],
@@ -666,6 +758,24 @@ const tests: LibTestRunner = [
         fn: () =>
           assertReturns<DR<{ markets: string[] }>>(
             Client.Markets.getAvailableMarkets()
+          ),
+      },
+    ],
+  },
+  {
+    name: 'Future',
+    tests: [
+      {
+        name: 'freestyle request',
+        fn: () =>
+          assertReturns<DR<string[]>>(
+            Client.future.request<string[]>({
+              url: 'https://example.com',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              method: 'POST',
+            })
           ),
       },
     ],

@@ -1,12 +1,9 @@
 import { Method, transformResponse } from '../../request';
 import {
-  After,
   ArtistId,
   AsyncFnWithProvider,
-  Limit,
-  Offset,
+  Params,
   PlaylistId,
-  TimeRange,
   UserId,
 } from '../../types';
 
@@ -39,7 +36,7 @@ const getUsersTop: <T extends 'artists' | 'tracks'>(
     ? SpotifyApi.UsersTopArtistsResponse
     : SpotifyApi.UsersTopTracksResponse,
   unknown,
-  TimeRange & Limit & Offset
+  Pick<Params, 'time_range' | 'limit' | 'offset'>
 > = type => provider => async (_, params) =>
   transformResponse(
     await provider.request({
@@ -56,7 +53,7 @@ export const getUsersTopTracks = getUsersTop('tracks');
 export const followPlaylist: AsyncFnWithProvider<
   SpotifyApi.FollowPlaylistResponse,
   PlaylistId,
-  { public: boolean }
+  Pick<Params, 'public'>
 > = provider => async (playlistId, data) =>
   transformResponse(
     await provider.request({
@@ -80,7 +77,7 @@ export const unfollowPlaylist: AsyncFnWithProvider<
 export const getUsersFollowedArtists: AsyncFnWithProvider<
   SpotifyApi.UsersFollowedArtistsResponse,
   unknown,
-  After & Limit
+  Pick<Params, 'after' | 'limit'>
 > = provider => async (_, params) =>
   transformResponse(
     await provider.request({

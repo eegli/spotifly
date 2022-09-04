@@ -1,17 +1,10 @@
 import { Method, transformResponse } from '../../request';
-import {
-  AlbumId,
-  AsyncFnWithProvider,
-  Country,
-  Limit,
-  Market,
-  Offset,
-} from '../../types';
+import { AlbumId, AsyncFnWithProvider, Params } from '../../types';
 
 export const getAlbum: AsyncFnWithProvider<
   SpotifyApi.SingleAlbumResponse,
   AlbumId,
-  Market
+  Pick<Params, 'market'>
 > = provider => async (albumId, params) =>
   transformResponse(
     await provider.request({
@@ -24,7 +17,7 @@ export const getAlbum: AsyncFnWithProvider<
 export const getSeveralAlbums: AsyncFnWithProvider<
   SpotifyApi.MultipleAlbumsResponse,
   AlbumId[],
-  Market
+  Pick<Params, 'market'>
 > = provider => async (albumIds, params) =>
   transformResponse(
     await provider.request({
@@ -42,7 +35,7 @@ export const LIMIT_SEVERAL_ALBUMS = 20;
 export const getAlbumTracks: AsyncFnWithProvider<
   SpotifyApi.AlbumTracksResponse,
   AlbumId,
-  Limit & Market & Offset
+  Pick<Params, 'limit' | 'market' | 'offset'>
 > = provider => async (albumId, params) =>
   transformResponse(
     await provider.request({
@@ -57,7 +50,7 @@ export const LIMIT_ALBUM_TRACKS = 50;
 export const getUsersSavedAlbums: AsyncFnWithProvider<
   SpotifyApi.UsersSavedAlbumsResponse,
   unknown,
-  Limit & Market & Offset
+  Pick<Params, 'limit' | 'market' | 'offset'>
 > = provider => async (_, params) =>
   transformResponse(
     await provider.request({
@@ -109,7 +102,7 @@ export const checkUsersSavedAlbums =
 export const getNewAlbumReleases: AsyncFnWithProvider<
   SpotifyApi.ListOfNewReleasesResponse,
   unknown,
-  Country & Limit & Offset
+  Pick<Params, 'limit' | 'country' | 'offset'>
 > = provider => async (_, params) =>
   transformResponse(
     await provider.request({

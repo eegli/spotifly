@@ -17,21 +17,21 @@ export type AsyncFn<
   Param1 = undefined,
   Param2 = undefined,
   Param3 = undefined,
-  ReturnType = DataPromise<ReturnValue>
+  Response = DataPromise<ReturnValue>
 > = Param1 extends undefined
-  ? () => ReturnType
+  ? () => Response
   : Param2 extends undefined
-  ? (required: Param1) => ReturnType
+  ? (required: Param1) => Response
   : Param3 extends undefined
   ? Param2 extends AnyObject
-    ? (required: Param1, optional?: Partial<Param2>) => ReturnType
-    : (required1: Param1, required2: Param2) => ReturnType
+    ? (required: Param1, optional?: Partial<Param2>) => Response
+    : (required1: Param1, required2: Param2) => Response
   : Param3 extends AnyObject
   ? (
       required1: Param1,
       required2: Param2,
       optional?: Partial<Param3>
-    ) => ReturnType
+    ) => Response
   : never;
 
 export type AsyncFnWithProvider<
@@ -40,6 +40,11 @@ export type AsyncFnWithProvider<
   Param2 = undefined,
   Param3 = undefined
 > = (provider: AsyncProvider) => AsyncFn<ReturnValue, Param1, Param2, Param3>;
+
+// TODO: Temporary, the generic above does not work for unions
+export type AsyncFnWithProvider2<ReturnValue, Param1, Param2> = (
+  provider: AsyncProvider
+) => (required: Param1, optional?: Partial<Param2>) => DataPromise<ReturnValue>;
 
 export type AnyObject = Record<string, unknown>;
 
@@ -72,35 +77,54 @@ export type TrackId = string & _;
 export type AlbumId = string & _;
 export type EpisodeId = string & _;
 export type ShowId = string & _;
-export type Uris = string[];
+
 export type PlaylistId = string & _;
 export type CategoryId = string & _;
 export type DeviceId = string & _;
+export type Uri = string & _;
+export type State = boolean & _;
 
-export type Market = { market: string };
-export type Locale = { locale: string };
-export type Country = { country: string };
-export type Timestamp = { timestamp: string };
+export type PositionMS = number & _;
+export type VolumePercent = number & _;
 
-export type Fields = { fields: string };
-export type AdditionalTypes = {
+export type Params = {
+  market: string;
+  locale: string;
+  country: string;
+  timestamp: string;
   additional_types: string;
-};
-export type SnapshotId = {
   snapshot_id: string;
-};
-export type TimeRange = {
+  device_id: string;
+  fields: string;
   time_range: 'long_term ' | 'medium_term' | 'short_term';
-};
-export type IncludeGroups = {
-  include_groups: ('album' | 'single' | 'appears_on' | 'compilation')[];
+  include_groups: string;
+  context_uri: string;
+  name: string;
+  description: string;
+  public: boolean;
+  collaborative: boolean;
+  play: boolean;
+  state: boolean;
+  uris: Uri[];
+  after: string;
+  range_start: number;
+  insert_before: number;
+  range_length: number;
+  include_external: 'audio';
+  limit: number;
+  offset: number;
+  position: number;
+  position_ms: number;
 };
 
-export type After = { after: string };
-export type Limit = { limit: number };
-export type Offset = { offset: number };
-
-export type SinglePropertyResponse<Key extends string> = {
+type SinglePropertyResponse<Key extends string> = {
   [Property in Key]: string[];
 };
+
+// TODO Types
+
+export type AvailableMarketsResponse = SinglePropertyResponse<'markets'>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type UsersQueueResponse = any;
 export type BooleanResponse = boolean[];
+export type VoidResponse = SpotifyApi.VoidResponse;
