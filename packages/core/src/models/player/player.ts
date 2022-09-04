@@ -62,36 +62,39 @@ export const getCurrentlyPlayingTrack: AsyncFnWithProvider<
 export const startOrResumePlayback: AsyncFnWithProvider<
   SpotifyApi.VoidResponse,
   unknown,
-  DeviceId,
-  Pick<Params, 'context_uri' | 'uris' | 'position_ms'> & {
+  Pick<Params, 'device_id' | 'context_uri' | 'uris' | 'position_ms'> & {
     offset: Record<string, unknown>;
   }
-> = provider => async (_, device_id, data) =>
-  transformResponse(
-    await provider.request({
-      method: Method.PUT,
-      url: 'me/player/play',
-      params: {
-        device_id,
-      },
-      data,
-    })
-  );
+> =
+  provider =>
+  async (_, { device_id, ...data } = {}) =>
+    transformResponse(
+      await provider.request({
+        method: Method.PUT,
+        url: 'me/player/play',
+        params: {
+          device_id,
+        },
+        data,
+      })
+    );
 
 const playback: (
   url: string,
   method?: Method
-) => AsyncFnWithProvider<SpotifyApi.VoidResponse, DeviceId> =
+) => AsyncFnWithProvider<
+  SpotifyApi.VoidResponse,
+  unknown,
+  Pick<Params, 'device_id'>
+> =
   (url, method = Method.POST) =>
   provider =>
-  async device_id =>
+  async (_, params) =>
     transformResponse(
       await provider.request({
         method,
         url,
-        params: {
-          device_id,
-        },
+        params,
       })
     );
 

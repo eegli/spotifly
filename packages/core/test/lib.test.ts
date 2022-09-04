@@ -668,7 +668,8 @@ const tests: LibTestRunner = [
         name: 'startOrResumePlayback',
         fn: () =>
           assertReturns<DR<VoidResponse>>(
-            Client.Player.startOrResumePlayback(stringId, {
+            Client.Player.startOrResumePlayback({
+              device_id: stringId,
               context_uri: stringId,
               offset: {},
               position_ms: 1,
@@ -680,19 +681,21 @@ const tests: LibTestRunner = [
         name: 'pausePlayback',
         fn: () =>
           assertReturns<DR<VoidResponse>>(
-            Client.Player.pausePlayback(stringId)
+            Client.Player.pausePlayback({ device_id: stringId })
           ),
       },
       {
         name: 'skipToNext',
         fn: () =>
-          assertReturns<DR<VoidResponse>>(Client.Player.skipToNext(stringId)),
+          assertReturns<DR<VoidResponse>>(
+            Client.Player.skipToNext({ device_id: stringId })
+          ),
       },
       {
         name: 'skipToPrevious',
         fn: () =>
           assertReturns<DR<VoidResponse>>(
-            Client.Player.skipToPrevious(stringId)
+            Client.Player.skipToPrevious({ device_id: stringId })
           ),
       },
       {
