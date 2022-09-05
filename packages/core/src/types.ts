@@ -12,21 +12,22 @@ export type AsyncProvider = {
   request(req: AxiosRequestConfig): Promise<AxiosResponse>;
 };
 
+// Prevent distributivity on conditional generic types: https://www.typescriptlang.org/docs/handbook/2/conditional-types.html#distributive-conditional-types
 export type AsyncFn<
   ReturnValue,
   Param1 = undefined,
   Param2 = undefined,
   Param3 = undefined,
   Response = DataPromise<ReturnValue>
-> = Param1 extends undefined
+> = [Param1] extends [undefined]
   ? () => Response
-  : Param2 extends undefined
+  : [Param2] extends [undefined]
   ? (required: Param1) => Response
-  : Param3 extends undefined
-  ? Param2 extends AnyObject
+  : [Param3] extends [undefined]
+  ? [Param2] extends [AnyObject]
     ? (required: Param1, optional?: Partial<Param2>) => Response
     : (required1: Param1, required2: Param2) => Response
-  : Param3 extends AnyObject
+  : [Param3] extends [AnyObject]
   ? (
       required1: Param1,
       required2: Param2,
@@ -40,11 +41,6 @@ export type AsyncFnWithProvider<
   Param2 = undefined,
   Param3 = undefined
 > = (provider: AsyncProvider) => AsyncFn<ReturnValue, Param1, Param2, Param3>;
-
-// TODO: Temporary, the generic above does not work for unions
-export type AsyncFnWithProvider2<ReturnValue, Param1, Param2> = (
-  provider: AsyncProvider
-) => (required: Param1, optional?: Partial<Param2>) => DataPromise<ReturnValue>;
 
 export type AnyObject = Record<string, unknown>;
 
