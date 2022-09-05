@@ -12,7 +12,7 @@ export type AsyncProvider = {
   request(req: AxiosRequestConfig): Promise<AxiosResponse>;
 };
 
-// Prevent distributive conditional types: https://www.typescriptlang.org/docs/handbook/2/conditional-types.html#distributive-conditional-types
+// Prevent distributivity on conditional generic types: https://www.typescriptlang.org/docs/handbook/2/conditional-types.html#distributive-conditional-types
 export type AsyncFn<
   ReturnValue,
   Param1 = undefined,
