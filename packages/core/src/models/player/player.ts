@@ -1,12 +1,12 @@
 import { Method, transformResponse } from '../../request';
 import {
   AsyncFnWithProvider,
-  AsyncFnWithProvider2,
   DeviceId,
   Params,
   PositionMS,
   Uri,
   UsersQueueResponse,
+  VoidResponse,
   VolumePercent,
 } from '../../types';
 
@@ -24,7 +24,7 @@ export const getPlaybackState: AsyncFnWithProvider<
   );
 
 export const transferPlayback: AsyncFnWithProvider<
-  SpotifyApi.VoidResponse,
+  VoidResponse,
   [DeviceId],
   Pick<Params, 'play'>
 > = provider => async (device_ids, data) =>
@@ -60,7 +60,7 @@ export const getCurrentlyPlayingTrack: AsyncFnWithProvider<
   );
 
 export const startOrResumePlayback: AsyncFnWithProvider<
-  SpotifyApi.VoidResponse,
+  VoidResponse,
   unknown,
   Pick<Params, 'device_id' | 'context_uri' | 'uris' | 'position_ms'> & {
     offset: Record<string, unknown>;
@@ -82,11 +82,7 @@ export const startOrResumePlayback: AsyncFnWithProvider<
 const playback: (
   url: string,
   method?: Method
-) => AsyncFnWithProvider<
-  SpotifyApi.VoidResponse,
-  unknown,
-  Pick<Params, 'device_id'>
-> =
+) => AsyncFnWithProvider<VoidResponse, unknown, Pick<Params, 'device_id'>> =
   (url, method = Method.POST) =>
   provider =>
   async (_, params) =>
@@ -103,7 +99,7 @@ export const skipToNext = playback('me/player/next');
 export const skipToPrevious = playback('me/player/previous');
 
 export const seekToPosition: AsyncFnWithProvider<
-  SpotifyApi.VoidResponse,
+  VoidResponse,
   PositionMS,
   Pick<Params, 'device_id'>
 > = provider => async (position_ms, params) =>
@@ -118,8 +114,8 @@ export const seekToPosition: AsyncFnWithProvider<
     })
   );
 
-export const setRepeatMode: AsyncFnWithProvider2<
-  SpotifyApi.VoidResponse,
+export const setRepeatMode: AsyncFnWithProvider<
+  VoidResponse,
   'track' | 'context' | 'off',
   Pick<Params, 'device_id'>
 > = provider => async (state, params) =>
@@ -135,7 +131,7 @@ export const setRepeatMode: AsyncFnWithProvider2<
   );
 
 export const setPlaybackVolume: AsyncFnWithProvider<
-  SpotifyApi.VoidResponse,
+  VoidResponse,
   VolumePercent,
   Pick<Params, 'device_id'>
 > = provider => async (volume_percent, params) =>
@@ -150,8 +146,8 @@ export const setPlaybackVolume: AsyncFnWithProvider<
     })
   );
 
-export const togglePlaybackShuffle: AsyncFnWithProvider2<
-  SpotifyApi.VoidResponse,
+export const togglePlaybackShuffle: AsyncFnWithProvider<
+  VoidResponse,
   boolean,
   Pick<Params, 'device_id'>
 > = provider => async (state, deviceId) =>
