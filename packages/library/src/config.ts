@@ -20,6 +20,14 @@ export const { parse, help } = createParser(defaultConfig, {
     type: {
       description:
         "Output type per track. Either 'full' or 'light'. Default: 'light'",
+      customValidator: {
+        isValid(value) {
+          return value === 'light' || value === 'full';
+        },
+        errorMessage(value) {
+          return `Invalid value '${value}' for option 'type'. Allowed options are 'full' and 'light'`;
+        },
+      },
     },
     genres: {
       description: 'Include artist genres for each track. Default: false',

@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 import { DataResponse } from './types';
 
 export enum Method {
@@ -25,8 +25,7 @@ type SpotifyError = {
 
 export function isError(payload: unknown): payload is AxiosError<SpotifyError> {
   return (
-    axios.isAxiosError(payload) &&
-    (payload as AxiosError<SpotifyError>).response?.data.error.message !==
-      undefined
+    (payload as AxiosError<SpotifyError>).response?.data?.error?.message !==
+    undefined
   );
 }

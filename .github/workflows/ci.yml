@@ -44,7 +44,6 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
       - name: Run tests without coverage
-        if: ${{ !matrix.proj }}
         run: yarn test
 
   coverage-tests:
