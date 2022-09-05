@@ -12,7 +12,8 @@ export type AsyncProvider = {
   request(req: AxiosRequestConfig): Promise<AxiosResponse>;
 };
 
-// Prevent distributivity on conditional generic types: https://www.typescriptlang.org/docs/handbook/2/conditional-types.html#distributive-conditional-types
+// Prevent distributivity on conditional generic types:
+// https://www.typescriptlang.org/docs/handbook/2/conditional-types.html#distributive-conditional-types
 export type AsyncFn<
   ReturnValue,
   Param1 = undefined,
@@ -120,7 +121,9 @@ type SinglePropertyResponse<Key extends string> = {
 // TODO Types
 
 export type AvailableMarketsResponse = SinglePropertyResponse<'markets'>;
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type UsersQueueResponse = any;
+export type UsersQueueResponse = {
+  currently_playing: SpotifyApi.TrackObjectFull;
+  queue: SpotifyApi.TrackObjectFull[];
+};
 export type BooleanResponse = boolean[];
 export type VoidResponse = SpotifyApi.VoidResponse;
