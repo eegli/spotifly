@@ -21,13 +21,13 @@ export type AsyncFn<
   Response = DataPromise<ReturnValue>
 > = [Param1] extends [undefined]
   ? () => Response
-  : Param2 extends undefined
+  : [Param2] extends [undefined]
   ? (required: Param1) => Response
-  : Param3 extends undefined
-  ? Param2 extends AnyObject
+  : [Param3] extends [undefined]
+  ? [Param2] extends [AnyObject]
     ? (required: Param1, optional?: Partial<Param2>) => Response
     : (required1: Param1, required2: Param2) => Response
-  : Param3 extends AnyObject
+  : [Param3] extends [AnyObject]
   ? (
       required1: Param1,
       required2: Param2,
