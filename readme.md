@@ -26,6 +26,8 @@ Run `yarn spotifly`
 
 - Figure out how to make MUI work nicely: https://docusaurus.io/docs/styling-layout/#css-in-js
 
+- Figure out how to generate JSDoc for curried functions
+
 ---
 
 All packages are provided as-is. It is in your responsibility to make sure your application is compliant with the [Spotify Developer Terms](https://developer.spotify.com/terms/).
