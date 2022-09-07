@@ -1,5 +1,6 @@
 import { Method, transformResponse } from '../../request';
-import { AsyncFnWithProvider, AvailableMarketsResponse } from '../../types';
+import type { AsyncFnWithProvider } from '../../types';
+import type { AvailableMarketsResponse } from '../params';
 
 export const getAvailableMarkets: AsyncFnWithProvider<
   AvailableMarketsResponse

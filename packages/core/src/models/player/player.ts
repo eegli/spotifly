@@ -1,27 +1,33 @@
 import { Method, transformResponse } from '../../request';
-import {
-  AsyncFnWithProvider,
+import type { AsyncFnWithProvider } from '../../types';
+import type {
   DeviceId,
   Params,
+  PlaybackShuffle,
   PositionMS,
   Uri,
   UsersQueueResponse,
   VoidResponse,
   VolumePercent,
-} from '../../types';
+} from '../params';
 
 export const getPlaybackState: AsyncFnWithProvider<
   SpotifyApi.CurrentlyPlayingResponse,
   unknown,
   Pick<Params, 'additional_types' | 'market'>
-> = provider => async (_, params) =>
-  transformResponse(
-    await provider.request({
-      method: Method.GET,
-      url: 'me/player',
-      params,
-    })
-  );
+> =
+  provider =>
+  async (_, { additional_types, ...params } = {}) =>
+    transformResponse(
+      await provider.request({
+        method: Method.GET,
+        url: 'me/player',
+        params: {
+          ...params,
+          additional_types: additional_types?.join(','),
+        },
+      })
+    );
 
 export const transferPlayback: AsyncFnWithProvider<
   VoidResponse,
@@ -50,14 +56,19 @@ export const getCurrentlyPlayingTrack: AsyncFnWithProvider<
   SpotifyApi.CurrentPlaybackResponse,
   unknown,
   Pick<Params, 'additional_types' | 'market'>
-> = provider => async (_, params) =>
-  transformResponse(
-    await provider.request({
-      method: Method.GET,
-      url: 'me/player/currently-playing',
-      params,
-    })
-  );
+> =
+  provider =>
+  async (_, { additional_types, ...params } = {}) =>
+    transformResponse(
+      await provider.request({
+        method: Method.GET,
+        url: 'me/player/currently-playing',
+        params: {
+          ...params,
+          additional_types: additional_types?.join(','),
+        },
+      })
+    );
 
 export const startOrResumePlayback: AsyncFnWithProvider<
   VoidResponse,
@@ -148,7 +159,7 @@ export const setPlaybackVolume: AsyncFnWithProvider<
 
 export const togglePlaybackShuffle: AsyncFnWithProvider<
   VoidResponse,
-  boolean,
+  PlaybackShuffle,
   Pick<Params, 'device_id'>
 > = provider => async (state, deviceId) =>
   transformResponse(

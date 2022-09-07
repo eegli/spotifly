@@ -1,25 +1,24 @@
 import { Method, transformResponse } from '../../request';
-import type {
-  AsyncFnWithProvider,
-  CategoryId,
-  Params,
-  PlaylistId,
-  Uri,
-  UserId,
-} from '../../types';
+import type { AsyncFnWithProvider } from '../../types';
+import type { CategoryId, Params, PlaylistId, Uri, UserId } from '../params';
 
 export const getPlaylist: AsyncFnWithProvider<
   SpotifyApi.SinglePlaylistResponse,
   PlaylistId,
   Pick<Params, 'additional_types' | 'market' | 'fields'>
-> = provider => async (playlistId, params) =>
-  transformResponse(
-    await provider.request({
-      method: Method.GET,
-      url: `playlists/${playlistId}`,
-      params,
-    })
-  );
+> =
+  provider =>
+  async (playlistId, { additional_types, ...params } = {}) =>
+    transformResponse(
+      await provider.request({
+        method: Method.GET,
+        url: `playlists/${playlistId}`,
+        params: {
+          ...params,
+          additional_types: additional_types?.join(','),
+        },
+      })
+    );
 
 export const changePlaylis: AsyncFnWithProvider<
   SpotifyApi.ChangePlaylistDetailsResponse,
@@ -38,14 +37,19 @@ export const getPlaylistItems: AsyncFnWithProvider<
   SpotifyApi.PlaylistTrackResponse,
   PlaylistId,
   Pick<Params, 'additional_types' | 'fields' | 'limit' | 'market' | 'offset'>
-> = provider => async (playlistId, params) =>
-  transformResponse(
-    await provider.request({
-      method: Method.GET,
-      url: `playlists/${playlistId}/tracks`,
-      params,
-    })
-  );
+> =
+  provider =>
+  async (playlistId, { additional_types, ...params } = {}) =>
+    transformResponse(
+      await provider.request({
+        method: Method.GET,
+        url: `playlists/${playlistId}/tracks`,
+        params: {
+          ...params,
+          additional_types: additional_types?.join(','),
+        },
+      })
+    );
 
 export const PLAYLIST_ITEMS_LIMIT = 50;
 

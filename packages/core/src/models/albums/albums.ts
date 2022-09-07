@@ -1,5 +1,6 @@
 import { Method, transformResponse } from '../../request';
-import { AlbumId, AsyncFnWithProvider, Params } from '../../types';
+import type { AsyncFnWithProvider } from '../../types';
+import type { AlbumId, Params } from '../params';
 
 export const getAlbum: AsyncFnWithProvider<
   SpotifyApi.SingleAlbumResponse,

@@ -1,5 +1,6 @@
 import { Method, transformResponse } from '../../request';
-import { AsyncFnWithProvider, Params, TrackId } from '../../types';
+import type { AsyncFnWithProvider } from '../../types';
+import type { Params, TrackId } from '../params';
 
 export const getTrack: AsyncFnWithProvider<
   SpotifyApi.SingleTrackResponse,

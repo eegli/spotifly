@@ -1,11 +1,6 @@
 import { Method, transformResponse } from '../../request';
-import {
-  AsyncFnWithProvider,
-  BooleanResponse,
-  Params,
-  ShowId,
-  VoidResponse,
-} from '../../types';
+import type { AsyncFnWithProvider } from '../../types';
+import type { BooleanResponse, Params, ShowId, VoidResponse } from '../params';
 
 export const getShow: AsyncFnWithProvider<
   SpotifyApi.SingleShowResponse,

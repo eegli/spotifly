@@ -1,11 +1,11 @@
 import { Method, transformResponse } from '../../request';
-import {
-  AsyncFnWithProvider,
+import type { AsyncFnWithProvider } from '../../types';
+import type {
   BooleanResponse,
   EpisodeId,
   Params,
   VoidResponse,
-} from '../../types';
+} from '../params';
 
 export const getEpisode: AsyncFnWithProvider<
   SpotifyApi.SingleEpisodeResponse,

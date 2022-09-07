@@ -1,5 +1,6 @@
 import { Method, transformResponse } from '../../request';
-import { AsyncFnWithProvider, Params } from '../../types';
+import type { AsyncFnWithProvider } from '../../types';
+import type { Params } from '../params';
 
 export const searchForItem: AsyncFnWithProvider<
   SpotifyApi.SearchResponse,

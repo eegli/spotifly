@@ -1,8 +1,8 @@
 import axios from 'axios';
 
+import type { DataResponse as DR } from '../src';
 import * as Spotify from '../src';
-import { DataResponse as DR } from '../src';
-import { BooleanResponse, VoidResponse } from '../src/types';
+import type { BooleanResponse, VoidResponse } from '../src/models/params';
 import {
   additional_types,
   country,
@@ -471,7 +471,7 @@ const tests: LibTestRunner = [
         fn: () =>
           assertReturns<DR<SpotifyApi.SinglePlaylistResponse>>(
             Client.Playlists.getPlaylist(stringId, {
-              additional_types: 'track,episode',
+              additional_types,
               fields,
               market,
             })

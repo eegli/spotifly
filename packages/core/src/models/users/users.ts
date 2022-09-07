@@ -1,11 +1,6 @@
 import { Method, transformResponse } from '../../request';
-import {
-  ArtistId,
-  AsyncFnWithProvider,
-  Params,
-  PlaylistId,
-  UserId,
-} from '../../types';
+import type { AsyncFnWithProvider } from '../../types';
+import type { ArtistId, Params, PlaylistId, UserId } from '../params';
 
 export const getCurrentUsersProfile: AsyncFnWithProvider<
   SpotifyApi.UserProfileResponse,
