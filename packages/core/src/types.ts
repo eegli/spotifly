@@ -122,8 +122,8 @@ type SinglePropertyResponse<Key extends string> = {
 
 export type AvailableMarketsResponse = SinglePropertyResponse<'markets'>;
 export type UsersQueueResponse = {
-  currently_playing: SpotifyApi.TrackObjectFull;
-  queue: SpotifyApi.TrackObjectFull[];
+  currently_playing: SpotifyApi.TrackObjectFull | SpotifyApi.EpisodeObjectFull;
+  queue: (SpotifyApi.TrackObjectFull | SpotifyApi.EpisodeObjectFull)[];
 };
 export type BooleanResponse = boolean[];
 export type VoidResponse = SpotifyApi.VoidResponse;

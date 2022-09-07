@@ -70,7 +70,6 @@ const episodesForUser: <Return>(
       })
     );
 
-// TODO fix these types
 export const saveEpisodesForUser = episodesForUser<VoidResponse>('save');
 export const removeUsersSavedEpisodes = episodesForUser<VoidResponse>('delete');
 export const checkUsersSavedEpisodes =
