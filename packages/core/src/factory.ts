@@ -3,8 +3,6 @@ import type { AnyObject, AsyncFn, OmitFromAsyncFnParams } from './types';
 
 type PagingObject<T = unknown> = SpotifyApi.PagingObject<T>;
 
-type CursorObject<T = unknown> = SpotifyApi.CursorBasedPagingObject<T>;
-
 type PaginationParams = Pick<Params, 'limit' | 'offset'>;
 
 export function resolveOffsetPaginated<
