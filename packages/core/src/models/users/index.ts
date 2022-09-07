@@ -38,7 +38,7 @@ export default function Users(provider: AsyncProvider) {
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/get-users-top-artists-and-tracks Get User's Top Items}
      */
     getAllUsersTopArtists: factory
-      .forPaginated(getUsersTopArtists(provider), USERS_TOP_LIMIT)
+      .resolveOffsetPaginated(getUsersTopArtists(provider), USERS_TOP_LIMIT)
       .bind(null, null),
     /**
      * Get the current user's top tracks based on calculated affinity.
@@ -52,7 +52,7 @@ export default function Users(provider: AsyncProvider) {
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/get-users-top-artists-and-tracks Get User's Top Items}
      */
     getAllUsersTopTracks: factory
-      .forPaginated(getUsersTopTracks(provider), USERS_TOP_LIMIT)
+      .resolveOffsetPaginated(getUsersTopTracks(provider), USERS_TOP_LIMIT)
       .bind(null, null),
     /**
      * Get public profile information about a Spotify user.
@@ -75,7 +75,10 @@ export default function Users(provider: AsyncProvider) {
      * This method takes care of chunking the ids and making multiple requests to the Spotify API.
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/follow-artists-users Follow Artists or Users}
      */
-    followAllArtists: factory.forLimited(followArtists(provider), FOLLOW_LIMIT),
+    followAllArtists: factory.handleLimited(
+      followArtists(provider),
+      FOLLOW_LIMIT
+    ),
     /**
      * Add the current user as a follower of one or more other Spotify users.
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/follow-artists-users Follow Artists or Users}
@@ -87,7 +90,7 @@ export default function Users(provider: AsyncProvider) {
      * This method takes care of chunking the ids and making multiple requests to the Spotify API.
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/follow-artists-users Follow Artists or Users}
      */
-    followAllUsers: factory.forLimited(followUsers(provider), FOLLOW_LIMIT),
+    followAllUsers: factory.handleLimited(followUsers(provider), FOLLOW_LIMIT),
     /**
      * Remove the current user as a follower of a playlist.
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/unfollow-playlist Unfollow Playlist}
@@ -104,7 +107,7 @@ export default function Users(provider: AsyncProvider) {
      * This method takes care of chunking the ids and making multiple requests to the Spotify API.
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/unfollow-artists-users Unfollow Artists or Users}
      */
-    unfollowAllArtists: factory.forLimited(
+    unfollowAllArtists: factory.handleLimited(
       unfollowArtists(provider),
       FOLLOW_LIMIT
     ),
@@ -119,7 +122,10 @@ export default function Users(provider: AsyncProvider) {
      * This method takes care of chunking the ids and making multiple requests to the Spotify API.
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/unfollow-artists-users Unfollow Artists or Users}
      */
-    unfollowAllUsers: factory.forLimited(unfollowUsers(provider), FOLLOW_LIMIT),
+    unfollowAllUsers: factory.handleLimited(
+      unfollowUsers(provider),
+      FOLLOW_LIMIT
+    ),
     // TODO factory for cursor based
     /**
      * Get the current user's followed artists.
@@ -137,7 +143,7 @@ export default function Users(provider: AsyncProvider) {
      * This method takes care of chunking the ids and making multiple requests to the Spotify API.
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/check-current-user-follows Check If User Follows Artists or Users}
      */
-    checkFollowsAllArtists: factory.forLimited(
+    checkFollowsAllArtists: factory.handleLimited(
       checkFollowsArtists(provider),
       FOLLOW_LIMIT
     ),
@@ -152,7 +158,7 @@ export default function Users(provider: AsyncProvider) {
      * This method takes care of chunking the ids and making multiple requests to the Spotify API.
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/check-current-user-follows Check If User Follows Artists or Users}
      */
-    checkFollowsAllUsers: factory.forLimited(
+    checkFollowsAllUsers: factory.handleLimited(
       checkFollowsUsers(provider),
       FOLLOW_LIMIT
     ),

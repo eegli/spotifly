@@ -33,7 +33,7 @@ export default function Albums(provider: AsyncProvider) {
      * This method takes care of chunking the ids and making multiple requests to the Spotify API.
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/get-multiple-albums Get Several Albums}
      */
-    getAllAlbums: factory.forLimited(
+    getAllAlbums: factory.handleLimited(
       getSeveralAlbums(provider),
       LIMIT_SEVERAL_ALBUMS
     ),
@@ -48,7 +48,7 @@ export default function Albums(provider: AsyncProvider) {
      * This method automatically handles pagination and fetches all items.
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/get-an-albums-tracks Get Album Tracks}
      */
-    getAllAlbumTracks: factory.forPaginated(
+    getAllAlbumTracks: factory.resolveOffsetPaginated(
       getAlbumTracks(provider),
       LIMIT_ALBUM_TRACKS
     ),
@@ -64,7 +64,10 @@ export default function Albums(provider: AsyncProvider) {
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/get-users-saved-albums Get Saved Albums}
      */
     getAllUsersSavedAlbums: factory
-      .forPaginated(getUsersSavedAlbums(provider), LIMIT_USER_ALBUMS_GET)
+      .resolveOffsetPaginated(
+        getUsersSavedAlbums(provider),
+        LIMIT_USER_ALBUMS_GET
+      )
       .bind(null, null),
     /**
      * Save one or more albums to the current user's 'Your Music' library.
@@ -77,7 +80,7 @@ export default function Albums(provider: AsyncProvider) {
      * This method takes care of chunking the ids and making multiple requests to the Spotify API.
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/save-albums-user Save Albums}
      */
-    saveAllAlbumsForUser: factory.forLimited(
+    saveAllAlbumsForUser: factory.handleLimited(
       saveAlbumsForUser(provider),
       LIMIT_USER_ALBUMS_MODIFY_CHECK
     ),
@@ -92,7 +95,7 @@ export default function Albums(provider: AsyncProvider) {
      * This method takes care of chunking the ids and making multiple requests to the Spotify API.
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/remove-albums-user Remove Albums}
      */
-    removeAllUsersSavedAlbums: factory.forLimited(
+    removeAllUsersSavedAlbums: factory.handleLimited(
       removeUsersSavedAlbums(provider),
       LIMIT_USER_ALBUMS_MODIFY_CHECK
     ),
@@ -107,7 +110,7 @@ export default function Albums(provider: AsyncProvider) {
      * This method takes care of chunking the ids and making multiple requests to the Spotify API.
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/check-users-saved-albums Check Saved Albums}
      */
-    checkAllUsersSavedAlbums: factory.forLimited(
+    checkAllUsersSavedAlbums: factory.handleLimited(
       checkUsersSavedAlbums(provider),
       LIMIT_USER_ALBUMS_MODIFY_CHECK
     ),

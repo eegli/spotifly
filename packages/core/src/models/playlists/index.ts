@@ -40,7 +40,7 @@ export default function Playlists(provider: AsyncProvider) {
      * This method automatically handles pagination and fetches all items.
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/get-playlists-tracks Get Playlist Items}
      */
-    getAllPlaylistItems: factory.forPaginated(
+    getAllPlaylistItems: factory.resolveOffsetPaginated(
       getPlaylistItems(provider),
       PLAYLIST_ITEMS_LIMIT
     ),
@@ -74,7 +74,10 @@ export default function Playlists(provider: AsyncProvider) {
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/get-a-list-of-current-users-playlists Get Current User's Playlists}
      */
     getAllCurrentUsersPlaylists: factory
-      .forPaginated(getCurrentUsersPlaylists(provider), USERS_PLAYLISTS_LIMIT)
+      .resolveOffsetPaginated(
+        getCurrentUsersPlaylists(provider),
+        USERS_PLAYLISTS_LIMIT
+      )
       .bind(null, null),
     /**
      * Get a list of the playlists owned or followed by a Spotify user.
@@ -87,7 +90,7 @@ export default function Playlists(provider: AsyncProvider) {
      * This method automatically handles pagination and fetches all items.
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/get-list-users-playlists Get User's Playlists}
      */
-    getAllUsersPlaylists: factory.forPaginated(
+    getAllUsersPlaylists: factory.resolveOffsetPaginated(
       getUsersPlaylists(provider),
       USERS_PLAYLISTS_LIMIT
     ),

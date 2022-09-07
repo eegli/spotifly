@@ -1,12 +1,14 @@
 import { Params } from './models/params';
 import type { AnyObject, AsyncFn, OmitFromAsyncFnParams } from './types';
 
-type PagingObject<T> = SpotifyApi.PagingObject<T>;
+type PagingObject<T = unknown> = SpotifyApi.PagingObject<T>;
+
+type CursorObject<T = unknown> = SpotifyApi.CursorBasedPagingObject<T>;
 
 type PaginationParams = Pick<Params, 'limit' | 'offset'>;
 
-export function forPaginated<
-  F extends AsyncFn<PagingObject<unknown>, string, PaginationParams>,
+export function resolveOffsetPaginated<
+  F extends AsyncFn<PagingObject, string, PaginationParams>,
   R extends Awaited<ReturnType<F>>
 >(getFn: F, limit: number) {
   return function (...args: OmitFromAsyncFnParams<F, PaginationParams>) {
@@ -31,7 +33,7 @@ export function forPaginated<
   };
 }
 
-export function forLimited<
+export function handleLimited<
   F extends AsyncFn<unknown, string[], AnyObject>,
   R extends Awaited<ReturnType<F>>
 >(getFn: F, limit: number) {

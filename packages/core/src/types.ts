@@ -61,6 +61,10 @@ export type BetterOmit<Type, Key> = {
   [P in keyof Type as Exclude<P, Key>]: Type[P];
 };
 
+export type KeysMatching<Type, Value> = {
+  [Key in keyof Type]-?: Type[Key] extends Value ? Key : never;
+}[keyof Type];
+
 export type OmitFromAsyncFnParams<
   Func extends AnyFunc,
   Obj extends AnyObject

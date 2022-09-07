@@ -31,7 +31,7 @@ export default function Shows(provider: AsyncProvider) {
      * This method takes care of chunking the ids and making multiple requests to the Spotify API.
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/get-multiple-shows Get Several Shows}
      */
-    getAllShows: factory.forLimited(
+    getAllShows: factory.handleLimited(
       getSeveralShows(provider),
       SEVERAL_SHOWS_LIMIT
     ),
@@ -46,7 +46,7 @@ export default function Shows(provider: AsyncProvider) {
      * This method automatically handles pagination and fetches all items.
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/get-a-shows-episodes Get Show Episodes}
      */
-    getAllShowEpisodes: factory.forPaginated(
+    getAllShowEpisodes: factory.resolveOffsetPaginated(
       getShowEpisodes(provider),
       SHOW_EPISODES_LIMIT
     ),
@@ -62,7 +62,7 @@ export default function Shows(provider: AsyncProvider) {
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/get-users-saved-shows Get User's Saved Shows}
      */
     getAllUsersSavedShows: factory
-      .forPaginated(getUsersSavedShows(provider), USER_SHOW_LIMIT)
+      .resolveOffsetPaginated(getUsersSavedShows(provider), USER_SHOW_LIMIT)
       .bind(null, null),
     /**
      * Save one or more shows to current Spotify user's library.
@@ -75,7 +75,7 @@ export default function Shows(provider: AsyncProvider) {
      * This method takes care of chunking the ids and making multiple requests to the Spotify API.
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/save-shows-user Save Shows for Current User}
      */
-    saveAllShowsForUser: factory.forLimited(
+    saveAllShowsForUser: factory.handleLimited(
       saveShowsForUser(provider),
       USER_SHOW_LIMIT
     ),
@@ -90,7 +90,7 @@ export default function Shows(provider: AsyncProvider) {
      * This method takes care of chunking the ids and making multiple requests to the Spotify API.
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/get-multiple-shows Remove User's Saved Shows}
      */
-    removeAllUsersSavedShows: factory.forLimited(
+    removeAllUsersSavedShows: factory.handleLimited(
       removeUsersSavedShows(provider),
       USER_SHOW_LIMIT
     ),
@@ -105,7 +105,7 @@ export default function Shows(provider: AsyncProvider) {
      * This method takes care of chunking the ids and making multiple requests to the Spotify API.
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/check-users-saved-shows Check User's Saved Shows}
      */
-    checkAllUsersSavedShows: factory.forLimited(
+    checkAllUsersSavedShows: factory.handleLimited(
       checkUsersSavedShows(provider),
       USER_SHOW_LIMIT
     ),
