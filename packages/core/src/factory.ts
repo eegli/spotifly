@@ -1,9 +1,5 @@
-import type {
-  AnyObject,
-  AsyncFn,
-  OmitFromAsyncFnParams,
-  Params,
-} from './types';
+import { Params } from './models/params';
+import type { AnyObject, AsyncFn, OmitFromAsyncFnParams } from './types';
 
 type PagingObject<T> = SpotifyApi.PagingObject<T>;
 

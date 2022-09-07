@@ -12,7 +12,13 @@ export type AsyncProvider = {
   request(req: AxiosRequestConfig): Promise<AxiosResponse>;
 };
 
-// Prevent distributivity on conditional generic types: https://www.typescriptlang.org/docs/handbook/2/conditional-types.html#distributive-conditional-types
+export type SpotifyError = {
+  error: {
+    status: number;
+    message: string;
+  };
+};
+
 export type AsyncFn<
   ReturnValue,
   Param1 = undefined,
@@ -44,6 +50,10 @@ export type AsyncFnWithProvider<
 
 export type AnyObject = Record<string, unknown>;
 
+export type EmptyObject = Record<never, never>;
+
+export type LiteralUnion<T extends string> = T | (string & EmptyObject);
+
 export type AnyFunc = (...args: any[]) => unknown;
 
 // https://github.com/microsoft/TypeScript/issues/39556
@@ -63,64 +73,3 @@ export type ReadOnlyParams<Func extends AnyFunc> = Func extends (
 ) => unknown
   ? Readonly<Params>
   : never;
-
-// Branded types - T = T & {} - improve IntelliSense experience
-// https://github.com/microsoft/TypeScript/issues/31940#issuecomment-841712377
-type _ = Record<never, never>;
-export type UserId = string & _;
-export type ArtistId = string & _;
-export type TrackId = string & _;
-export type AlbumId = string & _;
-export type EpisodeId = string & _;
-export type ShowId = string & _;
-
-export type PlaylistId = string & _;
-export type CategoryId = string & _;
-export type DeviceId = string & _;
-export type Uri = string & _;
-export type State = boolean & _;
-
-export type PositionMS = number & _;
-export type VolumePercent = number & _;
-
-export type Params = {
-  market: string;
-  locale: string;
-  country: string;
-  timestamp: string;
-  additional_types: string;
-  snapshot_id: string;
-  device_id: string;
-  fields: string;
-  time_range: 'long_term ' | 'medium_term' | 'short_term';
-  include_groups: string;
-  context_uri: string;
-  name: string;
-  description: string;
-  public: boolean;
-  collaborative: boolean;
-  play: boolean;
-  state: boolean;
-  uris: Uri[];
-  after: string;
-  range_start: number;
-  insert_before: number;
-  range_length: number;
-  include_external: 'audio';
-  limit: number;
-  offset: number;
-  position: number;
-  position_ms: number;
-};
-
-type SinglePropertyResponse<Key extends string> = {
-  [Property in Key]: string[];
-};
-
-// TODO Types
-
-export type AvailableMarketsResponse = SinglePropertyResponse<'markets'>;
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type UsersQueueResponse = any;
-export type BooleanResponse = boolean[];
-export type VoidResponse = SpotifyApi.VoidResponse;

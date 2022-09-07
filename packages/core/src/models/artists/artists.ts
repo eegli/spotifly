@@ -1,5 +1,6 @@
 import { Method, transformResponse } from '../../request';
-import type { ArtistId, AsyncFnWithProvider, Params } from '../../types';
+import type { AsyncFnWithProvider } from '../../types';
+import type { ArtistId, Params } from '../params';
 
 export const getArtist: AsyncFnWithProvider<
   SpotifyApi.SingleArtistResponse,
@@ -32,14 +33,19 @@ export const getArtistsAlbums: AsyncFnWithProvider<
   SpotifyApi.ArtistsAlbumsResponse,
   ArtistId,
   Pick<Params, 'include_groups' | 'offset' | 'limit' | 'market'>
-> = provider => async (artistId, params) =>
-  transformResponse(
-    await provider.request({
-      method: Method.GET,
-      url: `artists/${artistId}/albums`,
-      params,
-    })
-  );
+> =
+  provider =>
+  async (artistId, { include_groups, ...params } = {}) =>
+    transformResponse(
+      await provider.request({
+        method: Method.GET,
+        url: `artists/${artistId}/albums`,
+        params: {
+          ...params,
+          include_groups: include_groups?.join(','),
+        },
+      })
+    );
 
 export const LIMIT_GET_ARTIST_ALBUMS = 50;
 

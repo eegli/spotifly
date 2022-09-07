@@ -1,5 +1,6 @@
 import { Method, transformResponse } from '../../request';
-import { AsyncFnWithProvider, CategoryId, Params } from '../../types';
+import type { AsyncFnWithProvider } from '../../types';
+import type { CategoryId, Params } from '../params';
 
 export const getCategory: AsyncFnWithProvider<
   SpotifyApi.SingleCategoryResponse,

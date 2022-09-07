@@ -1,5 +1,5 @@
 import { AxiosError, AxiosResponse } from 'axios';
-import { DataResponse } from './types';
+import type { DataResponse, SpotifyError } from './types';
 
 export enum Method {
   GET = 'GET',
@@ -15,13 +15,6 @@ export function transformResponse<T>(res: AxiosResponse<T>): DataResponse<T> {
     statusCode: res.status,
   };
 }
-
-type SpotifyError = {
-  error: {
-    status: number;
-    message: string;
-  };
-};
 
 export function isError(payload: unknown): payload is AxiosError<SpotifyError> {
   return (

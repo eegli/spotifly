@@ -1,8 +1,8 @@
 import axios from 'axios';
 
+import type { DataResponse as DR } from '../src';
 import * as Spotify from '../src';
-import { DataResponse as DR } from '../src';
-import { BooleanResponse, VoidResponse } from '../src/types';
+import type { BooleanResponse, VoidResponse } from '../src/models/params';
 import {
   additional_types,
   country,
@@ -226,28 +226,32 @@ const tests: LibTestRunner = [
         name: 'getUsersSavedEpisodes',
         fn: () =>
           assertReturns<DR<SpotifyApi.UsersSavedEpisodesResponse>>(
-            Client.Episodes.getUsersSavedEpisodes({ market, limit, offset })
+            Client.Episodes.beta.getUsersSavedEpisodes({
+              market,
+              limit,
+              offset,
+            })
           ),
       },
       {
         name: 'saveEpisodesForUser',
         fn: () =>
           assertReturns<DR<VoidResponse>>(
-            Client.Episodes.saveEpisodesForUser(stringIds)
+            Client.Episodes.beta.saveEpisodesForUser(stringIds)
           ),
       },
       {
         name: 'removeUsersSavedEpisodes',
         fn: () =>
           assertReturns<DR<VoidResponse>>(
-            Client.Episodes.removeUsersSavedEpisodes(stringIds)
+            Client.Episodes.beta.removeUsersSavedEpisodes(stringIds)
           ),
       },
       {
         name: 'checkUsersSavedEpisodes',
         fn: () =>
           assertReturns<DR<boolean[]>>(
-            Client.Episodes.checkUsersSavedEpisodes(stringIds)
+            Client.Episodes.beta.checkUsersSavedEpisodes(stringIds)
           ),
       },
     ],
@@ -467,7 +471,7 @@ const tests: LibTestRunner = [
         fn: () =>
           assertReturns<DR<SpotifyApi.SinglePlaylistResponse>>(
             Client.Playlists.getPlaylist(stringId, {
-              additional_types: 'track,episode',
+              additional_types,
               fields,
               market,
             })
