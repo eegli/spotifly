@@ -6,8 +6,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Spotifly',
-  tagline:
-    'An inofficial collection of useful JavaScript packages and utilities for Spotify',
+  tagline: 'An inofficial toolbelt for working with the Spotify Web API.',
   url: 'https://spotifly.nougat.dev',
   baseUrl: '/',
   onBrokenLinks: 'throw',
