@@ -22,7 +22,7 @@ const FeatureList: FeatureItem[] = [
   {
     title: 'Elegant Spotify Web API wrapper',
     image: <StarIcon />,
-    description: <>Talking to Spotify's Web API is a breeze.</>,
+    description: <>Talking to Spotify&apos;s Web API is a breeze.</>,
   },
   {
     title: 'Powerful CLI',
