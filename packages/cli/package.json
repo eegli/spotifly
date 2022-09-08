@@ -1,6 +1,6 @@
 {
   "name": "@spotifly/cli",
-  "version": "0.9.1",
+  "version": "1.0.0",
   "description": "The CLI for Spotifly",
   "keywords": [
     "cli",
