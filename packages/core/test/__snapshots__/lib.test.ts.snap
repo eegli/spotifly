@@ -627,7 +627,6 @@ exports[`Player startOrResumePlayback 1`] = `
         "position_ms": 1,
         "uris": [
           "spotify:track:1",
-          "spotify:episode:2",
         ],
       },
       "headers": {
@@ -689,7 +688,6 @@ exports[`Playlists addPlaylistItems 1`] = `
         "position": 0,
         "uris": [
           "spotify:track:1",
-          "spotify:episode:2",
         ],
       },
       "headers": {
