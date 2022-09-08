@@ -28,7 +28,7 @@ export default function Artists(provider: AsyncProvider) {
      * This method takes care of chunking the ids and making multiple requests to the Spotify API.
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/get-multiple-artists Get Several Artists}
      */
-    getAllArtists: factory.forLimited(
+    getAllArtists: factory.handleLimited(
       getSeveralArtists(provider),
       LIMIT_GET_SEVERAL_ARTISTS
     ),
@@ -43,7 +43,7 @@ export default function Artists(provider: AsyncProvider) {
      * This method automatically handles pagination and fetches all items.
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/get-an-artists-albums Get Artist's Albums}
      */
-    getAllArtistsAlbums: factory.forPaginated(
+    getAllArtistsAlbums: factory.resolveOffsetPaginated(
       getArtistsAlbums(provider),
       LIMIT_GET_ARTIST_ALBUMS
     ),

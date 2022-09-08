@@ -4286,7 +4286,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spotifly/core@workspace:packages/core"
   dependencies:
-    "@spotifly/utils": "workspace:^"
     axios: ^0.27.2
   languageName: unknown
   linkType: soft

@@ -34,7 +34,7 @@ export default function Tracks(provider: AsyncProvider) {
      * This method takes care of chunking the ids and making multiple requests to the Spotify API.
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/get-several-tracks Get Several Tracks}
      */
-    getAllTracks: factory.forLimited(
+    getAllTracks: factory.handleLimited(
       getSeveralTracks(provider),
       SEVERAL_TRACKS_LIMIT
     ),
@@ -50,7 +50,7 @@ export default function Tracks(provider: AsyncProvider) {
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/get-users-saved-tracks User's Saved Tracks}
      */
     getAllUsersSavedTracks: factory
-      .forPaginated(getUsersSavedTracks(provider), USER_SAVED_LIMIT)
+      .resolveOffsetPaginated(getUsersSavedTracks(provider), USER_SAVED_LIMIT)
       .bind(null, null),
     /**
      * Save one or more tracks to the current user's 'Your Music' library.
@@ -63,7 +63,7 @@ export default function Tracks(provider: AsyncProvider) {
      * This method takes care of chunking the ids and making multiple requests to the Spotify API.
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/save-tracks-user Save Tracks for Current User}
      */
-    saveAllTracksForUser: factory.forLimited(
+    saveAllTracksForUser: factory.handleLimited(
       saveTracksForUser(provider),
       USER_SAVED_LIMIT
     ),
@@ -78,7 +78,7 @@ export default function Tracks(provider: AsyncProvider) {
      * This method takes care of chunking the ids and making multiple requests to the Spotify API.
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/remove-tracks-user Remove Tracks for Current User}
      */
-    removeAllUsersTracksForUser: factory.forLimited(
+    removeAllUsersTracksForUser: factory.handleLimited(
       removeUsersSavedTracks(provider),
       USER_SAVED_LIMIT
     ),
@@ -93,7 +93,7 @@ export default function Tracks(provider: AsyncProvider) {
      * This method takes care of chunking the ids and making multiple requests to the Spotify API.
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/check-users-saved-tracks Check User's Saved Tracks}
      */
-    checkAllUsersSavedTracks: factory.forLimited(
+    checkAllUsersSavedTracks: factory.handleLimited(
       checkUsersSavedTracks(provider),
       USER_SAVED_LIMIT
     ),
@@ -113,7 +113,7 @@ export default function Tracks(provider: AsyncProvider) {
      * This method takes care of chunking the ids and making multiple requests to the Spotify API.
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/get-several-audio-features Get Tracks' Audio Features}
      */
-    getAllAudioFeatures: factory.forLimited(
+    getAllAudioFeatures: factory.handleLimited(
       getSeveralAudioFeatures(provider),
       SEVERAL_AUDIO_FEATURES_LIMIT
     ),

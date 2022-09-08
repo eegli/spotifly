@@ -27,7 +27,6 @@
     "provider"
   ],
   "dependencies": {
-    "@spotifly/utils": "workspace:^",
     "axios": "^0.27.2"
   },
   "engines": {

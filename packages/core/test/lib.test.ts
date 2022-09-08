@@ -1,5 +1,4 @@
 import axios from 'axios';
-
 import type { DataResponse as DR } from '../src';
 import * as Spotify from '../src';
 import type { BooleanResponse, VoidResponse } from '../src/models/params';

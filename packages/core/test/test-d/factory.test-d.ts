@@ -14,7 +14,7 @@ declare function paginatedFunc(
 ): DataPromise<SpotifyApi.PagingObject<Custom>>;
 
 describe('Factory, pagination handling', () => {
-  const get = factory.forPaginated(paginatedFunc, 10);
+  const get = factory.resolveOffsetPaginated(paginatedFunc, 10);
 
   test('omits pagination parameters', async () => {
     expectAssignable<ReadOnlyParams<typeof get>>(['', { market: '' }] as const);
@@ -47,9 +47,9 @@ declare function limitedFunc(
 ): DataPromise<Custom>;
 
 describe('Factory, limited endpoint handling', () => {
-  const get = factory.forLimited(limitedFunc, 10)([]);
+  const get = factory.handleLimited(limitedFunc, 10)([]);
   test('infers parameters', async () => {
-    type Params = ReadOnlyParams<typeof factory.forLimited>;
+    type Params = ReadOnlyParams<typeof factory.handleLimited>;
     expectAssignable<Params>([limitedFunc, 1] as const);
   });
   test('infers return type', async () => {

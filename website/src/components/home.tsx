@@ -15,22 +15,22 @@ const FeatureList: FeatureItem[] = [
   {
     title: 'Quick and easy authorization',
     image: <LockOpenIcon />,
-    description: <>Get your access token directly from the docs.</>,
+    description: (
+      <>Get your access and refresh tokens directly from the docs.</>
+    ),
   },
   {
-    title: 'Built for CJS and ESM',
+    title: 'Elegant Spotify Web API wrapper',
     image: <StarIcon />,
-    description: (
-      <>You choose whether you want to require or import a package.</>
-    ),
+    description: <>Talking to Spotify&apos;s Web API is a breeze.</>,
   },
   {
     title: 'Powerful CLI',
     image: <SettingsSuggestIcon />,
     description: (
       <>
-        Use any package either via the Spotifly CLI or invoke it directly via
-        NPX - no installation required.
+        Use a packages either via the Spotifly CLI or invoke it directly via NPX
+        - no installation required.
       </>
     ),
   },

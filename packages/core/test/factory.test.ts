@@ -69,7 +69,7 @@ describe('Factory, pagination handling', () => {
     const mockAPI = setupTest(itemCount, limit);
 
     test(`gets all ${itemCount} items and invokes callback in between`, async () => {
-      const fetch = factory.forPaginated(mockAPI, limit);
+      const fetch = factory.resolveOffsetPaginated(mockAPI, limit);
 
       const result = await fetch('id', { market: 'CH' })(args => mockCb(args));
 
@@ -131,7 +131,7 @@ describe('Factory, limited endpoint handling', () => {
     const { limit, itemCount, expectedCalls } = testCase;
     test(`handles max ${itemCount} item with limit of ${limit}`, async () => {
       const mockAPI = createLimitedAPI(limit);
-      const fetch = factory.forLimited(mockAPI, limit);
+      const fetch = factory.handleLimited(mockAPI, limit);
 
       const result = await fetch(
         Array.from({ length: itemCount }, () => 'id'),

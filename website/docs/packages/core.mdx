@@ -338,10 +338,6 @@ Both `DataResponse` and `DataPromise` are exported so you don't have to infer th
 import type { DataResponse, DataPromise } from '@spotifly/core';
 ```
 
-### Convenience Methods
-
-TODO
-
 ### Future
 
 Today's client supports the Spotify endpoints of tomorrow. The API features a `future.request` function that acts as an escape hatch for everything that is not yet or incorretly supported by this library. Requests made through `future.request` are always authenticated.
@@ -350,6 +346,47 @@ Today's client supports the Spotify endpoints of tomorrow. The API features a `f
 await spotifyClient.future
   .request<MyResponseType>({ url: 'me/new-releases' })
   .then(console.log); // typeof MyResponseType
+```
+
+## Convenience Methods
+
+Methods that contain `all` in their name are convenience methods for (offset-based) paginated and limited endpoints. Limited endpoints expect a maximum amount of items when queried.
+
+Examples are `Tracks.getUsersSavedTracks` (paginated) and `Tracks.getSeveralTracks` (limited). The Spotify Web API returns at most 50 items when asked for a user's saved tracks and allows no more than 50 track ids when querying for track catalog information.
+
+### Usage
+
+All convenience methods are aware of their specific limitations. They know how many items they can request from Spotify at once and will max out each request, taking care of chunking item ids and handling paginated endpoints.
+
+Non-convenience/ordinary methods do not have such logic. They do not check or chunk requests and it's up to you to make sure you're calling the endpoint according to its usage.
+
+### Callbacks
+
+The following example returns all of a user's saved tracks in a flat array. Convenience methods have a different signature: **They are curried and return a function which optionally accepts a callback**. Each time a new chunk of items is fetched, the response wrapped in a `DataResponse<T>` is passed to the callback as the only argument.
+
+Asynchronous callbacks are allowed. Their return values are ignored.
+
+```ts
+const allTracks = await spotifyClient.Tracks.getAllUsersSavedTracks()(
+  async response => {
+    // DataResponse<SpotifyApi.UsersSavedTracksResponse>
+    console.log(`fetched ${response.data.items.length} items!`);
+  }
+).then(allResponses => {
+  return allResponses.map(({ data }) => data.items).flat();
+});
+```
+
+You can do pretty much anything with the chunk - e.g., log something to the console or send the items somewhere else.
+
+Convenience methods simply wrap their ordinary counterpart and resolve all responses in a single array. This is reflected in their return types: If the ordinary methods returns `DataResponse<T>`, the convenience method returns `Array<DataResponse<T>>`
+
+```ts
+const allTracks: DataResponse<SpotifyApi.UsersSavedTracksResponse>[] =
+  await spotifyClient.Tracks.getAllUsersSavedTracks()();
+
+const someTracks: DataResponse<SpotifyApi.UsersSavedTracksResponse> =
+  await spotifyClient.Tracks.getUsersSavedTracks();
 ```
 
 ## Testing Recipes

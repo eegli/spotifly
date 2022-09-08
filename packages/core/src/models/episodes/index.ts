@@ -29,7 +29,7 @@ export default function Episodes(provider: AsyncProvider) {
      * This method takes care of chunking the ids and making multiple requests to the Spotify API.
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/get-multiple-episodes Get Several Episodes}
      */
-    getAllEpisodes: factory.forLimited(
+    getAllEpisodes: factory.handleLimited(
       getSeveralEpisodes(provider),
       SEVERAL_EPISODES_LIMIT
     ),
@@ -46,7 +46,10 @@ export default function Episodes(provider: AsyncProvider) {
        * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/get-users-saved-episodes Get User's Saved Episodes}
        */
       getAllUsersSavedEpisodes: factory
-        .forPaginated(getUsersSavedEpisodes(provider), USER_EPISODES_LIMIT)
+        .resolveOffsetPaginated(
+          getUsersSavedEpisodes(provider),
+          USER_EPISODES_LIMIT
+        )
         .bind(null, null),
       /**
        * Save one or more episodes to the current user's library.
@@ -59,7 +62,7 @@ export default function Episodes(provider: AsyncProvider) {
        * This method takes care of chunking the ids and making multiple requests to the Spotify API.
        * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/save-episodes-user Save Episodes for User}
        */
-      saveAllEpisodesForUser: factory.forLimited(
+      saveAllEpisodesForUser: factory.handleLimited(
         saveEpisodesForUser(provider),
         USER_EPISODES_LIMIT
       ),
@@ -74,7 +77,7 @@ export default function Episodes(provider: AsyncProvider) {
        * This method takes care of chunking the ids and making multiple requests to the Spotify API.
        * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/remove-episodes-user Remove User's Saved Episodes}
        */
-      removeAllUsersSavedEpisodes: factory.forLimited(
+      removeAllUsersSavedEpisodes: factory.handleLimited(
         removeUsersSavedEpisodes(provider),
         USER_EPISODES_LIMIT
       ),
@@ -90,7 +93,7 @@ export default function Episodes(provider: AsyncProvider) {
        * This method takes care of chunking the ids and making multiple requests to the Spotify API.
        * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/check-users-saved-episodes Check User's Saved Episodes}
        */
-      checkAllUsersSavedEpisodes: factory.forLimited(
+      checkAllUsersSavedEpisodes: factory.handleLimited(
         checkUsersSavedEpisodes(provider),
         USER_EPISODES_LIMIT
       ),
