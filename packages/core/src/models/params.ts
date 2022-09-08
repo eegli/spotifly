@@ -97,34 +97,34 @@ export type VolumePercent = number & _;
 export type PlaybackShuffle = boolean & _;
 
 export type Params = {
-  market: string;
-  locale: string;
-  country: string;
-  timestamp: string;
   additional_types: LiteralUnion<'track' | ' episode'>[];
-  snapshot_id: string;
+  after: string;
+  collaborative: boolean;
+  context_uri: string;
+  country: string;
+  description: string;
   device_id: string;
   fields: string;
-  time_range: 'long_term ' | 'medium_term' | 'short_term';
+  include_external: 'audio';
   include_groups: LiteralUnion<
     'album' | ' single' | ' appears_on' | ' compilation'
   >[];
-  context_uri: string;
-  name: string;
-  description: string;
-  public: boolean;
-  collaborative: boolean;
-  play: boolean;
-  uris: Uri[];
-  after: string;
-  range_start: number;
   insert_before: number;
-  range_length: number;
-  include_external: 'audio';
   limit: number;
+  locale: string;
+  market: string;
+  name: string;
   offset: number;
+  play: boolean;
   position: number;
   position_ms: number;
+  public: boolean;
+  range_length: number;
+  range_start: number;
+  snapshot_id: string;
+  time_range: 'long_term ' | 'medium_term' | 'short_term';
+  timestamp: string;
+  uris: Uri[];
 };
 
 type SinglePropertyResponse<Key extends string> = {
@@ -135,6 +135,7 @@ type SinglePropertyResponse<Key extends string> = {
 export type AvailableMarketsResponse = SinglePropertyResponse<'markets'>;
 export type UsersQueueResponse = {
   currently_playing: SpotifyApi.TrackObjectFull | SpotifyApi.EpisodeObjectFull;
+
   queue: (SpotifyApi.TrackObjectFull | SpotifyApi.EpisodeObjectFull)[];
 };
 export type BooleanResponse = boolean[];
