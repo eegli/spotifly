@@ -1,5 +1,13 @@
 import * as Spotifly from '@spotifly/core';
 
+type DataResponse<T> = Spotifly.DataResponse<T>;
+
+const spotifyClient = Spotifly.initialize({
+  clientId: process.env.SPOTIFY_CLIENT_ID || '',
+  clientSecret: process.env.SPOTIFY_CLIENT_SECRET || '',
+  refreshToken: process.env.SPOTIFY_REFRESH_TOKEN || '',
+});
+
 describe('Core readme', () => {
   test('general example', async () => {
     {
@@ -7,11 +15,6 @@ describe('Core readme', () => {
         accessToken: 'abc123',
       });
     }
-    const spotifyClient = Spotifly.initialize({
-      clientId: process.env.SPOTIFY_CLIENT_ID || '',
-      clientSecret: process.env.SPOTIFY_CLIENT_SECRET || '',
-      refreshToken: process.env.SPOTIFY_REFRESH_TOKEN || '',
-    });
 
     // Deriving the genres of a track via its artists
     await spotifyClient.Tracks.getTrack('5nHc8CmiPllMzHbJhhx3KS')
@@ -41,5 +44,24 @@ describe('Core readme', () => {
         console.log(res.data.albums?.items[0]?.name); // 'The Eminem Show'
       }
     );
+  });
+  test('convenience methods 1', async () => {
+    const allTracks = await spotifyClient.Tracks.getAllUsersSavedTracks()(
+      async response => {
+        // DataResponse<SpotifyApi.UsersSavedTracksResponse>
+        console.log(`fetched ${response.data.items.length} items!`);
+      }
+    ).then(allResponses => {
+      return allResponses.map(({ data }) => data.items).flat();
+    });
+
+    expect(allTracks.length).toBeGreaterThanOrEqual(60);
+  });
+  test('convenience methods 2', async () => {
+    const allTracks: DataResponse<SpotifyApi.UsersSavedTracksResponse>[] =
+      await spotifyClient.Tracks.getAllUsersSavedTracks()();
+
+    const someTracks: DataResponse<SpotifyApi.UsersSavedTracksResponse> =
+      await spotifyClient.Tracks.getUsersSavedTracks();
   });
 });
