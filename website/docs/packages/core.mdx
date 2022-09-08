@@ -352,9 +352,7 @@ await spotifyClient.future
 
 Methods that contain `all` in their name are convenience methods for (offset-based) paginated and limited endpoints. Limited endpoints expect a maximum amount of items when queried.
 
-Examples are `Tracks.getAllUsersSavedTracks` (paginated) `Tracks.getAllTracks` (limited).
-
-The Spotify Web API returns at most 50 items when asked for a user's saved tracks and allows no more than 50 track ids when querying for track catalog information.
+Examples are `Tracks.getUsersSavedTracks` (paginated) and `Tracks.getSeveralTracks` (limited). The Spotify Web API returns at most 50 items when asked for a user's saved tracks and allows no more than 50 track ids when querying for track catalog information.
 
 ### Usage
 
@@ -364,9 +362,9 @@ Non-convenience/ordinary methods do not have such logic. They do not check or ch
 
 ### Callbacks
 
-The following example returns all of a user's saved tracks in a flat array. Convenience methods have a different signature: **They are curried and return a function which accepts an optional callback**. Each time a new chunk of items is fetched, the response of type `DataResponse` is passed to the callback as the only argument.
+The following example returns all of a user's saved tracks in a flat array. Convenience methods have a different signature: **They are curried and return a function which optionally accepts a callback**. Each time a new chunk of items is fetched, the response wrapped in a `DataResponse<T>` is passed to the callback as the only argument.
 
-Even asynchronous callbacks are allowed! Their return values are discharged.
+Asynchronous callbacks are allowed. Their return values are ignored.
 
 ```ts
 const allTracks = await spotifyClient.Tracks.getAllUsersSavedTracks()(
@@ -379,9 +377,9 @@ const allTracks = await spotifyClient.Tracks.getAllUsersSavedTracks()(
 });
 ```
 
-You can do pretty much anything with the chunk - e.g. log something to the console or send the items somewhere else.
+You can do pretty much anything with the chunk - e.g., log something to the console or send the items somewhere else.
 
-Convenience methods simply wrap their ordinary counterpart, which is reflected in their return types. The convenience method returns an array of the type that the basic method returns:
+Convenience methods simply wrap their ordinary counterpart and resolve all responses in a single array. This is reflected in their return types: If the ordinary methods returns `DataResponse<T>`, the convenience method returns `Array<DataResponse<T>>`
 
 ```ts
 const allTracks: DataResponse<SpotifyApi.UsersSavedTracksResponse>[] =
