@@ -1,6 +1,14 @@
 import { Method, transformResponse } from '../../request';
 import type { AsyncFnWithProvider } from '../../types';
-import type { CategoryId, Params, PlaylistId, Uri, UserId } from '../params';
+import type {
+  Base64URL,
+  CategoryId,
+  GetPlaylistCoverImageResponse,
+  Params,
+  PlaylistId,
+  Uri,
+  UserId,
+} from '../params';
 
 export const getPlaylist: AsyncFnWithProvider<
   SpotifyApi.SinglePlaylistResponse,
@@ -166,12 +174,28 @@ export const getCategoryPlaylists: AsyncFnWithProvider<
   );
 
 export const getPlaylistCoverImage: AsyncFnWithProvider<
-  SpotifyApi.ImageObject[],
+  GetPlaylistCoverImageResponse,
   PlaylistId
 > = provider => async playlistId =>
   transformResponse(
     await provider.request({
       method: Method.GET,
       url: `playlists/${playlistId}/images`,
+    })
+  );
+
+export const uploadCustomPlaylistCoverImage: AsyncFnWithProvider<
+  SpotifyApi.UploadCustomPlaylistCoverImageResponse,
+  PlaylistId,
+  Base64URL
+> = provider => async (playlistId, base64URL) =>
+  transformResponse(
+    await provider.request({
+      method: Method.PUT,
+      url: `playlists/${playlistId}/images`,
+      headers: {
+        'Content-Type': 'image/jpeg',
+      },
+      data: base64URL.replace(/^data:image\/jpeg;base64,/, ''),
     })
   );

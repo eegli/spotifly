@@ -85,6 +85,7 @@ exports[`Lib matches snapshot 1`] = `
     "getUsersPlaylists": [Function],
     "removePlaylistItems": [Function],
     "reorderPlaylistItems": [Function],
+    "uploadCustomPlaylistCoverImage": [Function],
   },
   "Search": {
     "search": [Function],
