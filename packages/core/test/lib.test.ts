@@ -1,7 +1,11 @@
 import axios from 'axios';
 import type { DataResponse as DR } from '../src';
 import * as Spotify from '../src';
-import type { BooleanResponse, VoidResponse } from '../src/models/params';
+import type {
+  BooleanResponse,
+  GetPlaylistCoverImageResponse,
+  VoidResponse,
+} from '../src/models/params';
 import {
   additional_types,
   country,
@@ -591,8 +595,18 @@ const tests: LibTestRunner = [
       {
         name: 'getPlaylistCoverImage',
         fn: () =>
-          assertReturns<DR<SpotifyApi.ImageObject[]>>(
+          assertReturns<DR<GetPlaylistCoverImageResponse>>(
             Client.Playlists.getPlaylistCoverImage(stringId)
+          ),
+      },
+      {
+        name: 'uploadCustomPlaylistCoverImage',
+        fn: () =>
+          assertReturns<DR<SpotifyApi.UploadCustomPlaylistCoverImageResponse>>(
+            Client.Playlists.uploadCustomPlaylistCoverImage(
+              stringId,
+              'data:image/jpeg;base64,/9j/AAAAAAAAAAAAP/sABFEdW'
+            )
           ),
       },
     ],

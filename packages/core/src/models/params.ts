@@ -95,6 +95,10 @@ export type VolumePercent = number & _;
  * false: Do not shuffle user's playback.
  */
 export type PlaybackShuffle = boolean & _;
+/**
+ * A Base64 encoded image for the playlist cover.
+ */
+export type Base64URL = string & _;
 
 export type Params = {
   additional_types: LiteralUnion<'track' | ' episode'>[];
@@ -138,5 +142,6 @@ export type UsersQueueResponse = {
 
   queue: (SpotifyApi.TrackObjectFull | SpotifyApi.EpisodeObjectFull)[];
 };
+export type GetPlaylistCoverImageResponse = SpotifyApi.ImageObject[];
 export type BooleanResponse = boolean[];
 export type VoidResponse = SpotifyApi.VoidResponse;

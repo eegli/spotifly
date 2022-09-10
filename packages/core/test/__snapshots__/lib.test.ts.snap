@@ -912,6 +912,22 @@ exports[`Playlists reorderPlaylistItems 1`] = `
 ]
 `;
 
+exports[`Playlists uploadCustomPlaylistCoverImage 1`] = `
+[
+  [
+    {
+      "data": "/9j/AAAAAAAAAAAAP/sABFEdW",
+      "headers": {
+        "Authorization": "Bearer token-xyz",
+        "Content-Type": "image/jpeg",
+      },
+      "method": "PUT",
+      "url": "playlists/id1/images",
+    },
+  ],
+]
+`;
+
 exports[`Search Search.get 1`] = `
 [
   [

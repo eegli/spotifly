@@ -14,6 +14,7 @@ import {
   PLAYLIST_ITEMS_LIMIT,
   removePlaylistItems,
   reorderPlaylistItems,
+  uploadCustomPlaylistCoverImage,
   USERS_PLAYLISTS_LIMIT,
 } from './playlists';
 
@@ -114,5 +115,10 @@ export default function Playlists(provider: AsyncProvider) {
      * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/get-playlist-cover Get Playlist Cover Image}
      */
     getPlaylistCoverImage: getPlaylistCoverImage(provider),
+    /**
+     * Replace the image used to represent a specific playlist.
+     * @see {@link https://developer.spotify.com/documentation/web-api/reference/#/operations/upload-custom-playlist-cover Add Custom Playlist Cover Image}
+     */
+    uploadCustomPlaylistCoverImage: uploadCustomPlaylistCoverImage(provider),
   };
 }
