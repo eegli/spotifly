@@ -1,5 +1,12 @@
 # @spotifly/library
 
+## 1.0.1
+
+### Patch Changes
+
+- Updated dependencies [82ac236]
+  - @spotifly/core@1.1.0
+
 ## 1.0.0
 
 ### Major Changes
