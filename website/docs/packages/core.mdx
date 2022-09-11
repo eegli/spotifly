@@ -38,7 +38,7 @@ npm install @spotifly/core @types/spotify-api
 ### Example
 
 ```ts
-import * as Spotifly from '@spotifly/core';
+import Spotifly from '@spotifly/core';
 
 const spotifyClient = Spotifly.initialize({
   accessToken: 'abc123',
@@ -81,9 +81,9 @@ Every Spotify client is created through a call to `initialize`. A client is boun
 1. **With a Spotify client id, client secret and refresh token** - This method will automatically generate an initial access token and refresh it when it's about to expire after 1 hour. This is great for apps that need to run independently.
 
 ```ts
-import { initialize } from '@spotifly/core';
+import Spotifly from '@spotifly/core';
 
-const spotifyClient = initialize({
+const spotifyClient = Spotifly.initialize({
   clientId: process.env.SPOTIFY_CLIENT_ID || '',
   clientSecret: process.env.SPOTIFY_CLIENT_SECRET || '',
   refreshToken: process.env.SPOTIFY_REFRESH_TOKEN || '',
@@ -93,7 +93,7 @@ const spotifyClient = initialize({
 2. **With a Spotify access token** - This method will simply attach the provided access token to requests to Spotify. No secrets are involved but requests may fail once the token has expired.
 
 ```ts
-import { initialize } from '@spotifly/core';
+import Spotifly from '@spotifly/core';
 
 const spotifyClient = Spotify.initialize({
   accessToken: 'abc123',
@@ -341,13 +341,51 @@ import type { DataResponse, DataPromise } from '@spotifly/core';
 
 ### Future
 
-Today's client supports the Spotify endpoints of tomorrow. The API features a `future.request` function that acts as an escape hatch for everything that is not yet or incorretly supported by this library. Requests made through `future.request` are always authenticated.
+Today's client supports the Spotify endpoints of tomorrow. The API features a `future.request` function that acts as an escape hatch for everything that is not yet or incorretly supported by this library. Requests made through `future.request` always include the Authorization header.
 
 ```ts
+import Spotifly from '@spotifly/core';
+
+const spotifyClient = Spotify.initialize({
+  accessToken: 'abc123',
+});
+
 await spotifyClient.future
   .request<MyResponseType>({ url: 'me/new-releases' })
   .then(console.log); // typeof MyResponseType
 ```
+
+### Error Handling
+
+The regular error object as defined by the Web API has the following shape:
+
+```ts
+type SpotifyRegularErrorObject = {
+  status: number;
+  message: string;
+};
+```
+
+You can use the `isError` helper to safely access the error object in case something goes wrong.
+
+```ts
+import Spotifly from '@spotifly/core';
+
+const spotifyClient = Spotify.initialize({
+  accessToken: 'abc123',
+});
+
+try {
+  await spotifyClient.Tracks.getTrack('thistrackdoesnotexist');
+} catch (e) {
+  if (Spotifly.isError(e)) {
+    console.log(e.response?.data.error.status); // 404
+    console.log(e.response?.data.error.message); // 'Not Found'
+  }
+}
+```
+
+[See Web API / Response Schema](https://developer.spotify.com/documentation/web-api/).
 
 ## Convenience Methods
 
@@ -365,9 +403,15 @@ Non-convenience/ordinary methods do not have such logic. They do not check or ch
 
 The following example returns all of a user's saved tracks in a flat array. Convenience methods have a different signature: **They are curried and return a function which optionally accepts a callback**. Each time a new chunk of items is fetched, the response wrapped in a `DataResponse<T>` is passed to the callback as the only argument.
 
-Asynchronous callbacks are allowed. Their return values are ignored.
+If the callback returns a promise, it is awaited. The eventually returned value is ignored.
 
 ```ts
+import Spotifly, { DataResponse } from '@spotifly/core';
+
+const spotifyClient = Spotify.initialize({
+  accessToken: 'abc123',
+});
+
 const allTracks = await spotifyClient.Tracks.getAllUsersSavedTracks()(
   async response => {
     // DataResponse<SpotifyApi.UsersSavedTracksResponse>
@@ -380,19 +424,26 @@ const allTracks = await spotifyClient.Tracks.getAllUsersSavedTracks()(
 
 You can do pretty much anything with the chunk - e.g., log something to the console or send the items somewhere else.
 
-Convenience methods simply wrap their ordinary counterpart and resolve all responses in a single array. This is reflected in their return types: If the ordinary methods returns `DataResponse<T>`, the convenience method returns `Array<DataResponse<T>>`
+Convenience methods simply wrap their ordinary counterpart and resolve all responses in a single array. This is reflected in their return types: If the ordinary methods returns `DataResponse<T>`, the convenience method returns `Array<DataResponse<T>>`:
 
 ```ts
-const allTracks: DataResponse<SpotifyApi.UsersSavedTracksResponse>[] =
+import Spotifly, { DataResponse } from '@spotifly/core';
+
+const spotifyClient = Spotify.initialize({
+  accessToken: 'abc123',
+});
+
+type UserTracks = DataResponse<SpotifyApi.UsersSavedTracksResponse>;
+
+const allTracks: UserTracks[] =
   await spotifyClient.Tracks.getAllUsersSavedTracks()();
 
-const someTracks: DataResponse<SpotifyApi.UsersSavedTracksResponse> =
-  await spotifyClient.Tracks.getUsersSavedTracks();
+const someTracks: UserTracks = await spotifyClient.Tracks.getUsersSavedTracks();
 ```
 
 ## Testing Recipes
 
-The core library can be mocked nicely with [`Jest`](https://jestjs.io/) and the TypeScript-friendly [`jest-mock-extended`](https://www.npmjs.com/package/jest-mock-extended) extension. The following examples assume you have already setup `Jest` accordingly for your project.
+The core library can be mocked nicely with [`Jest`](https://jestjs.io/) and the TypeScript-friendly [`jest-mock-extended`](https://www.npmjs.com/package/jest-mock-extended) extension. The following examples assume you have already installed `@types/spotify-api` and setup `Jest` accordingly for your project.
 
 1. Install `jest-mock-extended`.
 
@@ -403,7 +454,7 @@ npm install -D jest-mock-extended
 2. Mock whatever methods you are using using the `mockDeep` helper and inject this object whenever `initialize` is called in the implementation. Using the types from `@types/spotify-api`, it's very easy to create solid mock responses.
 
 ```ts
-import * as Spotifly from '@spotifly/core';
+import Spotifly, { DataResponse, SpotifyClient } from '@spotifly/core';
 import { mockDeep } from 'jest-mock-extended';
 
 const audioFeatures: SpotifyApi.AudioFeaturesObject = {
@@ -427,8 +478,7 @@ const audioFeatures: SpotifyApi.AudioFeaturesObject = {
   valence: 0.428,
 };
 
-type MockResponse =
-  Spotifly.DataResponse<SpotifyApi.MultipleAudioFeaturesResponse>;
+type MockResponse = DataResponse<SpotifyApi.MultipleAudioFeaturesResponse>;
 
 const mockResponse = (length: number): MockResponse => {
   return {
@@ -440,7 +490,7 @@ const mockResponse = (length: number): MockResponse => {
   };
 };
 
-const mockSpotify = mockDeep<Spotifly.SpotifyClient>();
+const mockSpotify = mockDeep<SpotifyClient>();
 
 // Return a mocked client whenever the client is initialized
 jest.spyOn(Spotifly, 'initialize').mockReturnValue(mockSpotify);

@@ -1,5 +1,3 @@
-import { AuthProvider, AuthProviderOptions } from './provider';
-
 import Albums from './models/albums';
 import Artists from './models/artists';
 import Categories from './models/categories';
@@ -13,6 +11,9 @@ import Search from './models/search';
 import Shows from './models/shows';
 import Tracks from './models/tracks';
 import Users from './models/users';
+
+import { AuthProvider, AuthProviderOptions } from './provider';
+import { isError } from './request';
 
 export function initialize(authOptions: AuthProviderOptions) {
   const provider = new AuthProvider(authOptions);
@@ -34,7 +35,11 @@ export function initialize(authOptions: AuthProviderOptions) {
 }
 
 export type SpotifyClient = ReturnType<typeof initialize>;
-
-export { isError } from './request';
 export type { DataPromise, DataResponse } from './types';
 export type { AuthProviderOptions };
+export { isError };
+
+export default {
+  isError,
+  initialize,
+};

@@ -1,4 +1,4 @@
-import * as Spotifly from '@spotifly/core';
+import Spotifly, { DataResponse, SpotifyClient } from '@spotifly/core';
 import { mockDeep } from 'jest-mock-extended';
 
 const audioFeatures: SpotifyApi.AudioFeaturesObject = {
@@ -22,8 +22,7 @@ const audioFeatures: SpotifyApi.AudioFeaturesObject = {
   valence: 0.428,
 };
 
-type MockResponse =
-  Spotifly.DataResponse<SpotifyApi.MultipleAudioFeaturesResponse>;
+type MockResponse = DataResponse<SpotifyApi.MultipleAudioFeaturesResponse>;
 
 const mockResponse = (length: number): MockResponse => {
   return {
@@ -35,7 +34,7 @@ const mockResponse = (length: number): MockResponse => {
   };
 };
 
-const mockSpotify = mockDeep<Spotifly.SpotifyClient>();
+const mockSpotify = mockDeep<SpotifyClient>();
 
 // Return a mocked client whenever the client is initialized
 jest.spyOn(Spotifly, 'initialize').mockReturnValue(mockSpotify);
