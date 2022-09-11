@@ -17,5 +17,6 @@
     "noEmit": true,
     "checkJs": true,
     "experimentalDecorators": false
-  }
+  },
+  "exclude": ["**/dist/*"]
 }

@@ -5,6 +5,9 @@
     "node": true,
     "es2022": true
   },
+  "parserOptions": {
+    "project": "./tsconfig.eslint.json"
+  },
   "settings": {
     "react": {
       "version": "detect"
