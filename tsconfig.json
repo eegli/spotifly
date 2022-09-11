@@ -15,8 +15,8 @@
     "isolatedModules": true,
     "resolveJsonModule": true,
     "noEmit": true,
-    "checkJs": true,
     "experimentalDecorators": false
   },
+  "include": ["packages"],
   "exclude": ["**/dist/*"]
 }

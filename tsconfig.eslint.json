@@ -1,5 +1,4 @@
 {
   "extends": "./tsconfig.json",
-  "include": ["packages", "website"],
-  "exclude": ["**/dist/*"]
+  "include": ["packages", "integration", "website"]
 }
