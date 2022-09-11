@@ -1,5 +1,8 @@
 import { AxiosError, AxiosResponse } from 'axios';
-import type { DataResponse, SpotifyError } from './types';
+import type {
+  DataResponse,
+  SpotifyRegularErrorObject as SpotifyError,
+} from './types';
 
 export enum Method {
   GET = 'GET',
@@ -17,8 +20,6 @@ export function transformResponse<T>(res: AxiosResponse<T>): DataResponse<T> {
 }
 
 export function isError(payload: unknown): payload is AxiosError<SpotifyError> {
-  return (
-    (payload as AxiosError<SpotifyError>).response?.data?.error?.message !==
-    undefined
-  );
+  const err = (payload as AxiosError<SpotifyError>).response?.data?.error;
+  return typeof err?.message === 'string' && typeof err?.status === 'number';
 }

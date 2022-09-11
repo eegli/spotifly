@@ -12,7 +12,7 @@ export type AsyncProvider = {
   request(req: AxiosRequestConfig): Promise<AxiosResponse>;
 };
 
-export type SpotifyError = {
+export type SpotifyRegularErrorObject = {
   error: {
     status: number;
     message: string;

@@ -1,8 +1,6 @@
 /* eslint-disable jest/expect-expect, @typescript-eslint/no-unused-vars */
 
-import * as Spotifly from '@spotifly/core';
-
-type DataResponse<T> = Spotifly.DataResponse<T>;
+import Spotifly, { DataResponse } from '@spotifly/core';
 
 const spotifyClient = Spotifly.initialize({
   clientId: process.env.SPOTIFY_CLIENT_ID || '',
@@ -60,10 +58,28 @@ describe('Core readme', () => {
     expect(allTracks.length).toBeGreaterThanOrEqual(60);
   });
   test('convenience methods 2', async () => {
-    const allTracks: DataResponse<SpotifyApi.UsersSavedTracksResponse>[] =
+    type UserTracks = DataResponse<SpotifyApi.UsersSavedTracksResponse>;
+
+    const allTracks: UserTracks[] =
       await spotifyClient.Tracks.getAllUsersSavedTracks()();
 
-    const someTracks: DataResponse<SpotifyApi.UsersSavedTracksResponse> =
+    const someTracks: UserTracks =
       await spotifyClient.Tracks.getUsersSavedTracks();
+  });
+  test('error handling', async () => {
+    const trackSpy = jest.spyOn(spotifyClient.Tracks, 'getTrack');
+    const rejectVal = {
+      response: { data: { error: { message: 'error', status: 404 } } },
+    };
+    trackSpy.mockRejectedValueOnce(rejectVal);
+
+    try {
+      await spotifyClient.Tracks.getTrack('thistrackdoesnotexist');
+    } catch (e) {
+      if (Spotifly.isError(e)) {
+        console.log(e.response?.data.error.status); // 404
+        console.log(e.response?.data.error.message); // 'Not Found'
+      }
+    }
   });
 });
