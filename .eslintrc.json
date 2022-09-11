@@ -28,7 +28,7 @@
       "extends": ["plugin:@typescript-eslint/recommended", "prettier"],
       "parser": "@typescript-eslint/parser",
       "parserOptions": {
-        "project": ["./tsconfig.json"]
+        "project": ["./tsconfig.eslint.json"]
       }
     },
     {

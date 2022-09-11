@@ -1,3 +1,5 @@
+/* eslint-disable jest/expect-expect, @typescript-eslint/no-unused-vars */
+
 import * as Spotifly from '@spotifly/core';
 
 type DataResponse<T> = Spotifly.DataResponse<T>;
