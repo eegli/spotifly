@@ -1,6 +1,6 @@
 import { Method, transformResponse } from '../../request';
 import type { AsyncFnWithProvider } from '../../types';
-import type { BooleanResponse, Params, ShowId, VoidResponse } from '../params';
+import type { Params, ShowId } from '../params';
 
 export const getShow: AsyncFnWithProvider<
   SpotifyApi.SingleShowResponse,
@@ -63,20 +63,22 @@ export const getUsersSavedShows: AsyncFnWithProvider<
     })
   );
 
-export const saveShowsForUser: AsyncFnWithProvider<VoidResponse, ShowId[]> =
-  provider => async showIds =>
-    transformResponse(
-      await provider.request({
-        method: Method.PUT,
-        url: 'me/shows',
-        params: {
-          ids: showIds.join(','),
-        },
-      })
-    );
+export const saveShowsForUser: AsyncFnWithProvider<
+  SpotifyApi.SaveShowsForUserResponse,
+  ShowId[]
+> = provider => async showIds =>
+  transformResponse(
+    await provider.request({
+      method: Method.PUT,
+      url: 'me/shows',
+      params: {
+        ids: showIds.join(','),
+      },
+    })
+  );
 
 export const removeUsersSavedShows: AsyncFnWithProvider<
-  VoidResponse,
+  SpotifyApi.RemoveShowsForUserResponse,
   ShowId[],
   Pick<Params, 'market'>
 > = provider => async (showIds, params) =>
@@ -92,7 +94,7 @@ export const removeUsersSavedShows: AsyncFnWithProvider<
   );
 
 export const checkUsersSavedShows: AsyncFnWithProvider<
-  BooleanResponse,
+  SpotifyApi.CheckUserSavedShowsResponse,
   ShowId[]
 > = provider => async showIds =>
   transformResponse(
