@@ -2,4 +2,4 @@
 '@spotifly/core': patch
 ---
 
-Update @types/spotify-api to latest
+Bump @types/spotify-api to 0.0.18 (latest)
