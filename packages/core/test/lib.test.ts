@@ -769,7 +769,7 @@ const tests: LibTestRunner = [
       {
         name: 'getAvailableMarkets',
         fn: () =>
-          assertReturns<DR<{ markets: string[] }>>(
+          assertReturns<DR<SpotifyApi.AvailableMarketsResponse>>(
             Client.Markets.getAvailableMarkets()
           ),
       },
