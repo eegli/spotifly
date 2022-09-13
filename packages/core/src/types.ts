@@ -12,13 +12,6 @@ export type AsyncProvider = {
   request(req: AxiosRequestConfig): Promise<AxiosResponse>;
 };
 
-export type SpotifyRegularErrorObject = {
-  error: {
-    status: number;
-    message: string;
-  };
-};
-
 export type AsyncFn<
   ReturnValue,
   Param1 = undefined,

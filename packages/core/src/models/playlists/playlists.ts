@@ -3,7 +3,6 @@ import type { AsyncFnWithProvider } from '../../types';
 import type {
   Base64URL,
   CategoryId,
-  GetPlaylistCoverImageResponse,
   Params,
   PlaylistId,
   Uri,
@@ -174,7 +173,7 @@ export const getCategoryPlaylists: AsyncFnWithProvider<
   );
 
 export const getPlaylistCoverImage: AsyncFnWithProvider<
-  GetPlaylistCoverImageResponse,
+  SpotifyApi.PlaylistCoverImageResponse,
   PlaylistId
 > = provider => async playlistId =>
   transformResponse(

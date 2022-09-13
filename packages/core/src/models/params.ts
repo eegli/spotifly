@@ -142,6 +142,4 @@ export type UsersQueueResponse = {
 
   queue: (SpotifyApi.TrackObjectFull | SpotifyApi.EpisodeObjectFull)[];
 };
-export type GetPlaylistCoverImageResponse = SpotifyApi.ImageObject[];
-export type BooleanResponse = boolean[];
 export type VoidResponse = SpotifyApi.VoidResponse;
