@@ -131,17 +131,10 @@ export type Params = {
   uris: Uri[];
 };
 
-type SinglePropertyResponse<Key extends string> = {
-  [Property in Key]: string[];
-};
-
 // TODO Types
-export type AvailableMarketsResponse = SinglePropertyResponse<'markets'>;
 export type UsersQueueResponse = {
   currently_playing: SpotifyApi.TrackObjectFull | SpotifyApi.EpisodeObjectFull;
 
   queue: (SpotifyApi.TrackObjectFull | SpotifyApi.EpisodeObjectFull)[];
 };
-export type GetPlaylistCoverImageResponse = SpotifyApi.ImageObject[];
-export type BooleanResponse = boolean[];
 export type VoidResponse = SpotifyApi.VoidResponse;

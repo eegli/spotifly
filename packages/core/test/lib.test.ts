@@ -1,11 +1,7 @@
 import axios from 'axios';
 import type { DataResponse as DR } from '../src';
 import * as Spotify from '../src';
-import type {
-  BooleanResponse,
-  GetPlaylistCoverImageResponse,
-  VoidResponse,
-} from '../src/models/params';
+import type { VoidResponse } from '../src/models/params';
 import {
   additional_types,
   country,
@@ -188,21 +184,21 @@ const tests: LibTestRunner = [
       {
         name: 'saveShowsForUser',
         fn: () =>
-          assertReturns<DR<VoidResponse>>(
+          assertReturns<DR<SpotifyApi.SaveShowsForUserResponse>>(
             Client.Shows.saveShowsForUser(stringIds)
           ),
       },
       {
         name: 'removeUsersSavedShows',
         fn: () =>
-          assertReturns<DR<VoidResponse>>(
+          assertReturns<DR<SpotifyApi.RemoveShowsForUserResponse>>(
             Client.Shows.removeUsersSavedShows(stringIds, { market })
           ),
       },
       {
         name: 'checkUsersSavedShows',
         fn: () =>
-          assertReturns<DR<BooleanResponse>>(
+          assertReturns<DR<SpotifyApi.CheckUserSavedShowsResponse>>(
             Client.Shows.checkUsersSavedShows(stringIds)
           ),
       },
@@ -239,21 +235,21 @@ const tests: LibTestRunner = [
       {
         name: 'saveEpisodesForUser',
         fn: () =>
-          assertReturns<DR<VoidResponse>>(
+          assertReturns<DR<SpotifyApi.SaveEpisodesForUserResponse>>(
             Client.Episodes.beta.saveEpisodesForUser(stringIds)
           ),
       },
       {
         name: 'removeUsersSavedEpisodes',
         fn: () =>
-          assertReturns<DR<VoidResponse>>(
+          assertReturns<DR<SpotifyApi.RemoveEpisodesForUserResponse>>(
             Client.Episodes.beta.removeUsersSavedEpisodes(stringIds)
           ),
       },
       {
         name: 'checkUsersSavedEpisodes',
         fn: () =>
-          assertReturns<DR<boolean[]>>(
+          assertReturns<DR<SpotifyApi.CheckUserSavedEpisodesResponse>>(
             Client.Episodes.beta.checkUsersSavedEpisodes(stringIds)
           ),
       },
@@ -595,7 +591,7 @@ const tests: LibTestRunner = [
       {
         name: 'getPlaylistCoverImage',
         fn: () =>
-          assertReturns<DR<GetPlaylistCoverImageResponse>>(
+          assertReturns<DR<SpotifyApi.PlaylistCoverImageResponse>>(
             Client.Playlists.getPlaylistCoverImage(stringId)
           ),
       },
@@ -773,7 +769,7 @@ const tests: LibTestRunner = [
       {
         name: 'getAvailableMarkets',
         fn: () =>
-          assertReturns<DR<{ markets: string[] }>>(
+          assertReturns<DR<SpotifyApi.AvailableMarketsResponse>>(
             Client.Markets.getAvailableMarkets()
           ),
       },

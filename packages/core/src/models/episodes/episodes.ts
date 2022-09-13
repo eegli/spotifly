@@ -1,11 +1,6 @@
 import { Method, transformResponse } from '../../request';
 import type { AsyncFnWithProvider } from '../../types';
-import type {
-  BooleanResponse,
-  EpisodeId,
-  Params,
-  VoidResponse,
-} from '../params';
+import type { EpisodeId, Params } from '../params';
 
 export const getEpisode: AsyncFnWithProvider<
   SpotifyApi.SingleEpisodeResponse,
@@ -70,9 +65,11 @@ const episodesForUser: <Return>(
       })
     );
 
-export const saveEpisodesForUser = episodesForUser<VoidResponse>('save');
-export const removeUsersSavedEpisodes = episodesForUser<VoidResponse>('delete');
+export const saveEpisodesForUser =
+  episodesForUser<SpotifyApi.SaveEpisodesForUserResponse>('save');
+export const removeUsersSavedEpisodes =
+  episodesForUser<SpotifyApi.RemoveEpisodesForUserResponse>('delete');
 export const checkUsersSavedEpisodes =
-  episodesForUser<BooleanResponse>('check');
+  episodesForUser<SpotifyApi.CheckUserSavedEpisodesResponse>('check');
 
 export const USER_EPISODES_LIMIT = 50;

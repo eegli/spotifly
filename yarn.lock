@@ -4329,7 +4329,7 @@ __metadata:
     "@tsd/typescript": ^4.8.2
     "@types/jest": ^28.1.8
     "@types/node": ^18.7.14
-    "@types/spotify-api": ^0.0.17
+    "@types/spotify-api": ^0.0.18
     "@typescript-eslint/eslint-plugin": ^5.36.1
     "@typescript-eslint/parser": ^5.36.1
     dotenv: ^16.0.2
@@ -5091,10 +5091,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/spotify-api@npm:^0.0.17":
-  version: 0.0.17
-  resolution: "@types/spotify-api@npm:0.0.17"
-  checksum: 7fb5a8762718b9e6f006ae995098e88fc17e45d4d8a289bcc26f8bbf83a7d2ee5d90db3b52b49fb60e1481928978b5945fb9e0d2cbc0f5162af39de687e8cddc
+"@types/spotify-api@npm:^0.0.18":
+  version: 0.0.18
+  resolution: "@types/spotify-api@npm:0.0.18"
+  checksum: 9e958dc902e37291a10b345ccc60d51a6fe1de57f57adfeeae05236a90f1989733234383d916a8a5aa32666c168c30723dc47160c8e606111308bfb443f46e0b
   languageName: node
   linkType: hard
 
