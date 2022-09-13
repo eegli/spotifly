@@ -13,3 +13,4 @@ scripts/*.txt
 !.yarn/sdks
 !.yarn/versions
 test.js
+tsconfig.local.json

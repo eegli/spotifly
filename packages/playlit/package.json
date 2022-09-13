@@ -1,16 +1,16 @@
 {
-  "name": "@spotifly/core",
-  "version": "1.2.0",
-  "description": "Core for Spotifly",
+  "name": "@spotifly/playlit",
+  "version": "1.0.0",
+  "description": "Get the best out of your Spotify playlists",
   "keywords": [
     "spotify",
     "library",
     "music",
-    "json",
-    "cli",
+    "playlist",
+    "dj",
     "typescript"
   ],
-  "homepage": "https://spotifly.nougat.dev/docs/packages/core",
+  "homepage": "https://spotifly.nougat.dev",
   "repository": {
     "type": "git",
     "url": "https://github.com/eegli/spotifly"
@@ -20,8 +20,8 @@
     "name": "Eric Egli",
     "email": "lx180777+npm@gmail.com"
   },
-  "main": "dist/spotifly-core.cjs.js",
-  "module": "dist/spotifly-core.esm.js",
+  "main": "dist/spotifly-playlit.cjs.js",
+  "module": "dist/spotifly-playlit.esm.js",
   "files": [
     "dist"
   ],

@@ -54,6 +54,12 @@ module.exports = {
     },
     {
       ...common,
+      displayName: 'playlit',
+      rootDir: 'packages/playlit',
+      roots: ['<rootDir>/src', '<rootDir>/test'],
+    },
+    {
+      ...common,
       displayName: 'utils',
       rootDir: 'packages/utils',
       roots: ['<rootDir>/src', '<rootDir>/test'],
