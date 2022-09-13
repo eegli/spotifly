@@ -47,6 +47,13 @@ export type EmptyObject = Record<never, never>;
 
 export type LiteralUnion<T extends string> = T | (string & EmptyObject);
 
+export type SpotifyRegularErrorObject = {
+  error: {
+    status: number;
+    message: string;
+  };
+};
+
 export type AnyFunc = (...args: any[]) => unknown;
 
 // https://github.com/microsoft/TypeScript/issues/39556
