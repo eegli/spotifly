@@ -12,6 +12,13 @@ export type AsyncProvider = {
   request(req: AxiosRequestConfig): Promise<AxiosResponse>;
 };
 
+export type SpotifyRegularErrorObject = {
+  error: {
+    status: number;
+    message: string;
+  };
+};
+
 export type AsyncFn<
   ReturnValue,
   Param1 = undefined,
@@ -46,13 +53,6 @@ export type AnyObject = Record<string, unknown>;
 export type EmptyObject = Record<never, never>;
 
 export type LiteralUnion<T extends string> = T | (string & EmptyObject);
-
-export type SpotifyRegularErrorObject = {
-  error: {
-    status: number;
-    message: string;
-  };
-};
 
 export type AnyFunc = (...args: any[]) => unknown;
 
