@@ -752,7 +752,10 @@ const tests: LibTestRunner = [
       },
       {
         name: 'getUsersQueue',
-        fn: () => assertReturns<DR<unknown>>(Client.Player.getUsersQueue()),
+        fn: () =>
+          assertReturns<DR<SpotifyApi.UsersQueueResponse>>(
+            Client.Player.getUsersQueue()
+          ),
       },
       {
         name: 'addToQueue',
