@@ -4,7 +4,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [9dd4da1]
+- Updated dependencies [a84c5bf]
 - Updated dependencies [bafb6a7]
   - @spotifly/core@1.2.1
 

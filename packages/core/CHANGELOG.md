@@ -4,7 +4,7 @@
 
 ### Patch Changes
 
-- 9dd4da1: Upgrade dependencies
+- a84c5bf: Upgrade dependencies
 - bafb6a7: Bump @types/spotify-api to 0.0.18 (latest)
 
 ## 1.2.0
