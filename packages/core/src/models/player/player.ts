@@ -6,7 +6,6 @@ import type {
   PlaybackShuffle,
   PositionMS,
   Uri,
-  UsersQueueResponse,
   VoidResponse,
   VolumePercent,
 } from '../params';
@@ -186,14 +185,15 @@ export const getRecentlyPlayedTracks: AsyncFnWithProvider<
     })
   );
 
-export const getUsersQueue: AsyncFnWithProvider<UsersQueueResponse> =
-  provider => async () =>
-    transformResponse(
-      await provider.request({
-        method: Method.GET,
-        url: 'me/player/queue',
-      })
-    );
+export const getUsersQueue: AsyncFnWithProvider<
+  SpotifyApi.UsersQueueResponse
+> = provider => async () =>
+  transformResponse(
+    await provider.request({
+      method: Method.GET,
+      url: 'me/player/queue',
+    })
+  );
 
 export const addToQueue: AsyncFnWithProvider<
   SpotifyApi.AddToQueueResponse,
