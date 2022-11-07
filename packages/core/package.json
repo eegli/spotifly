@@ -27,7 +27,7 @@
     "provider"
   ],
   "dependencies": {
-    "axios": "^0.27.2"
+    "axios": "^1.1.3"
   },
   "engines": {
     "node": ">=14"
