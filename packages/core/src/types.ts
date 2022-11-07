@@ -2,9 +2,8 @@ import { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 export type DataResponse<Data = unknown> = {
   data: Data;
-  headers: Record<string, string>;
   statusCode: number;
-};
+} & Pick<AxiosResponse, 'headers'>;
 
 export type DataPromise<Data = unknown> = Promise<DataResponse<Data>>;
 
