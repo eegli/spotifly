@@ -131,10 +131,4 @@ export type Params = {
   uris: Uri[];
 };
 
-// TODO Types
-export type UsersQueueResponse = {
-  currently_playing: SpotifyApi.TrackObjectFull | SpotifyApi.EpisodeObjectFull;
-
-  queue: (SpotifyApi.TrackObjectFull | SpotifyApi.EpisodeObjectFull)[];
-};
 export type VoidResponse = SpotifyApi.VoidResponse;

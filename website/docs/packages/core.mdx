@@ -326,11 +326,10 @@ Usually, a refresh token only needs to be generated once. You can [generate one 
 The core library uses [`axios`](https://axios-http.com/) for all HTTP requests to Spotify. Each method call returns a `DataResponse` object with request metadata. Convenience methods will return a `DataResponse` array. `data` will hold the return value of interest.
 
 ```ts
-type DataResponse<T = unknown> = {
-  data: T;
-  headers: Record<string, string>;
+type DataResponse<Data = unknown> = {
+  data: Data;
   statusCode: number;
-};
+} & Pick<AxiosResponse, 'headers'>;
 ```
 
 Both `DataResponse` and `DataPromise` are exported so you don't have to infer them. The latter simply wraps the former in a `Promise`.

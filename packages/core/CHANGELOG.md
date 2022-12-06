@@ -1,5 +1,12 @@
 # @spotifly/core
 
+## 1.2.1
+
+### Patch Changes
+
+- a84c5bf: Upgrade dependencies
+- bafb6a7: Bump @types/spotify-api to 0.0.18 (latest)
+
 ## 1.2.0
 
 ### Minor Changes
