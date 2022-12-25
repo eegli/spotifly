@@ -51,6 +51,7 @@ describe('Library', () => {
   it('gets light library', async () => {
     const res = await libraryHandler({ token: 'mytoken' });
     expect(res.meta.output_type).toBe('light');
+    expect(res.library).toHaveLength(RES_USER_SAVED_TRACKS.data.items.length);
     expect(res.library[0].track.genres).toBeUndefined();
     expect(res.library[0].track.features).toBeUndefined();
     expect(writeSpy).toHaveBeenCalledTimes(1);
@@ -64,8 +65,25 @@ describe('Library', () => {
       features: true,
     });
     expect(res.meta.output_type).toBe('full');
+    expect(res.library).toHaveLength(RES_USER_SAVED_TRACKS.data.items.length);
     expect(res.library[0].track.genres).toBeTruthy();
     expect(res.library[0].track.features).toBeTruthy();
+    expect(res).toMatchSnapshot();
+  });
+  it('gets n most recent items', async () => {
+    const res = await libraryHandler({
+      token: 'mytoken',
+      last: 2,
+    });
+    expect(res.library).toHaveLength(2);
+    expect(res).toMatchSnapshot();
+  });
+  it('gets items since date', async () => {
+    const res = await libraryHandler({
+      token: 'mytoken',
+      since: '2021-12-06T17:17:50Z',
+    });
+    expect(res.library).toHaveLength(1);
     expect(res).toMatchSnapshot();
   });
 });

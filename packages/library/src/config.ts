@@ -1,6 +1,8 @@
 import { createParser } from '@eegli/tinyparse';
 import { Options } from './types';
 
+const ZERO_DATE = new Date(0);
+
 export const defaultConfig: Required<Options> = {
   token: '',
   type: 'light',
@@ -8,6 +10,8 @@ export const defaultConfig: Required<Options> = {
   features: false,
   compact: false,
   outDir: '',
+  since: ZERO_DATE.toISOString(),
+  last: Infinity,
 };
 
 export const { parse, help } = createParser(defaultConfig, {
@@ -34,6 +38,22 @@ export const { parse, help } = createParser(defaultConfig, {
     },
     features: {
       description: 'Include audio features for each track. Default: false',
+    },
+    since: {
+      description:
+        'Only include tracks added after this date. Default: All tracks',
+      customValidator: {
+        isValid(value) {
+          if (typeof value !== 'string') return false;
+          return !isNaN(new Date(value).getTime());
+        },
+        errorMessage(value) {
+          return `Invalid value '${value}' for option 'since'. Expected a valid date string`;
+        },
+      },
+    },
+    last: {
+      description: 'Only include the last n tracks. Default: All tracks',
     },
     compact: {
       description:

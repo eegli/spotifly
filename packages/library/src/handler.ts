@@ -1,14 +1,21 @@
-import * as Spotify from '@spotifly/core';
+import {
+  DataCallback,
+  initialize,
+  isError,
+  SpotifyClient,
+} from '@spotifly/core';
 import { colors, writeJSON } from '@spotifly/utils';
 import { defaultConfig } from './config';
 import type { Library, LibraryHandler, TrackLight } from './types';
-import { createProgressBar } from './utils';
+import { createProgressBar, isBeforeDate } from './utils';
+
+type Callback = DataCallback<SpotifyClient['Tracks']['getAllUsersSavedTracks']>;
 
 export const libraryHandler: LibraryHandler = async options => {
   try {
     const config = { ...defaultConfig, ...options };
 
-    const spotifyClient = Spotify.initialize({ accessToken: config.token });
+    const spotifyClient = initialize({ accessToken: config.token });
 
     let library: Library = [];
 
@@ -16,14 +23,23 @@ export const libraryHandler: LibraryHandler = async options => {
 
     progress.start(0, 0);
 
-    await spotifyClient.Tracks.getAllUsersSavedTracks()(({ data }) => {
+    const collectLibrary: Callback = ({ data }) => {
       progress.setTotal(data.total);
       progress.increment(data.items.length);
 
-      data.items.forEach(el => {
-        library.push(el);
-      });
-    });
+      for (let i = 0; i < data.items.length; i++) {
+        const track = data.items[i];
+        if (library.length === config.last) {
+          break;
+        }
+        if (isBeforeDate(track.added_at, config.since)) {
+          break;
+        }
+        library.push(track);
+      }
+    };
+
+    await spotifyClient.Tracks.getAllUsersSavedTracks()(collectLibrary);
 
     progress.stop();
 
@@ -110,7 +126,7 @@ export const libraryHandler: LibraryHandler = async options => {
     console.info("Success! Library written to '%s'", outDir);
     return libExport;
   } catch (error) {
-    if (Spotify.isError(error)) {
+    if (isError(error)) {
       console.error(
         colors.red(
           `\nError talking to Spotify:\n${JSON.stringify(
