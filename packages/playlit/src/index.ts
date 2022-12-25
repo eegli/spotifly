@@ -29,12 +29,30 @@ function standardize<T extends number[]>(data: T): T {
   return stdized as T;
 }
 
-function getLargestAbsValue<T extends number[]>(data: T): number {
-  return Math.max(...data.map(Math.abs));
+function sortNumeric(a: number, b: number, ascending = true) {
+  const sign = ascending ? 1 : -1;
+  return (a - b) * sign;
 }
-export default function () {
-  const acousticness = Data.map(el => el.acousticness);
-  console.log({ red: acousticness });
-  console.log(standardize(acousticness));
-  console.log(getLargestAbsValue(acousticness));
+
+export function sortOnIndex(arr: number[], ascending = true): number[] {
+  const range = [...Array(arr.length).keys()];
+  return range.sort((a, b) => sortNumeric(arr[a], arr[b], ascending));
 }
+
+export function toBin(arr: number[], coeff: number): number[][] {
+  if (coeff > 1 || coeff < 0) {
+    throw new RangeError('Bin coefficient must be in the range [0, 1]');
+  }
+  if (coeff === 0) return [arr];
+  const binCount = Math.ceil(arr.length * coeff);
+  const size = Math.ceil(arr.length / binCount);
+  return Array.from({ length: binCount }, (_, i) =>
+    arr.slice(i * size, i * size + size)
+  );
+}
+
+const acousticness = Data.map(el => el.acousticness);
+const acoustincIndex = sortOnIndex(acousticness);
+console.log({ acousticness });
+console.log({ acoustincIndex });
+console.log(toBin(acoustincIndex, 0.8));
