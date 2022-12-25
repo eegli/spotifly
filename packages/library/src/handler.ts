@@ -14,7 +14,6 @@ type Callback = DataCallback<SpotifyClient['Tracks']['getAllUsersSavedTracks']>;
 export const libraryHandler: LibraryHandler = async options => {
   try {
     const config = { ...defaultConfig, ...options };
-
     const spotifyClient = initialize({ accessToken: config.token });
 
     let library: Library = [];
@@ -23,7 +22,14 @@ export const libraryHandler: LibraryHandler = async options => {
 
     progress.start(0, 0);
 
-    const collectLibrary: Callback = ({ data }) => {
+    let nextPage: string | null = null;
+    let offset = 0;
+
+    do {
+      const { data } = await spotifyClient.Tracks.getUsersSavedTracks({
+        limit: 50,
+        offset,
+      });
       progress.setTotal(data.total);
       progress.increment(data.items.length);
 
@@ -37,9 +43,9 @@ export const libraryHandler: LibraryHandler = async options => {
         }
         library.push(track);
       }
-    };
-
-    await spotifyClient.Tracks.getAllUsersSavedTracks()(collectLibrary);
+      nextPage = data.next;
+      offset += 50;
+    } while (nextPage);
 
     progress.stop();
 
