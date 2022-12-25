@@ -1,15 +1,8 @@
-import {
-  DataCallback,
-  initialize,
-  isError,
-  SpotifyClient,
-} from '@spotifly/core';
+import { initialize, isError } from '@spotifly/core';
 import { colors, writeJSON } from '@spotifly/utils';
 import { defaultConfig } from './config';
 import type { Library, LibraryHandler, TrackLight } from './types';
 import { createProgressBar, isBeforeDate } from './utils';
-
-type Callback = DataCallback<SpotifyClient['Tracks']['getAllUsersSavedTracks']>;
 
 export const libraryHandler: LibraryHandler = async options => {
   try {
@@ -25,7 +18,7 @@ export const libraryHandler: LibraryHandler = async options => {
     let nextPage: string | null = null;
     let offset = 0;
 
-    do {
+    fetchLoop: do {
       const { data } = await spotifyClient.Tracks.getUsersSavedTracks({
         limit: 50,
         offset,
@@ -36,10 +29,10 @@ export const libraryHandler: LibraryHandler = async options => {
       for (let i = 0; i < data.items.length; i++) {
         const track = data.items[i];
         if (library.length === config.last) {
-          break;
+          break fetchLoop;
         }
         if (isBeforeDate(track.added_at, config.since)) {
-          break;
+          break fetchLoop;
         }
         library.push(track);
       }
