@@ -1,5 +1,11 @@
 # @spotifly/core
 
+## 1.2.2
+
+### Patch Changes
+
+- 87dbccd: Provide a `DataCallback` type to facilitate writing callbacks for curried convenience functions. [Read more](https://spotifly.nougat.dev/docs/packages/core#helper-types).
+
 ## 1.2.1
 
 ### Patch Changes
