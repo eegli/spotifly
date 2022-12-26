@@ -95,7 +95,7 @@ const spotifyClient = Spotifly.initialize({
 ```ts
 import Spotifly from '@spotifly/core';
 
-const spotifyClient = Spotify.initialize({
+const spotifyClient = Spotifly.initialize({
   accessToken: 'abc123',
 });
 ```
@@ -349,7 +349,7 @@ Today's client supports the Spotify endpoints of tomorrow. The API features a `f
 ```ts
 import Spotifly from '@spotifly/core';
 
-const spotifyClient = Spotify.initialize({
+const spotifyClient = Spotifly.initialize({
   accessToken: 'abc123',
 });
 
@@ -374,7 +374,7 @@ You can use the `isError` helper to safely access the error object in case somet
 ```ts
 import Spotifly from '@spotifly/core';
 
-const spotifyClient = Spotify.initialize({
+const spotifyClient = Spotifly.initialize({
   accessToken: 'abc123',
 });
 
@@ -404,14 +404,14 @@ Non-convenience/ordinary methods do not have such logic. They do not check or ch
 
 ### Callbacks
 
-The following example returns all of a user's saved tracks in a flat array. Convenience methods have a different signature: **They are curried and return a function which optionally accepts a callback**. Each time a new chunk of items is fetched, the response wrapped in a `DataResponse<T>` is passed to the callback as the only argument.
+The following example returns all of a user's saved tracks in a flat array. Convenience methods have a different signature: **They are curried and return a function which optionally accepts a callback**. Each time a new chunk of items is fetched, the response wrapped in a `DataResponse<T>` is passed to the callback as the only argument. See the [helper types](#helper-types) section below for more.
 
 If the callback returns a promise, it is awaited. The eventually returned value is ignored.
 
 ```ts
 import Spotifly, { DataResponse } from '@spotifly/core';
 
-const spotifyClient = Spotify.initialize({
+const spotifyClient = Spotifly.initialize({
   accessToken: 'abc123',
 });
 
@@ -432,7 +432,7 @@ Convenience methods simply wrap their ordinary counterpart and resolve all respo
 ```ts
 import Spotifly, { DataResponse } from '@spotifly/core';
 
-const spotifyClient = Spotify.initialize({
+const spotifyClient = Spotifly.initialize({
   accessToken: 'abc123',
 });
 
@@ -448,7 +448,7 @@ If you want to define your callback function separately, there's a helper type w
 
 ## Helper Types
 
-The type `SpotifyClient` mirrors the structure of an _initialized_ client. `DataCallback` can be used to infer the signature of the callback to a curried function (convenience method). Both types can be useful in some scenarios:
+The `SpotifyClient` type mirrors the structure of an _initialized_ client. `DataCallback` can be used to infer the signature of the callback to a curried function (convenience method). Both types can be useful in some scenarios:
 
 ```ts
 import { DataCallback, initialize, SpotifyClient } from '@spotifly/core';
