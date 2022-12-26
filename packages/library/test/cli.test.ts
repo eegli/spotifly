@@ -9,11 +9,17 @@ describe('Library CLI', () => {
   test('invalid parsing', async () => {
     await expect(callback([])).rejects.toThrow();
     await expect(
+      callback(['--token', 'abc', '--type', 'medium'])
+    ).rejects.toThrow();
+    await expect(
       callback(['--token', 'abc', '--since', '2022-12-121'])
     ).rejects.toThrow();
   });
   test('valid parsing', async () => {
     await expect(callback(['--token', 'abc'])).resolves.not.toThrow();
+    await expect(
+      callback(['--token', 'abc', '--type', 'full'])
+    ).resolves.not.toThrow();
     await expect(
       callback(['--token', 'abc', '--since', '2022-12-12'])
     ).resolves.not.toThrow();
