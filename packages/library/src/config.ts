@@ -41,7 +41,7 @@ export const { parse, help } = createParser(defaultConfig, {
     },
     since: {
       description:
-        'Only include tracks added after this date. Default: All tracks',
+        'Only include tracks added after this date. The date string must be formatted according to the ECMAScript Date Time String Format, e.g.: "YYYY-MM-DD". Default: All tracks',
       customValidator: {
         isValid(value) {
           if (typeof value !== 'string') return false;
@@ -53,7 +53,8 @@ export const { parse, help } = createParser(defaultConfig, {
       },
     },
     last: {
-      description: 'Only include the last n tracks. Default: All tracks',
+      description:
+        'Only include the last n (most recent) tracks. Default: All tracks',
     },
     compact: {
       description:

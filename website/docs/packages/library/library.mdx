@@ -25,6 +25,8 @@ import { CliCodeBlock } from '@site/src/components/code-blocks/codeblock';
     token: 'token',
     type: ['light', 'full'],
     outDir: '',
+    since: '',
+    last: '',
     genres: false,
     features: false,
     compact: false,
@@ -34,14 +36,18 @@ import { CliCodeBlock } from '@site/src/components/code-blocks/codeblock';
 
 ### Options
 
-| Flag         | _(required?)_ Description                                                       |
-| ------------ | ------------------------------------------------------------------------------- |
-| `--token`    | ✅ A Spotify user access token. Requires at least the scope "user-library-read" |
-| `--type`     | ❌ Output type per track. Either `full` or `light`. Default: `light`            |
-| `--genres`   | ❌ Include artist genres for each track. Default: `false`                       |
-| `--features` | ❌ Include audio features for each track. Default: `false`                      |
-| `--compact`  | ❌ Output more compact/minified JSON and save disk space. Default: `false`      |
-| --outDir     | ❌ Custom relative output directory. Default: Current directory                 |
+| Flag                     | _(required?)_ Description                                                                                                                                                                                                            |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `--token` `[string]`     | ✅ A Spotify user access token. Requires at least the scope "user-library-read"                                                                                                                                                      |
+| `--type` `[string]`      | ❌ Output type per track. Either `full` or `light`. Default: `light`                                                                                                                                                                 |
+| `--genres` `[boolean]`   | ❌ Include artist genres for each track. Default: `false`                                                                                                                                                                            |
+| `--features` `[boolean]` | ❌ Include audio features for each track. Default: `false`                                                                                                                                                                           |
+| `--since` `[string]`     | ❌ Only include tracks added after this date. The date string must be formatted according to the [ECMAScript Date Time String Format](https://tc39.es/ecma262/#sec-date-time-string-format), e.g.: "YYYY-MM-DD". Default: All tracks |
+| `--last [number]`        | ❌ Only include the last n (most recent) tracks. Default: All tracks                                                                                                                                                                 |
+| `--compact` `[boolean]`  | ❌ Output more compact/minified JSON and save disk space. Default: `false`                                                                                                                                                           |
+| `--outDir` `[string]`    | ❌ Custom relative output directory. Default: Current directory                                                                                                                                                                      |
+
+Note that if both `--last` and `--since` are set, whatever condition is met first will exhaust the procedure.
 
 ## Output
 
