@@ -55,6 +55,10 @@ export type LiteralUnion<T extends string> = T | (string & EmptyObject);
 
 export type AnyFunc = (...args: any[]) => unknown;
 
+export type DataCallback<
+  F extends (...args: any[]) => (...args: any[]) => unknown
+> = Parameters<ReturnType<F>>[0];
+
 // https://github.com/microsoft/TypeScript/issues/39556
 export type BetterOmit<Type, Key> = {
   [P in keyof Type as Exclude<P, Key>]: Type[P];

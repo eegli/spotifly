@@ -2,39 +2,6 @@ export const MULTIPLE_ARTISTS: SpotifyApi.MultipleArtistsResponse = {
   artists: [
     {
       external_urls: {
-        spotify: 'https://open.spotify.com/artist/5Ho1vKl1Uz8bJlk4vbmvmf',
-      },
-      followers: {
-        href: null,
-        total: 402418,
-      },
-      genres: ['acid techno', 'belgian techno', 'dark techno', 'electra'],
-      href: 'https://api.spotify.com/v1/artists/5Ho1vKl1Uz8bJlk4vbmvmf',
-      id: '5Ho1vKl1Uz8bJlk4vbmvmf',
-      images: [
-        {
-          height: 640,
-          url: 'https://i.scdn.co/image/ab6761610000e5eb48072c9c30a62b2de0d93ba5',
-          width: 640,
-        },
-        {
-          height: 320,
-          url: 'https://i.scdn.co/image/ab6761610000517448072c9c30a62b2de0d93ba5',
-          width: 320,
-        },
-        {
-          height: 160,
-          url: 'https://i.scdn.co/image/ab6761610000f17848072c9c30a62b2de0d93ba5',
-          width: 160,
-        },
-      ],
-      name: 'Amelie Lens',
-      popularity: 53,
-      type: 'artist',
-      uri: 'spotify:artist:5Ho1vKl1Uz8bJlk4vbmvmf',
-    },
-    {
-      external_urls: {
         spotify: 'https://open.spotify.com/artist/03tes5RhEvH2dX2eDeGnRn',
       },
       followers: {
@@ -205,6 +172,39 @@ export const MULTIPLE_ARTISTS: SpotifyApi.MultipleArtistsResponse = {
       popularity: 50,
       type: 'artist',
       uri: 'spotify:artist:1BjaGDkxwa2fb2pSCXlFXb',
+    },
+    {
+      external_urls: {
+        spotify: 'https://open.spotify.com/artist/5Ho1vKl1Uz8bJlk4vbmvmf',
+      },
+      followers: {
+        href: null,
+        total: 402418,
+      },
+      genres: ['acid techno', 'belgian techno', 'dark techno', 'electra'],
+      href: 'https://api.spotify.com/v1/artists/5Ho1vKl1Uz8bJlk4vbmvmf',
+      id: '5Ho1vKl1Uz8bJlk4vbmvmf',
+      images: [
+        {
+          height: 640,
+          url: 'https://i.scdn.co/image/ab6761610000e5eb48072c9c30a62b2de0d93ba5',
+          width: 640,
+        },
+        {
+          height: 320,
+          url: 'https://i.scdn.co/image/ab6761610000517448072c9c30a62b2de0d93ba5',
+          width: 320,
+        },
+        {
+          height: 160,
+          url: 'https://i.scdn.co/image/ab6761610000f17848072c9c30a62b2de0d93ba5',
+          width: 160,
+        },
+      ],
+      name: 'Amelie Lens',
+      popularity: 53,
+      type: 'artist',
+      uri: 'spotify:artist:5Ho1vKl1Uz8bJlk4vbmvmf',
     },
   ],
 };

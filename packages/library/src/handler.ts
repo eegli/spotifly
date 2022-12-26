@@ -1,14 +1,13 @@
-import * as Spotify from '@spotifly/core';
-import { colors, writeJSON } from '@spotifly/utils';
+import { initialize, isError } from '@spotifly/core';
+import { writeJSON } from '@spotifly/utils';
 import { defaultConfig } from './config';
 import type { Library, LibraryHandler, TrackLight } from './types';
-import { createProgressBar } from './utils';
+import { createProgressBar, isBeforeDate } from './utils';
 
 export const libraryHandler: LibraryHandler = async options => {
   try {
     const config = { ...defaultConfig, ...options };
-
-    const spotifyClient = Spotify.initialize({ accessToken: config.token });
+    const spotifyClient = initialize({ accessToken: config.token });
 
     let library: Library = [];
 
@@ -16,14 +15,30 @@ export const libraryHandler: LibraryHandler = async options => {
 
     progress.start(0, 0);
 
-    await spotifyClient.Tracks.getAllUsersSavedTracks()(({ data }) => {
+    let nextPage: string | null = null;
+    let offset = 0;
+
+    fetchLoop: do {
+      const { data } = await spotifyClient.Tracks.getUsersSavedTracks({
+        limit: 50,
+        offset,
+      });
       progress.setTotal(data.total);
       progress.increment(data.items.length);
 
-      data.items.forEach(el => {
-        library.push(el);
-      });
-    });
+      for (let i = 0; i < data.items.length; i++) {
+        const track = data.items[i];
+        if (library.length === config.last) {
+          break fetchLoop;
+        }
+        if (isBeforeDate(track.added_at, config.since)) {
+          break fetchLoop;
+        }
+        library.push(track);
+      }
+      nextPage = data.next;
+      offset += 50;
+    } while (nextPage);
 
     progress.stop();
 
@@ -110,17 +125,11 @@ export const libraryHandler: LibraryHandler = async options => {
     console.info("Success! Library written to '%s'", outDir);
     return libExport;
   } catch (error) {
-    if (Spotify.isError(error)) {
-      console.error(
-        colors.red(
-          `\nError talking to Spotify:\n${JSON.stringify(
-            error.response?.data.error,
-            null,
-            2
-          )}`
-        )
-      );
+    if (isError(error)) {
+      const { status, message } = error.response!.data.error;
+      throw new Error(`Status ${status}, ${message}`);
+    } else {
+      throw new Error('Something went wrong');
     }
-    throw error;
   }
 };

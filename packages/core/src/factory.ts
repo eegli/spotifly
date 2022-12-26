@@ -15,6 +15,7 @@ export function resolveOffsetPaginated<
       let nextPage: string | null = null;
       let offset = 0;
       const responses = [];
+
       do {
         const response = (await getFn(arg1, {
           ...arg2,
