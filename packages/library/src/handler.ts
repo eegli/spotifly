@@ -1,5 +1,5 @@
 import { initialize, isError } from '@spotifly/core';
-import { colors, writeJSON } from '@spotifly/utils';
+import { writeJSON } from '@spotifly/utils';
 import { defaultConfig } from './config';
 import type { Library, LibraryHandler, TrackLight } from './types';
 import { createProgressBar, isBeforeDate } from './utils';
@@ -126,16 +126,10 @@ export const libraryHandler: LibraryHandler = async options => {
     return libExport;
   } catch (error) {
     if (isError(error)) {
-      console.error(
-        colors.red(
-          `\nError talking to Spotify:\n${JSON.stringify(
-            error.response?.data.error,
-            null,
-            2
-          )}`
-        )
-      );
+      const { status, message } = error.response!.data.error;
+      throw new Error(`Status ${status}, ${message}`);
+    } else {
+      throw new Error('Something went wrong');
     }
-    throw error;
   }
 };
