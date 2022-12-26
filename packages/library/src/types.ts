@@ -7,6 +7,8 @@ export type Options = {
   features?: boolean;
   compact?: boolean;
   outDir?: string;
+  since?: string;
+  last?: number;
 };
 
 export type TrackLight = {

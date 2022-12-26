@@ -3252,10 +3252,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eegli/tinyparse@npm:^0.7.0":
-  version: 0.7.0
-  resolution: "@eegli/tinyparse@npm:0.7.0"
-  checksum: df62ea7330fb8770083cc3e80253e475734ff4e32ea2665043adbdf474a17ea703f9a6cb6a0e53d29f4233dcc9264d8a942d11c41077b3eb7ee098b5776d4977
+"@eegli/tinyparse@npm:^0.7.1":
+  version: 0.7.1
+  resolution: "@eegli/tinyparse@npm:0.7.1"
+  checksum: 7fe91c5c2b9eec3c88df207aaef688eb41b422ad7dceb3467afa99517aa10d438c5d7b13e194755f9cfc964aa45b5836b36640a08a4e16e3bdd763d44938e2d6
   languageName: node
   linkType: hard
 
@@ -4360,7 +4360,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spotifly/auth-token@workspace:packages/auth-token"
   dependencies:
-    "@eegli/tinyparse": ^0.7.0
+    "@eegli/tinyparse": ^0.7.1
     "@spotifly/utils": "workspace:^"
     "@types/fs-extra": ^9.0.13
     "@types/node-fetch": ^2.6.2
@@ -4398,7 +4398,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spotifly/library@workspace:packages/library"
   dependencies:
-    "@eegli/tinyparse": ^0.7.0
+    "@eegli/tinyparse": ^0.7.1
     "@spotifly/core": "workspace:^"
     "@spotifly/utils": "workspace:^"
     "@types/cli-progress": ^3.11.0

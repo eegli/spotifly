@@ -1,6 +1,6 @@
 # Spotifly
 
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/eegli/spotifly/CI) ![Website](https://img.shields.io/website?url=https%3A%2F%2Fspotifly.nougat.dev%2F)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/eegli/spotifly/ci.yml?branch=main) ![Website](https://img.shields.io/website?url=https%3A%2F%2Fspotifly.nougat.dev%2F)
 
 An inofficial toolbelt for working with the Spotify Web API.
 
