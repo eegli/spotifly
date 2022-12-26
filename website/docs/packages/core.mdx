@@ -112,12 +112,15 @@ Usually, a refresh token only needs to be generated once. You can [generate one 
 
 - ✅ - Fully supported
 - 〽️ - Partial support - work in progress
+- ❌ - Currently not supported
 
 | Endpoint   | Support |
 | ---------- | ------- |
 | Albums     | ✅      |
+| Audiobooks | ❌      |
 | Artists    | ✅      |
 | Categories | ✅      |
+| Chapters   | ❌      |
 | Episodes   | ✅      |
 | Genres     | ✅      |
 | Markets    | ✅      |
@@ -129,6 +132,7 @@ Usually, a refresh token only needs to be generated once. You can [generate one 
 | Users      | ✅      |
 
 - Playlists, missing: [Replace Playlist Items](https://developer.spotify.com/documentation/web-api/reference/#/operations/reorder-or-replace-playlists-tracks). I don't understand how this endpoint needs to be called in order to "replace" playlist items. Reordering items, however, is supported.
+- Audiobooks and Chapters: Not yet available in many regions.
 
 <details>
   <summary>Detailed Support Table</summary>
@@ -438,6 +442,29 @@ const allTracks: UserTracks[] =
   await spotifyClient.Tracks.getAllUsersSavedTracks()();
 
 const someTracks: UserTracks = await spotifyClient.Tracks.getUsersSavedTracks();
+```
+
+If you want to define your callback function separately, there's a helper type which can infer the correct signature (`DataCallback`).
+
+## Helper Types
+
+The type `SpotifyClient` mirrors the structure of an _initialized_ client. `DataCallback` can be used to infer the signature of the callback to a curried function (convenience method). Both types can be useful in some scenarios:
+
+```ts
+import { DataCallback, initialize, SpotifyClient } from '@spotifly/core';
+
+type Callback = DataCallback<SpotifyClient['Tracks']['getAllUsersSavedTracks']>;
+
+const callback: Callback = response => {
+  console.log(response.data.items[0].added_at);
+};
+
+const spotifyClient = initialize({
+  accessToken: 'abc123',
+});
+
+// Signature is correct!
+await spotifyClient.Tracks.getAllUsersSavedTracks()(callback);
 ```
 
 ## Testing Recipes
