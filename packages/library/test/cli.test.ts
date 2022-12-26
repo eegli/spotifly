@@ -1,16 +1,21 @@
-import { help, parse } from '../src/config';
+import { callback } from '../src/cli';
+import { help } from '../src/config';
+
+jest.mock('../src/handler', () => ({
+  libraryHandler: jest.fn(),
+}));
 
 describe('Library CLI', () => {
   test('invalid parsing', async () => {
-    await expect(parse([])).rejects.toThrow();
+    await expect(callback([])).rejects.toThrow();
     await expect(
-      parse({ token: 'abc', since: '2022-12-121' })
+      callback(['--token', 'abc', '--since', '2022-12-121'])
     ).rejects.toThrow();
   });
   test('valid parsing', async () => {
-    await expect(parse({ token: 'abc' })).resolves.toMatchSnapshot();
+    await expect(callback(['--token', 'abc'])).resolves.not.toThrow();
     await expect(
-      parse({ token: 'abc', since: '2022-12-12' })
+      callback(['--token', 'abc', '--since', '2022-12-12'])
     ).resolves.not.toThrow();
   });
   test('help command', () => {
