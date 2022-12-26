@@ -1,5 +1,16 @@
 # @spotifly/library
 
+## 1.1.0
+
+### Minor Changes
+
+- 87dbccd: Allow customization of the range when fetching the library via two new parameters, `last` and `since`, which either get the `n` most recent library items or items after a specific date. [Read more](https://spotifly.nougat.dev/docs/packages/library).
+
+### Patch Changes
+
+- Updated dependencies [87dbccd]
+  - @spotifly/core@1.2.2
+
 ## 1.0.3
 
 ### Patch Changes
