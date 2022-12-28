@@ -1,5 +1,13 @@
 # @spotifly/cli
 
+## 1.0.5
+
+### Patch Changes
+
+- Updated dependencies [a297829]
+  - @spotifly/auth-token@1.0.1
+  - @spotifly/library@1.1.1
+
 ## 1.0.4
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @spotifly/library
 
+## 1.1.1
+
+### Patch Changes
+
+- a297829: Bump parser dependency
+
 ## 1.1.0
 
 ### Minor Changes
