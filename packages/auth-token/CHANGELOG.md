@@ -1,5 +1,11 @@
 # @spotifly/auth-token
 
+## 1.0.1
+
+### Patch Changes
+
+- a297829: Bump parser dependency
+
 ## 1.0.0
 
 ### Major Changes
