@@ -1,9 +1,9 @@
 import { createParser } from '@eegli/tinyparse';
-import { Options } from './types';
+import { Config } from './types';
 
 const ZERO_DATE = new Date(0);
 
-export const defaultConfig: Required<Options> = {
+export const defaultConfig: Config = {
   token: '',
   type: 'light',
   genres: false,

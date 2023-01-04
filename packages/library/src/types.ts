@@ -1,6 +1,6 @@
 type ExportedLibrary = 'full' | 'light';
 
-export type Options = {
+export type UserConfig = {
   token: string;
   type?: ExportedLibrary;
   genres?: boolean;
@@ -10,6 +10,8 @@ export type Options = {
   since?: string;
   last?: number;
 };
+
+export type Config = Required<UserConfig>;
 
 export type TrackLight = {
   id: string;
@@ -24,9 +26,7 @@ export type TrackLight = {
   }[];
 };
 
-export type TrackFull = SpotifyApi.TrackObjectFull;
-
-type AnyTrack = TrackLight | TrackFull;
+type AnyTrack = TrackLight | SpotifyApi.TrackObjectFull;
 
 type LibraryExport<T> = {
   meta: {
@@ -45,5 +45,5 @@ export type Library<T = AnyTrack> = {
 }[];
 
 export type LibraryHandler = (
-  opts: Options
+  opts: UserConfig
 ) => Promise<LibraryExport<AnyTrack>>;
