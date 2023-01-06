@@ -42,6 +42,12 @@ describe('Library CLI', () => {
          --features [boolean]
          Include audio features for each track. Default: false
 
+         --playlists [boolean]
+         Include playlists. Default: false
+
+         --all_playlists [boolean]
+         Only include playlists owned by the user. Default: false
+
          --since [string]
          Only include tracks added after this date. The date string must be formatted according to the ECMAScript Date Time String Format, e.g.: \\"YYYY-MM-DD\\". Default: All tracks
 

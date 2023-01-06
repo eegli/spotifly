@@ -4,10 +4,11 @@ import { defaultConfig } from './config';
 import {
   enrichLibraryWithFeatures,
   enrichLibraryWithGenres,
+  getUserSavedPlaylists,
   getUserSavedTracks,
   reduceLibraryToLight,
 } from './library';
-import type { Config, LibraryHandler } from './types';
+import type { Config, LibraryExport, LibraryHandler } from './types';
 import { createProgressBar } from './utils';
 
 export const libraryHandler: LibraryHandler = async userConfig => {
@@ -15,38 +16,50 @@ export const libraryHandler: LibraryHandler = async userConfig => {
     const config: Config = { ...defaultConfig, ...userConfig };
     const spotifyClient = initialize({ accessToken: config.token });
 
-    let library = await getUserSavedTracks(spotifyClient, {
+    let savedTracks = await getUserSavedTracks(spotifyClient, {
       last: config.last,
       since: config.since,
-      progressBar: createProgressBar('user library'),
+      progressBar: createProgressBar("user's saved tracks"),
     });
 
-    // Reduce library if necessary
+    // Reduce saved tracks if necessary
     if (config.type === 'light') {
-      library = reduceLibraryToLight(library);
+      savedTracks = reduceLibraryToLight(savedTracks);
     }
 
     // Add genres if specified
     if (config.genres) {
-      library = await enrichLibraryWithGenres(spotifyClient, library, {
+      savedTracks = await enrichLibraryWithGenres(spotifyClient, savedTracks, {
         progressBar: createProgressBar('artists'),
       });
     }
 
     // Add audio features if specified
     if (config.features) {
-      library = await enrichLibraryWithFeatures(spotifyClient, library, {
-        progressBar: createProgressBar('audio features'),
-      });
+      savedTracks = await enrichLibraryWithFeatures(
+        spotifyClient,
+        savedTracks,
+        {
+          progressBar: createProgressBar('audio features'),
+        }
+      );
     }
 
-    const libExport = {
+    const libExport: LibraryExport = {
       meta: {
         date_generated: new Date().toISOString(),
-        output_type: config.type,
+        saved_tracks_output_type: config.type,
       },
-      library,
+      tracks: savedTracks,
     };
+
+    if (config.playlists) {
+      console.log(config);
+      libExport.playlists = await getUserSavedPlaylists(spotifyClient, {
+        allPlaylists: config.all_playlists,
+        progressBar: createProgressBar("user's playlists"),
+      });
+    }
 
     const outDir = await writeJSON({
       fileName: 'spotify-library',

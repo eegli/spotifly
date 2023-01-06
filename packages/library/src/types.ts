@@ -5,6 +5,8 @@ export type UserConfig = {
   type?: ExportedLibrary;
   genres?: boolean;
   features?: boolean;
+  playlists?: boolean;
+  all_playlists?: boolean;
   compact?: boolean;
   outDir?: string;
   since?: string;
@@ -26,24 +28,28 @@ export type TrackLight = {
   }[];
 };
 
-type AnyTrack = TrackLight | SpotifyApi.TrackObjectFull;
+export type AnyTrack = TrackLight | SpotifyApi.TrackObjectFull;
+export type Playlist = SpotifyApi.PlaylistObjectSimplified;
 
-type LibraryExport<T> = {
-  meta: {
-    date_generated: string;
-    output_type: ExportedLibrary;
-  };
-  library: Library<T>;
-};
-
-export type Library<T = AnyTrack> = {
+export type SavedTrackItem<T = AnyTrack> = {
   added_at: string;
   track: T & {
     genres?: string[][];
     features?: SpotifyApi.AudioFeaturesObject;
   };
-}[];
+};
 
-export type LibraryHandler = (
+export type Meta = {
+  date_generated: string;
+  saved_tracks_output_type: ExportedLibrary;
+};
+
+export type LibraryExport<T = AnyTrack, P = Playlist> = {
+  meta: Meta;
+  tracks?: SavedTrackItem<T>[];
+  playlists?: P[];
+};
+
+export type LibraryHandler<T = AnyTrack, P = Playlist> = (
   opts: UserConfig
-) => Promise<LibraryExport<AnyTrack>>;
+) => Promise<LibraryExport<T, P>>;

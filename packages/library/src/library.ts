@@ -1,6 +1,6 @@
 import { SpotifyClient } from '@spotifly/core';
 import { SingleBar } from 'cli-progress';
-import { Config, Library, TrackLight } from './types';
+import { Config, Playlist, SavedTrackItem, TrackLight } from './types';
 import { isBeforeDate } from './utils';
 
 type ProgressOption = { progressBar?: SingleBar };
@@ -10,8 +10,8 @@ type SavedTracksOptions = Pick<Config, 'last' | 'since'> & ProgressOption;
 export async function getUserSavedTracks(
   client: SpotifyClient,
   options: SavedTracksOptions
-): Promise<Library> {
-  const library: Library = [];
+): Promise<SavedTrackItem[]> {
+  const library: SavedTrackItem[] = [];
 
   const progressBar = options?.progressBar;
 
@@ -46,11 +46,49 @@ export async function getUserSavedTracks(
   return library;
 }
 
+type SavedPlaylistOptions = { allPlaylists: boolean } & ProgressOption;
+
+export async function getUserSavedPlaylists(
+  client: SpotifyClient,
+  options: SavedPlaylistOptions
+): Promise<Playlist[]> {
+  const progressBar = options?.progressBar;
+
+  progressBar?.start(0, 0);
+  let spotifyUserId: string | undefined;
+
+  // If we have a user id, only keep playlists from that user
+  if (!options.allPlaylists) {
+    spotifyUserId = (await client.Users.getCurrentUsersProfile()).data.id;
+  }
+
+  const playlists = await client.Playlists.getAllCurrentUsersPlaylists()(
+    ({ data }) => {
+      progressBar?.setTotal(data.total);
+      progressBar?.increment(data.items.length);
+    }
+  ).then(responses =>
+    responses
+      .map(({ data }) => {
+        if (spotifyUserId) {
+          return data.items.filter(p => p.owner.id === spotifyUserId);
+        } else {
+          return data.items;
+        }
+      })
+      .flat()
+  );
+
+  progressBar?.stop();
+
+  return playlists;
+}
+
 export async function enrichLibraryWithGenres(
   client: SpotifyClient,
-  library: Library,
+  library: SavedTrackItem[],
   options: ProgressOption
-): Promise<Library> {
+): Promise<SavedTrackItem[]> {
   const artists = library.map(t => t.track.artists.map(a => a.id)).flat();
   const artistIds = [...new Set<string>(artists)];
   const genres: Record<string, string[]> = {};
@@ -76,9 +114,9 @@ export async function enrichLibraryWithGenres(
 
 export async function enrichLibraryWithFeatures(
   client: SpotifyClient,
-  library: Library,
+  library: SavedTrackItem[],
   options: ProgressOption
-): Promise<Library> {
+): Promise<SavedTrackItem[]> {
   const progressBar = options?.progressBar;
 
   const trackIds = library.map(t => t.track.id);
@@ -101,7 +139,9 @@ export async function enrichLibraryWithFeatures(
   return library;
 }
 
-export function reduceLibraryToLight(library: Library): Library {
+export function reduceLibraryToLight(
+  library: SavedTrackItem[]
+): SavedTrackItem<TrackLight>[] {
   return library.reduce((acc, curr) => {
     acc.push({
       added_at: curr.added_at,
@@ -119,5 +159,5 @@ export function reduceLibraryToLight(library: Library): Library {
       },
     });
     return acc;
-  }, <Library<TrackLight>>[]);
+  }, <SavedTrackItem<TrackLight>[]>[]);
 }

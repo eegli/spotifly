@@ -8,6 +8,8 @@ export const defaultConfig: Config = {
   type: 'light',
   genres: false,
   features: false,
+  playlists: false,
+  all_playlists: false,
   compact: false,
   outDir: '',
   since: ZERO_DATE.toISOString(),
@@ -38,6 +40,12 @@ export const { parse, help } = createParser(defaultConfig, {
     },
     features: {
       description: 'Include audio features for each track. Default: false',
+    },
+    playlists: {
+      description: 'Include playlists. Default: false',
+    },
+    all_playlists: {
+      description: 'Only include playlists owned by the user. Default: false',
     },
     since: {
       description:
