@@ -46,26 +46,26 @@ beforeEach(() => {
 });
 
 describe('Library', () => {
-  it('gets light library', async () => {
+  it('gets saved tracks light', async () => {
     const res = await libraryHandler({ token: 'mytoken' });
-    expect(res.meta.output_type).toBe('light');
-    expect(res.library).toHaveLength(TRACK_COUNT);
-    expect(res.library[0].track.genres).toBeUndefined();
-    expect(res.library[0].track.features).toBeUndefined();
+    expect(res.meta.saved_tracks_output_type).toBe('light');
+    expect(res.tracks).toHaveLength(TRACK_COUNT);
+    expect(res.tracks![0].track.genres).toBeUndefined();
+    expect(res.tracks![0].track.features).toBeUndefined();
     expect(writeSpy).toHaveBeenCalledTimes(1);
     expect(res).toMatchSnapshot();
   });
-  it('gets full library with genres and features', async () => {
+  it('gets full tracks with genres and features', async () => {
     const res = await libraryHandler({
       token: 'mytoken',
       type: 'full',
       genres: true,
       features: true,
     });
-    expect(res.meta.output_type).toBe('full');
-    expect(res.library).toHaveLength(TRACK_COUNT);
-    expect(res.library[0].track.genres).toBeTruthy();
-    expect(res.library[0].track.features).toBeTruthy();
+    expect(res.meta.saved_tracks_output_type).toBe('full');
+    expect(res.tracks).toHaveLength(TRACK_COUNT);
+    expect(res.tracks![0].track.genres).toBeTruthy();
+    expect(res.tracks![0].track.features).toBeTruthy();
     expect(res).toMatchSnapshot();
   });
   it('gets n most recent items', async () => {
@@ -73,7 +73,7 @@ describe('Library', () => {
       token: 'mytoken',
       last: 2,
     });
-    expect(res.library).toHaveLength(2);
+    expect(res.tracks).toHaveLength(2);
     expect(res).toMatchSnapshot();
   });
   it('gets items since date', async () => {
@@ -81,7 +81,7 @@ describe('Library', () => {
       token: 'mytoken',
       since: '2021-12-06T17:17:50Z',
     });
-    expect(res.library).toHaveLength(1);
+    expect(res.tracks).toHaveLength(1);
     expect(res).toMatchSnapshot();
   });
 });

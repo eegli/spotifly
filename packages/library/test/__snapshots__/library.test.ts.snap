@@ -1,8 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Library gets full library with genres and features 1`] = `
+exports[`Library gets full tracks with genres and features 1`] = `
 {
-  "library": [
+  "meta": {
+    "date_generated": "1970-01-01T00:00:00.000Z",
+    "saved_tracks_output_type": "full",
+  },
+  "tracks": [
     {
       "added_at": "2021-12-06T17:17:57Z",
       "track": {
@@ -1486,16 +1490,16 @@ exports[`Library gets full library with genres and features 1`] = `
       },
     },
   ],
-  "meta": {
-    "date_generated": "1970-01-01T00:00:00.000Z",
-    "output_type": "full",
-  },
 }
 `;
 
 exports[`Library gets items since date 1`] = `
 {
-  "library": [
+  "meta": {
+    "date_generated": "1970-01-01T00:00:00.000Z",
+    "saved_tracks_output_type": "light",
+  },
+  "tracks": [
     {
       "added_at": "2021-12-06T17:17:57Z",
       "track": {
@@ -1522,16 +1526,73 @@ exports[`Library gets items since date 1`] = `
       },
     },
   ],
-  "meta": {
-    "date_generated": "1970-01-01T00:00:00.000Z",
-    "output_type": "light",
-  },
 }
 `;
 
-exports[`Library gets light library 1`] = `
+exports[`Library gets n most recent items 1`] = `
 {
-  "library": [
+  "meta": {
+    "date_generated": "1970-01-01T00:00:00.000Z",
+    "saved_tracks_output_type": "light",
+  },
+  "tracks": [
+    {
+      "added_at": "2021-12-06T17:17:57Z",
+      "track": {
+        "album": {
+          "id": "6Ozmnoay8pclUfUO8CWKLU",
+          "name": "The Age Of Love (Charlotte de Witte & Enrico Sangiuliano Remix)",
+        },
+        "artists": [
+          {
+            "id": "03tes5RhEvH2dX2eDeGnRn",
+            "name": "Age Of Love",
+          },
+          {
+            "id": "1lJhME1ZpzsEa5M0wW6Mso",
+            "name": "Charlotte de Witte",
+          },
+          {
+            "id": "1u7DsNFbakULvxnDGtMm90",
+            "name": "Enrico Sangiuliano",
+          },
+        ],
+        "id": "6X6Ow0iioCrYQSK1QDHQbC",
+        "name": "The Age Of Love - Charlotte de Witte & Enrico Sangiuliano Remix",
+      },
+    },
+    {
+      "added_at": "2021-10-18T08:15:08Z",
+      "track": {
+        "album": {
+          "id": "046wH7DEfUumC5h9ykIEkd",
+          "name": "bb u ok?",
+        },
+        "artists": [
+          {
+            "id": "0jNDKefhfSbLR9sFvcPLHo",
+            "name": "San Holo",
+          },
+          {
+            "id": "1BjaGDkxwa2fb2pSCXlFXb",
+            "name": "Chet Porter",
+          },
+        ],
+        "id": "3LnoLo62GjfKDYIN7eJpPB",
+        "name": "you’ve changed, i’ve changed",
+      },
+    },
+  ],
+}
+`;
+
+exports[`Library gets saved tracks light 1`] = `
+{
+  "meta": {
+    "date_generated": "1970-01-01T00:00:00.000Z",
+    "saved_tracks_output_type": "light",
+  },
+  "tracks": [
     {
       "added_at": "2021-12-06T17:17:57Z",
       "track": {
@@ -1596,66 +1657,5 @@ exports[`Library gets light library 1`] = `
       },
     },
   ],
-  "meta": {
-    "date_generated": "1970-01-01T00:00:00.000Z",
-    "output_type": "light",
-  },
-}
-`;
-
-exports[`Library gets n most recent items 1`] = `
-{
-  "library": [
-    {
-      "added_at": "2021-12-06T17:17:57Z",
-      "track": {
-        "album": {
-          "id": "6Ozmnoay8pclUfUO8CWKLU",
-          "name": "The Age Of Love (Charlotte de Witte & Enrico Sangiuliano Remix)",
-        },
-        "artists": [
-          {
-            "id": "03tes5RhEvH2dX2eDeGnRn",
-            "name": "Age Of Love",
-          },
-          {
-            "id": "1lJhME1ZpzsEa5M0wW6Mso",
-            "name": "Charlotte de Witte",
-          },
-          {
-            "id": "1u7DsNFbakULvxnDGtMm90",
-            "name": "Enrico Sangiuliano",
-          },
-        ],
-        "id": "6X6Ow0iioCrYQSK1QDHQbC",
-        "name": "The Age Of Love - Charlotte de Witte & Enrico Sangiuliano Remix",
-      },
-    },
-    {
-      "added_at": "2021-10-18T08:15:08Z",
-      "track": {
-        "album": {
-          "id": "046wH7DEfUumC5h9ykIEkd",
-          "name": "bb u ok?",
-        },
-        "artists": [
-          {
-            "id": "0jNDKefhfSbLR9sFvcPLHo",
-            "name": "San Holo",
-          },
-          {
-            "id": "1BjaGDkxwa2fb2pSCXlFXb",
-            "name": "Chet Porter",
-          },
-        ],
-        "id": "3LnoLo62GjfKDYIN7eJpPB",
-        "name": "you’ve changed, i’ve changed",
-      },
-    },
-  ],
-  "meta": {
-    "date_generated": "1970-01-01T00:00:00.000Z",
-    "output_type": "light",
-  },
 }
 `;
