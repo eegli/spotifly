@@ -29,7 +29,7 @@
     "cli"
   ],
   "dependencies": {
-    "@eegli/tinyparse": "^0.8.0",
+    "@eegli/tinyparse": "^0.9.0",
     "@spotifly/utils": "workspace:^",
     "node-fetch": "2.6.7"
   },

@@ -25,14 +25,14 @@ describe('Library CLI', () => {
     ).resolves.not.toThrow();
   });
   test('help command', () => {
-    expect(help()).toMatchInlineSnapshot(`
-      "Usage
+    expect(help('CLI Usage')).toMatchInlineSnapshot(`
+      "CLI Usage
 
-      Required
+      Required flags
          --token [string]
          A Spotify user access token. Requires at least the scope \\"user-library-read\\"
 
-      Optional
+      Optional flags
          --type [string]
          Output type per track. Either 'full' or 'light'. Default: 'light'
 
