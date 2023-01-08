@@ -25,8 +25,11 @@ describe('Library CLI', () => {
     ).resolves.not.toThrow();
   });
   test('help command', () => {
-    expect(help('CLI Usage')).toMatchInlineSnapshot(`
+    expect(help('CLI Usage', 'library <tracks|playlists> [flags]'))
+      .toMatchInlineSnapshot(`
       "CLI Usage
+
+      library <tracks|playlists> [flags]
 
       Required flags
          --token [string]

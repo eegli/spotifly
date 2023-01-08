@@ -8,13 +8,16 @@ import {
   getUserSavedTracks,
   reduceLibraryToLight,
 } from './library';
-import type { Config, LibraryExport, LibraryHandler } from './types';
+import type { LibraryExport, LibraryHandler } from './types';
 import { createProgressBar } from './utils';
 
 export const libraryHandler: LibraryHandler = async userConfig => {
   try {
-    const config: Config = { ...defaultConfig, ...userConfig };
+    const config = { ...defaultConfig, ...userConfig };
     const spotifyClient = initialize({ accessToken: config.token });
+
+    const withPlaylists = config._?.includes('playlists');
+    const withTracks = config._?.includes('tracks');
 
     let savedTracks = await getUserSavedTracks(spotifyClient, {
       last: config.last,

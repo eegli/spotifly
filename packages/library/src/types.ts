@@ -51,5 +51,5 @@ export type LibraryExport<T = AnyTrack, P = Playlist> = {
 };
 
 export type LibraryHandler<T = AnyTrack, P = Playlist> = (
-  opts: UserConfig
+  opts: UserConfig & { _?: string[] } // TODO in tinyparse
 ) => Promise<LibraryExport<T, P>>;
