@@ -12,6 +12,7 @@ export const defaultConfig: DefaultConfig = {
 };
 
 export const { parse, help } = createParser(defaultConfig, {
+  decamelize: true,
   options: {
     clientId: {
       required: true,

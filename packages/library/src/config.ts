@@ -15,6 +15,7 @@ export const defaultConfig: Required<Options> = {
 };
 
 export const { parse, help } = createParser(defaultConfig, {
+  decamelize: true,
   options: {
     token: {
       required: true,

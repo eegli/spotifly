@@ -1,4 +1,4 @@
-import { parse } from './config';
+import { help as defaultHelp, parse } from './config';
 import { libraryHandler } from './handler';
 
 export const callback = async (argv: string[]): Promise<void> => {
@@ -6,5 +6,8 @@ export const callback = async (argv: string[]): Promise<void> => {
   await libraryHandler(config);
 };
 
+export const help = defaultHelp({
+  title: 'Command-line usage:',
+});
+
 export { default as pkg } from '../package.json';
-export { help } from './config';

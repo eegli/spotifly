@@ -1,32 +1,34 @@
-import { help } from '../src/config';
+import { help } from '../src/cli';
 
 describe('Library CLI', () => {
   test('help command', () => {
-    expect(help('CLI Usage')).toMatchInlineSnapshot(`
-      "CLI Usage
+    expect(help).toMatchInlineSnapshot(`
+      "CLI Usage:
+
+      token <refresh|access>
 
       Required flags
-         --clientId [string]
+         --client-id [string]
          The client id of your Spotify application
 
-         --clientSecret [string]
+         --client-secret [string]
          The client secret of your Spotify application
 
       Optional flags
-         -s, --scopes [string]
-         Spotify authorization scopes. Multiple scopes need to be separated by a space. Default: \\"user-read-email\\"
-
          -p, --port [number]
          Port for the localhost redirect URL. Default: 3000
 
-         -o, --outDir [string]
+         --no-emit [boolean]
+         When set to true, does not save the token to the file system. Default: false
+
+         -o, --out-dir [string]
          Custom relative output directory. Default: Current directory
 
-         -f, --fileName [string]
+         -f, --file-name [string]
          Custom name for the output JSON file. Default: \\"spotify-token\\"
 
-         --noEmit [boolean]
-         When set to true, does not save the token to the file system. Default: false"
+         -s, --scopes [string]
+         Spotify authorization scopes. Multiple scopes need to be separated by a space. Default: \\"user-read-email\\""
     `);
   });
 });
