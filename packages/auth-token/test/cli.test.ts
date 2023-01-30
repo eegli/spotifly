@@ -5,8 +5,6 @@ describe('Library CLI', () => {
     expect(help()).toMatchInlineSnapshot(`
       "Command-line usage:
 
-      token <refresh|access>
-
       Required flags
          --client-id [string]
          The client id of your Spotify application
