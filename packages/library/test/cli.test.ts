@@ -24,8 +24,8 @@ describe('Library CLI', () => {
     ).resolves.not.toThrow();
   });
   test('help command', () => {
-    expect(help).toMatchInlineSnapshot(`
-      "CLI Usage:
+    expect(help()).toMatchInlineSnapshot(`
+      "Command-line usage:
 
       Required flags
          --token [string]

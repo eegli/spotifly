@@ -6,8 +6,9 @@ export const callback = async (argv: string[]): Promise<void> => {
   await libraryHandler(config);
 };
 
-export const help = defaultHelp({
-  title: 'Command-line usage:',
-});
+export const help = () =>
+  defaultHelp({
+    title: 'Command-line usage:',
+  });
 
 export { default as pkg } from '../package.json';

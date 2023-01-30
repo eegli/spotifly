@@ -11,7 +11,9 @@ type RequiredConfig = {
   clientSecret: string;
 };
 
-export type Options = RequiredConfig & Partial<OptionalConfig>;
+// TODO export this in tinyparse
+type PositionalArgs = { _?: string[] };
+export type Options = RequiredConfig & Partial<OptionalConfig> & PositionalArgs;
 export type DefaultConfig = RequiredConfig & OptionalConfig;
 
 export type SpotifyTokenResponse = {

@@ -2,8 +2,8 @@ import { help } from '../src/cli';
 
 describe('Library CLI', () => {
   test('help command', () => {
-    expect(help).toMatchInlineSnapshot(`
-      "CLI Usage:
+    expect(help()).toMatchInlineSnapshot(`
+      "Command-line usage:
 
       token <refresh|access>
 

@@ -1,9 +1,6 @@
-const mockHelp = jest.fn();
-const mockCallback = jest.fn();
-
 const mockPkg: cli.Invoke = {
-  callback: mockCallback,
-  help: mockHelp,
+  callback: jest.fn(),
+  help: jest.fn(),
   pkg: {
     homepage: '',
     name: '',
@@ -35,7 +32,7 @@ describe('CLI', () => {
     test('Help and info command: ' + processArgs[2], async () => {
       process.argv = processArgs;
       await cli.run();
-      expect(mockCallback).not.toHaveBeenCalled();
+      expect(mockPkg.callback).not.toHaveBeenCalled();
       expect(consoleSpy).toHaveBeenCalledTimes(1);
       expect(consoleSpy.mock.calls[0][0]).toMatch(
         /(Spotifly|@spotifly\/cli) v\d.\d.\d/g
@@ -44,28 +41,27 @@ describe('CLI', () => {
   });
 
   [
-    ['', '', 'auth-token'],
+    ['', '', 'auth'],
     ['', '', 'library'],
   ].forEach(processArgs => {
-    test('Delegated command (help): ' + processArgs[2], async () => {
+    test('Delegates command (help): ' + processArgs[2], async () => {
       process.argv = processArgs;
       await cli.run();
-      expect(mockCallback).not.toHaveBeenCalled();
-      expect(mockHelp).toHaveBeenCalledTimes(1);
-      expect(mockHelp).toHaveBeenCalledWith('Command-line usage');
+      expect(mockPkg.callback).not.toHaveBeenCalled();
+      expect(mockPkg.help).toHaveBeenCalledTimes(1);
     });
   });
 
   [
-    ['', '', 'auth-token', 'arg', 's'],
+    ['', '', 'auth', 'arg', 's'],
     ['', '', 'library', 'arg'],
   ].forEach(processArgs => {
-    test('Delegated command (callback): ' + processArgs[2], async () => {
+    test('Delegates command (callback): ' + processArgs[2], async () => {
       process.argv = processArgs;
       await cli.run();
-      expect(mockCallback).toHaveBeenCalledTimes(1);
-      expect(mockCallback).toHaveBeenCalledWith(processArgs);
-      expect(mockHelp).not.toHaveBeenCalled();
+      expect(mockPkg.callback).toHaveBeenCalledTimes(1);
+      expect(mockPkg.callback).toHaveBeenCalledWith(processArgs);
+      expect(mockPkg.help).not.toHaveBeenCalled();
     });
   });
 
@@ -73,10 +69,10 @@ describe('CLI', () => {
     ['', '', 'x'],
     ['', '', '', 'y'],
   ].forEach(processArgs => {
-    test('Ignored command ' + processArgs[2], async () => {
+    test('Ignores command ' + processArgs[2], async () => {
       process.argv = processArgs;
       await cli.run();
-      expect(mockCallback).not.toHaveBeenCalled();
+      expect(mockPkg.callback).not.toHaveBeenCalled();
       expect(consoleSpy).toHaveBeenCalledTimes(1);
       expect(consoleSpy.mock.calls[0][0]).toMatch(
         /Unknown argument .*[\s\S]Run 'spotifly --help' for available commands/s

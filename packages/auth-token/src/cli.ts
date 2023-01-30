@@ -6,9 +6,9 @@ export const callback = async (argv: string[]): Promise<void> => {
   await authorize(config);
 };
 
-export const help = defaultHelp({
-  title: 'Command-line usage:',
-  base: 'token <refresh|access>',
-});
+export const help = () =>
+  defaultHelp({
+    title: 'Command-line usage:',
+  });
 
 export { default as pkg } from '../package.json';

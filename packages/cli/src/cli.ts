@@ -6,7 +6,7 @@ import ownPackage from '../package.json';
 
 export type Invoke = {
   callback: (args: string[]) => unknown;
-  help: string;
+  help: () => string;
   pkg: {
     name: string;
     version: string;
@@ -21,7 +21,7 @@ const invoke = async (
   if (argv.length <= 3) {
     console.info(`${colors.bold(colors.cyan(`${pkg.name} v${pkg.version}`))}
 
-${help}
+${help()}
       
 For docs & help, visit ${pkg.homepage}
 `);
@@ -56,7 +56,6 @@ Available commands: ${colors.green(`
 `)}
 For docs & help, visit ${ownPackage.homepage}`);
       return;
-    case 'auth-token': // Legacy
     case 'auth':
       return invoke(process.argv, {
         callback: authCli.callback,
