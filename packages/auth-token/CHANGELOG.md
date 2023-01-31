@@ -1,5 +1,15 @@
 # @spotifly/auth-token
 
+## 2.0.0
+
+### Major Changes
+
+- 036f524: Command line flags are now expected in kebab-case
+
+### Patch Changes
+
+- 6da004d: Upgrade CLI parser dependency
+
 ## 1.0.1
 
 ### Patch Changes
