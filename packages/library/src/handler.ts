@@ -122,7 +122,9 @@ export const libraryHandler: LibraryHandler = async options => {
       data: libExport,
       compact: config.compact,
     });
+
     console.info("Success! Library written to '%s'", outDir);
+
     return libExport;
   } catch (error) {
     if (isError(error) && error.response) {
