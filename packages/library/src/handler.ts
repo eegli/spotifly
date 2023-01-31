@@ -122,11 +122,13 @@ export const libraryHandler: LibraryHandler = async options => {
       data: libExport,
       compact: config.compact,
     });
+
     console.info("Success! Library written to '%s'", outDir);
+
     return libExport;
   } catch (error) {
-    if (isError(error)) {
-      const { status, message } = error.response!.data.error;
+    if (isError(error) && error.response) {
+      const { status, message } = error.response.data.error;
       throw new Error(`Status ${status}, ${message}`);
     } else {
       throw new Error('Something went wrong');

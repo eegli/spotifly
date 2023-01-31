@@ -62,10 +62,7 @@ const config = {
           },
         ],
       },
-      announcementBar: {
-        content:
-          'Hi! Spotifly is still under active development. Check the GitHub readme for more info.',
-      },
+
       footer: {
         style: 'dark',
         copyright: `Copyright © ${new Date().getFullYear()} Spotifly. Not affiliated with Spotify USA Inc. Built with Docusaurus.`,

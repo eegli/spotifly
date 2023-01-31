@@ -24,9 +24,9 @@ import { CliCodeBlock } from '@site/src/components/code-blocks/codeblock';
   commandMap={{
     token: 'token',
     type: ['light', 'full'],
-    outDir: '',
     since: '',
     last: '',
+    'out-dir': '',
     genres: false,
     features: false,
     compact: false,
@@ -45,7 +45,7 @@ import { CliCodeBlock } from '@site/src/components/code-blocks/codeblock';
 | `--since` `[string]`     | ❌ Only include tracks added after this date. The date string must be formatted according to the [ECMAScript Date Time String Format](https://tc39.es/ecma262/#sec-date-time-string-format), e.g.: "YYYY-MM-DD". Default: All tracks |
 | `--last [number]`        | ❌ Only include the last n (most recent) tracks. Default: All tracks                                                                                                                                                                 |
 | `--compact` `[boolean]`  | ❌ Output more compact/minified JSON and save disk space. Default: `false`                                                                                                                                                           |
-| `--outDir` `[string]`    | ❌ Custom relative output directory. Default: Current directory                                                                                                                                                                      |
+| `--out-dir` `[string]`   | ❌ Custom relative output directory. Default: Current directory                                                                                                                                                                      |
 
 Note that if both `--last` and `--since` are set, whatever condition is met first will exhaust the procedure.
 

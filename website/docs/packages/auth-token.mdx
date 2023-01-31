@@ -21,32 +21,32 @@ Create your custom command using the query builder below and paste it into your 
 import { CliCodeBlock } from '@site/src/components/code-blocks/codeblock';
 
 <CliCodeBlock
-  cli="spotifly auth-token"
+  cli="spotifly auth"
   npx="npx @spotifly/cli@latest auth-token"
   commandMap={{
-    clientId: '',
-    clientSecret: '',
+    'client-id': '',
+    'client-secret': '',
     port: '3000',
     scopes: ['user-read-email'],
-    fileName: 'spotify-token',
-    outDir: '',
-    noEmit: false,
+    'file-name': 'spotify-token',
+    'out-dir': '',
+    'no-emit': false,
   }}
   scopesKey="scopes"
-  required={['clientId', 'clientSecret']}
+  required={['client-id', 'client-secret']}
 />
 
 ### Options
 
-| Flag                          | _(required?)_ Description                                                                                    |
-| ----------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| `--clientId` `[string]`       | ✅ The client id of your Spotify application                                                                 |
-| `--clientSecret` `[string]`   | ✅ The client secret of your Spotify application                                                             |
-| `-s`, `--scopes` `[string]`   | ❌ Spotify authorization scopes. Multiple scopes need to be separated by a space. Default: "user-read-email" |
-| `-p`, `--port` `[number]`     | ❌ Port for the localhost redirect URL. Default: `3000`                                                      |
-| `-o`, `--outDir` `[string]`   | ❌ Custom relative output directory. Default: Current directory                                              |
-| `-f`, `--fileName` `[string]` | ❌ Custom name for the output JSON file. Default: "spotify-token"                                            |
-| `--noEmit` `[boolean]`        | ❌ When set to `true`, does not save the token to the file system. Default: `false`                          |
+| Flag                           | _(required?)_ Description                                                                                    |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------ |
+| `--client-id` `[string]`       | ✅ The client id of your Spotify application                                                                 |
+| `--client-secret` `[string]`   | ✅ The client secret of your Spotify application                                                             |
+| `-s`, `--scopes` `[string]`    | ❌ Spotify authorization scopes. Multiple scopes need to be separated by a space. Default: "user-read-email" |
+| `-p`, `--port` `[number]`      | ❌ Port for the localhost redirect URL. Default: `3000`                                                      |
+| `-o`, `--out-dir` `[string]`   | ❌ Custom relative output directory. Default: Current directory                                              |
+| `-f`, `--file-name` `[string]` | ❌ Custom name for the output JSON file. Default: "spotify-token"                                            |
+| `--no-emit` `[boolean]`        | ❌ When set to `true`, does not save the token to the file system. Default: `false`                          |
 
 ## Programmatic Usage
 

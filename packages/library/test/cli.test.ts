@@ -1,5 +1,4 @@
-import { callback } from '../src/cli';
-import { help } from '../src/config';
+import { callback, help } from '../src/cli';
 
 jest.mock('../src/handler', () => ({
   libraryHandler: jest.fn(),
@@ -25,8 +24,8 @@ describe('Library CLI', () => {
     ).resolves.not.toThrow();
   });
   test('help command', () => {
-    expect(help('CLI Usage')).toMatchInlineSnapshot(`
-      "CLI Usage
+    expect(help()).toMatchInlineSnapshot(`
+      "Command-line usage:
 
       Required flags
          --token [string]
@@ -42,17 +41,17 @@ describe('Library CLI', () => {
          --features [boolean]
          Include audio features for each track. Default: false
 
+         --compact [boolean]
+         Output more compact/minified JSON and save disk space. Default: false
+
+         --out-dir [string]
+         Custom relative output directory. Default: Current directory
+
          --since [string]
          Only include tracks added after this date. The date string must be formatted according to the ECMAScript Date Time String Format, e.g.: \\"YYYY-MM-DD\\". Default: All tracks
 
          --last [number]
-         Only include the last n (most recent) tracks. Default: All tracks
-
-         --compact [boolean]
-         Output more compact/minified JSON and save disk space. Default: false
-
-         --outDir [string]
-         Custom relative output directory. Default: Current directory"
+         Only include the last n (most recent) tracks. Default: All tracks"
     `);
   });
 });
