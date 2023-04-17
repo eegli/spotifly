@@ -18,7 +18,7 @@ const invoke = async (
   argv: string[],
   { callback, help, pkg }: Invoke
 ): Promise<unknown> => {
-  if (argv.length <= 3) {
+  if (argv.includes('--help') || argv.includes('-h') || argv.length <= 3) {
     console.info(`${colors.bold(colors.cyan(`${pkg.name} v${pkg.version}`))}
 
 ${help()}
