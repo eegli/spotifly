@@ -40,6 +40,7 @@ For docs & help, visit ${pkg.homepage}
   try {
     const credentials = credentialsFromConfig(spotiflyConfig, profile);
     const accessToken = await getAccessToken(credentials);
+    // Packages that requrie authentication will have a --token argument
     return callback([...argv, '--token', accessToken]);
   } catch (err) {
     console.error(err);
