@@ -28,6 +28,7 @@ function configLocaton(): ConfigLocation {
 
 export function readConfig(): string | null {
   const configLoc = configLocaton();
+
   if (configLoc === ConfigLocation.None) return null;
 
   // Fallback dir is home
