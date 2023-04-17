@@ -27,8 +27,11 @@ const configSpy = jest
   .spyOn(credentialUtils, 'readConfig')
   .mockReturnValue(null);
 
-const consoleSpy = jest
+const consoleInfoSpy = jest
   .spyOn(global.console, 'info')
+  .mockImplementation(jest.fn);
+const consoleErrorSpy = jest
+  .spyOn(global.console, 'error')
   .mockImplementation(jest.fn);
 
 beforeEach(() => {
@@ -47,8 +50,8 @@ describe('CLI', () => {
       process.argv = processArgs;
       await cli.run();
       expect(mockPkg.callback).not.toHaveBeenCalled();
-      expect(consoleSpy).toHaveBeenCalledTimes(1);
-      expect(consoleSpy.mock.calls[0][0]).toMatch(
+      expect(consoleInfoSpy).toHaveBeenCalledTimes(1);
+      expect(consoleInfoSpy.mock.calls[0][0]).toMatch(
         /(Spotifly|@spotifly\/cli) v\d.\d.\d/g
       );
     });
@@ -87,8 +90,8 @@ describe('CLI', () => {
       process.argv = processArgs;
       await cli.run();
       expect(mockPkg.callback).not.toHaveBeenCalled();
-      expect(consoleSpy).toHaveBeenCalledTimes(1);
-      expect(consoleSpy.mock.calls[0][0]).toMatch(
+      expect(consoleInfoSpy).toHaveBeenCalledTimes(1);
+      expect(consoleInfoSpy.mock.calls[0][0]).toMatch(
         /Unknown argument .*[\s\S]Run 'spotifly --help' for available commands/s
       );
     });
@@ -117,5 +120,15 @@ describe('CLI', () => {
       '--token',
       'token',
     ]);
+  });
+
+  test('With auto-token refresh and invalid profile', async () => {
+    process.argv = ['', '', 'library'];
+    configSpy.mockReturnValueOnce(`[test]
+      spt_client_id=a02b6c2ef3e7
+      spt_client_secret=4e11b25b6f
+      spt_refresh_token=AQChZXEeZs0r8wNdLaQmCxtORFIh5j4`);
+    await expect(cli.run()).resolves.toBeUndefined();
+    expect(consoleErrorSpy).toHaveBeenCalledTimes(1);
   });
 });
