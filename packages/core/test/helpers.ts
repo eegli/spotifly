@@ -1,4 +1,4 @@
-import { AxiosResponse } from 'axios';
+import { AxiosRequestHeaders, AxiosResponse } from 'axios';
 
 export const market = 'CH';
 export const country = 'UA';
@@ -30,5 +30,5 @@ export const fakeAxiosResponse = (data: unknown): AxiosResponse => ({
   status: 200,
   statusText: 'ok',
   headers: {},
-  config: {},
+  config: { headers: {} as AxiosRequestHeaders },
 });
