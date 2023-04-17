@@ -1,8 +1,13 @@
 import * as authCli from '@spotifly/auth-token/cli';
 import * as libraryCli from '@spotifly/library/cli';
-
 import { colors } from '@spotifly/utils';
 import ownPackage from '../package.json';
+import {
+  credentialsFromConfig,
+  getAccessToken,
+  profileFromArgv,
+  readConfig,
+} from './credentials';
 
 export type Invoke = {
   callback: (args: string[]) => unknown;
@@ -18,7 +23,7 @@ const invoke = async (
   argv: string[],
   { callback, help, pkg }: Invoke
 ): Promise<unknown> => {
-  if (argv.includes('--help') || argv.includes('-h') || argv.length <= 3) {
+  if (argv.includes('--help') || argv.includes('-h')) {
     console.info(`${colors.bold(colors.cyan(`${pkg.name} v${pkg.version}`))}
 
 ${help()}
@@ -27,11 +32,23 @@ For docs & help, visit ${pkg.homepage}
 `);
     return;
   }
-  return callback(argv);
+
+  const spotiflyConfig = readConfig();
+  if (!spotiflyConfig) return callback(argv);
+  const profile = profileFromArgv(argv);
+
+  try {
+    const credentials = credentialsFromConfig(spotiflyConfig, profile);
+    const accessToken = await getAccessToken(credentials);
+    return callback([...argv, '--token', accessToken]);
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 export const run = async (): Promise<unknown> => {
   const cmd = process.argv[2];
+  const args = process.argv.slice(3);
 
   switch (cmd) {
     case '--version':
@@ -57,13 +74,13 @@ Available commands: ${colors.green(`
 For docs & help, visit ${ownPackage.homepage}`);
       return;
     case 'auth':
-      return invoke(process.argv, {
+      return invoke(args, {
         callback: authCli.callback,
         help: authCli.help,
         pkg: authCli.pkg,
       });
     case 'library':
-      return invoke(process.argv, {
+      return invoke(args, {
         callback: libraryCli.callback,
         help: libraryCli.help,
         pkg: libraryCli.pkg,
