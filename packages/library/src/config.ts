@@ -26,7 +26,7 @@ export const { parse, help } = createParser(defaultConfig, {
       description:
         "Output type per track. Either 'full' or 'light'. Default: 'light'",
       customValidator: {
-        isValid(value) {
+        isValid(value): value is 'light' | 'full' {
           return value === 'light' || value === 'full';
         },
         errorMessage(value) {
@@ -44,7 +44,7 @@ export const { parse, help } = createParser(defaultConfig, {
       description:
         'Only include tracks added after this date. The date string must be formatted according to the ECMAScript Date Time String Format, e.g.: "YYYY-MM-DD". Default: All tracks',
       customValidator: {
-        isValid(value) {
+        isValid(value): value is string {
           if (typeof value !== 'string') return false;
           return !isNaN(new Date(value).getTime());
         },

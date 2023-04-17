@@ -29,29 +29,29 @@ describe('Library CLI', () => {
 
       Required flags
          --token [string]
-         A Spotify user access token. Requires at least the scope \\"user-library-read\\"
+         A Spotify user access token. Requires at least the scope "user-library-read"
 
       Optional flags
-         --type [string]
-         Output type per track. Either 'full' or 'light'. Default: 'light'
-
-         --genres [boolean]
-         Include artist genres for each track. Default: false
+         --compact [boolean]
+         Output more compact/minified JSON and save disk space. Default: false
 
          --features [boolean]
          Include audio features for each track. Default: false
 
-         --compact [boolean]
-         Output more compact/minified JSON and save disk space. Default: false
+         --genres [boolean]
+         Include artist genres for each track. Default: false
+
+         --last [number]
+         Only include the last n (most recent) tracks. Default: All tracks
 
          --out-dir [string]
          Custom relative output directory. Default: Current directory
 
          --since [string]
-         Only include tracks added after this date. The date string must be formatted according to the ECMAScript Date Time String Format, e.g.: \\"YYYY-MM-DD\\". Default: All tracks
+         Only include tracks added after this date. The date string must be formatted according to the ECMAScript Date Time String Format, e.g.: "YYYY-MM-DD". Default: All tracks
 
-         --last [number]
-         Only include the last n (most recent) tracks. Default: All tracks"
+         --type [string]
+         Output type per track. Either 'full' or 'light'. Default: 'light'"
     `);
   });
 });

@@ -6,11 +6,6 @@ const common = {
   snapshotFormat: {
     printBasicPrototype: false,
   },
-  globals: {
-    'ts-jest': {
-      isolatedModules: true,
-    },
-  },
 };
 
 /** @type {import('@jest/types').Config.InitialOptions} */
