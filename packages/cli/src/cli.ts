@@ -21,6 +21,7 @@ export type Invoke = {
 
 const invoke = async (
   argv: string[],
+  withAutoAuth: boolean,
   { callback, help, pkg }: Invoke
 ): Promise<unknown> => {
   if (argv.includes('--help') || argv.includes('-h')) {
@@ -33,10 +34,12 @@ For docs & help, visit ${pkg.homepage}
     return;
   }
 
+  if (!withAutoAuth) return callback(argv);
+
   const spotiflyConfig = readConfig();
   if (!spotiflyConfig) return callback(argv);
-  const profile = profileFromArgv(argv);
 
+  const profile = profileFromArgv(argv);
   try {
     const credentials = credentialsFromConfig(spotiflyConfig, profile);
     const accessToken = await getAccessToken(credentials);
@@ -68,20 +71,26 @@ export const run = async (): Promise<unknown> => {
       )}
 - ${ownPackage.description}
 
-Available commands: ${colors.green(`
-- auth
-- library
+Available subcommands: ${colors.green(`
+* auth
+* library
 `)}
+
+Optional flags:
+${colors.yellow('* --profile')} [string]
+  The profile in your Spotifly config file to use for authentication.
+  Defaults to 'default'.
+
 For docs & help, visit ${ownPackage.homepage}`);
       return;
     case 'auth':
-      return invoke(args, {
+      return invoke(args, false, {
         callback: authCli.callback,
         help: authCli.help,
         pkg: authCli.pkg,
       });
     case 'library':
-      return invoke(args, {
+      return invoke(args, true, {
         callback: libraryCli.callback,
         help: libraryCli.help,
         pkg: libraryCli.pkg,
