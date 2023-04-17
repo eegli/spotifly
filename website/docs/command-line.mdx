@@ -46,15 +46,21 @@ A `.spotifly` config file in the current directory takes precedence over configu
 
 :::
 
+### Using Profiles
+
 The INI format allows you to create multiple profiles. Each profile must have the three keys depicted above. A custom profile can be selected by passing the `--profile` flag to any subcommand. If no profile is specified, "default" is used. For example:
 
 ```bash
 spotifly [subcommand] --profile dev [...args]
 ```
 
-**Why does this require a configuration file? Why can't I just pass my long-term credentials as flags?**
+### Why would you use different profiles?
 
-It is a very bad idea to [read secrets from flags](https://clig.dev/#arguments-and-flags). Long story short is that your credentials will leak to other places like your shell history. Hence, only reading from a configuration file is supported.
+Remember: Spotify refresh tokens are _created for_ a spotify application and _bound to_ a user **and** access scope. Hence, you may have multiple profiles for a single spotify application, whereas the client id and secret are the same. The refresh tokens, however, may be different. You could have a profile for readonly access, another for read/write access, etc.
+
+### Why does this require a configuration file?
+
+_Why can't I just pass my long-term credentials as flags?_ It is a very bad idea to [read secrets from flags](https://clig.dev/#arguments-and-flags). Long story short is that your credentials will leak to other places like your shell history. Hence, only reading from a configuration file is supported.
 
 ## Usage with NPX / Yarn DLX
 
