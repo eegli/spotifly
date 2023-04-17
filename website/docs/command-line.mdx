@@ -6,7 +6,7 @@ sidebar_position: 3
 
 ## Installing the CLI
 
-Spotifly's wrapper CLI can be installed globally. It ships with the latest versions of all executables from this project. The CLI and all other packages require at least Node 14.
+Spotifly's wrapper CLI can be installed globally. It ships with the latest versions of all executables (as subcommands) from this project. The CLI and all other packages require at least Node 14.
 
 ```bash
 yarn global add @spotifly/cli@latest
@@ -19,8 +19,42 @@ npm install -g @spotifly/cli@latest
 Then:
 
 ```bash
-spotifly [package] [args...]
+spotifly [subcommand] [args...]
 ```
+
+## Configuration and Auto-Authentication
+
+Many CLI operations require an access token to talk to the Spotify API. If you don't want to manually generate one every time you use the CLI, you can _optionally_ create a `.spotifly` config file in your home directory:
+
+```ini
+[default]
+spt_client_id=a02b6c2ef3e7
+spt_client_secret=4e11b25b6f
+spt_refresh_token=AQChZXEeZs0r8wNdLaQmCxtORFIh5j4
+
+[dev]
+spt_client_id=a02b6c2ef3e7
+spt_client_secret=4e11b25b6f
+spt_refresh_token=AQChZXEeZs0r8wNdLaQmCxtORFIh5j4
+```
+
+The CLI automatically looks for this file, uses it to generate an access token and passes it to the subcommand.
+
+:::note
+
+A `.spotifly` config file in the current directory takes precedence over configuration in your home directory.
+
+:::
+
+The INI format allows you to create multiple profiles. Each profile must have the three keys depicted above. A custom profile can be selected by passing the `--profile` flag to any subcommand. If no profile is specified, "default" is used. For example:
+
+```bash
+spotifly [subcommand] --profile dev [...args]
+```
+
+**Why does this require a configuration file? Why can't I just pass my long-term credentials as flags?**
+
+It is a very bad idea to [read secrets from flags](https://clig.dev/#arguments-and-flags). Long story short is that your credentials will leak to other places like your shell history. Hence, only reading from a configuration file is supported.
 
 ## Usage with NPX / Yarn DLX
 
