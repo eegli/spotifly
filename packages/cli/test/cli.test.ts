@@ -97,7 +97,7 @@ describe('CLI', () => {
     });
   });
 
-  test('With auto-token refresh and default profile', async () => {
+  test('With refresh token and default profile', async () => {
     process.argv = ['', '', 'library'];
     configSpy.mockReturnValueOnce(`[default]
       spt_client_id=a02b6c2ef3e7
@@ -107,7 +107,7 @@ describe('CLI', () => {
     expect(mockPkg.callback).toHaveBeenCalledWith(['--token', 'token']);
   });
 
-  test('With auto-token refresh and custom profile', async () => {
+  test('With refresh token and custom profile', async () => {
     process.argv = ['', '', 'library', '--profile', 'test'];
     configSpy.mockReturnValueOnce(`[test]
       spt_client_id=a02b6c2ef3e7
@@ -122,13 +122,28 @@ describe('CLI', () => {
     ]);
   });
 
-  test('With auto-token refresh and invalid profile', async () => {
+  test('With refresh token and invalid credentials', async () => {
+    process.argv = ['', '', 'library'];
+    configSpy.mockReturnValueOnce(`[default]
+      spt_client_id=a02b6c2ef3e7
+      spt_client_secret=4e11b25b6f`);
+    await cli.run();
+    expect(consoleErrorSpy).toHaveBeenCalledTimes(1);
+    expect(consoleErrorSpy).toHaveBeenLastCalledWith(
+      expect.stringMatching(/Missing or invalid Spotify credentials/)
+    );
+  });
+
+  test('With refresh token and invalid profile', async () => {
     process.argv = ['', '', 'library'];
     configSpy.mockReturnValueOnce(`[test]
       spt_client_id=a02b6c2ef3e7
       spt_client_secret=4e11b25b6f
       spt_refresh_token=AQChZXEeZs0r8wNdLaQmCxtORFIh5j4`);
-    await expect(cli.run()).resolves.toBeUndefined();
+    await cli.run();
     expect(consoleErrorSpy).toHaveBeenCalledTimes(1);
+    expect(consoleErrorSpy).toHaveBeenLastCalledWith(
+      expect.stringMatching(/Profile "default" does not exist/)
+    );
   });
 });

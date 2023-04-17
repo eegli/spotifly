@@ -29,12 +29,12 @@ export function credentialsFromConfig(
 ): RefreshTokenConfig {
   const parsedConfig = ini.parse(config);
   if (!parsedConfig[profile]) {
-    throw new Error(`Profile "${profile}" not found in config`);
+    throw new Error(`Profile "${profile}" does not exist`);
   }
   const { spt_client_id, spt_client_secret, spt_refresh_token } =
     parsedConfig[profile];
   if (!spt_client_id || !spt_client_secret || !spt_refresh_token) {
-    throw new Error('Missing Spotify credentials');
+    throw new Error('Missing or invalid Spotify credentials');
   }
   return {
     clientId: spt_client_id,

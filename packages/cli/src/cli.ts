@@ -46,7 +46,7 @@ For docs & help, visit ${pkg.homepage}
     // Packages that requrie authentication will have a --token argument
     return callback([...argv, '--token', accessToken]);
   } catch (err) {
-    console.error(err);
+    console.error((err as Error).message);
   }
 };
 
