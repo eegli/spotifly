@@ -1,5 +1,11 @@
 # @spotifly/utils
 
+## 1.0.1
+
+### Patch Changes
+
+- 19ac71f: Upgrade dependencies
+
 ## 1.0.0
 
 ### Major Changes

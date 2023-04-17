@@ -1,5 +1,15 @@
 # @spotifly/cli
 
+## 2.0.1
+
+### Patch Changes
+
+- cd4910c: Fix `--help` / `h` commands not being recognized by CLI
+- Updated dependencies [19ac71f]
+  - @spotifly/auth-token@2.0.1
+  - @spotifly/library@2.0.1
+  - @spotifly/utils@1.0.1
+
 ## 2.0.0
 
 ### Major Changes
