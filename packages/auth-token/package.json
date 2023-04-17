@@ -29,13 +29,13 @@
     "cli"
   ],
   "dependencies": {
-    "@eegli/tinyparse": "^0.11.0",
+    "@eegli/tinyparse": "^0.14.0",
     "@spotifly/utils": "workspace:^",
-    "node-fetch": "2.6.7"
+    "node-fetch": "2"
   },
   "devDependencies": {
-    "@types/fs-extra": "^9.0.13",
-    "@types/node-fetch": "^2.6.2"
+    "@types/fs-extra": "^11.0.1",
+    "@types/node-fetch": "^2.6.3"
   },
   "engines": {
     "node": ">=14"
