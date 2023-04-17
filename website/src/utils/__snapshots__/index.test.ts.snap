@@ -2,7 +2,7 @@
 
 exports[`Utils, flagsFromObject All array values 1`] = `"npx --withBoolean --allNames a"`;
 
-exports[`Utils, flagsFromObject String containing spaces 1`] = `"npx --names \\"a b\\""`;
+exports[`Utils, flagsFromObject String containing spaces 1`] = `"npx --names "a b""`;
 
 exports[`Utils, flagsFromObject Trims whitespaces 1`] = `"npx --port 3000"`;
 

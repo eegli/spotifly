@@ -6,12 +6,6 @@ module.exports = {
   snapshotFormat: {
     printBasicPrototype: false,
   },
-  globals: {
-    'ts-jest': {
-      isolatedModules: true,
-    },
-  },
-
   displayName: {
     name: 'integration',
     color: 'magenta',

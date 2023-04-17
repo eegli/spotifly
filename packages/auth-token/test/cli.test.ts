@@ -13,8 +13,8 @@ describe('Library CLI', () => {
          The client secret of your Spotify application
 
       Optional flags
-         -p, --port [number]
-         Port for the localhost redirect URL. Default: 3000
+         -f, --file-name [string]
+         Custom name for the output JSON file. Default: "spotify-token"
 
          --no-emit [boolean]
          When set to true, does not save the token to the file system. Default: false
@@ -22,11 +22,11 @@ describe('Library CLI', () => {
          -o, --out-dir [string]
          Custom relative output directory. Default: Current directory
 
-         -f, --file-name [string]
-         Custom name for the output JSON file. Default: \\"spotify-token\\"
+         -p, --port [number]
+         Port for the localhost redirect URL. Default: 3000
 
          -s, --scopes [string]
-         Spotify authorization scopes. Multiple scopes need to be separated by a space. Default: \\"user-read-email\\""
+         Spotify authorization scopes. Multiple scopes need to be separated by a space. Default: "user-read-email""
     `);
   });
 });
