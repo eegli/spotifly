@@ -43,6 +43,8 @@ describe('CLI', () => {
   [
     ['', '', 'auth'],
     ['', '', 'library'],
+    ['', '', 'auth', '-h'],
+    ['', '', 'library', '--help'],
   ].forEach(processArgs => {
     test('Delegates command (help): ' + processArgs[2], async () => {
       process.argv = processArgs;
