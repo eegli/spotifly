@@ -4,12 +4,6 @@ import ini from 'ini';
 import os from 'os';
 import { join } from 'path';
 
-enum ConfigLocation {
-  Home,
-  Current,
-  None,
-}
-
 const configFileName = '.spotifly';
 
 export function profileFromArgv(argv: string[]): string {
@@ -18,26 +12,15 @@ export function profileFromArgv(argv: string[]): string {
   return argv[withProfile + 1];
 }
 
-function configLocaton(): ConfigLocation {
-  return existsSync(join(process.cwd(), configFileName))
-    ? ConfigLocation.Current
-    : existsSync(join(os.homedir(), configFileName))
-    ? ConfigLocation.Home
-    : ConfigLocation.None;
-}
-
 export function readConfig(): string | null {
-  const configLoc = configLocaton();
-
-  if (configLoc === ConfigLocation.None) return null;
+  const curDirConf = join(process.cwd(), configFileName);
+  if (existsSync(curDirConf)) return readFileSync(curDirConf, 'utf-8');
 
   // Fallback dir is home
-  let path = join(os.homedir(), configFileName);
-  // Current directory overrides
-  if (configLoc === ConfigLocation.Current) {
-    path = join(process.cwd(), configFileName);
-  }
-  return readFileSync(path, 'utf-8');
+  const homeDirConf = join(os.homedir(), configFileName);
+  if (existsSync(homeDirConf)) return readFileSync(homeDirConf, 'utf-8');
+
+  return null;
 }
 
 export function credentialsFromConfig(
