@@ -1,5 +1,14 @@
 # @spotifly/library
 
+## 2.0.1
+
+### Patch Changes
+
+- 19ac71f: Upgrade dependencies
+- Updated dependencies [19ac71f]
+  - @spotifly/utils@1.0.1
+  - @spotifly/core@1.2.3
+
 ## 2.0.0
 
 ### Major Changes

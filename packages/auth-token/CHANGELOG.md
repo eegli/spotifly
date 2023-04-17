@@ -1,5 +1,13 @@
 # @spotifly/auth-token
 
+## 2.0.1
+
+### Patch Changes
+
+- 19ac71f: Upgrade dependencies
+- Updated dependencies [19ac71f]
+  - @spotifly/utils@1.0.1
+
 ## 2.0.0
 
 ### Major Changes

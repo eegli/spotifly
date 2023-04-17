@@ -1,5 +1,11 @@
 # @spotifly/core
 
+## 1.2.3
+
+### Patch Changes
+
+- 19ac71f: Upgrade dependencies
+
 ## 1.2.2
 
 ### Patch Changes
