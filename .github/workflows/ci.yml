@@ -33,7 +33,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ['14', '16', '17', '18']
+        node: ['14', '16', '17', '19']
     steps:
       - uses: actions/checkout@v3
       - name: Setup Node
@@ -52,7 +52,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ['19']
+        node: ['18']
         # Keep in sync with Jest projects config
         proj: ['auth-token', 'cli', 'core', 'library', 'utils']
     steps:
@@ -80,7 +80,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ['19']
+        node: ['18']
     steps:
       - uses: actions/checkout@v3
       - name: Setup Node v${{ matrix.node }}
