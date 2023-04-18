@@ -1,4 +1,9 @@
-import { AuthProvider, RefreshTokenConfig } from '@spotifly/core/provider';
+import {
+  AuthProvider,
+  RefreshTokenConfig,
+  RequestError,
+} from '@spotifly/core/provider';
+import { colors } from '@spotifly/utils';
 import { existsSync, readFileSync } from 'fs';
 import ini from 'ini';
 import os from 'os';
@@ -44,5 +49,14 @@ export function credentialsFromConfig(
 }
 
 export async function getAccessToken(credentials: RefreshTokenConfig) {
-  return (await AuthProvider.getAccessToken(credentials)).access_token;
+  return AuthProvider.getAccessToken(credentials);
+}
+
+export function logError(error: unknown) {
+  if (error instanceof RequestError) {
+    console.error(colors.red(`Error: ${error.message}`));
+    console.error(error.response?.data);
+  } else if (error instanceof Error) {
+    console.error(colors.red(`Error: ${error.message}`));
+  }
 }

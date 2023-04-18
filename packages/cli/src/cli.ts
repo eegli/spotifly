@@ -5,6 +5,7 @@ import ownPackage from '../package.json';
 import {
   credentialsFromConfig,
   getAccessToken,
+  logError,
   profileFromArgv,
   readConfig,
 } from './credentials';
@@ -21,7 +22,7 @@ export type Invoke = {
 
 const invoke = async (
   argv: string[],
-  withAutoAuth: boolean,
+  tokenFlag: string | null,
   { callback, help, pkg }: Invoke
 ): Promise<unknown> => {
   if (argv.includes('--help') || argv.includes('-h')) {
@@ -34,7 +35,7 @@ For docs & help, visit ${pkg.homepage}
     return;
   }
 
-  if (!withAutoAuth) return callback(argv);
+  if (!tokenFlag) return callback(argv);
 
   const spotiflyConfig = readConfig();
   if (!spotiflyConfig) return callback(argv);
@@ -42,11 +43,11 @@ For docs & help, visit ${pkg.homepage}
   const profile = profileFromArgv(argv);
   try {
     const credentials = credentialsFromConfig(spotiflyConfig, profile);
-    const accessToken = await getAccessToken(credentials);
-    // Packages that requrie authentication will have a --token argument
-    return callback([...argv, '--token', accessToken]);
+    const { access_token } = await getAccessToken(credentials);
+
+    return callback([...argv, tokenFlag, access_token]);
   } catch (err) {
-    console.error((err as Error).message);
+    logError(err);
   }
 };
 
@@ -84,13 +85,14 @@ ${colors.yellow('* --profile')} [string]
 For docs & help, visit ${ownPackage.homepage}`);
       return;
     case 'auth':
-      return invoke(args, false, {
+      return invoke(args, null, {
         callback: authCli.callback,
         help: authCli.help,
         pkg: authCli.pkg,
       });
     case 'library':
-      return invoke(args, true, {
+      // Library expects the token as a flag
+      return invoke(args, '--token', {
         callback: libraryCli.callback,
         help: libraryCli.help,
         pkg: libraryCli.pkg,

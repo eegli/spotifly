@@ -1,6 +1,8 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { AsyncProvider } from './types';
 
+export { AxiosError as RequestError } from 'axios';
+
 export type AccessTokenConfig = {
   accessToken: string;
 };
