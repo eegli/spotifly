@@ -36,7 +36,6 @@ export function initialize(authOptions: AuthProviderOptions) {
 
 export type SpotifyClient = ReturnType<typeof initialize>;
 export type { DataCallback, DataPromise, DataResponse } from './types';
-export type { AuthProviderOptions };
 export { isError };
 
 export default {

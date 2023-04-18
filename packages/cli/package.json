@@ -32,13 +32,18 @@
   ],
   "dependencies": {
     "@spotifly/auth-token": "workspace:^",
+    "@spotifly/core": "workspace:^",
     "@spotifly/library": "workspace:^",
-    "@spotifly/utils": "workspace:^"
+    "@spotifly/utils": "workspace:^",
+    "ini": "^4.1.0"
   },
   "engines": {
     "node": ">=14"
   },
   "publishConfig": {
     "directory": "_release/package"
+  },
+  "devDependencies": {
+    "@types/ini": "^1.3.31"
   }
 }

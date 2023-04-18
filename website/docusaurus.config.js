@@ -68,6 +68,7 @@ const config = {
         copyright: `Copyright © ${new Date().getFullYear()} Spotifly. Not affiliated with Spotify USA Inc. Built with Docusaurus.`,
       },
       prism: {
+        additionalLanguages: ['ini'],
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
       },

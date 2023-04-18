@@ -1,11 +1,13 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { AsyncProvider } from './types';
 
-type AccessTokenConfig = {
+export { AxiosError as RequestError } from 'axios';
+
+export type AccessTokenConfig = {
   accessToken: string;
 };
 
-type RefreshTokenConfig = {
+export type RefreshTokenConfig = {
   refreshToken: string;
   clientId: string;
   clientSecret: string;
@@ -65,11 +67,11 @@ export class AuthProvider implements AsyncProvider {
   }
 
   private async refreshAccessToken() {
-    const { access_token } = await AuthProvider.getAccessToken(
-      this.auth.clientId,
-      this.auth.clientSecret,
-      this.auth.refreshToken
-    );
+    const { access_token } = await AuthProvider.getAccessToken({
+      clientId: this.auth.clientId,
+      clientSecret: this.auth.clientSecret,
+      refreshToken: this.auth.refreshToken,
+    });
 
     // Access tokens expire after 1 hour.
     this.auth.accessToken = access_token;
@@ -82,11 +84,11 @@ export class AuthProvider implements AsyncProvider {
     );
   }
 
-  public static getAccessToken(
-    clientId: string,
-    clientSecret: string,
-    refreshToken: string
-  ) {
+  public static getAccessToken({
+    clientId,
+    clientSecret,
+    refreshToken,
+  }: RefreshTokenConfig) {
     return axios
       .post<{
         access_token: string;
