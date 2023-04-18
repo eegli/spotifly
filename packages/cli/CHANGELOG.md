@@ -1,5 +1,17 @@
 # @spotifly/cli
 
+## 2.1.0
+
+### Minor Changes
+
+- a2a3cbf: Read from a (global) config to enable auto-authentication. [Docs](https://spotifly.nougat.dev/docs/command-line#configuration-and-auto-authentication).
+
+### Patch Changes
+
+- Updated dependencies [a2a3cbf]
+  - @spotifly/core@1.2.4
+  - @spotifly/library@2.0.2
+
 ## 2.0.1
 
 ### Patch Changes
