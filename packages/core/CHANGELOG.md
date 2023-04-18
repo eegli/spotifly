@@ -1,5 +1,11 @@
 # @spotifly/core
 
+## 1.2.4
+
+### Patch Changes
+
+- a2a3cbf: Refine exports related to `AuthProvider`. The class and its types are now available under `@spotifly/core/provider`.
+
 ## 1.2.3
 
 ### Patch Changes
