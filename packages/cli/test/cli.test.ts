@@ -17,7 +17,7 @@ jest.mock('@spotifly/library/cli', () => mockPkg);
 import * as cli from '../src/cli';
 
 jest.spyOn(AuthProvider, 'getAccessToken').mockResolvedValue({
-  access_token: 'token',
+  access_token: 'spt_token',
   expires_in: 3600,
   scope: '',
   token_type: 'Bearer',
@@ -97,6 +97,13 @@ describe('CLI', () => {
     });
   });
 
+  test('Skips adding refresh token if token arg is present', async () => {
+    process.argv = ['', '', 'library', '--token', 'x'];
+    await cli.run();
+    expect(configSpy).not.toHaveBeenCalled();
+    expect(mockPkg.callback).toHaveBeenCalledWith(['--token', 'x']);
+  });
+
   test('With refresh token and default profile', async () => {
     process.argv = ['', '', 'library'];
     configSpy.mockReturnValueOnce(`[default]
@@ -104,7 +111,7 @@ describe('CLI', () => {
       spt_client_secret=4e11b25b6f
       spt_refresh_token=AQChZXEeZs0r8wNdLaQmCxtORFIh5j4`);
     await cli.run();
-    expect(mockPkg.callback).toHaveBeenCalledWith(['--token', 'token']);
+    expect(mockPkg.callback).toHaveBeenCalledWith(['--token', 'spt_token']);
   });
 
   test('With refresh token and custom profile', async () => {
@@ -118,7 +125,7 @@ describe('CLI', () => {
       '--profile',
       'test',
       '--token',
-      'token',
+      'spt_token',
     ]);
   });
 
