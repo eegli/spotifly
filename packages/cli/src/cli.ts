@@ -35,7 +35,7 @@ For docs & help, visit ${pkg.homepage}
     return;
   }
 
-  if (!tokenFlag) return callback(argv);
+  if (!tokenFlag || argv.includes(tokenFlag)) return callback(argv);
 
   const spotiflyConfig = readConfig();
   if (!spotiflyConfig) return callback(argv);
