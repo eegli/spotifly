@@ -4,7 +4,7 @@
 
 ### Patch Changes
 
-- f71324f: Fix: When an access token is passed as flags, the long-term credentials in the config file are ignored and are not used to override the passed token.
+- f71324f: Fix: When an access token is passed as a flag, the long-term credentials in the config file are ignored and not used to override the passed token.
 
 ## 2.1.0
 
