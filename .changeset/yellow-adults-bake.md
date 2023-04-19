@@ -2,4 +2,4 @@
 '@spotifly/cli': patch
 ---
 
-Fix: Allow overrides of generated access token by the access token flag
+Fix: When an access token is passed as flags, the long-term credentials in the config file are ignored and are not used to override the passed token.
