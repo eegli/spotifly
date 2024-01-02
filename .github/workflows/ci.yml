@@ -25,7 +25,7 @@ jobs:
       - name: Lint
         run: yarn lint
       - name: Build packages
-        run: yarn build
+        run: yarn build:release
 
   tests:
     name: Tests / Node ${{ matrix.node }}
