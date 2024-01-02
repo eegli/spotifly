@@ -1,5 +1,11 @@
 # @spotifly/core
 
+## 2.0.0
+
+### Major Changes
+
+- 6526e1e: The minimum node version has been bumped from 14 to 18.
+
 ## 1.2.4
 
 ### Patch Changes
@@ -32,7 +38,7 @@
 - 7b4ce4c: All named exports are now also available as properties of the default export. The following two examples are equivalent.
 
   ```ts
-  import { initialize, isError } from '@spotifly/core';
+  import { initialize, isError } from "@spotifly/core";
   ```
 
   ```ts
