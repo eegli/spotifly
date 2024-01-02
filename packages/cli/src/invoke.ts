@@ -31,6 +31,7 @@ export const invokePackage = async (
   if (!spotiflyConfig) return callback(argv);
 
   const profile = profileFromArgv(argv);
+  console.info(`Using profile "${profile}"`);
   try {
     const credentials = credentialsFromConfig(spotiflyConfig, profile);
     const { access_token } = await getAccessToken(credentials);

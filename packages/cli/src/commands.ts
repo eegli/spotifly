@@ -43,13 +43,16 @@ const subCommands = `Available subcommands: ${c.green(`
 * auth 
 * library
 * profiles
-`)}`;
-const optionalFlags = `Optional global flags:
+`)}
+Optional global flags:
 ${c.yellow('* --profile')} [string]
 The profile in your Spotifly config file to use for authentication.
 Defaults to 'default'.
 
-In order to see a list of available profiles, run ${c.green(
+- In order to get help for a specific subcommand, run ${c.green(
+  'spotifly <subcommand> --help',
+)}
+- In order to see a list of available profiles, run ${c.green(
   'spotifly profiles',
 )}`;
 
@@ -74,8 +77,6 @@ export default {
       `- ${pkg.description}` +
       lblb +
       subCommands +
-      lb +
-      optionalFlags +
       lblb +
       helpFooter(pkg.homepage)
     );
