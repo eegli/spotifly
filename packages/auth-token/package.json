@@ -38,7 +38,7 @@
     "@types/node-fetch": "^2.6.10"
   },
   "engines": {
-    "node": ">=14"
+    "node": ">=18"
   },
   "publishConfig": {
     "directory": "_release/package"
