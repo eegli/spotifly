@@ -1,5 +1,23 @@
 # @spotifly/cli
 
+## 3.0.0
+
+### Major Changes
+
+- cd73d25: The minimum node version has been bumped from 14 to 18.
+
+### Minor Changes
+
+- cd73d25: The core CLI now supports the `profiles` command to list available Spotifly profiles.
+
+### Patch Changes
+
+- Updated dependencies [cd73d25]
+  - @spotifly/auth-token@3.0.0
+  - @spotifly/library@3.0.0
+  - @spotifly/utils@2.0.0
+  - @spotifly/core@2.0.0
+
 ## 2.1.1
 
 ### Patch Changes
