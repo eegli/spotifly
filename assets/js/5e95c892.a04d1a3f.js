@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_spotifly_website=self.webpackChunk_spotifly_website||[]).push([[661],{2108:(e,s,r)=>{r.r(s),r.d(s,{default:()=>n});r(7378);var t=r(624),u=r(8831),a=r(5484),c=r(5473),i=r(5576),l=r(4246);function n(e){return(0,l.jsx)(u.FG,{className:(0,t.Z)(a.k.wrapper.docsPages),children:(0,l.jsx)(i.Z,{children:(0,c.H)(e.route.routes)})})}}}]);
