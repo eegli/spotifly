@@ -20,11 +20,11 @@ export type Invoke = {
 const invoke = async (
   argv: string[],
   tokenFlag: string | null,
-  { callback, help, packageName, packageVersion, packageHomepage }: Invoke
+  { callback, help, packageName, packageVersion, packageHomepage }: Invoke,
 ): Promise<unknown> => {
   if (argv.includes('--help') || argv.includes('-h')) {
     console.info(`${colors.bold(
-      colors.cyan(`${packageName} v${packageVersion}`)
+      colors.cyan(`${packageName} v${packageVersion}`),
     )}
 
 ${help()}
@@ -68,15 +68,15 @@ export const run = async (): Promise<unknown> => {
     case '-v':
       console.info(
         `${colors.bold(
-          colors.cyan(`${ownPackage.name} v${ownPackage.version}`)
-        )}`
+          colors.cyan(`${ownPackage.name} v${ownPackage.version}`),
+        )}`,
       );
       return;
     case '--help':
     case '-h':
     case undefined:
       console.info(`${colors.bold(
-        colors.cyan(`${ownPackage.name} v${ownPackage.version}`)
+        colors.cyan(`${ownPackage.name} v${ownPackage.version}`),
       )}
 - ${ownPackage.description}
 
@@ -112,8 +112,8 @@ For docs & help, visit ${ownPackage.homepage}`);
     default:
       console.info(
         colors.yellow(
-          `Unknown argument '${cmd}'.\nRun 'spotifly --help' for available commands`
-        )
+          `Unknown argument '${cmd}'.\nRun 'spotifly --help' for available commands`,
+        ),
       );
   }
 };

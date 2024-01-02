@@ -51,8 +51,8 @@ export const AuthTokenForm = () => {
     const payload = e.target.value.includes(ALL_SCOPES)
       ? authScopes
       : e.target.value.includes(NO_SCOPES)
-      ? []
-      : e.target.value;
+        ? []
+        : e.target.value;
 
     dispatch({ type: 'setScopes', payload });
   };
@@ -66,7 +66,7 @@ export const AuthTokenForm = () => {
   };
 
   const handleAuthTypeChange = (
-    e: SelectChangeEvent<typeof state.authType>
+    e: SelectChangeEvent<typeof state.authType>,
   ) => {
     const payload = e.target.value as AuthType;
     dispatch({ type: 'setAuthType', payload });
@@ -82,7 +82,7 @@ export const AuthTokenForm = () => {
     const popup = window.open(
       spotifyUrl,
       'Login with Spotify',
-      'width=500,height=800'
+      'width=500,height=800',
     );
 
     window.spotifyCallback = async params => {

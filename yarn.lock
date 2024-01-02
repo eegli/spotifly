@@ -4267,7 +4267,7 @@ __metadata:
     "@spotifly/core": "workspace:^"
     "@spotifly/library": "workspace:^"
     "@spotifly/utils": "workspace:^"
-    "@types/ini": "npm:^1.3.31"
+    "@types/ini": "npm:^4.1.0"
     ini: "npm:^4.1.1"
   bin:
     spotifly: bin.js
@@ -4805,10 +4805,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/ini@npm:^1.3.31":
-  version: 1.3.31
-  resolution: "@types/ini@npm:1.3.31"
-  checksum: aca4fed0cd68f6693fd64e1b7d188a9c8c6f5823b2e3501b0570135555d4184d7d0dfba2c1afb3514c94cb21ece732f4467ea98c827d1b1b98716827ac9de680
+"@types/ini@npm:^4.1.0":
+  version: 4.1.0
+  resolution: "@types/ini@npm:4.1.0"
+  checksum: 43dc756f60a4b2e828371baa0c5db006f3d31a2d58877f88ff15a58815aa804a612eea35adfc2c0e99ba09632b7a96bdf4a55ccaf5f164598f9ee314ad1171a1
   languageName: node
   linkType: hard
 
@@ -13443,10 +13443,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimist@npm:minimist-lite@2.2.0":
-  version: 2.2.0
-  resolution: "minimist-lite@npm:2.2.0"
-  checksum: ee663338feef37f5398491c9dd436cc4ca870e99b4722f8a359aa8ed1090e8955482d51c3bdbe3887d0d82d28050df77a301d3a05ba1808e88d10f732e4a119f
+"minimist@npm:^1.2.0":
+  version: 1.2.8
+  resolution: "minimist@npm:1.2.8"
+  checksum: 908491b6cc15a6c440ba5b22780a0ba89b9810e1aea684e253e43c4e3b8d56ec1dcdd7ea96dde119c29df59c936cde16062159eae4225c691e19c70b432b6e6f
   languageName: node
   linkType: hard
 

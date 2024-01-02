@@ -42,7 +42,7 @@ describe('Core readme', () => {
     await spotifyClient.Search.search({ query: 'eminem', type: 'album' }).then(
       res => {
         console.log(res.data.albums?.items[0]?.name); // 'The Eminem Show'
-      }
+      },
     );
   });
   test('convenience methods 1', async () => {
@@ -50,7 +50,7 @@ describe('Core readme', () => {
       async response => {
         // DataResponse<SpotifyApi.UsersSavedTracksResponse>
         console.log(`fetched ${response.data.items.length} items!`);
-      }
+      },
     ).then(allResponses => {
       return allResponses.map(({ data }) => data.items).flat();
     });

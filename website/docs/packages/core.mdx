@@ -68,7 +68,7 @@ await spotifyClient.Tracks.getAllUsersSavedTracks()()
 await spotifyClient.Search.search({ query: 'eminem', type: 'album' }).then(
   res => {
     console.log(res.data.albums?.items[0]?.name); // 'The Eminem Show'
-  }
+  },
 );
 ```
 
@@ -417,7 +417,7 @@ const allTracks = await spotifyClient.Tracks.getAllUsersSavedTracks()(
   async response => {
     // DataResponse<SpotifyApi.UsersSavedTracksResponse>
     console.log(`fetched ${response.data.items.length} items!`);
-  }
+  },
 ).then(allResponses => {
   return allResponses.map(({ data }) => data.items).flat();
 });
