@@ -21,17 +21,18 @@ import { CliCodeBlock } from '@site/src/components/code-blocks/codeblock';
 <CliCodeBlock
   cli="spotifly library"
   npx="npx @spotifly/cli@latest library"
-  commandMap={{
-    token: 'token',
+  accessToken={''}
+  args={{
     type: ['light', 'full'],
     since: '',
     last: '',
     'out-dir': '',
+  }}
+  flags={{
     genres: false,
     features: false,
     compact: false,
   }}
-  required={['token']}
 />
 
 ### Options

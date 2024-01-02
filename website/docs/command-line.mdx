@@ -6,7 +6,7 @@ sidebar_position: 3
 
 ## Installing the CLI
 
-Spotifly's wrapper CLI can be installed globally. It ships with the latest versions of all executables (as subcommands) from this project. The CLI and all other packages require at least Node 14.
+Spotifly's wrapper CLI can be installed globally. It ships with the latest versions of all executables (as subcommands) from this project. The CLI and all other packages require at least Node 18.
 
 ```bash
 yarn global add @spotifly/cli@latest
@@ -24,7 +24,7 @@ spotifly [subcommand] [args...]
 
 ## Configuration and Auto-Authentication
 
-Many CLI operations require an access token to talk to the Spotify API. If you don't want to manually generate one every time you use the CLI, you can _optionally_ create a `.spotifly` config file in your home directory:
+Many CLI operations require an access token to talk to the Spotify API - usually in the form of a `--token` command line argument. If you don't want to manually generate one every time you use the CLI, you can _optionally_ create a `.spotifly` config file in your home directory:
 
 ```ini
 [default]
@@ -48,10 +48,18 @@ A `.spotifly` config file in the current directory takes precedence over configu
 
 ### Using Profiles
 
-The INI format allows you to create multiple profiles. Each profile must have the three keys depicted above. A custom profile can be selected by passing the `--profile` flag to any subcommand. If no profile is specified, "default" is used. For example:
+The INI format allows you to create multiple profiles. Each profile must have the three keys depicted above. A custom profile can be selected by passing the global `--profile` flag to **any subcommand that needs an access token** (and of course omit the token flag because this happens automatically). If no profile is specified, "default" is used. Hence, you'll need to add at least a profile named "default" if you want to use an access configuration file. For example:
 
 ```bash
 spotifly [subcommand] --profile dev [...args]
+```
+
+### Listing Profiles
+
+You can list all available profiles using:
+
+```bash
+spotifly profiles
 ```
 
 ### Why would you use different profiles?

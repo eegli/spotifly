@@ -15,5 +15,4 @@ export const help = () =>
 const pkg = require('../package.json');
 
 export const packageName = pkg.name;
-export const packageHomepage = pkg.homepage;
 export const packageVersion = pkg.version;

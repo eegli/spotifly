@@ -17,15 +17,22 @@ export function profileFromArgv(argv: string[]): string {
   return argv[withProfile + 1];
 }
 
-export function readConfig(): string | null {
-  const curDirConf = join(process.cwd(), configFileName);
-  if (existsSync(curDirConf)) return readFileSync(curDirConf, 'utf-8');
-
-  // Fallback dir is home
-  const homeDirConf = join(os.homedir(), configFileName);
-  if (existsSync(homeDirConf)) return readFileSync(homeDirConf, 'utf-8');
-
+export function readConfigWithPath(): [string, string] | null {
+  let configPath = join(process.cwd(), configFileName);
+  if (!existsSync(configPath)) {
+    configPath = join(os.homedir(), configFileName);
+  }
+  if (existsSync(configPath)) {
+    const parsed = readFileSync(configPath, 'utf-8');
+    return [parsed, configPath];
+  }
   return null;
+}
+
+export function readConfig() {
+  const configAndPath = readConfigWithPath();
+  if (!configAndPath) return null;
+  return configAndPath[0];
 }
 
 export function credentialsFromConfig(

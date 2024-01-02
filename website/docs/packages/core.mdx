@@ -27,7 +27,7 @@ Although the core library is very lightweight, it may be overkill if you're only
 
 ### Installation
 
-Node.js &ge; 14 is required. Installing the types for the Web API is highly recommended!
+Node.js &ge; 18 is required. Installing the types for the Web API is highly recommended!
 
 ```bash npm2yarn
 npm install @spotifly/core @types/spotify-api
@@ -392,7 +392,9 @@ try {
 
 Methods that contain `all` in their name are convenience methods for (offset-based) paginated and limited endpoints. Limited endpoints expect a maximum amount of items when queried.
 
-Examples are `Tracks.getUsersSavedTracks` (paginated) and `Tracks.getSeveralTracks` (limited). The Spotify Web API returns at most 50 items when asked for a user's saved tracks and allows no more than 50 track ids when querying for track catalog information.
+Examples are `Tracks.getAllUsersSavedTracks` (paginated) and `Tracks.getAllTracks` (limited). The Spotify Web API returns at most 50 items when asked for a user's saved tracks and allows no more than 50 track ids when querying for track catalog information.
+
+You can equivalently call the corresponding non-convenience methods `Tracks.getUsersSavedTracks` and `Tracks.getSeveralTracks` with the same arguments. However, you would have to manually handle pagination and chunking of ids. Convenience methods take care of this for you.
 
 ### Usage
 

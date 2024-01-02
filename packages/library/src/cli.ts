@@ -10,9 +10,9 @@ export const help = () =>
   defaultHelp({
     title: 'Command-line usage:',
   });
+
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const pkg = require('../package.json');
 
 export const packageName = pkg.name;
-export const packageHomepage = pkg.homepage;
 export const packageVersion = pkg.version;

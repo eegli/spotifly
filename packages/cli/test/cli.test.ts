@@ -1,11 +1,10 @@
 import { AuthProvider } from '@spotifly/core/provider';
 import * as credentialUtils from '../src/credentials';
 
-const mockPkg: cli.Invoke = {
+const mockPkg: InvokePackageArgs = {
   callback: jest.fn(),
   help: jest.fn(),
   packageName: 'test',
-  packageHomepage: 'https://test.com',
   packageVersion: '1.0.0',
 };
 
@@ -13,6 +12,7 @@ jest.mock('@spotifly/auth-token/cli', () => mockPkg);
 jest.mock('@spotifly/library/cli', () => mockPkg);
 
 import * as cli from '../src/cli';
+import { InvokePackageArgs } from '../src/invoke';
 
 jest.spyOn(AuthProvider, 'getAccessToken').mockResolvedValue({
   access_token: 'spt_token',
@@ -23,6 +23,10 @@ jest.spyOn(AuthProvider, 'getAccessToken').mockResolvedValue({
 
 const configSpy = jest
   .spyOn(credentialUtils, 'readConfig')
+  .mockReturnValue(null);
+
+const configWithPathSpy = jest
+  .spyOn(credentialUtils, 'readConfigWithPath')
   .mockReturnValue(null);
 
 const consoleInfoSpy = jest
@@ -52,6 +56,22 @@ describe('CLI', () => {
       expect(consoleInfoSpy.mock.calls[0][0]).toMatch(
         /(Spotifly|@spotifly\/cli) v\d.\d.\d/g,
       );
+    });
+  });
+
+  [['', '', 'profiles']].forEach(processArgs => {
+    test('Meta commands: ' + processArgs[2], async () => {
+      process.argv = processArgs;
+      await cli.run();
+      expect(mockPkg.callback).not.toHaveBeenCalled();
+      expect(configWithPathSpy).toHaveBeenCalled();
+      expect(consoleInfoSpy.mock.calls[0][0]).toMatchInlineSnapshot(
+        `"No profiles found, does your config file exist?"`,
+      );
+      consoleInfoSpy.mockClear();
+      configWithPathSpy.mockReturnValueOnce(['[default]', 'path']);
+      await cli.run();
+      expect(consoleInfoSpy.mock.calls[0][0]).toMatch(/Available profiles/);
     });
   });
 

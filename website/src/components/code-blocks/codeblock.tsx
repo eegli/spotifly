@@ -5,12 +5,12 @@ import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import OutlinedInput from '@mui/material/OutlinedInput';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import React from 'react';
 import { MuiThemeWrapper } from '../../theme/mui-theme-wrapper';
 import {
+  AllowedStringTypes,
   AllowedTypes,
   authScopes,
   flagsFromObject,
@@ -21,27 +21,104 @@ import { Formatter } from './formatter';
 type CliCodeBlockProps = {
   cli: string;
   npx: string;
-  commandMap: Record<string, AllowedTypes>;
-  required: string[];
+  args: Record<string, AllowedStringTypes>;
+  flags?: Record<string, boolean>;
+  required?: string[];
   scopesKey?: string;
+  allowProfileInsteadOfToken?: boolean;
+  accessToken?: string;
 };
+
+type AuthMethod = 'token' | 'profile';
+const authMethods: AuthMethod[] = ['token', 'profile'];
+const authMethodField = 'auth method';
+const authMethodInputField = 'auth input';
 
 export const CliCodeBlock = ({
   cli,
   npx,
-  commandMap,
-  required,
+  args,
+  flags,
+  required = [],
   scopesKey,
+  accessToken,
 }: CliCodeBlockProps) => {
   const [inputFields, setInputFields] = React.useState<
     Record<string, AllowedTypes>
-  >({});
+  >({ ...args, ...flags });
+
+  const [authMethod, setAuthMethod] = React.useState<AuthMethod>('token');
+  const [authMethodInput, setAuthMethodInput] = React.useState<string>('');
+
+  // The access token may be passed as an empty string
+  const needsAuthentication = accessToken != undefined;
 
   const isRequired = (key: string) => required.includes(key);
 
-  const merged = { ...commandMap, ...inputFields };
+  const displayCommands = {
+    ...inputFields,
+    [authMethod]: authMethodInput,
+  };
+
   return (
     <MuiThemeWrapper>
+      {needsAuthentication ? (
+        <>
+          <Box
+            component="form"
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              gap: '15px 10px',
+              '& > *': { width: '25ch' },
+              mb: 2,
+            }}
+          >
+            <TextField
+              sx={{ width: '25ch' }}
+              variant="outlined"
+              value={authMethod}
+              label={authMethodField}
+              select
+              required
+              key={authMethodField}
+              onChange={v => {
+                setAuthMethod(v.target.value as AuthMethod);
+                // Reset the auth input
+                setAuthMethodInput('');
+              }}
+            >
+              {authMethods.map(v => (
+                <MenuItem key={v} value={v}>
+                  {v}
+                </MenuItem>
+              ))}
+            </TextField>
+            <TextField
+              key={authMethodInputField}
+              type="text"
+              required
+              label={authMethod}
+              value={authMethodInput}
+              onChange={event => setAuthMethodInput(event.target.value)}
+              variant="outlined"
+            />
+          </Box>
+          <p>
+            Using this command requires authentication. If you have Spotifly
+            configuration file, you can specify a profile to use instead of an
+            access token. If you specify a profile, an access token will be used
+            automatically for you. See{' '}
+            <a href="/docs/command-line#configuration-and-auto-authentication">
+              the docs about access configuration
+            </a>
+            .
+          </p>
+          <hr />
+        </>
+      ) : null}
+
       <Box
         component="form"
         sx={{
@@ -53,7 +130,7 @@ export const CliCodeBlock = ({
           mb: 2,
         }}
       >
-        {Object.entries(merged).map(([key, value]) => {
+        {Object.entries(inputFields).map(([key, value]) => {
           if (typeof value === 'boolean') {
             return (
               <Box display="flex" justifyContent="center" key={key}>
@@ -76,13 +153,15 @@ export const CliCodeBlock = ({
               </Box>
             );
           }
-
+          /* Special render for the auth scopes */
           if (key === scopesKey) {
             return (
               <FormControl key={key} required={isRequired(key)}>
-                <InputLabel>{key}</InputLabel>
+                <InputLabel htmlFor={key}>{key}</InputLabel>
                 <Select
                   multiple
+                  labelId={key}
+                  label={key}
                   value={value}
                   onChange={event =>
                     setInputFields({
@@ -90,7 +169,6 @@ export const CliCodeBlock = ({
                       [key]: event.target.value,
                     })
                   }
-                  input={<OutlinedInput label="scope" />}
                 >
                   {authScopes.map(scope => (
                     <MenuItem key={scope} value={scope}>
@@ -130,7 +208,6 @@ export const CliCodeBlock = ({
           return (
             <TextField
               key={key}
-              id={key}
               type="text"
               required={isRequired(key)}
               label={key}
@@ -156,7 +233,7 @@ export const CliCodeBlock = ({
           <Formatter>
             {flagsFromObject({
               base,
-              obj: merged,
+              obj: displayCommands,
               multiValueKeys: [scopesKey],
             })}
           </Formatter>

@@ -1,4 +1,6 @@
-export type AllowedTypes = string | string[] | boolean;
+export type AllowedStringTypes = string | string[];
+export type AllowedBooleanTypes = boolean;
+export type AllowedTypes = AllowedStringTypes | AllowedBooleanTypes;
 
 export type FlagObjectParam = {
   base: string;
