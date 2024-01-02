@@ -29,7 +29,7 @@ export const MuiThemeWrapper = ({ children }: { children: ReactNode }) => {
 
   const theme = useMemo(
     () => (colorMode === 'light' ? lightMode : darkMode),
-    [colorMode]
+    [colorMode],
   );
 
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>;

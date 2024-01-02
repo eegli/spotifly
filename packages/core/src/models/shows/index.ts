@@ -33,7 +33,7 @@ export default function Shows(provider: AsyncProvider) {
      */
     getAllShows: factory.handleLimited(
       getSeveralShows(provider),
-      SEVERAL_SHOWS_LIMIT
+      SEVERAL_SHOWS_LIMIT,
     ),
     /**
      * Get Spotify catalog information about an show’s episodes. Optional parameters can be used to limit the number of episodes returned.
@@ -48,7 +48,7 @@ export default function Shows(provider: AsyncProvider) {
      */
     getAllShowEpisodes: factory.resolveOffsetPaginated(
       getShowEpisodes(provider),
-      SHOW_EPISODES_LIMIT
+      SHOW_EPISODES_LIMIT,
     ),
     /**
      * Get a list of shows saved in the current Spotify user's library. Optional parameters can be used to limit the number of shows returned.
@@ -77,7 +77,7 @@ export default function Shows(provider: AsyncProvider) {
      */
     saveAllShowsForUser: factory.handleLimited(
       saveShowsForUser(provider),
-      USER_SHOW_LIMIT
+      USER_SHOW_LIMIT,
     ),
     /**
      * Delete one or more shows from current Spotify user's library.
@@ -92,7 +92,7 @@ export default function Shows(provider: AsyncProvider) {
      */
     removeAllUsersSavedShows: factory.handleLimited(
       removeUsersSavedShows(provider),
-      USER_SHOW_LIMIT
+      USER_SHOW_LIMIT,
     ),
     /**
      * Check if one or more shows is already saved in the current Spotify user's library.
@@ -107,7 +107,7 @@ export default function Shows(provider: AsyncProvider) {
      */
     checkAllUsersSavedShows: factory.handleLimited(
       checkUsersSavedShows(provider),
-      USER_SHOW_LIMIT
+      USER_SHOW_LIMIT,
     ),
   };
 }

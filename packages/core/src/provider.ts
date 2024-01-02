@@ -47,7 +47,7 @@ export class AuthProvider implements AsyncProvider {
   }
 
   public async request<T>(
-    req: AxiosRequestConfig<T>
+    req: AxiosRequestConfig<T>,
   ): Promise<AxiosResponse<T>> {
     if (this.needsNewToken) {
       await this.refreshAccessToken();
@@ -80,7 +80,7 @@ export class AuthProvider implements AsyncProvider {
     // Set to expire after 59 minutes 30 seconds so we have time to
     // refresh
     this.auth.expiresAt.setTime(
-      this.auth.expiresAt.getTime() + this.REFRESH_AFTER_SECONDS * 1000
+      this.auth.expiresAt.getTime() + this.REFRESH_AFTER_SECONDS * 1000,
     );
   }
 
@@ -108,7 +108,7 @@ export class AuthProvider implements AsyncProvider {
               'Basic ' +
               Buffer.from(clientId + ':' + clientSecret).toString('base64'),
           },
-        }
+        },
       )
       .then(res => res.data);
   }

@@ -2,7 +2,6 @@ import { colors as c } from '@spotifly/utils';
 import ini from 'ini';
 import pkg from '../package.json';
 import { readConfigWithPath } from './credentials';
-import { Package } from './invoke';
 
 const lb = '\n';
 const lblb = '\n\n';
@@ -51,13 +50,17 @@ The profile in your Spotifly config file to use for authentication.
 Defaults to 'default'.
 
 In order to see a list of available profiles, run ${c.green(
-  'spotifly profiles'
+  'spotifly profiles',
 )}`;
 
 export default {
-  packageHelp(pkg: Package, packageSpecificHelp: () => string) {
+  packageHelp(
+    packageName: string,
+    packageVersion: string,
+    packageSpecificHelp: () => string,
+  ) {
     return (
-      versionHeader(pkg.name, pkg.version) +
+      versionHeader(packageName, packageVersion) +
       lblb +
       packageSpecificHelp() +
       lblb +

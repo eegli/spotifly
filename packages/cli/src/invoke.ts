@@ -7,25 +7,21 @@ import {
   readConfig,
 } from './credentials';
 
-export type Package = Pick<
-  typeof import('../package.json'),
-  'name' | 'version' | 'homepage'
->;
-
 export type InvokePackageArgs = {
   callback: (args: string[]) => unknown;
   help: () => string;
-  pkg: Package;
+  packageName: string;
+  packageVersion: string;
 };
 
 export const invokePackage = async (
   argv: string[],
   tokenFlag: string | null,
-  { callback, help, pkg }: InvokePackageArgs
+  { callback, help, packageName, packageVersion }: InvokePackageArgs,
 ): Promise<unknown> => {
   // Invoke package-specific help
   if (argv.includes('--help') || argv.includes('-h')) {
-    console.info(commands.packageHelp(pkg, help));
+    console.info(commands.packageHelp(packageName, packageVersion, help));
     return;
   }
   // If the package doesn't need a token, just invoke it

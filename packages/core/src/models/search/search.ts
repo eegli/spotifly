@@ -18,5 +18,5 @@ export const searchForItem: AsyncFnWithProvider<
           type,
           ...params,
         },
-      })
+      }),
     );

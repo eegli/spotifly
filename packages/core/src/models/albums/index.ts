@@ -35,7 +35,7 @@ export default function Albums(provider: AsyncProvider) {
      */
     getAllAlbums: factory.handleLimited(
       getSeveralAlbums(provider),
-      LIMIT_SEVERAL_ALBUMS
+      LIMIT_SEVERAL_ALBUMS,
     ),
     /**
      * Get Spotify catalog information about an album’s tracks. Optional parameters can be used to limit the number of tracks returned.
@@ -50,7 +50,7 @@ export default function Albums(provider: AsyncProvider) {
      */
     getAllAlbumTracks: factory.resolveOffsetPaginated(
       getAlbumTracks(provider),
-      LIMIT_ALBUM_TRACKS
+      LIMIT_ALBUM_TRACKS,
     ),
     /**
      * Get a list of the albums saved in the current Spotify user's 'Your Music' library.
@@ -66,7 +66,7 @@ export default function Albums(provider: AsyncProvider) {
     getAllUsersSavedAlbums: factory
       .resolveOffsetPaginated(
         getUsersSavedAlbums(provider),
-        LIMIT_USER_ALBUMS_GET
+        LIMIT_USER_ALBUMS_GET,
       )
       .bind(null, null),
     /**
@@ -82,7 +82,7 @@ export default function Albums(provider: AsyncProvider) {
      */
     saveAllAlbumsForUser: factory.handleLimited(
       saveAlbumsForUser(provider),
-      LIMIT_USER_ALBUMS_MODIFY_CHECK
+      LIMIT_USER_ALBUMS_MODIFY_CHECK,
     ),
     /**
      * Remove one or more albums from the current user's 'Your Music' library.
@@ -97,7 +97,7 @@ export default function Albums(provider: AsyncProvider) {
      */
     removeAllUsersSavedAlbums: factory.handleLimited(
       removeUsersSavedAlbums(provider),
-      LIMIT_USER_ALBUMS_MODIFY_CHECK
+      LIMIT_USER_ALBUMS_MODIFY_CHECK,
     ),
     /**
      * Check if one or more albums is already saved in the current Spotify user's 'Your Music' library.
@@ -112,7 +112,7 @@ export default function Albums(provider: AsyncProvider) {
      */
     checkAllUsersSavedAlbums: factory.handleLimited(
       checkUsersSavedAlbums(provider),
-      LIMIT_USER_ALBUMS_MODIFY_CHECK
+      LIMIT_USER_ALBUMS_MODIFY_CHECK,
     ),
     /**
      * Get a list of new album releases featured in Spotify (shown, for example, on a Spotify player’s “Browse” tab).

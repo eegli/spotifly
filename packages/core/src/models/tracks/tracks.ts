@@ -12,7 +12,7 @@ export const getTrack: AsyncFnWithProvider<
       method: Method.GET,
       url: `tracks/${trackId}`,
       params,
-    })
+    }),
   );
 
 export const getSeveralTracks: AsyncFnWithProvider<
@@ -28,7 +28,7 @@ export const getSeveralTracks: AsyncFnWithProvider<
         ...params,
         ids: trackIds.join(','),
       },
-    })
+    }),
   );
 
 export const SEVERAL_TRACKS_LIMIT = 50;
@@ -45,7 +45,7 @@ export const getUsersSavedTracks: AsyncFnWithProvider<
       method: Method.GET,
       url: 'me/tracks',
       params,
-    })
+    }),
   );
 
 export const saveTracksForUser: AsyncFnWithProvider<
@@ -59,7 +59,7 @@ export const saveTracksForUser: AsyncFnWithProvider<
       params: {
         ids: trackIds.join(','),
       },
-    })
+    }),
   );
 
 export const removeUsersSavedTracks: AsyncFnWithProvider<
@@ -73,7 +73,7 @@ export const removeUsersSavedTracks: AsyncFnWithProvider<
       params: {
         ids: trackIds.join(','),
       },
-    })
+    }),
   );
 
 export const checkUsersSavedTracks: AsyncFnWithProvider<
@@ -87,7 +87,7 @@ export const checkUsersSavedTracks: AsyncFnWithProvider<
       params: {
         ids: trackIds.join(','),
       },
-    })
+    }),
   );
 
 export const getAudioFeatures: AsyncFnWithProvider<
@@ -98,7 +98,7 @@ export const getAudioFeatures: AsyncFnWithProvider<
     await provider.request({
       method: Method.GET,
       url: `audio-features/${trackId}`,
-    })
+    }),
   );
 
 export const getSeveralAudioFeatures: AsyncFnWithProvider<
@@ -112,7 +112,7 @@ export const getSeveralAudioFeatures: AsyncFnWithProvider<
       params: {
         ids: trackIds.join(','),
       },
-    })
+    }),
   );
 
 export const SEVERAL_AUDIO_FEATURES_LIMIT = 100;
@@ -125,7 +125,7 @@ export const getAudioAnalysis: AsyncFnWithProvider<
     await provider.request({
       method: Method.GET,
       url: `audio-analysis/${trackId}`,
-    })
+    }),
   );
 
 export const getRecommendations: AsyncFnWithProvider<
@@ -192,5 +192,5 @@ export const getRecommendations: AsyncFnWithProvider<
           seed_tracks: seed_tracks.join(','),
           ...params,
         },
-      })
+      }),
     );

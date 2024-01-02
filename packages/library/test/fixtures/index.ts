@@ -16,5 +16,5 @@ export const TRACK_COUNT = 3;
 export const RES_MULTIPLE_ARTISTS = fakeResponse(MULTIPLE_ARTISTS);
 export const RES_USER_SAVED_TRACKS = fakeResponse(USER_SAVED_TRACKS);
 export const RES_MULTIPLE_AUDIO_FEATURES = fakeResponse(
-  MULTIPLE_AUDIO_FEATURES
+  MULTIPLE_AUDIO_FEATURES,
 );

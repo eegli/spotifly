@@ -43,7 +43,7 @@ export default function Playlists(provider: AsyncProvider) {
      */
     getAllPlaylistItems: factory.resolveOffsetPaginated(
       getPlaylistItems(provider),
-      PLAYLIST_ITEMS_LIMIT
+      PLAYLIST_ITEMS_LIMIT,
     ),
     /**
      * Add one or more items to a user's playlist.
@@ -66,7 +66,7 @@ export default function Playlists(provider: AsyncProvider) {
      */
     getCurrentUsersPlaylists: getCurrentUsersPlaylists(provider).bind(
       null,
-      null
+      null,
     ),
     /**
      * Get a list of the playlists owned or followed by the current Spotify user.
@@ -77,7 +77,7 @@ export default function Playlists(provider: AsyncProvider) {
     getAllCurrentUsersPlaylists: factory
       .resolveOffsetPaginated(
         getCurrentUsersPlaylists(provider),
-        USERS_PLAYLISTS_LIMIT
+        USERS_PLAYLISTS_LIMIT,
       )
       .bind(null, null),
     /**
@@ -93,7 +93,7 @@ export default function Playlists(provider: AsyncProvider) {
      */
     getAllUsersPlaylists: factory.resolveOffsetPaginated(
       getUsersPlaylists(provider),
-      USERS_PLAYLISTS_LIMIT
+      USERS_PLAYLISTS_LIMIT,
     ),
     /**
      * Create a playlist for a Spotify user. (The playlist will be empty until you add tracks.)

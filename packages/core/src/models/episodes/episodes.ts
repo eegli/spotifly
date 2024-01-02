@@ -12,7 +12,7 @@ export const getEpisode: AsyncFnWithProvider<
       method: Method.GET,
       url: `episodes/${episodeId}`,
       params,
-    })
+    }),
   );
 
 export const getSeveralEpisodes: AsyncFnWithProvider<
@@ -28,7 +28,7 @@ export const getSeveralEpisodes: AsyncFnWithProvider<
         ...params,
         ids: episodeIds.join(','),
       },
-    })
+    }),
   );
 
 export const SEVERAL_EPISODES_LIMIT = 50;
@@ -43,11 +43,11 @@ export const getUsersSavedEpisodes: AsyncFnWithProvider<
       method: Method.GET,
       url: 'me/episodes',
       params,
-    })
+    }),
   );
 
 const episodesForUser: <Return>(
-  intent: 'save' | 'delete' | 'check'
+  intent: 'save' | 'delete' | 'check',
 ) => AsyncFnWithProvider<Return, EpisodeId[]> =
   type => provider => async episodeIds =>
     transformResponse(
@@ -56,13 +56,13 @@ const episodesForUser: <Return>(
           type === 'save'
             ? Method.PUT
             : type === 'check'
-            ? Method.GET
-            : Method.DELETE,
+              ? Method.GET
+              : Method.DELETE,
         url: type === 'check' ? 'me/episodes/contains' : 'me/episodes',
         params: {
           ids: episodeIds.join(','),
         },
-      })
+      }),
     );
 
 export const saveEpisodesForUser =

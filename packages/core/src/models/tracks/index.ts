@@ -36,7 +36,7 @@ export default function Tracks(provider: AsyncProvider) {
      */
     getAllTracks: factory.handleLimited(
       getSeveralTracks(provider),
-      SEVERAL_TRACKS_LIMIT
+      SEVERAL_TRACKS_LIMIT,
     ),
     /**
      * Get a list of the songs saved in the current Spotify user's 'Your Music' library.
@@ -65,7 +65,7 @@ export default function Tracks(provider: AsyncProvider) {
      */
     saveAllTracksForUser: factory.handleLimited(
       saveTracksForUser(provider),
-      USER_SAVED_LIMIT
+      USER_SAVED_LIMIT,
     ),
     /**
      * Remove one or more tracks from the current user's 'Your Music' library.
@@ -80,7 +80,7 @@ export default function Tracks(provider: AsyncProvider) {
      */
     removeAllUsersTracksForUser: factory.handleLimited(
       removeUsersSavedTracks(provider),
-      USER_SAVED_LIMIT
+      USER_SAVED_LIMIT,
     ),
     /**
      * Check if one or more tracks is already saved in the current Spotify user's 'Your Music' library.
@@ -95,7 +95,7 @@ export default function Tracks(provider: AsyncProvider) {
      */
     checkAllUsersSavedTracks: factory.handleLimited(
       checkUsersSavedTracks(provider),
-      USER_SAVED_LIMIT
+      USER_SAVED_LIMIT,
     ),
     /**
      * Get audio feature information for a single track identified by its unique Spotify ID.
@@ -115,7 +115,7 @@ export default function Tracks(provider: AsyncProvider) {
      */
     getAllAudioFeatures: factory.handleLimited(
       getSeveralAudioFeatures(provider),
-      SEVERAL_AUDIO_FEATURES_LIMIT
+      SEVERAL_AUDIO_FEATURES_LIMIT,
     ),
     /**
      * Get a low-level audio analysis for a track in the Spotify catalog. The audio analysis describes the track’s structure and musical content, including rhythm, pitch, and timbre.

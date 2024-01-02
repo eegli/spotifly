@@ -42,9 +42,9 @@ export const AuthTokenList = ({
           <ListItemText
             primary="Expires"
             secondary={`In ${new Date(
-              expires - Date.now()
+              expires - Date.now(),
             ).getMinutes()} minutes (at ${new Date(
-              expires
+              expires,
             ).toLocaleTimeString()})`}
           />
         </ListItem>

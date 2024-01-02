@@ -4,11 +4,8 @@ import * as credentialUtils from '../src/credentials';
 const mockPkg: InvokePackageArgs = {
   callback: jest.fn(),
   help: jest.fn(),
-  pkg: {
-    homepage: '',
-    name: '',
-    version: '',
-  },
+  packageName: 'test',
+  packageVersion: '1.0.0',
 };
 
 jest.mock('@spotifly/auth-token/cli', () => mockPkg);
@@ -57,7 +54,7 @@ describe('CLI', () => {
       expect(mockPkg.callback).not.toHaveBeenCalled();
       expect(consoleInfoSpy).toHaveBeenCalledTimes(1);
       expect(consoleInfoSpy.mock.calls[0][0]).toMatch(
-        /(Spotifly|@spotifly\/cli) v\d.\d.\d/g
+        /(Spotifly|@spotifly\/cli) v\d.\d.\d/g,
       );
     });
   });
@@ -69,7 +66,7 @@ describe('CLI', () => {
       expect(mockPkg.callback).not.toHaveBeenCalled();
       expect(configWithPathSpy).toHaveBeenCalled();
       expect(consoleInfoSpy.mock.calls[0][0]).toMatchInlineSnapshot(
-        `"No profiles found, does your config file exist?"`
+        `"No profiles found, does your config file exist?"`,
       );
       consoleInfoSpy.mockClear();
       configWithPathSpy.mockReturnValueOnce(['[default]', 'path']);
@@ -113,7 +110,7 @@ describe('CLI', () => {
       expect(mockPkg.callback).not.toHaveBeenCalled();
       expect(consoleInfoSpy).toHaveBeenCalledTimes(1);
       expect(consoleInfoSpy.mock.calls[0][0]).toMatch(
-        /Unknown argument .*[\s\S]Run 'spotifly --help' for available commands/s
+        /Unknown argument .*[\s\S]Run 'spotifly --help' for available commands/s,
       );
     });
   });
@@ -158,7 +155,7 @@ describe('CLI', () => {
     await cli.run();
     expect(consoleErrorSpy).toHaveBeenCalledTimes(1);
     expect(consoleErrorSpy).toHaveBeenLastCalledWith(
-      expect.stringMatching(/Missing or invalid Spotify credentials/)
+      expect.stringMatching(/Missing or invalid Spotify credentials/),
     );
   });
 
@@ -171,7 +168,7 @@ describe('CLI', () => {
     await cli.run();
     expect(consoleErrorSpy).toHaveBeenCalledTimes(1);
     expect(consoleErrorSpy).toHaveBeenLastCalledWith(
-      expect.stringMatching(/Profile "default" does not exist/)
+      expect.stringMatching(/Profile "default" does not exist/),
     );
   });
 });

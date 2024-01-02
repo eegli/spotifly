@@ -10,7 +10,7 @@ export const getCurrentUsersProfile: AsyncFnWithProvider<
     await provider.request({
       method: Method.GET,
       url: 'me',
-    })
+    }),
   );
 
 export const getUsersProfile: AsyncFnWithProvider<
@@ -21,11 +21,11 @@ export const getUsersProfile: AsyncFnWithProvider<
     await provider.request({
       method: Method.GET,
       url: `users/${userId}`,
-    })
+    }),
   );
 
 const getUsersTop: <T extends 'artists' | 'tracks'>(
-  type: T
+  type: T,
 ) => AsyncFnWithProvider<
   T extends 'artists'
     ? SpotifyApi.UsersTopArtistsResponse
@@ -38,7 +38,7 @@ const getUsersTop: <T extends 'artists' | 'tracks'>(
       method: Method.GET,
       url: `me/top/${type}`,
       params,
-    })
+    }),
   );
 
 export const USERS_TOP_LIMIT = 50;
@@ -55,7 +55,7 @@ export const followPlaylist: AsyncFnWithProvider<
       method: Method.PUT,
       data,
       url: `playlists/${playlistId}/followers`,
-    })
+    }),
   );
 
 export const unfollowPlaylist: AsyncFnWithProvider<
@@ -66,7 +66,7 @@ export const unfollowPlaylist: AsyncFnWithProvider<
     await provider.request({
       method: Method.DELETE,
       url: `playlists/${playlistId}/followers`,
-    })
+    }),
   );
 
 export const getUsersFollowedArtists: AsyncFnWithProvider<
@@ -82,7 +82,7 @@ export const getUsersFollowedArtists: AsyncFnWithProvider<
         type: 'artist',
       },
       url: 'me/following',
-    })
+    }),
   );
 
 const artists: <R>(conf: {
@@ -100,7 +100,7 @@ const artists: <R>(conf: {
           ids: ids.join(','),
         },
         url,
-      })
+      }),
     );
 
 const users: <R>(conf: {
@@ -118,7 +118,7 @@ const users: <R>(conf: {
           ids: ids.join(','),
         },
         url,
-      })
+      }),
     );
 
 export const FOLLOW_LIMIT = 50;
@@ -162,5 +162,5 @@ export const checkUsersFollowPlaylist: AsyncFnWithProvider<
         ids: userIds.join(','),
       },
       url: `playlists/${playlistId}/followers/contains`,
-    })
+    }),
   );
