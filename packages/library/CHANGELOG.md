@@ -1,17 +1,5 @@
 # @spotifly/library
 
-## 3.0.0
-
-### Major Changes
-
-- 6526e1e: The minimum node version has been bumped from 14 to 18.
-
-### Patch Changes
-
-- Updated dependencies [6526e1e]
-  - @spotifly/utils@2.0.0
-  - @spotifly/core@2.0.0
-
 ## 2.0.2
 
 ### Patch Changes
