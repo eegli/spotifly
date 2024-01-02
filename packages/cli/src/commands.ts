@@ -21,7 +21,7 @@ const profiles = () => {
     const profiles = Object.keys(parsedConfig)
       .map(p => '* ' + p)
       .join('\n');
-    return `Available profiles:'
+    return `Available profiles:
       
 ${c.green(profiles)}
       
