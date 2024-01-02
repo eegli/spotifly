@@ -21,13 +21,11 @@ const profiles = () => {
     const profiles = Object.keys(parsedConfig)
       .map(p => '* ' + p)
       .join('\n');
-    return (
-      'Available profiles:' +
-      lb +
-      c.green(profiles) +
-      lblb +
-      `Config file: ${configPath}`
-    );
+    return `Available profiles:'
+      
+${c.green(profiles)}
+      
+Config file: ${configPath}`;
   } catch (err) {
     return 'No profiles found, does your config file exist?';
   }

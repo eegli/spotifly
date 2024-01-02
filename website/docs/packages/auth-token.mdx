@@ -23,13 +23,15 @@ import { CliCodeBlock } from '@site/src/components/code-blocks/codeblock';
 <CliCodeBlock
   cli="spotifly auth"
   npx="npx @spotifly/cli@latest auth"
-  commandMap={{
+  args={{
     'client-id': '',
     'client-secret': '',
     port: '3000',
     scopes: ['user-read-email'],
     'file-name': 'spotify-token',
     'out-dir': '',
+  }}
+  flags={{
     'no-emit': false,
   }}
   scopesKey="scopes"
