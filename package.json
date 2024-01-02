@@ -26,7 +26,7 @@
     "build:release": "yarn build && yarn forallpackages exec rm -rf _release && yarn forallpackages pack && yarn forallpackages exec \"mkdir _release && tar zxvf package.tgz --directory _release && rm package.tgz\"",
     "check-types": "tsc",
     "dev": "preconstruct dev",
-    "forallpackages": "yarn workspaces foreach --no-private --verbose",
+    "forallpackages": "yarn workspaces foreach -A --no-private --verbose",
     "format": "prettier --write packages website \"**/*.{js,ts,tsx,md}\"",
     "get-endpoint-coverage": "yarn build && node scripts/endpoint-coverage.mjs",
     "postinstall": "preconstruct dev && husky install",
