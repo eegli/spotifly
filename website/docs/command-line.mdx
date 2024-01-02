@@ -54,6 +54,14 @@ The INI format allows you to create multiple profiles. Each profile must have th
 spotifly [subcommand] --profile dev [...args]
 ```
 
+### Listing Profiles
+
+You can list all available profiles using:
+
+```bash
+spotifly profiles
+```
+
 ### Why would you use different profiles?
 
 Remember: Spotify refresh tokens are _created for_ a spotify application and _bound to_ a user **and** access scope. Hence, you may have multiple profiles for a single spotify application, whereas the client id and secret are the same. The refresh tokens, however, may be different. You could have a profile for readonly access, another for read/write access, etc.

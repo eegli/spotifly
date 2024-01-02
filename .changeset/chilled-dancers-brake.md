@@ -1,5 +1,5 @@
 ---
-"@spotifly/cli": minor
+'@spotifly/cli': minor
 ---
 
-The core CLI now supports the `profile` command to list available Spotifly profiles.
+The core CLI now supports the `profiles` command to list available Spotifly profiles.
