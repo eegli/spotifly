@@ -7,7 +7,7 @@ type PaginationParams = Pick<Params, 'limit' | 'offset'>;
 
 export function resolveOffsetPaginated<
   F extends AsyncFn<PagingObject, string, PaginationParams>,
-  R extends Awaited<ReturnType<F>>
+  R extends Awaited<ReturnType<F>>,
 >(getFn: F, limit: number) {
   return function (...args: OmitFromAsyncFnParams<F, PaginationParams>) {
     return async function (cb?: (param: R) => unknown): Promise<R[]> {
@@ -34,7 +34,7 @@ export function resolveOffsetPaginated<
 
 export function handleLimited<
   F extends AsyncFn<unknown, string[], AnyObject>,
-  R extends Awaited<ReturnType<F>>
+  R extends Awaited<ReturnType<F>>,
 >(getFn: F, limit: number) {
   return function (...args: Parameters<F>) {
     const [ids, rest] = args;

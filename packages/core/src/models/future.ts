@@ -12,10 +12,10 @@ export default function futureRequest(provider: AsyncProvider) {
   return {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     request: async <Response = any, Data = any>(
-      config: AxiosRequestConfig<Data>
+      config: AxiosRequestConfig<Data>,
     ) =>
       transformResponse(
-        (await provider.request(config)) as AxiosResponse<Response>
+        (await provider.request(config)) as AxiosResponse<Response>,
       ),
   };
 }

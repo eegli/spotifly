@@ -25,7 +25,7 @@ export const getPlaybackState: AsyncFnWithProvider<
           ...params,
           additional_types: additional_types?.join(','),
         },
-      })
+      }),
     );
 
 export const transferPlayback: AsyncFnWithProvider<
@@ -38,7 +38,7 @@ export const transferPlayback: AsyncFnWithProvider<
       method: Method.PUT,
       url: 'me/player',
       data: { ...data, device_ids },
-    })
+    }),
   );
 
 export const getAvailableDevices: AsyncFnWithProvider<
@@ -48,7 +48,7 @@ export const getAvailableDevices: AsyncFnWithProvider<
     await provider.request({
       method: Method.GET,
       url: 'me/player/devices',
-    })
+    }),
   );
 
 export const getCurrentlyPlayingTrack: AsyncFnWithProvider<
@@ -66,7 +66,7 @@ export const getCurrentlyPlayingTrack: AsyncFnWithProvider<
           ...params,
           additional_types: additional_types?.join(','),
         },
-      })
+      }),
     );
 
 export const startOrResumePlayback: AsyncFnWithProvider<
@@ -86,12 +86,12 @@ export const startOrResumePlayback: AsyncFnWithProvider<
           device_id,
         },
         data,
-      })
+      }),
     );
 
 const playback: (
   url: string,
-  method?: Method
+  method?: Method,
 ) => AsyncFnWithProvider<VoidResponse, unknown, Pick<Params, 'device_id'>> =
   (url, method = Method.POST) =>
   provider =>
@@ -101,7 +101,7 @@ const playback: (
         method,
         url,
         params,
-      })
+      }),
     );
 
 export const pausePlayback = playback('me/player/pause', Method.PUT);
@@ -121,7 +121,7 @@ export const seekToPosition: AsyncFnWithProvider<
         ...params,
         position_ms,
       },
-    })
+    }),
   );
 
 export const setRepeatMode: AsyncFnWithProvider<
@@ -137,7 +137,7 @@ export const setRepeatMode: AsyncFnWithProvider<
         ...params,
         state,
       },
-    })
+    }),
   );
 
 export const setPlaybackVolume: AsyncFnWithProvider<
@@ -153,7 +153,7 @@ export const setPlaybackVolume: AsyncFnWithProvider<
         ...params,
         volume_percent,
       },
-    })
+    }),
   );
 
 export const togglePlaybackShuffle: AsyncFnWithProvider<
@@ -169,7 +169,7 @@ export const togglePlaybackShuffle: AsyncFnWithProvider<
         state,
         ...deviceId,
       },
-    })
+    }),
   );
 
 export const getRecentlyPlayedTracks: AsyncFnWithProvider<
@@ -182,7 +182,7 @@ export const getRecentlyPlayedTracks: AsyncFnWithProvider<
       method: Method.GET,
       url: 'me/player/recently-played',
       params,
-    })
+    }),
   );
 
 export const getUsersQueue: AsyncFnWithProvider<
@@ -192,7 +192,7 @@ export const getUsersQueue: AsyncFnWithProvider<
     await provider.request({
       method: Method.GET,
       url: 'me/player/queue',
-    })
+    }),
   );
 
 export const addToQueue: AsyncFnWithProvider<
@@ -208,5 +208,5 @@ export const addToQueue: AsyncFnWithProvider<
         ...params,
         uri,
       },
-    })
+    }),
   );

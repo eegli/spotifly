@@ -12,7 +12,7 @@ export const getCategory: AsyncFnWithProvider<
       method: Method.GET,
       url: `browse/categories/${categoryId}`,
       params,
-    })
+    }),
   );
 
 export const getSeveralCategories: AsyncFnWithProvider<
@@ -25,5 +25,5 @@ export const getSeveralCategories: AsyncFnWithProvider<
       method: Method.GET,
       url: 'browse/categories',
       params,
-    })
+    }),
   );

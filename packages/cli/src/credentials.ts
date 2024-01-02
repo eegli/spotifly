@@ -30,7 +30,7 @@ export function readConfig(): string | null {
 
 export function credentialsFromConfig(
   config: string,
-  profile: string
+  profile: string,
 ): RefreshTokenConfig {
   const parsedConfig = ini.parse(config);
   if (!parsedConfig[profile]) {

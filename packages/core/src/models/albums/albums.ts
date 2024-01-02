@@ -12,7 +12,7 @@ export const getAlbum: AsyncFnWithProvider<
       method: Method.GET,
       url: `albums/${albumId}`,
       params,
-    })
+    }),
   );
 
 export const getSeveralAlbums: AsyncFnWithProvider<
@@ -28,7 +28,7 @@ export const getSeveralAlbums: AsyncFnWithProvider<
         ...params,
         ids: albumIds.join(','),
       },
-    })
+    }),
   );
 
 export const LIMIT_SEVERAL_ALBUMS = 20;
@@ -43,7 +43,7 @@ export const getAlbumTracks: AsyncFnWithProvider<
       method: Method.GET,
       url: `albums/${albumId}/tracks`,
       params,
-    })
+    }),
   );
 
 export const LIMIT_ALBUM_TRACKS = 50;
@@ -58,7 +58,7 @@ export const getUsersSavedAlbums: AsyncFnWithProvider<
       method: Method.GET,
       url: 'me/albums',
       params,
-    })
+    }),
   );
 
 export const LIMIT_USER_ALBUMS_GET = 50;
@@ -77,7 +77,7 @@ const userAlbums: <Response>(conf: {
           ids: ids.join(','),
         },
         url,
-      })
+      }),
     );
 
 export const LIMIT_USER_ALBUMS_MODIFY_CHECK = 20;
@@ -110,5 +110,5 @@ export const getNewAlbumReleases: AsyncFnWithProvider<
       method: Method.GET,
       url: 'browse/new-releases',
       params,
-    })
+    }),
   );

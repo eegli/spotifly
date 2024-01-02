@@ -12,9 +12,9 @@ jobs:
     name: TypeScript, lint, build
     runs-on: [ubuntu-latest]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
           cache: 'yarn'
@@ -33,11 +33,11 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ['14', '16', '17', '19']
+        node: ['18', '19', '20', '21']
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           cache: 'yarn'
           node-version: ${{ matrix.node }}
@@ -56,9 +56,9 @@ jobs:
         # Keep in sync with Jest projects config
         proj: ['auth-token', 'cli', 'core', 'library', 'utils']
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           cache: 'yarn'
           node-version: ${{ matrix.node }}
@@ -82,9 +82,9 @@ jobs:
         os: [ubuntu-latest]
         node: ['18']
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Setup Node v${{ matrix.node }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           cache: 'yarn'
           node-version: ${{ matrix.node }}

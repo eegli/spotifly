@@ -8,5 +8,5 @@ export const getAvailableGenreSeeds: AsyncFnWithProvider<
     await provider.request({
       method: Method.GET,
       url: 'recommendations/available-genre-seeds',
-    })
+    }),
   );

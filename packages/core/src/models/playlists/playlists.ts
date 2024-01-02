@@ -24,7 +24,7 @@ export const getPlaylist: AsyncFnWithProvider<
           ...params,
           additional_types: additional_types?.join(','),
         },
-      })
+      }),
     );
 
 export const changePlaylis: AsyncFnWithProvider<
@@ -37,7 +37,7 @@ export const changePlaylis: AsyncFnWithProvider<
       method: Method.PUT,
       url: `playlists/${playlistId}`,
       data,
-    })
+    }),
   );
 
 export const getPlaylistItems: AsyncFnWithProvider<
@@ -55,7 +55,7 @@ export const getPlaylistItems: AsyncFnWithProvider<
           ...params,
           additional_types: additional_types?.join(','),
         },
-      })
+      }),
     );
 
 export const PLAYLIST_ITEMS_LIMIT = 50;
@@ -74,7 +74,7 @@ export const addPlaylistItems: AsyncFnWithProvider<
         position: data?.position,
         uris,
       },
-    })
+    }),
   );
 
 export const reorderPlaylistItems: AsyncFnWithProvider<
@@ -87,7 +87,7 @@ export const reorderPlaylistItems: AsyncFnWithProvider<
       method: Method.PUT,
       url: `playlists/${playlistId}/tracks`,
       data,
-    })
+    }),
   );
 
 export const removePlaylistItems: AsyncFnWithProvider<
@@ -101,7 +101,7 @@ export const removePlaylistItems: AsyncFnWithProvider<
       method: Method.DELETE,
       url: `playlists/${playlistId}/tracks`,
       data: { ...data, tracks },
-    })
+    }),
   );
 
 export const getCurrentUsersPlaylists: AsyncFnWithProvider<
@@ -114,7 +114,7 @@ export const getCurrentUsersPlaylists: AsyncFnWithProvider<
       method: Method.GET,
       url: 'me/playlists',
       params,
-    })
+    }),
   );
 
 export const getUsersPlaylists: AsyncFnWithProvider<
@@ -127,7 +127,7 @@ export const getUsersPlaylists: AsyncFnWithProvider<
       method: Method.GET,
       url: `users/${userId}/playlists`,
       params,
-    })
+    }),
   );
 
 export const USERS_PLAYLISTS_LIMIT = 50;
@@ -143,7 +143,7 @@ export const createPlaylist: AsyncFnWithProvider<
       method: Method.POST,
       url: `users/${userId}/playlists`,
       data: { ...data, name },
-    })
+    }),
   );
 
 export const getFeaturedPlaylists: AsyncFnWithProvider<
@@ -156,7 +156,7 @@ export const getFeaturedPlaylists: AsyncFnWithProvider<
       method: Method.GET,
       url: 'browse/featured-playlists',
       params,
-    })
+    }),
   );
 
 export const getCategoryPlaylists: AsyncFnWithProvider<
@@ -169,7 +169,7 @@ export const getCategoryPlaylists: AsyncFnWithProvider<
       method: Method.GET,
       url: `browse/categories/${categoryId}/playlists`,
       params,
-    })
+    }),
   );
 
 export const getPlaylistCoverImage: AsyncFnWithProvider<
@@ -180,7 +180,7 @@ export const getPlaylistCoverImage: AsyncFnWithProvider<
     await provider.request({
       method: Method.GET,
       url: `playlists/${playlistId}/images`,
-    })
+    }),
   );
 
 export const uploadCustomPlaylistCoverImage: AsyncFnWithProvider<
@@ -196,5 +196,5 @@ export const uploadCustomPlaylistCoverImage: AsyncFnWithProvider<
         'Content-Type': 'image/jpeg',
       },
       data: base64URL.replace(/^data:image\/jpeg;base64,/, ''),
-    })
+    }),
   );

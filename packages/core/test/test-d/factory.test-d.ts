@@ -10,7 +10,7 @@ declare function paginatedFunc(
     market?: string;
     limit?: number;
     offset?: number;
-  }
+  },
 ): DataPromise<SpotifyApi.PagingObject<Custom>>;
 
 describe('Factory, pagination handling', () => {
@@ -29,7 +29,7 @@ describe('Factory, pagination handling', () => {
   });
   test('infers return type', async () => {
     expectType<DataResponse<SpotifyApi.PagingObject<Custom>>[]>(
-      await get('abc')()
+      await get('abc')(),
     );
   });
   test('infers callback', async () => {
@@ -43,7 +43,7 @@ declare function limitedFunc(
   ids: string[],
   params?: {
     market?: string;
-  }
+  },
 ): DataPromise<Custom>;
 
 describe('Factory, limited endpoint handling', () => {

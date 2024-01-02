@@ -10,7 +10,7 @@ export const getArtist: AsyncFnWithProvider<
     await provider.request({
       method: Method.GET,
       url: `artists/${artistId}`,
-    })
+    }),
   );
 
 export const getSeveralArtists: AsyncFnWithProvider<
@@ -24,7 +24,7 @@ export const getSeveralArtists: AsyncFnWithProvider<
       params: {
         ids: artistIds.join(','),
       },
-    })
+    }),
   );
 
 export const LIMIT_GET_SEVERAL_ARTISTS = 50;
@@ -44,7 +44,7 @@ export const getArtistsAlbums: AsyncFnWithProvider<
           ...params,
           include_groups: include_groups?.join(','),
         },
-      })
+      }),
     );
 
 export const LIMIT_GET_ARTIST_ALBUMS = 50;
@@ -59,7 +59,7 @@ export const getArtistsTopTracks: AsyncFnWithProvider<
       method: Method.GET,
       url: `artists/${artistId}/top-tracks`,
       params,
-    })
+    }),
   );
 
 export const getArtistsRelatedArtists: AsyncFnWithProvider<
@@ -70,5 +70,5 @@ export const getArtistsRelatedArtists: AsyncFnWithProvider<
     await provider.request({
       method: Method.GET,
       url: `artists/${artistId}/related-artists`,
-    })
+    }),
   );
