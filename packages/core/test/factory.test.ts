@@ -7,7 +7,7 @@ beforeEach(() => {
 
 function* createPaginatedBackend(
   total: number,
-  atOnce: number
+  atOnce: number,
 ): Generator<
   { nextPage: string | null; items: { id: number }[] },
   void,
@@ -31,7 +31,7 @@ const setupTest = function (itemCount: number, beLimit: number) {
         limit?: number;
         offset?: number;
         market?: string;
-      }
+      },
     ) => {
       let next: string | null = 'next';
       const nextValue = backend.next().value;
@@ -53,7 +53,7 @@ const setupTest = function (itemCount: number, beLimit: number) {
           total: 1,
         },
       });
-    }
+    },
   );
 };
 
@@ -76,7 +76,7 @@ describe('Factory, pagination handling', () => {
       expect(result).toHaveLength(expectedCalls);
       const allItems = result.reduce(
         (acc, curr) => [...acc, ...curr.data.items],
-        [] as unknown[]
+        [] as unknown[],
       );
       expect(allItems).toHaveLength(itemCount);
       expect(result).toMatchSnapshot('result');
@@ -90,7 +90,7 @@ describe('Factory, pagination handling', () => {
           headers: expect.any(Object),
           statusCode: expect.any(Number),
           data: expect.any(Object),
-        })
+        }),
       );
       expect(mockCb.mock.calls).toMatchSnapshot('callback invocation');
     });
@@ -101,7 +101,7 @@ const createLimitedAPI = function (limit: number) {
   return jest.fn(
     (
       ids: string[],
-      rest?: { market?: string }
+      rest?: { market?: string },
     ): DataPromise<{ id: number; market: string }[]> => {
       if (ids.length > limit) {
         throw new Error();
@@ -115,7 +115,7 @@ const createLimitedAPI = function (limit: number) {
           market: rest?.market || 'no market specified',
         })),
       });
-    }
+    },
   );
 };
 
@@ -136,20 +136,20 @@ describe('Factory, limited endpoint handling', () => {
       const result = await fetch(
         Array.from({ length: itemCount }, () => 'id'),
         // Test with no optional arguments
-        idx % 2 === 0 ? { market: 'CH' } : undefined
+        idx % 2 === 0 ? { market: 'CH' } : undefined,
       )(args => mockCb(args));
 
       expect(result).toHaveLength(expectedCalls);
       const allItems = result.reduce(
         (acc, curr) => [...acc, ...curr.data],
-        [] as unknown[]
+        [] as unknown[],
       );
       expect(allItems).toHaveLength(itemCount);
       expect(result).toMatchSnapshot('result');
 
       expect(mockAPI).toHaveBeenCalledTimes(expectedCalls);
       mockAPI.mock.calls.forEach(call =>
-        expect(call[0].length).toBeLessThanOrEqual(limit)
+        expect(call[0].length).toBeLessThanOrEqual(limit),
       );
 
       expect(mockCb).toHaveBeenCalledTimes(expectedCalls);
@@ -158,7 +158,7 @@ describe('Factory, limited endpoint handling', () => {
           headers: expect.any(Object),
           statusCode: expect.any(Number),
           data: expect.any(Object),
-        })
+        }),
       );
       expect(mockCb.mock.calls).toMatchSnapshot('callback invocation');
     });

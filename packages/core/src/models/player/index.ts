@@ -40,7 +40,7 @@ export default function Player(provider: AsyncProvider) {
      */
     getCurrentlyPlayingTrack: getCurrentlyPlayingTrack(provider).bind(
       null,
-      null
+      null,
     ),
     /**
      * Start a new context or resume current playback on the user's active device.

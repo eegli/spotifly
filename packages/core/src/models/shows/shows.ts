@@ -12,7 +12,7 @@ export const getShow: AsyncFnWithProvider<
       method: Method.GET,
       url: `shows/${showId}`,
       params,
-    })
+    }),
   );
 
 export const getSeveralShows: AsyncFnWithProvider<
@@ -28,7 +28,7 @@ export const getSeveralShows: AsyncFnWithProvider<
         ...params,
         ids: showIds.join(','),
       },
-    })
+    }),
   );
 
 export const SEVERAL_SHOWS_LIMIT = 50;
@@ -43,7 +43,7 @@ export const getShowEpisodes: AsyncFnWithProvider<
       method: Method.GET,
       url: `shows/${showId}/episodes`,
       params,
-    })
+    }),
   );
 
 export const SHOW_EPISODES_LIMIT = 50;
@@ -60,7 +60,7 @@ export const getUsersSavedShows: AsyncFnWithProvider<
       method: Method.GET,
       url: 'me/shows',
       params,
-    })
+    }),
   );
 
 export const saveShowsForUser: AsyncFnWithProvider<
@@ -74,7 +74,7 @@ export const saveShowsForUser: AsyncFnWithProvider<
       params: {
         ids: showIds.join(','),
       },
-    })
+    }),
   );
 
 export const removeUsersSavedShows: AsyncFnWithProvider<
@@ -90,7 +90,7 @@ export const removeUsersSavedShows: AsyncFnWithProvider<
         ...params,
         ids: showIds.join(','),
       },
-    })
+    }),
   );
 
 export const checkUsersSavedShows: AsyncFnWithProvider<
@@ -104,5 +104,5 @@ export const checkUsersSavedShows: AsyncFnWithProvider<
       params: {
         ids: showIds.join(','),
       },
-    })
+    }),
   );

@@ -7,7 +7,7 @@ expectType<AsyncFn<unknown, string>>(func1);
 
 declare function func2(
   arg1: string,
-  arg2?: { market?: string }
+  arg2?: { market?: string },
 ): DataPromise<unknown>;
 
 expectType<AsyncFn<unknown, string, { market: string }>>(func2);

@@ -30,7 +30,7 @@ export default function Artists(provider: AsyncProvider) {
      */
     getAllArtists: factory.handleLimited(
       getSeveralArtists(provider),
-      LIMIT_GET_SEVERAL_ARTISTS
+      LIMIT_GET_SEVERAL_ARTISTS,
     ),
     /**
      * Get Spotify catalog information about an artist's albums.
@@ -45,7 +45,7 @@ export default function Artists(provider: AsyncProvider) {
      */
     getAllArtistsAlbums: factory.resolveOffsetPaginated(
       getArtistsAlbums(provider),
-      LIMIT_GET_ARTIST_ALBUMS
+      LIMIT_GET_ARTIST_ALBUMS,
     ),
     /**
      * Get Spotify catalog information about an artist's top tracks by country.

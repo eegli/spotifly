@@ -31,7 +31,7 @@ export default function Episodes(provider: AsyncProvider) {
      */
     getAllEpisodes: factory.handleLimited(
       getSeveralEpisodes(provider),
-      SEVERAL_EPISODES_LIMIT
+      SEVERAL_EPISODES_LIMIT,
     ),
     beta: {
       /**
@@ -48,7 +48,7 @@ export default function Episodes(provider: AsyncProvider) {
       getAllUsersSavedEpisodes: factory
         .resolveOffsetPaginated(
           getUsersSavedEpisodes(provider),
-          USER_EPISODES_LIMIT
+          USER_EPISODES_LIMIT,
         )
         .bind(null, null),
       /**
@@ -64,7 +64,7 @@ export default function Episodes(provider: AsyncProvider) {
        */
       saveAllEpisodesForUser: factory.handleLimited(
         saveEpisodesForUser(provider),
-        USER_EPISODES_LIMIT
+        USER_EPISODES_LIMIT,
       ),
       /**
        * Remove one or more episodes from the current user's library.
@@ -79,7 +79,7 @@ export default function Episodes(provider: AsyncProvider) {
        */
       removeAllUsersSavedEpisodes: factory.handleLimited(
         removeUsersSavedEpisodes(provider),
-        USER_EPISODES_LIMIT
+        USER_EPISODES_LIMIT,
       ),
 
       /**
@@ -95,7 +95,7 @@ export default function Episodes(provider: AsyncProvider) {
        */
       checkAllUsersSavedEpisodes: factory.handleLimited(
         checkUsersSavedEpisodes(provider),
-        USER_EPISODES_LIMIT
+        USER_EPISODES_LIMIT,
       ),
     },
   };

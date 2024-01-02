@@ -6,7 +6,7 @@ import type { Options, SpotifyTokenResponse } from './types';
 import { id } from './utils';
 
 export const authorize = async (
-  options: Options
+  options: Options,
 ): Promise<SpotifyTokenResponse> => {
   const config = { ...defaultConfig, ...options };
   const redirectUri = `http://localhost:${config.port}`;
@@ -56,11 +56,11 @@ export const authorize = async (
         Authorization:
           'Basic ' +
           Buffer.from(config.clientId + ':' + config.clientSecret).toString(
-            'base64'
+            'base64',
           ),
       },
       body: tokenRequestBody.toString(),
-    }
+    },
   ).then(res => res.json());
 
   token.date_obtained = new Date().toUTCString();

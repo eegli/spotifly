@@ -45,5 +45,5 @@ export type Library<T = AnyTrack> = {
 }[];
 
 export type LibraryHandler = (
-  opts: Options
+  opts: Options,
 ) => Promise<LibraryExport<AnyTrack>>;

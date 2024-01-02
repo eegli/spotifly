@@ -44,24 +44,27 @@ export const libraryHandler: LibraryHandler = async options => {
 
     // Reduce library if necessary
     if (config.type === 'light') {
-      library = library.reduce((acc, curr) => {
-        acc.push({
-          added_at: curr.added_at,
-          track: {
-            id: curr.track.id,
-            name: curr.track.name,
-            album: {
-              id: curr.track.album.id,
-              name: curr.track.album.name,
+      library = library.reduce(
+        (acc, curr) => {
+          acc.push({
+            added_at: curr.added_at,
+            track: {
+              id: curr.track.id,
+              name: curr.track.name,
+              album: {
+                id: curr.track.album.id,
+                name: curr.track.album.name,
+              },
+              artists: curr.track.artists.map(a => ({
+                id: a.id,
+                name: a.name,
+              })),
             },
-            artists: curr.track.artists.map(a => ({
-              id: a.id,
-              name: a.name,
-            })),
-          },
-        });
-        return acc;
-      }, <Library<TrackLight>>[]);
+          });
+          return acc;
+        },
+        <Library<TrackLight>>[],
+      );
     }
 
     // Add genres if specified

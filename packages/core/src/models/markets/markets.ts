@@ -8,5 +8,5 @@ export const getAvailableMarkets: AsyncFnWithProvider<
     await provider.request({
       method: Method.GET,
       url: 'markets',
-    })
+    }),
   );

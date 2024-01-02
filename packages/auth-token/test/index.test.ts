@@ -16,7 +16,7 @@ jest.mock(
           scope: 'user-read-private user-read-email',
           token_type: 'Bearer',
         }),
-    })
+    }),
 );
 
 // Math.random().toString(36).slice(2) now returns "ou8n1fu8n1"
@@ -40,17 +40,17 @@ afterEach(() => {
 describe('Authorize via package', () => {
   it("fails if states don't match", async () => {
     localhostSpy.mockResolvedValueOnce(
-      `?code=AQDKHwNyRapw&state=${testState}XXX`
+      `?code=AQDKHwNyRapw&state=${testState}XXX`,
     );
     await expect(
-      authorize({ clientId: 'cid', clientSecret: 'cs' })
+      authorize({ clientId: 'cid', clientSecret: 'cs' }),
     ).rejects.toThrow();
   });
 
   it('fails if no code is received', async () => {
     localhostSpy.mockResolvedValueOnce(`?state=${testState}`);
     await expect(
-      authorize({ clientId: 'cid', clientSecret: 'cs' })
+      authorize({ clientId: 'cid', clientSecret: 'cs' }),
     ).rejects.toThrow();
   });
 

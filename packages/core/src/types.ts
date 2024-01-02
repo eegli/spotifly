@@ -23,28 +23,28 @@ export type AsyncFn<
   Param1 = undefined,
   Param2 = undefined,
   Param3 = undefined,
-  Response = DataPromise<ReturnValue>
+  Response = DataPromise<ReturnValue>,
 > = [Param1] extends [undefined]
   ? () => Response
   : [Param2] extends [undefined]
-  ? (required: Param1) => Response
-  : [Param3] extends [undefined]
-  ? [Param2] extends [AnyObject]
-    ? (required: Param1, optional?: Partial<Param2>) => Response
-    : (required1: Param1, required2: Param2) => Response
-  : [Param3] extends [AnyObject]
-  ? (
-      required1: Param1,
-      required2: Param2,
-      optional?: Partial<Param3>
-    ) => Response
-  : never;
+    ? (required: Param1) => Response
+    : [Param3] extends [undefined]
+      ? [Param2] extends [AnyObject]
+        ? (required: Param1, optional?: Partial<Param2>) => Response
+        : (required1: Param1, required2: Param2) => Response
+      : [Param3] extends [AnyObject]
+        ? (
+            required1: Param1,
+            required2: Param2,
+            optional?: Partial<Param3>,
+          ) => Response
+        : never;
 
 export type AsyncFnWithProvider<
   ReturnValue,
   Param1 = undefined,
   Param2 = undefined,
-  Param3 = undefined
+  Param3 = undefined,
 > = (provider: AsyncProvider) => AsyncFn<ReturnValue, Param1, Param2, Param3>;
 
 export type AnyObject = Record<string, unknown>;
@@ -56,7 +56,7 @@ export type LiteralUnion<T extends string> = T | (string & EmptyObject);
 export type AnyFunc = (...args: any[]) => unknown;
 
 export type DataCallback<
-  F extends (...args: any[]) => (...args: any[]) => unknown
+  F extends (...args: any[]) => (...args: any[]) => unknown,
 > = Parameters<ReturnType<F>>[0];
 
 // https://github.com/microsoft/TypeScript/issues/39556
@@ -70,7 +70,7 @@ export type KeysMatching<Type, Value> = {
 
 export type OmitFromAsyncFnParams<
   Func extends AnyFunc,
-  Obj extends AnyObject
+  Obj extends AnyObject,
 > = Func extends (arg1: infer FirstArg, arg2: infer SecondArg) => unknown
   ? [FirstArg, BetterOmit<SecondArg, keyof Obj>?]
   : never;

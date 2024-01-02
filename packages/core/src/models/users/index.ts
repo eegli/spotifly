@@ -77,7 +77,7 @@ export default function Users(provider: AsyncProvider) {
      */
     followAllArtists: factory.handleLimited(
       followArtists(provider),
-      FOLLOW_LIMIT
+      FOLLOW_LIMIT,
     ),
     /**
      * Add the current user as a follower of one or more other Spotify users.
@@ -109,7 +109,7 @@ export default function Users(provider: AsyncProvider) {
      */
     unfollowAllArtists: factory.handleLimited(
       unfollowArtists(provider),
-      FOLLOW_LIMIT
+      FOLLOW_LIMIT,
     ),
     /**
      * Remove the current user as a follower of one or more other Spotify users.
@@ -124,7 +124,7 @@ export default function Users(provider: AsyncProvider) {
      */
     unfollowAllUsers: factory.handleLimited(
       unfollowUsers(provider),
-      FOLLOW_LIMIT
+      FOLLOW_LIMIT,
     ),
     // TODO factory for cursor based
     /**
@@ -145,7 +145,7 @@ export default function Users(provider: AsyncProvider) {
      */
     checkFollowsAllArtists: factory.handleLimited(
       checkFollowsArtists(provider),
-      FOLLOW_LIMIT
+      FOLLOW_LIMIT,
     ),
     /**
      * Check to see if the current user is following one or more other Spotify users.
@@ -160,7 +160,7 @@ export default function Users(provider: AsyncProvider) {
      */
     checkFollowsAllUsers: factory.handleLimited(
       checkFollowsUsers(provider),
-      FOLLOW_LIMIT
+      FOLLOW_LIMIT,
     ),
     /**
      * Check to see if one or more Spotify users are following a specified playlist.
