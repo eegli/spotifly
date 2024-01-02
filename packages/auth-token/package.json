@@ -31,11 +31,11 @@
   "dependencies": {
     "@eegli/tinyparse": "^0.14.0",
     "@spotifly/utils": "workspace:^",
-    "node-fetch": "2"
+    "node-fetch": "2.7.0"
   },
   "devDependencies": {
-    "@types/fs-extra": "^11.0.1",
-    "@types/node-fetch": "^2.6.3"
+    "@types/fs-extra": "^11.0.4",
+    "@types/node-fetch": "^2.6.10"
   },
   "engines": {
     "node": ">=14"

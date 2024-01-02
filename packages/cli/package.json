@@ -35,10 +35,10 @@
     "@spotifly/core": "workspace:^",
     "@spotifly/library": "workspace:^",
     "@spotifly/utils": "workspace:^",
-    "ini": "^4.1.0"
+    "ini": "^4.1.1"
   },
   "engines": {
-    "node": ">=14"
+    "node": ">=18"
   },
   "publishConfig": {
     "directory": "_release/package"
