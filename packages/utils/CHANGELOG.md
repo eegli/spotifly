@@ -1,5 +1,11 @@
 # @spotifly/utils
 
+## 2.0.0
+
+### Major Changes
+
+- cd73d25: The minimum node version has been bumped from 14 to 18.
+
 ## 1.0.1
 
 ### Patch Changes

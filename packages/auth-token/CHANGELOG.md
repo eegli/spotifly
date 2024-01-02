@@ -1,5 +1,16 @@
 # @spotifly/auth-token
 
+## 3.0.0
+
+### Major Changes
+
+- cd73d25: The minimum node version has been bumped from 14 to 18.
+
+### Patch Changes
+
+- Updated dependencies [cd73d25]
+  - @spotifly/utils@2.0.0
+
 ## 2.0.1
 
 ### Patch Changes
