@@ -5,7 +5,6 @@ import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import OutlinedInput from '@mui/material/OutlinedInput';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import React from 'react';
@@ -40,6 +39,7 @@ export const CliCodeBlock = ({
   const isRequired = (key: string) => required.includes(key);
 
   const merged = { ...commandMap, ...inputFields };
+
   return (
     <MuiThemeWrapper>
       <Box
@@ -80,9 +80,11 @@ export const CliCodeBlock = ({
           if (key === scopesKey) {
             return (
               <FormControl key={key} required={isRequired(key)}>
-                <InputLabel>{key}</InputLabel>
+                <InputLabel htmlFor={key}>{key}</InputLabel>
                 <Select
                   multiple
+                  labelId={key}
+                  label={key}
                   value={value}
                   onChange={event =>
                     setInputFields({
@@ -90,7 +92,6 @@ export const CliCodeBlock = ({
                       [key]: event.target.value,
                     })
                   }
-                  input={<OutlinedInput label="scope" />}
                 >
                   {authScopes.map(scope => (
                     <MenuItem key={scope} value={scope}>
@@ -130,7 +131,6 @@ export const CliCodeBlock = ({
           return (
             <TextField
               key={key}
-              id={key}
               type="text"
               required={isRequired(key)}
               label={key}
