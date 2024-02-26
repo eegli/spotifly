@@ -1,0 +1,4 @@
+{
+  "main": "dist/spotifly-utils-colors.cjs.js",
+  "module": "dist/spotifly-utils-colors.esm.js"
+}

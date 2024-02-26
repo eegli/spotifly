@@ -1,17 +1,20 @@
-import { initialize, isError } from '@spotifly/core';
-import { writeJSON } from '@spotifly/utils';
-import { defaultConfig } from './config';
-import type { Library, LibraryHandler, TrackLight } from './types';
+import type { CommandHandler } from '@eegli/tinyparse';
+import { initialize, isError as isSpotiflyError } from '@spotifly/core';
+import { writeJSON } from '@spotifly/utils/fs';
+import log from '@spotifly/utils/log';
+import type { Options } from './config';
+import type { Library, TrackLight } from './types';
 import { createProgressBar, isBeforeDate } from './utils';
 
-export const libraryHandler: LibraryHandler = async options => {
+export const libraryHandler: CommandHandler<Options> = async ({
+  options,
+  globals,
+}) => {
+  let progress = createProgressBar('user library');
   try {
-    const config = { ...defaultConfig, ...options };
-    const spotifyClient = initialize({ accessToken: config.token });
+    const spotifyClient = initialize({ accessToken: globals.token });
 
     let library: Library = [];
-
-    let progress = createProgressBar('user library');
 
     progress.start(0, 0);
 
@@ -28,10 +31,10 @@ export const libraryHandler: LibraryHandler = async options => {
 
       for (let i = 0; i < data.items.length; i++) {
         const track = data.items[i];
-        if (library.length === config.last) {
+        if (library.length === options.last) {
           break fetchLoop;
         }
-        if (isBeforeDate(track.added_at, config.since)) {
+        if (isBeforeDate(track.added_at, options.since)) {
           break fetchLoop;
         }
         library.push(track);
@@ -43,7 +46,7 @@ export const libraryHandler: LibraryHandler = async options => {
     progress.stop();
 
     // Reduce library if necessary
-    if (config.type === 'light') {
+    if (options.type === 'light') {
       library = library.reduce(
         (acc, curr) => {
           acc.push({
@@ -68,7 +71,7 @@ export const libraryHandler: LibraryHandler = async options => {
     }
 
     // Add genres if specified
-    if (config.genres) {
+    if (options.genres) {
       const artists = library.map(t => t.track.artists.map(a => a.id)).flat();
       const artistIds = [...new Set<string>(artists)];
       const genres: Record<string, string[]> = {};
@@ -90,7 +93,7 @@ export const libraryHandler: LibraryHandler = async options => {
     }
 
     // Add audio features if specified
-    if (config.features) {
+    if (options.features) {
       const trackIds = library.map(t => t.track.id);
       const features: Record<string, SpotifyApi.AudioFeaturesObject> = {};
 
@@ -114,27 +117,28 @@ export const libraryHandler: LibraryHandler = async options => {
     const libExport = {
       meta: {
         date_generated: new Date().toISOString(),
-        output_type: config.type,
+        output_type: options.type,
       },
       library,
     };
 
     const outDir = await writeJSON({
       fileName: 'spotify-library',
-      path: config.outDir,
+      path: options.outDir,
       data: libExport,
-      compact: config.compact,
+      compact: options.compact,
     });
 
-    console.info("Success! Library written to '%s'", outDir);
-
-    return libExport;
+    log.info(`Success! Library written to ${outDir}`);
   } catch (error) {
-    if (isError(error) && error.response) {
+    progress.stop();
+    if (isSpotiflyError(error) && error.response) {
       const { status, message } = error.response.data.error;
-      throw new Error(`Status ${status}, ${message}`);
+      log.error(`Status ${status}, ${message}`);
+    } else if (error instanceof Error) {
+      log.error('Something went wrong: ' + error.message);
     } else {
-      throw new Error('Something went wrong');
+      log.error('An unknown error occurred');
     }
   }
 };

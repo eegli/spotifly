@@ -1,14 +1,16 @@
-import { writeJSON } from '@spotifly/utils';
+import type { CommandHandler } from '@eegli/tinyparse';
+import { writeJSON } from '@spotifly/utils/fs';
+import log from '@spotifly/utils/log';
 import fetch from 'node-fetch';
-import { defaultConfig } from './config';
+import type { Options } from './config';
 import { localhostUrl } from './server';
-import type { Options, SpotifyTokenResponse } from './types';
+import type { SpotifyTokenResponse } from './types';
 import { id } from './utils';
 
-export const authorize = async (
-  options: Options,
-): Promise<SpotifyTokenResponse> => {
-  const config = { ...defaultConfig, ...options };
+export const authorize: CommandHandler<Options> = async ({
+  options,
+}): Promise<void> => {
+  const config = options;
   const redirectUri = `http://localhost:${config.port}`;
   const state = id();
 
@@ -23,8 +25,8 @@ export const authorize = async (
       scope: config.scopes,
     }).toString();
 
-  console.info('Please click the link to login to Spotify in the browser\n');
-  console.info(spotifyUrl + '\n');
+  log.log('Please click the link to login to Spotify in the browser\n');
+  log.log(spotifyUrl + '\n');
 
   const authUrl = await localhostUrl(config.port);
   const params = new URLSearchParams(authUrl);
@@ -39,7 +41,7 @@ export const authorize = async (
     throw new Error('No code received');
   }
 
-  console.info('Login successfull! Cleaning up...\n');
+  log.log('Login successfull! Cleaning up...\n');
 
   const tokenRequestBody = new URLSearchParams({
     grant_type: 'authorization_code',
@@ -71,8 +73,8 @@ export const authorize = async (
       fileName: config.fileName,
       data: token,
     });
-    console.info(`Success! Saved Spotify access token to "${outDir}"`);
+    log.info(`Success! Saved Spotify access token to "${outDir}"`);
+  } else {
+    log.info(`Token:\n${JSON.stringify(token, null, 2)}`);
   }
-
-  return token;
 };
