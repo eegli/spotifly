@@ -1,6 +1,9 @@
-import * as utils from '@spotifly/utils';
-import { authorize } from '../src';
+import * as fs from '@spotifly/utils/fs';
+import log from '@spotifly/utils/log';
+import { AuthorizeOptions, authorize } from '../src/authorize';
+import { parser } from '../src/cli';
 import * as server from '../src/server';
+import * as utils from '../src/utils';
 
 jest.useFakeTimers().setSystemTime(new Date('1996-04-20T22:00:00.000Z'));
 
@@ -19,65 +22,78 @@ jest.mock(
     }),
 );
 
-// Math.random().toString(36).slice(2) now returns "ou8n1fu8n1"
-jest.spyOn(Math, 'random').mockReturnValue(0.69);
 const testState = 'ou8n1fu8n1';
+jest.spyOn(utils, 'randomState').mockReturnValue(testState);
 
+const token = 'AQDKHwNyRapw';
 const localhostSpy = jest
   .spyOn(server, 'localhostUrl')
-  .mockResolvedValue(`?code=AQDKHwNyRapw&state=${testState}`);
+  .mockResolvedValue(`?code=${token}&state=${testState}`);
 
-const consoleSpy = jest.spyOn(global.console, 'info');
+const logInfoSpy = jest.spyOn(log, 'info').mockImplementation(() => {});
+const logLogSpy = jest.spyOn(log, 'log').mockImplementation(() => {});
+const logErrorSpy = jest.spyOn(log, 'error').mockImplementation(() => {});
 
 const writeSpy = jest
-  .spyOn(utils, 'writeJSON')
+  .spyOn(fs, 'writeJSON')
   .mockImplementation(opts => Promise.resolve(opts.path));
 
 afterEach(() => {
   jest.clearAllMocks();
 });
 
+const options: AuthorizeOptions = {
+  ...parser.options,
+  clientId: 'cid',
+  clientSecret: 'secret',
+  scopes: 'user-do-nothing user-balabla',
+};
+
 describe('Authorize via package', () => {
   it("fails if states don't match", async () => {
     localhostSpy.mockResolvedValueOnce(
-      `?code=AQDKHwNyRapw&state=${testState}XXX`,
+      `?code=${token}&state=${testState + 'XXX'}`,
     );
-    await expect(
-      authorize({ clientId: 'cid', clientSecret: 'cs' }),
-    ).rejects.toThrow();
+    await authorize({
+      options,
+    });
+    expect(logErrorSpy).toHaveBeenCalledWith(
+      'Error: Received and original state do not match',
+    );
   });
 
   it('fails if no code is received', async () => {
     localhostSpy.mockResolvedValueOnce(`?state=${testState}`);
-    await expect(
-      authorize({ clientId: 'cid', clientSecret: 'cs' }),
-    ).rejects.toThrow();
+    await authorize({
+      options,
+    });
+    expect(logErrorSpy).toHaveBeenCalledWith(
+      'Error: No code received from Spotify, did you cancel the login?',
+    );
   });
 
   it('works with emit mode', async () => {
-    const config = {
-      clientId: 'cid',
-      clientSecret: 'cs',
-      port: 1000,
-      outDir: 'out/token/',
-      fileName: 'mytoken',
-      scopes: 'user-do-nothing user-balabla',
-    };
-    const result = await authorize(config);
-    expect(result).toBeDefined();
-    expect(consoleSpy.mock.calls[1][0]).toMatchSnapshot('auth url');
-    expect(localhostSpy).toHaveBeenCalledWith(config.port);
+    await authorize({
+      options: {
+        ...options,
+        outDir: 'some-dir',
+        noEmit: false,
+      },
+    });
+    expect(logLogSpy.mock.calls).toMatchSnapshot('log');
+    expect(logInfoSpy.mock.calls).toMatchSnapshot('info');
+    expect(localhostSpy).toHaveBeenCalledWith(options.port);
     expect(writeSpy).toHaveBeenCalledTimes(1);
-    expect(consoleSpy.mock.calls[3][0]).toMatch(new RegExp(config.outDir));
   });
 
   it('works with no emit mode', async () => {
-    const result = await authorize({
-      clientId: 'cid',
-      clientSecret: 'cs',
-      noEmit: true,
+    await authorize({
+      options: {
+        ...options,
+        noEmit: true,
+      },
     });
-    expect(result).toBeDefined();
+    expect(logInfoSpy.mock.calls).toMatchSnapshot('info');
     expect(writeSpy).not.toHaveBeenCalled();
   });
 });

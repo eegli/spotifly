@@ -1,18 +1,19 @@
-import type { CommandHandler } from '@eegli/tinyparse';
+import type { HandlerOptions, HandlerParams } from '@eegli/tinyparse';
 import { writeJSON } from '@spotifly/utils/fs';
 import log from '@spotifly/utils/log';
 import fetch from 'node-fetch';
 import type { Options } from './config';
 import { localhostUrl } from './server';
 import type { SpotifyTokenResponse } from './types';
-import { id } from './utils';
+import { randomState } from './utils';
 
-export const authorize: CommandHandler<Options> = async ({
-  options,
-}): Promise<void> => {
+export type AuthorizeOptions = HandlerOptions<Options>;
+export type Authorize = HandlerParams<AuthorizeOptions>;
+
+export const authorize: Authorize = async ({ options }): Promise<void> => {
   const config = options;
   const redirectUri = `http://localhost:${config.port}`;
-  const state = id();
+  const state = randomState();
 
   const spotifyUrl =
     'https://accounts.spotify.com/authorize?' +
@@ -34,11 +35,15 @@ export const authorize: CommandHandler<Options> = async ({
   const receivedState = params.get('state');
 
   if (receivedState !== state) {
-    throw new Error('Received and original state do not match');
+    log.error('Error: Received and original state do not match');
+    return;
   }
 
   if (!receivedCode) {
-    throw new Error('No code received');
+    log.error(
+      'Error: No code received from Spotify, did you cancel the login?',
+    );
+    return;
   }
 
   log.log('Login successfull! Cleaning up...\n');

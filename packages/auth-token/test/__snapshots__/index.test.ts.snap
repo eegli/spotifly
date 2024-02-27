@@ -1,6 +1,42 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Authorize via package works with emit mode: auth url 1`] = `
-"https://accounts.spotify.com/authorize?response_type=code&show_dialog=true&state=ou8n1fu8n1&client_id=cid&redirect_uri=http%3A%2F%2Flocalhost%3A1000&scope=user-do-nothing+user-balabla
-"
+exports[`Authorize via package works with emit mode: info 1`] = `
+[
+  [
+    "Success! Saved Spotify access token to "some-dir"",
+  ],
+]
+`;
+
+exports[`Authorize via package works with emit mode: log 1`] = `
+[
+  [
+    "Please click the link to login to Spotify in the browser
+",
+  ],
+  [
+    "https://accounts.spotify.com/authorize?response_type=code&show_dialog=true&state=ou8n1fu8n1&client_id=cid&redirect_uri=http%3A%2F%2Flocalhost%3A3000&scope=user-do-nothing+user-balabla
+",
+  ],
+  [
+    "Login successfull! Cleaning up...
+",
+  ],
+]
+`;
+
+exports[`Authorize via package works with no emit mode: info 1`] = `
+[
+  [
+    "Token:
+{
+  "access_token": "access_token",
+  "refresh_token": "refresh_token",
+  "expires_in": 3600,
+  "scope": "user-read-private user-read-email",
+  "token_type": "Bearer",
+  "date_obtained": "Sat, 20 Apr 1996 22:00:00 GMT"
+}",
+  ],
+]
 `;
