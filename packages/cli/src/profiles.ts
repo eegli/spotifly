@@ -1,13 +1,9 @@
-import { CommandHandler } from '@eegli/tinyparse';
-import log from '@spotifly/utils/log';
 import { getConfigProfiles } from '@spotifly/utils/profile';
-import type { Options } from './cli';
 
-export const profilesHandler: CommandHandler<Options> = () => {
+export const readProfiles = (): [null, string] | [string, null] => {
   const profilesAndPath = getConfigProfiles();
   if (!profilesAndPath) {
-    log.error('No profiles found, does your config file exist?');
-    return;
+    return [null, 'No profiles found, does your config file exist?'];
   }
   const [rawProfiles, configPath] = profilesAndPath;
   const profiles = rawProfiles.map(p => '* ' + p).join('\n');
@@ -19,5 +15,5 @@ export const profilesHandler: CommandHandler<Options> = () => {
     'Config file: ' +
     configPath;
 
-  log.log(toLog);
+  return [toLog, null];
 };

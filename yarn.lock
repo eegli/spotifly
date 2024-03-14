@@ -3002,11 +3002,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eegli/tinyparse@portal:/C:/github/tinyparse::locator=%40spotifly%2Frepository%40workspace%3A.":
-  version: 0.0.0-use.local
-  resolution: "@eegli/tinyparse@portal:/C:/github/tinyparse::locator=%40spotifly%2Frepository%40workspace%3A."
+"@eegli/tinyparse@npm:^0.19.1":
+  version: 0.19.1
+  resolution: "@eegli/tinyparse@npm:0.19.1"
+  checksum: 572326a883e85962ead479ed1d624eef6f399720972370b0032575160c15d1388689730b8e9324d21e6a44c1fc957b4a977fdb54c41a92044368dd6ae8501e9a
   languageName: node
-  linkType: soft
+  linkType: hard
 
 "@emotion/babel-plugin@npm:^11.11.0":
   version: 11.11.0
@@ -4250,7 +4251,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spotifly/auth-token@workspace:packages/auth-token"
   dependencies:
-    "@eegli/tinyparse": "file:../../../tinyparse"
+    "@eegli/tinyparse": "npm:^0.19.1"
     "@spotifly/utils": "workspace:^"
     "@types/fs-extra": "npm:^11.0.4"
     "@types/node-fetch": "npm:^2.6.10"
@@ -4262,7 +4263,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spotifly/cli@workspace:packages/cli"
   dependencies:
-    "@eegli/tinyparse": "npm:^0.18.0"
+    "@eegli/tinyparse": "npm:^0.19.1"
     "@spotifly/auth-token": "workspace:^"
     "@spotifly/core": "workspace:^"
     "@spotifly/library": "workspace:^"
@@ -4292,7 +4293,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spotifly/library@workspace:packages/library"
   dependencies:
-    "@eegli/tinyparse": "npm:^0.18.0"
+    "@eegli/tinyparse": "npm:^0.19.1"
     "@spotifly/core": "workspace:^"
     "@spotifly/utils": "workspace:^"
     "@types/cli-progress": "npm:^3.11.5"

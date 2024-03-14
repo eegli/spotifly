@@ -1,15 +1,13 @@
-import type { CommandHandler } from '@eegli/tinyparse';
 import { initialize, isError as isSpotiflyError } from '@spotifly/core';
 import { writeJSON } from '@spotifly/utils/fs';
 import log from '@spotifly/utils/log';
-import type { Options } from './config';
-import type { Library, TrackLight } from './types';
+import type { Library, LibraryExport, LibraryParams } from './types';
 import { createProgressBar, isBeforeDate } from './utils';
 
-export const libraryHandler: CommandHandler<Options> = async ({
+export const libraryHandler = async ({
   options,
   globals,
-}) => {
+}: LibraryParams): Promise<LibraryExport | undefined> => {
   let progress = createProgressBar('user library');
   try {
     const spotifyClient = initialize({ accessToken: globals.token });
@@ -66,7 +64,7 @@ export const libraryHandler: CommandHandler<Options> = async ({
           });
           return acc;
         },
-        <Library<TrackLight>>[],
+        <Library>[],
       );
     }
 
@@ -114,10 +112,9 @@ export const libraryHandler: CommandHandler<Options> = async ({
       });
     }
 
-    const libExport = {
+    const libExport: LibraryExport = {
       meta: {
         date_generated: new Date().toISOString(),
-        output_type: options.type,
       },
       library,
     };
@@ -130,6 +127,7 @@ export const libraryHandler: CommandHandler<Options> = async ({
     });
 
     log.info(`Success! Library written to ${outDir}`);
+    return libExport;
   } catch (error) {
     progress.stop();
     if (isSpotiflyError(error) && error.response) {

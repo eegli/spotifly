@@ -40,15 +40,15 @@ import { CliCodeBlock } from '@site/src/components/code-blocks/codeblock';
 
 ### Options
 
-| Flag                           | _(required?)_ Description                                                                                    |
-| ------------------------------ | ------------------------------------------------------------------------------------------------------------ |
-| `--client-id` `[string]`       | ✅ The client id of your Spotify application                                                                 |
-| `--client-secret` `[string]`   | ✅ The client secret of your Spotify application                                                             |
-| `-s`, `--scopes` `[string]`    | ❌ Spotify authorization scopes. Multiple scopes need to be separated by a space. Default: "user-read-email" |
-| `-p`, `--port` `[number]`      | ❌ Port for the localhost redirect URL. Default: `3000`                                                      |
-| `-o`, `--out-dir` `[string]`   | ❌ Custom relative output directory. Default: Current directory                                              |
-| `-f`, `--file-name` `[string]` | ❌ Custom name for the output JSON file. Default: "spotify-token"                                            |
-| `--no-emit` `[boolean]`        | ❌ When set to `true`, does not save the token to the file system. Default: `false`                          |
+| Flag                           | _(required?)_ Description                                                                                                 |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
+| `--client-id` `[string]`       | ✅ The client id of your Spotify application                                                                              |
+| `--client-secret` `[string]`   | ✅ The client secret of your Spotify application                                                                          |
+| `-s`, `--scopes` `[string]`    | ❌ Spotify authorization scopes. Multiple scopes need to be separated by a space. Default: "user-read-email"              |
+| `-p`, `--port` `[number]`      | ❌ Port for the localhost redirect URL. Default: `3000`                                                                   |
+| `-o`, `--out-dir` `[string]`   | ❌ Custom relative output directory. Default: Current directory                                                           |
+| `-f`, `--file-name` `[string]` | ❌ Custom name for the output JSON file. Default: "spotify-token"                                                         |
+| `--no-emit` `[boolean]`        | ❌ When set to `true`, does not save the token to the file system and prints it to your termial instead. Default: `false` |
 
 ## Programmatic Usage
 
@@ -58,35 +58,7 @@ import { CliCodeBlock } from '@site/src/components/code-blocks/codeblock';
 npm install -D @spotifly/auth-token
 ```
 
-### Options
-
-```ts
-type Options = {
-  clientId: string;
-  clientSecret: string;
-  port?: number;
-  scopes?: string;
-  fileName?: string;
-  outDir?: string;
-  noEmit?: boolean;
-};
-```
-
 ### Examples
-
-- CommonJS
-
-```js
-const { authorize } = require('@spotifly/auth-token');
-
-const token = await authorize({
-  clientId: 'clientId',
-  clientSecret: 'clientSecret',
-  port: 3000,
-  scopes: 'user-read-email user-top-read',
-  noEmit: true,
-});
-```
 
 - ES Modules
 

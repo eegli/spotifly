@@ -21,6 +21,7 @@ export const options = new Parser()
   .option('type', {
     defaultValue: 'light',
     longFlag: '--type',
+    oneOf: ['full'],
     description:
       "Output type per track. Either 'full' or 'light'. Default: 'light'",
   })
@@ -64,7 +65,7 @@ export const options = new Parser()
       'The Spotifly profile to use for the Spotify API. Default: None',
   })
   .setGlobals(async options => {
-    let token = options.token;
+    let token = options.token; // Might be ""
     if (!token && options.profile) {
       try {
         const credentials = tryCredentialsFromConfig(options.profile);
@@ -83,8 +84,8 @@ export const options = new Parser()
     }
     return { token };
   })
-  .onError((err, usage) => {
-    log.error('Error: ' + err.message);
+  .onError(({ error, usage }) => {
+    log.error('Error: ' + error.message);
     log.log(usage);
   });
 

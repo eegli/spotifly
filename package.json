@@ -77,8 +77,5 @@
     "packages": [
       "packages/*"
     ]
-  },
-  "resolutions": {
-    "@eegli/tinyparse": "portal:/C:/github/tinyparse"
   }
 }

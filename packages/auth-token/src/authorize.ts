@@ -1,4 +1,4 @@
-import type { HandlerOptions, HandlerParams } from '@eegli/tinyparse';
+import type { WithOptions } from '@eegli/tinyparse';
 import { writeJSON } from '@spotifly/utils/fs';
 import log from '@spotifly/utils/log';
 import fetch from 'node-fetch';
@@ -7,10 +7,11 @@ import { localhostUrl } from './server';
 import type { SpotifyTokenResponse } from './types';
 import { randomState } from './utils';
 
-export type AuthorizeOptions = HandlerOptions<Options>;
-export type Authorize = HandlerParams<AuthorizeOptions>;
+export type AuthorizeParams = WithOptions<Options>;
 
-export const authorize: Authorize = async ({ options }): Promise<void> => {
+export const authorize = async ({
+  options,
+}: AuthorizeParams): Promise<SpotifyTokenResponse | undefined> => {
   const config = options;
   const redirectUri = `http://localhost:${config.port}`;
   const state = randomState();
@@ -82,4 +83,5 @@ export const authorize: Authorize = async ({ options }): Promise<void> => {
   } else {
     log.info(`Token:\n${JSON.stringify(token, null, 2)}`);
   }
+  return token;
 };

@@ -1,6 +1,5 @@
 import fs from 'fs-extra';
-import { WriteJSONOptions } from '../src/fs';
-import { writeJSON } from '../src/index';
+import { WriteJSONOptions, writeJSON } from '../src/fs';
 
 jest.mock('fs-extra');
 const mockFS = fs as jest.Mocked<typeof fs>;

@@ -2,7 +2,7 @@ import { Parser } from '@eegli/tinyparse';
 import * as authCli from '@spotifly/auth-token/cli';
 import * as libraryCli from '@spotifly/library/cli';
 import log from '@spotifly/utils/log';
-import { profilesHandler } from './handlers';
+import { readProfiles } from './profiles';
 
 // Package.json cannot be imported as a module, see
 // https://github.com/preconstruct/preconstruct/issues/582
@@ -15,7 +15,7 @@ const options = new Parser().setMeta({
   version: {
     version: version,
     longFlag: '--version',
-    shortFlag: '-v',
+    shortFlag: '-V',
   },
   help: {
     command: 'help',
@@ -28,7 +28,11 @@ const parser = options
   .subcommand('profiles', {
     description: 'List available profiles',
     args: [] as const,
-    handler: profilesHandler,
+    handler: () => {
+      const [profiles, error] = readProfiles();
+      if (error) log.error(error);
+      else log.info(profiles!);
+    },
   })
   .subparser('auth', {
     description: 'Authenticate with Spotify',
@@ -38,16 +42,14 @@ const parser = options
     description: 'Manage your Spotify library',
     parser: libraryCli.parser,
   })
-  .onError((err, usage) => {
-    log.error('Error: ' + err.message);
+  .onError(({ error, usage }) => {
+    log.error('Error: ' + error.message);
     log.log(usage);
   })
-  .defaultHandler(({ usage }) => {
-    log.log(usage);
+  .defaultHandler(() => {
+    log.error("Please provide a valid command, or use 'spotifly help'");
   });
 
-export const run = async (): Promise<unknown> => {
-  return parser.parse(process.argv.slice(2)).call();
+export const run = async (args: string[]): Promise<unknown> => {
+  return parser.parse(args).call();
 };
-
-export type Options = typeof options;

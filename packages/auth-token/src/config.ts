@@ -52,8 +52,8 @@ export const options = new Parser()
     defaultValue: false,
     description: 'When set to true, does not save the token to the file system',
   })
-  .onError((err, usage) => {
-    log.error('Error: ' + err.message);
+  .onError(({ error, usage }) => {
+    log.error('Error: ' + error.message);
     log.log(usage);
   });
 
