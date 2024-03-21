@@ -1,7 +1,7 @@
 import { Parser, ValidationError } from '@eegli/tinyparse';
 import { AuthProvider } from '@spotifly/core/provider';
 import log from '@spotifly/utils/log';
-import { tryCredentialsFromConfig } from '@spotifly/utils/profile';
+import { credentialsFromConfig } from '@spotifly/utils/profile';
 
 export const options = new Parser()
   .setMeta({
@@ -59,7 +59,7 @@ export const options = new Parser()
     description: 'Custom relative output directory. Default: Current directory',
   })
   .option('profile', {
-    defaultValue: '',
+    defaultValue: 'default',
     longFlag: '--profile',
     description:
       'The Spotifly profile to use for the Spotify API. Default: None',
@@ -67,15 +67,13 @@ export const options = new Parser()
   .setGlobals(async options => {
     let token = options.token; // Might be ""
     if (!token && options.profile) {
-      try {
-        const credentials = tryCredentialsFromConfig(options.profile);
-        const { access_token } = await AuthProvider.getAccessToken(credentials);
-        token = access_token;
-      } catch (err) {
-        if (err instanceof Error) {
-          throw new ValidationError(err.message);
-        }
+      const maybeError = credentialsFromConfig(options.profile);
+      if (typeof maybeError === 'string') {
+        throw new ValidationError(maybeError);
       }
+      const credentials = maybeError;
+      const { access_token } = await AuthProvider.getAccessToken(credentials);
+      token = access_token;
     }
     if (!token) {
       throw new ValidationError(

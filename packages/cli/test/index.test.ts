@@ -6,7 +6,7 @@ const consoleLogSpy = jest
   .spyOn(global.console, 'log')
   .mockImplementation(jest.fn);
 
-const profileUtilsSpy = jest.spyOn(profileUtils, 'getConfigProfiles');
+const profileUtilsSpy = jest.spyOn(profileUtils, 'profilesFromConfig');
 
 beforeEach(() => {
   jest.clearAllMocks();
@@ -44,7 +44,7 @@ test('profiles with valid profile', async () => {
   `);
 });
 test('profiles with no profiles', async () => {
-  profileUtilsSpy.mockReturnValue(null);
+  profileUtilsSpy.mockReturnValue([[], 'path']);
   const result = readProfiles();
   expect(result).toMatchInlineSnapshot(`
     [

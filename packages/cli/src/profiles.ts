@@ -1,11 +1,14 @@
-import { getConfigProfiles } from '@spotifly/utils/profile';
+import { profilesFromConfig } from '@spotifly/utils/profile';
 
 export const readProfiles = (): [null, string] | [string, null] => {
-  const profilesAndPath = getConfigProfiles();
-  if (!profilesAndPath) {
+  const maybeProfiles = profilesFromConfig();
+  if (typeof maybeProfiles === 'string') {
+    return [null, maybeProfiles];
+  }
+  const [rawProfiles, configPath] = maybeProfiles;
+  if (rawProfiles.length === 0) {
     return [null, 'No profiles found, does your config file exist?'];
   }
-  const [rawProfiles, configPath] = profilesAndPath;
   const profiles = rawProfiles.map(p => '* ' + p).join('\n');
   const toLog =
     'Available profiles:' +

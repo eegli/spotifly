@@ -19,7 +19,7 @@ const data = {
   },
 };
 
-describe('FS, writeJSON', () => {
+describe('fs', () => {
   const writeParams: WriteJSONOptions[] = [
     { path: '', fileName: 'test', data },
     { path: 'tmp', fileName: 'test', data },
