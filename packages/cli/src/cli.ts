@@ -30,7 +30,7 @@ const parser = options
     args: [] as const,
     handler: () => {
       const [profiles, error] = readProfiles();
-      if (error) log.error(error);
+      if (error) log.error('Error: ' + error);
       else log.info(profiles!);
     },
   })

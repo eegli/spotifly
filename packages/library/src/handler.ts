@@ -1,6 +1,7 @@
 import { initialize, isError as isSpotiflyError } from '@spotifly/core';
 import { writeJSON } from '@spotifly/utils/fs';
 import log from '@spotifly/utils/log';
+import { join } from 'path';
 import type { Library, LibraryExport, LibraryParams } from './types';
 import { createProgressBar, isBeforeDate } from './utils';
 
@@ -118,23 +119,23 @@ export const libraryHandler = async ({
       },
       library,
     };
-
+    const fileName = 'spotify-library';
     const outDir = await writeJSON({
-      fileName: 'spotify-library',
+      fileName,
       path: options.outDir,
       data: libExport,
       compact: options.compact,
     });
 
-    log.info(`Success! Library written to ${outDir}`);
+    log.info(`Success! Library written to ${join(outDir, fileName + '.json')}`);
     return libExport;
   } catch (error) {
     progress.stop();
     if (isSpotiflyError(error) && error.response) {
       const { status, message } = error.response.data.error;
-      log.error(`Status ${status}, ${message}`);
+      log.error(`Error: Status ${status}, ${message}`);
     } else if (error instanceof Error) {
-      log.error('Something went wrong: ' + error.message);
+      log.error('Error: Something went wrong: ' + error.message);
     } else {
       log.error('An unknown error occurred');
     }

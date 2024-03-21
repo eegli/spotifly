@@ -7,7 +7,7 @@ export const readProfiles = (): [null, string] | [string, null] => {
   }
   const [rawProfiles, configPath] = maybeProfiles;
   if (rawProfiles.length === 0) {
-    return [null, 'No profiles found, does your config file exist?'];
+    return [null, 'Found no valid profiles in ' + configPath];
   }
   const profiles = rawProfiles.map(p => '* ' + p).join('\n');
   const toLog =

@@ -59,15 +59,15 @@ export const options = new Parser()
     description: 'Custom relative output directory. Default: Current directory',
   })
   .option('profile', {
-    defaultValue: 'default',
+    defaultValue: '',
     longFlag: '--profile',
     description:
       'The Spotifly profile to use for the Spotify API. Default: None',
   })
-  .setGlobals(async options => {
-    let token = options.token; // Might be ""
-    if (!token && options.profile) {
-      const maybeError = credentialsFromConfig(options.profile);
+  .setGlobals(async parsedOptions => {
+    let token = parsedOptions.token; // Might be ""
+    if (!token && parsedOptions.profile) {
+      const maybeError = credentialsFromConfig(parsedOptions.profile);
       if (typeof maybeError === 'string') {
         throw new ValidationError(maybeError);
       }

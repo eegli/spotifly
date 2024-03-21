@@ -44,12 +44,22 @@ test('profiles with valid profile', async () => {
   `);
 });
 test('profiles with no profiles', async () => {
-  profileUtilsSpy.mockReturnValue([[], 'path']);
+  profileUtilsSpy.mockReturnValue([[], '/my/config/path']);
   const result = readProfiles();
   expect(result).toMatchInlineSnapshot(`
     [
       null,
-      "No profiles found, does your config file exist?",
+      "Found no valid profiles in /my/config/path",
+    ]
+  `);
+});
+test('profiles with error', async () => {
+  profileUtilsSpy.mockReturnValue('Invalid profile');
+  const result = readProfiles();
+  expect(result).toMatchInlineSnapshot(`
+    [
+      null,
+      "Invalid profile",
     ]
   `);
 });
