@@ -31,7 +31,10 @@ beforeEach(() => {
 test('profiles with valid profile', async () => {
   profileUtilsSpy.mockReturnValue({
     success: true,
-    value: [['profile1', 'profile2'], 'my-path'],
+    value: {
+      profiles: ['profile1', 'profile2'],
+      configPath: 'my-path',
+    },
   });
   const result = readProfiles();
   expect(result).toMatchInlineSnapshot(`
@@ -49,7 +52,10 @@ test('profiles with valid profile', async () => {
 test('profiles with no profiles', async () => {
   profileUtilsSpy.mockReturnValue({
     success: true,
-    value: [[], '/my/config/path'],
+    value: {
+      profiles: [],
+      configPath: 'my-path',
+    },
   });
   const result = readProfiles();
   expect(result).toMatchInlineSnapshot(`

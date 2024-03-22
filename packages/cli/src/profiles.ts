@@ -6,7 +6,7 @@ export const readProfiles = (): Result<string> => {
   if (!result.success) {
     return result;
   }
-  const [rawProfiles, configPath] = result.value;
+  const { profiles: rawProfiles, configPath } = result.value;
   if (rawProfiles.length === 0) {
     return {
       success: false,
