@@ -1,5 +1,11 @@
 # @spotifly/utils
 
+## 2.0.1
+
+### Patch Changes
+
+- 19e988c: Upgrade dependencies and remove outdated packages
+
 ## 2.0.0
 
 ### Major Changes
