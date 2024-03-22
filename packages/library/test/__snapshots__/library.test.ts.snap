@@ -1,165 +1,77 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Library gets items since date 1`] = `
-{
-  "library": [
-    {
-      "added_at": "2021-12-06T17:17:57Z",
-      "track": {
-        "album": {
-          "id": "6Ozmnoay8pclUfUO8CWKLU",
-          "name": "The Age Of Love (Charlotte de Witte & Enrico Sangiuliano Remix)",
-        },
-        "artists": [
-          {
-            "id": "03tes5RhEvH2dX2eDeGnRn",
-            "name": "Age Of Love",
-          },
-          {
-            "id": "1lJhME1ZpzsEa5M0wW6Mso",
-            "name": "Charlotte de Witte",
-          },
-          {
-            "id": "1u7DsNFbakULvxnDGtMm90",
-            "name": "Enrico Sangiuliano",
-          },
-        ],
-        "id": "6X6Ow0iioCrYQSK1QDHQbC",
-        "name": "The Age Of Love - Charlotte de Witte & Enrico Sangiuliano Remix",
-      },
-    },
-  ],
-  "meta": {
-    "date_generated": "1970-01-01T00:00:00.000Z",
-  },
-}
-`;
-
 exports[`Library gets light library 1`] = `
 {
-  "library": [
-    {
-      "added_at": "2021-12-06T17:17:57Z",
-      "track": {
-        "album": {
-          "id": "6Ozmnoay8pclUfUO8CWKLU",
-          "name": "The Age Of Love (Charlotte de Witte & Enrico Sangiuliano Remix)",
+  "success": true,
+  "value": {
+    "library": [
+      {
+        "added_at": "2021-12-06T17:17:57Z",
+        "track": {
+          "album": {
+            "id": "6Ozmnoay8pclUfUO8CWKLU",
+            "name": "The Age Of Love (Charlotte de Witte & Enrico Sangiuliano Remix)",
+          },
+          "artists": [
+            {
+              "id": "03tes5RhEvH2dX2eDeGnRn",
+              "name": "Age Of Love",
+            },
+            {
+              "id": "1lJhME1ZpzsEa5M0wW6Mso",
+              "name": "Charlotte de Witte",
+            },
+            {
+              "id": "1u7DsNFbakULvxnDGtMm90",
+              "name": "Enrico Sangiuliano",
+            },
+          ],
+          "id": "6X6Ow0iioCrYQSK1QDHQbC",
+          "name": "The Age Of Love - Charlotte de Witte & Enrico Sangiuliano Remix",
         },
-        "artists": [
-          {
-            "id": "03tes5RhEvH2dX2eDeGnRn",
-            "name": "Age Of Love",
-          },
-          {
-            "id": "1lJhME1ZpzsEa5M0wW6Mso",
-            "name": "Charlotte de Witte",
-          },
-          {
-            "id": "1u7DsNFbakULvxnDGtMm90",
-            "name": "Enrico Sangiuliano",
-          },
-        ],
-        "id": "6X6Ow0iioCrYQSK1QDHQbC",
-        "name": "The Age Of Love - Charlotte de Witte & Enrico Sangiuliano Remix",
       },
-    },
-    {
-      "added_at": "2021-10-18T08:15:08Z",
-      "track": {
-        "album": {
-          "id": "046wH7DEfUumC5h9ykIEkd",
-          "name": "bb u ok?",
+      {
+        "added_at": "2021-10-18T08:15:08Z",
+        "track": {
+          "album": {
+            "id": "046wH7DEfUumC5h9ykIEkd",
+            "name": "bb u ok?",
+          },
+          "artists": [
+            {
+              "id": "0jNDKefhfSbLR9sFvcPLHo",
+              "name": "San Holo",
+            },
+            {
+              "id": "1BjaGDkxwa2fb2pSCXlFXb",
+              "name": "Chet Porter",
+            },
+          ],
+          "id": "3LnoLo62GjfKDYIN7eJpPB",
+          "name": "you’ve changed, i’ve changed",
         },
-        "artists": [
-          {
-            "id": "0jNDKefhfSbLR9sFvcPLHo",
-            "name": "San Holo",
-          },
-          {
-            "id": "1BjaGDkxwa2fb2pSCXlFXb",
-            "name": "Chet Porter",
-          },
-        ],
-        "id": "3LnoLo62GjfKDYIN7eJpPB",
-        "name": "you’ve changed, i’ve changed",
       },
-    },
-    {
-      "added_at": "2021-09-30T22:04:57Z",
-      "track": {
-        "album": {
-          "id": "0vlWyzbAl3ff9b3zout1XQ",
-          "name": "Stay With Me",
+      {
+        "added_at": "2021-09-30T22:04:57Z",
+        "track": {
+          "album": {
+            "id": "0vlWyzbAl3ff9b3zout1XQ",
+            "name": "Stay With Me",
+          },
+          "artists": [
+            {
+              "id": "5Ho1vKl1Uz8bJlk4vbmvmf",
+              "name": "Amelie Lens",
+            },
+          ],
+          "id": "5UsfWcP6SThHlZ4oAgx7ge",
+          "name": "Follow",
         },
-        "artists": [
-          {
-            "id": "5Ho1vKl1Uz8bJlk4vbmvmf",
-            "name": "Amelie Lens",
-          },
-        ],
-        "id": "5UsfWcP6SThHlZ4oAgx7ge",
-        "name": "Follow",
       },
+    ],
+    "meta": {
+      "date_generated": "1970-01-01T00:00:00.000Z",
     },
-  ],
-  "meta": {
-    "date_generated": "1970-01-01T00:00:00.000Z",
-  },
-}
-`;
-
-exports[`Library gets n most recent items 1`] = `
-{
-  "library": [
-    {
-      "added_at": "2021-12-06T17:17:57Z",
-      "track": {
-        "album": {
-          "id": "6Ozmnoay8pclUfUO8CWKLU",
-          "name": "The Age Of Love (Charlotte de Witte & Enrico Sangiuliano Remix)",
-        },
-        "artists": [
-          {
-            "id": "03tes5RhEvH2dX2eDeGnRn",
-            "name": "Age Of Love",
-          },
-          {
-            "id": "1lJhME1ZpzsEa5M0wW6Mso",
-            "name": "Charlotte de Witte",
-          },
-          {
-            "id": "1u7DsNFbakULvxnDGtMm90",
-            "name": "Enrico Sangiuliano",
-          },
-        ],
-        "id": "6X6Ow0iioCrYQSK1QDHQbC",
-        "name": "The Age Of Love - Charlotte de Witte & Enrico Sangiuliano Remix",
-      },
-    },
-    {
-      "added_at": "2021-10-18T08:15:08Z",
-      "track": {
-        "album": {
-          "id": "046wH7DEfUumC5h9ykIEkd",
-          "name": "bb u ok?",
-        },
-        "artists": [
-          {
-            "id": "0jNDKefhfSbLR9sFvcPLHo",
-            "name": "San Holo",
-          },
-          {
-            "id": "1BjaGDkxwa2fb2pSCXlFXb",
-            "name": "Chet Porter",
-          },
-        ],
-        "id": "3LnoLo62GjfKDYIN7eJpPB",
-        "name": "you’ve changed, i’ve changed",
-      },
-    },
-  ],
-  "meta": {
-    "date_generated": "1970-01-01T00:00:00.000Z",
   },
 }
 `;

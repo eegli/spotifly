@@ -1,3 +1,8 @@
+import { WithOptions } from '@eegli/tinyparse';
+import type { Options } from './config';
+
+export type AuthorizeParams = WithOptions<Options>;
+
 export type SpotifyTokenResponse = {
   access_token: string;
   token_type: 'Bearer';

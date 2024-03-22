@@ -2,8 +2,15 @@ import { existsSync, readFileSync } from 'fs';
 import ini from 'ini';
 import os from 'os';
 import { join } from 'path';
+import type { Result } from './types';
 
 const configFileName = '.spotifly';
+
+type ProfileEntry = {
+  clientId: string;
+  clientSecret: string;
+  refreshToken: string;
+};
 
 // Wrap in a helper object for testing
 export const helpers = {
@@ -19,16 +26,9 @@ export const helpers = {
   },
 };
 
-type ProfileEntry = {
-  clientId: string;
-  clientSecret: string;
-  refreshToken: string;
-};
-
-type ProfileMap = Map<string, ProfileEntry>;
-type Error = string;
-
-function collectProfiles(profiles: Record<string, unknown>): ProfileMap {
+function collectProfiles(
+  profiles: Record<string, unknown>,
+): Map<string, ProfileEntry> {
   return Object.entries(profiles).reduce((acc, [key, value]) => {
     if (
       typeof value === 'object' &&
@@ -50,41 +50,51 @@ function collectProfiles(profiles: Record<string, unknown>): ProfileMap {
   }, new Map<string, ProfileEntry>());
 }
 
-function readConfig():
-  | {
-      profiles: ProfileMap;
-      configPath: string;
-    }
-  | Error {
+function readConfig(): Result<{
+  profiles: Map<string, ProfileEntry>;
+  configPath: string;
+}> {
   const configWithPath = helpers.readConfigWithPath();
   if (!configWithPath) {
-    return 'Config file not found';
+    return {
+      success: false,
+      error: 'Config file not found',
+    };
   }
   const [config, configPath] = configWithPath;
   const profiles = collectProfiles(ini.parse(config));
   return {
-    profiles,
-    configPath,
+    success: true,
+    value: {
+      profiles,
+      configPath,
+    },
   };
 }
 
-export function profilesFromConfig(): [string[], string] | Error {
-  const configOrError = readConfig();
-  if (typeof configOrError === 'string') {
-    return configOrError;
+export function profilesFromConfig(): Result<[string[], string]> {
+  const valueOrError = readConfig();
+  if (!valueOrError.success) {
+    return valueOrError;
   }
-  const { profiles, configPath } = configOrError;
-  return [[...profiles.keys()], configPath];
+  const { configPath, profiles } = valueOrError.value;
+  return {
+    success: true,
+    value: [[...profiles.keys()], configPath],
+  };
 }
 
-export function credentialsFromConfig(profile: string): ProfileEntry | Error {
-  const configOrError = readConfig();
-  if (typeof configOrError === 'string') {
-    return configOrError;
+export function credentialsFromConfig(profile: string): Result<ProfileEntry> {
+  const valueOrError = readConfig();
+  if (!valueOrError.success) {
+    return valueOrError;
   }
-  const profileEntry = configOrError.profiles.get(profile);
+  const profileEntry = valueOrError.value.profiles.get(profile);
   if (!profileEntry) {
-    return `Profile "${profile}" does not exist or is missing credentials`;
+    return {
+      success: false,
+      error: `Profile "${profile}" does not exist or is missing credentials`,
+    };
   }
-  return profileEntry;
+  return { success: true, value: profileEntry };
 }

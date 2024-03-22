@@ -29,37 +29,46 @@ beforeEach(() => {
 });
 
 test('profiles with valid profile', async () => {
-  profileUtilsSpy.mockReturnValue([['profile1', 'profile2'], 'my-path']);
+  profileUtilsSpy.mockReturnValue({
+    success: true,
+    value: [['profile1', 'profile2'], 'my-path'],
+  });
   const result = readProfiles();
   expect(result).toMatchInlineSnapshot(`
-    [
-      "Available profiles:
+    {
+      "success": true,
+      "value": "Available profiles:
 
     * profile1
     * profile2
 
     Config file: my-path",
-      null,
-    ]
+    }
   `);
 });
 test('profiles with no profiles', async () => {
-  profileUtilsSpy.mockReturnValue([[], '/my/config/path']);
+  profileUtilsSpy.mockReturnValue({
+    success: true,
+    value: [[], '/my/config/path'],
+  });
   const result = readProfiles();
   expect(result).toMatchInlineSnapshot(`
-    [
-      null,
-      "Found no valid profiles in /my/config/path",
-    ]
+    {
+      "error": "Found no valid profiles in /my/config/path",
+      "success": false,
+    }
   `);
 });
 test('profiles with error', async () => {
-  profileUtilsSpy.mockReturnValue('Invalid profile');
+  profileUtilsSpy.mockReturnValue({
+    success: false,
+    error: 'Invalid profile',
+  });
   const result = readProfiles();
   expect(result).toMatchInlineSnapshot(`
-    [
-      null,
-      "Invalid profile",
-    ]
+    {
+      "error": "Invalid profile",
+      "success": false,
+    }
   `);
 });

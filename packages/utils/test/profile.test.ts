@@ -26,38 +26,50 @@ const readConfigSpy = jest
 describe('profile', () => {
   test('config profiles full', () => {
     expect(profilesFromConfig()).toMatchInlineSnapshot(`
-      [
-        [
-          "default",
+      {
+        "success": true,
+        "value": [
+          [
+            "default",
+          ],
+          "dir",
         ],
-        "dir",
-      ]
+      }
     `);
   });
 
   test('credentials from config full', () => {
     expect(credentialsFromConfig('default')).toMatchInlineSnapshot(`
-        {
+      {
+        "success": true,
+        "value": {
           "clientId": "d123",
           "clientSecret": "d456",
           "refreshToken": "drtp",
-        }
-      `);
+        },
+      }
+    `);
   });
 
   test('config not found', () => {
+    const expected = {
+      success: false,
+      error: 'Config file not found',
+    };
     readConfigSpy.mockReturnValueOnce(null);
-    expect(profilesFromConfig()).toBe('Config file not found');
+    expect(profilesFromConfig()).toStrictEqual(expected);
     readConfigSpy.mockReturnValueOnce(null);
-    expect(credentialsFromConfig('default')).toBe('Config file not found');
+    expect(credentialsFromConfig('default')).toStrictEqual(expected);
   });
 
   test('credentials from config invalid', () => {
-    expect(credentialsFromConfig('unknown')).toBe(
-      'Profile "unknown" does not exist or is missing credentials'
-    );
-    expect(credentialsFromConfig('corrupted')).toBe(
-      'Profile "corrupted" does not exist or is missing credentials'
-    );
+    expect(credentialsFromConfig('unknown')).toStrictEqual({
+      success: false,
+      error: 'Profile "unknown" does not exist or is missing credentials',
+    });
+    expect(credentialsFromConfig('corrupted')).toStrictEqual({
+      success: false,
+      error: 'Profile "corrupted" does not exist or is missing credentials',
+    });
   });
 });

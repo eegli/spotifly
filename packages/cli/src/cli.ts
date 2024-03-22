@@ -29,9 +29,9 @@ const parser = options
     description: 'List available profiles',
     args: [] as const,
     handler: () => {
-      const [profiles, error] = readProfiles();
-      if (error) log.error('Error: ' + error);
-      else log.info(profiles!);
+      const result = readProfiles();
+      if (!result.success) log.error('Error: ' + result.error);
+      else log.info(result.value);
     },
   })
   .subparser('auth', {

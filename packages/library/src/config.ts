@@ -67,11 +67,11 @@ export const options = new Parser()
   .setGlobals(async parsedOptions => {
     let token = parsedOptions.token; // Might be ""
     if (!token && parsedOptions.profile) {
-      const maybeError = credentialsFromConfig(parsedOptions.profile);
-      if (typeof maybeError === 'string') {
-        throw new ValidationError(maybeError);
+      const result = credentialsFromConfig(parsedOptions.profile);
+      if (!result.success) {
+        throw new ValidationError(result.error);
       }
-      const credentials = maybeError;
+      const credentials = result.value;
       const { access_token } = await AuthProvider.getAccessToken(credentials);
       token = access_token;
     }

@@ -1,14 +1,14 @@
 import { initialize, isError as isSpotiflyError } from '@spotifly/core';
 import { writeJSON } from '@spotifly/utils/fs';
 import log from '@spotifly/utils/log';
-import { join } from 'path';
+import { Result } from '@spotifly/utils/types';
 import type { Library, LibraryExport, LibraryParams } from './types';
 import { createProgressBar, isBeforeDate } from './utils';
 
 export const libraryHandler = async ({
   options,
   globals,
-}: LibraryParams): Promise<LibraryExport | undefined> => {
+}: LibraryParams): Promise<Result<LibraryExport>> => {
   let progress = createProgressBar('user library');
   try {
     const spotifyClient = initialize({ accessToken: globals.token });
@@ -120,24 +120,36 @@ export const libraryHandler = async ({
       library,
     };
     const fileName = 'spotify-library';
-    const outDir = await writeJSON({
+    const outFile = await writeJSON({
       fileName,
       path: options.outDir,
       data: libExport,
       compact: options.compact,
     });
 
-    log.info(`Success! Library written to ${join(outDir, fileName + '.json')}`);
-    return libExport;
+    log.info(`Success! Library written to ${outFile}`);
+    return {
+      success: true,
+      value: libExport,
+    };
   } catch (error) {
     progress.stop();
     if (isSpotiflyError(error) && error.response) {
       const { status, message } = error.response.data.error;
-      log.error(`Error: Status ${status}, ${message}`);
+      return {
+        success: false,
+        error: `Failed to call Spotify API: Status ${status}, ${message}`,
+      };
     } else if (error instanceof Error) {
-      log.error('Error: Something went wrong: ' + error.message);
+      return {
+        success: false,
+        error: error.message,
+      };
     } else {
-      log.error('An unknown error occurred');
+      return {
+        success: false,
+        error: 'Something went wrong',
+      };
     }
   }
 };

@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`fs writes data, 0: file 0 1`] = `"/usr/dir"`;
+exports[`fs writes data, 0: file 0 1`] = `"/usr/dir/test.json"`;
 
-exports[`fs writes data, 1: file 1 1`] = `"/usr/dir/tmp"`;
+exports[`fs writes data, 1: file 1 1`] = `"/usr/dir/tmp/test.json"`;
 
-exports[`fs writes data, 2: file 2 1`] = `"/usr/dir/tmp/dir"`;
+exports[`fs writes data, 2: file 2 1`] = `"/usr/dir/tmp/dir/test.json"`;
 
-exports[`fs writes data, 3: file 3 1`] = `"/usr/dir/tmp/dir"`;
+exports[`fs writes data, 3: file 3 1`] = `"/usr/dir/tmp/dir/test.json"`;
 
-exports[`fs writes data, 4: file 4 1`] = `"/usr/dir"`;
+exports[`fs writes data, 4: file 4 1`] = `"/usr/dir/test.json"`;

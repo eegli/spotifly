@@ -1,13 +1,17 @@
 import { profilesFromConfig } from '@spotifly/utils/profile';
+import type { Result } from '@spotifly/utils/types';
 
-export const readProfiles = (): [null, string] | [string, null] => {
-  const maybeProfiles = profilesFromConfig();
-  if (typeof maybeProfiles === 'string') {
-    return [null, maybeProfiles];
+export const readProfiles = (): Result<string> => {
+  const result = profilesFromConfig();
+  if (!result.success) {
+    return result;
   }
-  const [rawProfiles, configPath] = maybeProfiles;
+  const [rawProfiles, configPath] = result.value;
   if (rawProfiles.length === 0) {
-    return [null, 'Found no valid profiles in ' + configPath];
+    return {
+      success: false,
+      error: 'Found no valid profiles in ' + configPath,
+    };
   }
   const profiles = rawProfiles.map(p => '* ' + p).join('\n');
   const toLog =
@@ -18,5 +22,8 @@ export const readProfiles = (): [null, string] | [string, null] => {
     'Config file: ' +
     configPath;
 
-  return [toLog, null];
+  return {
+    success: true,
+    value: toLog,
+  };
 };
