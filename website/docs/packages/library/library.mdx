@@ -35,18 +35,26 @@ import { CliCodeBlock } from '@site/src/components/code-blocks/codeblock';
   }}
 />
 
-### Options
+### Flags and Commands
 
-| Flag                     | _(required?)_ Description                                                                                                                                                                                                            |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `--token` `[string]`     | ✅ A Spotify user access token. Requires at least the scope "user-library-read"                                                                                                                                                      |
-| `--type` `[string]`      | ❌ Output type per track. Either `full` or `light`. Default: `light`                                                                                                                                                                 |
-| `--genres` `[boolean]`   | ❌ Include artist genres for each track. Default: `false`                                                                                                                                                                            |
-| `--features` `[boolean]` | ❌ Include audio features for each track. Default: `false`                                                                                                                                                                           |
-| `--since` `[string]`     | ❌ Only include tracks added after this date. The date string must be formatted according to the [ECMAScript Date Time String Format](https://tc39.es/ecma262/#sec-date-time-string-format), e.g.: "YYYY-MM-DD". Default: All tracks |
-| `--last [number]`        | ❌ Only include the last n (most recent) tracks. Default: All tracks                                                                                                                                                                 |
-| `--compact` `[boolean]`  | ❌ Output more compact/minified JSON and save disk space. Default: `false`                                                                                                                                                           |
-| `--out-dir` `[string]`   | ❌ Custom relative output directory. Default: Current directory                                                                                                                                                                      |
+```bash
+Usage: spotifly library [command?] <...flags>
+
+Commands
+   help   Print this help message
+
+Optional flags
+   --compact [boolean]    Output more compact/minified JSON and save disk space. Default: false
+   --features [boolean]   Include audio features for each track. Default: false
+   --genres [boolean]     Include artist genres for each track. Default: false
+   --last [number]        Only include the last n (most recent) tracks. Default: All tracks
+   --out-dir [string]     Custom relative output directory. Default: Current directory
+   --profile [string]     The Spotifly profile to use for the Spotify API. Default profile: "default"
+   --since [date]         Only include tracks added after this date. The date string must be formatted according to the ECMAScript Date Time String Format, e.g.: "YYYY-MM-DD". Default: All tracks
+   --token [string]       A Spotify user access token. Requires at least the scope "user-library-read"
+   --type <full|light>    Output type per track. Either 'full' or 'light'. Default: 'light'
+   -h, --help             Print this help message
+```
 
 Note that if both `--last` and `--since` are set, whatever condition is met first will exhaust the procedure.
 

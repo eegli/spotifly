@@ -72,7 +72,10 @@ function readConfig(): Result<{
   };
 }
 
-export function profilesFromConfig(): Result<[string[], string]> {
+export function profilesFromConfig(): Result<{
+  profiles: string[];
+  configPath: string;
+}> {
   const valueOrError = readConfig();
   if (!valueOrError.success) {
     return valueOrError;
@@ -80,7 +83,10 @@ export function profilesFromConfig(): Result<[string[], string]> {
   const { configPath, profiles } = valueOrError.value;
   return {
     success: true,
-    value: [[...profiles.keys()], configPath],
+    value: {
+      profiles: [...profiles.keys()],
+      configPath,
+    },
   };
 }
 

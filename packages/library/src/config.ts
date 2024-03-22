@@ -59,26 +59,22 @@ export const options = new Parser()
     description: 'Custom relative output directory. Default: Current directory',
   })
   .option('profile', {
-    defaultValue: '',
+    defaultValue: 'default',
     longFlag: '--profile',
     description:
-      'The Spotifly profile to use for the Spotify API. Default: None',
+      'The Spotifly profile to use for the Spotify API. Default profile: "default"',
   })
   .setGlobals(async parsedOptions => {
     let token = parsedOptions.token; // Might be ""
-    if (!token && parsedOptions.profile) {
+    if (!token) {
       const result = credentialsFromConfig(parsedOptions.profile);
       if (!result.success) {
-        throw new ValidationError(result.error);
+        throw new ValidationError(
+          `Could not read credentials for profile ${parsedOptions.profile} from configuration file`,
+        );
       }
-      const credentials = result.value;
-      const { access_token } = await AuthProvider.getAccessToken(credentials);
+      const { access_token } = await AuthProvider.getAccessToken(result.value);
       token = access_token;
-    }
-    if (!token) {
-      throw new ValidationError(
-        'No access token provided. Either provide an access token via the --token option or via a Spotifly profile',
-      );
     }
     return { token };
   })

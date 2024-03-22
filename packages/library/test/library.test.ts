@@ -16,7 +16,7 @@ import {
 const mockSpotify = mockDeep<Spotifly.SpotifyClient>();
 
 jest.spyOn(Spotifly, 'initialize').mockReturnValue(mockSpotify);
-jest.spyOn(log, 'log').mockImplementation(() => {});
+jest.spyOn(log, 'info').mockImplementation(() => {});
 
 mockSpotify.Tracks.getUsersSavedTracks.mockImplementation(() => {
   return Promise.resolve(RES_USER_SAVED_TRACKS);
