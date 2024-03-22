@@ -1,5 +1,13 @@
 # @spotifly/auth-token
 
+## 3.0.1
+
+### Patch Changes
+
+- 19e988c: Upgrade dependencies and remove outdated packages
+- Updated dependencies [19e988c]
+  - @spotifly/utils@2.0.1
+
 ## 3.0.0
 
 ### Major Changes
