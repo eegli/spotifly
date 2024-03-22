@@ -1,17 +1,19 @@
-import { initialize, isError } from '@spotifly/core';
-import { writeJSON } from '@spotifly/utils';
-import { defaultConfig } from './config';
-import type { Library, LibraryHandler, TrackLight } from './types';
+import { initialize, isError as isSpotiflyError } from '@spotifly/core';
+import { writeJSON } from '@spotifly/utils/fs';
+import log from '@spotifly/utils/log';
+import { Result } from '@spotifly/utils/types';
+import type { Library, LibraryExport, LibraryParams } from './types';
 import { createProgressBar, isBeforeDate } from './utils';
 
-export const libraryHandler: LibraryHandler = async options => {
+export const libraryHandler = async ({
+  options,
+  globals,
+}: LibraryParams): Promise<Result<LibraryExport>> => {
+  let progress = createProgressBar('user library');
   try {
-    const config = { ...defaultConfig, ...options };
-    const spotifyClient = initialize({ accessToken: config.token });
+    const spotifyClient = initialize({ accessToken: globals.token });
 
     let library: Library = [];
-
-    let progress = createProgressBar('user library');
 
     progress.start(0, 0);
 
@@ -28,10 +30,10 @@ export const libraryHandler: LibraryHandler = async options => {
 
       for (let i = 0; i < data.items.length; i++) {
         const track = data.items[i];
-        if (library.length === config.last) {
+        if (library.length === options.last) {
           break fetchLoop;
         }
-        if (isBeforeDate(track.added_at, config.since)) {
+        if (isBeforeDate(track.added_at, options.since)) {
           break fetchLoop;
         }
         library.push(track);
@@ -43,7 +45,7 @@ export const libraryHandler: LibraryHandler = async options => {
     progress.stop();
 
     // Reduce library if necessary
-    if (config.type === 'light') {
+    if (options.type === 'light') {
       library = library.reduce(
         (acc, curr) => {
           acc.push({
@@ -63,12 +65,12 @@ export const libraryHandler: LibraryHandler = async options => {
           });
           return acc;
         },
-        <Library<TrackLight>>[],
+        <Library>[],
       );
     }
 
     // Add genres if specified
-    if (config.genres) {
+    if (options.genres) {
       const artists = library.map(t => t.track.artists.map(a => a.id)).flat();
       const artistIds = [...new Set<string>(artists)];
       const genres: Record<string, string[]> = {};
@@ -90,7 +92,7 @@ export const libraryHandler: LibraryHandler = async options => {
     }
 
     // Add audio features if specified
-    if (config.features) {
+    if (options.features) {
       const trackIds = library.map(t => t.track.id);
       const features: Record<string, SpotifyApi.AudioFeaturesObject> = {};
 
@@ -111,30 +113,43 @@ export const libraryHandler: LibraryHandler = async options => {
       });
     }
 
-    const libExport = {
+    const libExport: LibraryExport = {
       meta: {
         date_generated: new Date().toISOString(),
-        output_type: config.type,
       },
       library,
     };
-
-    const outDir = await writeJSON({
-      fileName: 'spotify-library',
-      path: config.outDir,
+    const fileName = 'spotify-library';
+    const outFile = await writeJSON({
+      fileName,
+      path: options.outDir,
       data: libExport,
-      compact: config.compact,
+      compact: options.compact,
     });
 
-    console.info("Success! Library written to '%s'", outDir);
-
-    return libExport;
+    log.info(`Success! Library written to ${outFile}`);
+    return {
+      success: true,
+      value: libExport,
+    };
   } catch (error) {
-    if (isError(error) && error.response) {
+    progress.stop();
+    if (isSpotiflyError(error) && error.response) {
       const { status, message } = error.response.data.error;
-      throw new Error(`Status ${status}, ${message}`);
+      return {
+        success: false,
+        error: `Failed to call Spotify API: Status ${status}, ${message}`,
+      };
+    } else if (error instanceof Error) {
+      return {
+        success: false,
+        error: error.message,
+      };
     } else {
-      throw new Error('Something went wrong');
+      return {
+        success: false,
+        error: 'Something went wrong',
+      };
     }
   }
 };

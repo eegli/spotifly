@@ -1,15 +1,5 @@
-type ExportedLibrary = 'full' | 'light';
-
-export type Options = {
-  token: string;
-  type?: ExportedLibrary;
-  genres?: boolean;
-  features?: boolean;
-  compact?: boolean;
-  outDir?: string;
-  since?: string;
-  last?: number;
-};
+import type { WithGlobals, WithOptions } from '@eegli/tinyparse';
+import type { Options } from './config';
 
 export type TrackLight = {
   id: string;
@@ -24,26 +14,26 @@ export type TrackLight = {
   }[];
 };
 
+export type TrackFormat = TrackLight | TrackFull;
+
 export type TrackFull = SpotifyApi.TrackObjectFull;
 
-type AnyTrack = TrackLight | TrackFull;
-
-type LibraryExport<T> = {
+export type LibraryExport = {
   meta: {
     date_generated: string;
-    output_type: ExportedLibrary;
   };
-  library: Library<T>;
+  library: Library;
 };
 
-export type Library<T = AnyTrack> = {
+export type Library = {
   added_at: string;
-  track: T & {
+  track: TrackFormat & {
     genres?: string[][];
     features?: SpotifyApi.AudioFeaturesObject;
   };
 }[];
 
-export type LibraryHandler = (
-  opts: Options,
-) => Promise<LibraryExport<AnyTrack>>;
+export type LibraryOptions = WithOptions<Options>;
+export type LibraryGlobals = WithGlobals<Options>;
+
+export type LibraryParams = LibraryOptions & LibraryGlobals;

@@ -23,5 +23,5 @@ export const writeJSON = async ({
     : JSON.stringify(data, null, 2);
 
   await fs.outputFile(join(path, fileName), jsonData);
-  return path;
+  return join(path, fileName);
 };

@@ -22,13 +22,19 @@
   "files": [
     "dist",
     "fs",
-    "iterable"
+    "iterable",
+    "profile",
+    "colors",
+    "log",
+    "types"
   ],
   "dependencies": {
-    "fs-extra": "^11.2.0"
+    "fs-extra": "^11.2.0",
+    "ini": "^4.1.1"
   },
   "devDependencies": {
-    "@types/fs-extra": "^11.0.4"
+    "@types/fs-extra": "^11.0.4",
+    "@types/ini": "^4.1.0"
   },
   "engines": {
     "node": ">=18"
@@ -40,7 +46,11 @@
     "entrypoints": [
       "index.ts",
       "iterable.ts",
-      "fs.ts"
+      "fs.ts",
+      "profile.ts",
+      "colors.ts",
+      "log.ts",
+      "types.ts"
     ]
   }
 }

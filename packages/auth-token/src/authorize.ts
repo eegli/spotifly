@@ -1,16 +1,15 @@
-import { writeJSON } from '@spotifly/utils';
-import fetch from 'node-fetch';
-import { defaultConfig } from './config';
+import { writeJSON } from '@spotifly/utils/fs';
+import log from '@spotifly/utils/log';
+import { Result } from '@spotifly/utils/types';
 import { localhostUrl } from './server';
-import type { Options, SpotifyTokenResponse } from './types';
-import { id } from './utils';
+import type { AuthorizeParams, SpotifyTokenResponse } from './types';
+import { randomState } from './utils';
 
-export const authorize = async (
-  options: Options,
-): Promise<SpotifyTokenResponse> => {
-  const config = { ...defaultConfig, ...options };
-  const redirectUri = `http://localhost:${config.port}`;
-  const state = id();
+export const authorize = async ({
+  options,
+}: AuthorizeParams): Promise<Result<SpotifyTokenResponse>> => {
+  const redirectUri = `http://localhost:${options.port}`;
+  const state = randomState();
 
   const spotifyUrl =
     'https://accounts.spotify.com/authorize?' +
@@ -18,61 +17,80 @@ export const authorize = async (
       response_type: 'code',
       show_dialog: 'true',
       state,
-      client_id: config.clientId,
+      client_id: options.clientId,
       redirect_uri: redirectUri,
-      scope: config.scopes,
+      scope: options.scopes,
     }).toString();
 
-  console.info('Please click the link to login to Spotify in the browser\n');
-  console.info(spotifyUrl + '\n');
+  log.log('Please click the link to login to Spotify in the browser\n');
+  log.log(spotifyUrl + '\n');
 
-  const authUrl = await localhostUrl(config.port);
+  const authUrl = await localhostUrl(options.port);
   const params = new URLSearchParams(authUrl);
   const receivedCode = params.get('code');
   const receivedState = params.get('state');
 
   if (receivedState !== state) {
-    throw new Error('Received and original state do not match');
+    return {
+      success: false,
+      error: 'Received and original state do not match',
+    };
   }
 
   if (!receivedCode) {
-    throw new Error('No code received');
+    return {
+      success: false,
+      error: 'No code received from Spotify, did you cancel the login?',
+    };
   }
 
-  console.info('Login successfull! Cleaning up...\n');
+  log.log('Login successfull! Cleaning up...\n');
 
-  const tokenRequestBody = new URLSearchParams({
+  const body = new URLSearchParams({
     grant_type: 'authorization_code',
     code: receivedCode,
     redirect_uri: redirectUri,
-  });
+  }).toString();
 
-  const token: SpotifyTokenResponse = await fetch(
-    'https://accounts.spotify.com/api/token',
-    {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/x-www-form-urlencoded',
-        Authorization:
-          'Basic ' +
-          Buffer.from(config.clientId + ':' + config.clientSecret).toString(
-            'base64',
-          ),
+  try {
+    const token: SpotifyTokenResponse = await fetch(
+      'https://accounts.spotify.com/api/token',
+      {
+        method: 'POST',
+        body,
+        headers: {
+          'Content-type': 'application/x-www-form-urlencoded',
+          Authorization:
+            'Basic ' +
+            Buffer.from(options.clientId + ':' + options.clientSecret).toString(
+              'base64',
+            ),
+        },
       },
-      body: tokenRequestBody.toString(),
-    },
-  ).then(res => res.json());
+    ).then(data => data.json() as Promise<SpotifyTokenResponse>);
 
-  token.date_obtained = new Date().toUTCString();
+    token.date_obtained = new Date().toUTCString();
 
-  if (!config.noEmit) {
-    const outDir = await writeJSON({
-      path: config.outDir,
-      fileName: config.fileName,
-      data: token,
-    });
-    console.info(`Success! Saved Spotify access token to "${outDir}"`);
+    if (!options.noEmit) {
+      const outFile = await writeJSON({
+        path: options.outDir,
+        fileName: options.fileName,
+        data: token,
+      });
+      log.info(`Success! Saved Spotify access token to "${outFile}"`);
+    } else {
+      log.info(`Token:\n${JSON.stringify(token, null, 2)}`);
+    }
+    return {
+      success: true,
+      value: token,
+    };
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : 'Something went wrong';
+    return {
+      success: false,
+      error: message,
+    };
   }
-
-  return token;
 };

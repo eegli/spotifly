@@ -3,6 +3,7 @@ const common = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   moduleFileExtensions: ['js', 'ts'],
+
   snapshotFormat: {
     printBasicPrototype: false,
   },
@@ -18,18 +19,21 @@ module.exports = {
       displayName: 'auth-token',
       rootDir: 'packages/auth-token',
       roots: ['<rootDir>/src', '<rootDir>/test'],
+      prettierPath: require.resolve('prettier-2'),
     },
     {
       ...common,
       displayName: 'cli',
       rootDir: 'packages/cli',
       roots: ['<rootDir>/src', '<rootDir>/test'],
+      prettierPath: require.resolve('prettier-2'),
     },
     {
       ...common,
       displayName: 'core',
       rootDir: 'packages/core',
       roots: ['<rootDir>/src', '<rootDir>/test'],
+      prettierPath: require.resolve('prettier-2'),
     },
     {
       displayName: {
@@ -46,12 +50,14 @@ module.exports = {
       displayName: 'library',
       rootDir: 'packages/library',
       roots: ['<rootDir>/src', '<rootDir>/test'],
+      prettierPath: require.resolve('prettier-2'),
     },
     {
       ...common,
       displayName: 'utils',
       rootDir: 'packages/utils',
       roots: ['<rootDir>/src', '<rootDir>/test'],
+      prettierPath: require.resolve('prettier-2'),
     },
     {
       ...common,

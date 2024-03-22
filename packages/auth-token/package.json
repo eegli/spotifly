@@ -29,9 +29,8 @@
     "cli"
   ],
   "dependencies": {
-    "@eegli/tinyparse": "^0.14.0",
-    "@spotifly/utils": "workspace:^",
-    "node-fetch": "2.7.0"
+    "@eegli/tinyparse": "^0.19.1",
+    "@spotifly/utils": "workspace:^"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",

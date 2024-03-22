@@ -1,1 +1,1 @@
-export const id = () => Math.random().toString(36).slice(2);
+export const randomState = () => Math.random().toString(36).slice(2);

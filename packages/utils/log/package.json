@@ -1,0 +1,4 @@
+{
+  "main": "dist/spotifly-utils-log.cjs.js",
+  "module": "dist/spotifly-utils-log.esm.js"
+}

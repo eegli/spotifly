@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`command --help 1`] = `
+"The CLI for Spotifly
+
+Usage: spotifly [command?] <...flags>
+
+Commands
+   auth        Authenticate with Spotify
+   library     Manage your Spotify library
+   profiles    List available profiles
+   help        Print this help message
+
+Optional flags
+   -h, --help      Print this help message
+   -V, --version   Print the version"
+`;
+
+exports[`command -h 1`] = `
+"The CLI for Spotifly
+
+Usage: spotifly [command?] <...flags>
+
+Commands
+   auth        Authenticate with Spotify
+   library     Manage your Spotify library
+   profiles    List available profiles
+   help        Print this help message
+
+Optional flags
+   -h, --help      Print this help message
+   -V, --version   Print the version"
+`;

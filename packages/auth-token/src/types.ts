@@ -1,20 +1,7 @@
-type OptionalConfig = {
-  port: number;
-  scopes: string;
-  fileName: string;
-  outDir: string;
-  noEmit: boolean;
-};
+import { WithOptions } from '@eegli/tinyparse';
+import type { Options } from './config';
 
-type RequiredConfig = {
-  clientId: string;
-  clientSecret: string;
-};
-
-// TODO export this in tinyparse
-type PositionalArgs = { _?: string[] };
-export type Options = RequiredConfig & Partial<OptionalConfig> & PositionalArgs;
-export type DefaultConfig = RequiredConfig & OptionalConfig;
+export type AuthorizeParams = WithOptions<Options>;
 
 export type SpotifyTokenResponse = {
   access_token: string;
