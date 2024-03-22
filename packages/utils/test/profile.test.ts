@@ -28,12 +28,12 @@ describe('profile', () => {
     expect(profilesFromConfig()).toMatchInlineSnapshot(`
       {
         "success": true,
-        "value": [
-          [
+        "value": {
+          "configPath": "dir",
+          "profiles": [
             "default",
           ],
-          "dir",
-        ],
+        },
       }
     `);
   });

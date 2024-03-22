@@ -33,7 +33,7 @@ test('profiles with valid profile', async () => {
     success: true,
     value: {
       profiles: ['profile1', 'profile2'],
-      configPath: 'my-path',
+      configPath: '/my/config/path',
     },
   });
   const result = readProfiles();
@@ -45,7 +45,7 @@ test('profiles with valid profile', async () => {
     * profile1
     * profile2
 
-    Config file: my-path",
+    Config file: /my/config/path",
     }
   `);
 });
@@ -54,7 +54,7 @@ test('profiles with no profiles', async () => {
     success: true,
     value: {
       profiles: [],
-      configPath: 'my-path',
+      configPath: '/my/config/path',
     },
   });
   const result = readProfiles();
