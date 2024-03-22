@@ -1,7 +1,7 @@
 import * as Spotifly from '@spotifly/core';
 import * as fs from '@spotifly/utils/fs';
 import log from '@spotifly/utils/src/log';
-import { Ok } from '@spotifly/utils/types';
+import type { Ok } from '@spotifly/utils/types';
 import { mockDeep } from 'jest-mock-extended';
 import { parser } from '../src/cli';
 import { libraryHandler } from '../src/handler';
