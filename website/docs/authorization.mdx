@@ -10,13 +10,13 @@ In order to access Spotify's data, you will need a dedicated Spotify application
 After having created your application, click _edit_ and add the following two redirect URLs:
 
 - `https://spotifly.nougat.dev/docs/authorization`
-- `http://localhost:3000` (optional)
+- `http://localhost:3000/docs/authorization` (optional)
 
 :::info
 
 Whitelisting the first URL enables you to create both short-lived access and long-lived refresh tokens directly on this page using the helper below.
 
-The second URL is needed when you want to generate a long-lived token locally (_Authorization Code Flow_). You don't have to add it in your Spotify application. It's only needed when you want to use the `auth-token` package.
+The second URL is needed when you want to generate a long-lived token locally. You don't have to add it in your Spotify application. **It's only needed when you want to use the `auth-token` package**.
 
 :::
 
