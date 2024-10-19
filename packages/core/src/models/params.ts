@@ -101,7 +101,7 @@ export type PlaybackShuffle = boolean & _;
 export type Base64URL = string & _;
 
 export type Params = {
-  additional_types: LiteralUnion<'track' | ' episode'>[];
+  additional_types: LiteralUnion<'track' | 'episode'>[];
   after: string;
   collaborative: boolean;
   context_uri: string;
@@ -111,7 +111,7 @@ export type Params = {
   fields: string;
   include_external: 'audio';
   include_groups: LiteralUnion<
-    'album' | ' single' | ' appears_on' | ' compilation'
+    'album' | 'single' | 'appears_on' | 'compilation'
   >[];
   insert_before: number;
   limit: number;
@@ -126,7 +126,7 @@ export type Params = {
   range_length: number;
   range_start: number;
   snapshot_id: string;
-  time_range: 'long_term ' | 'medium_term' | 'short_term';
+  time_range: 'long_term' | 'medium_term' | 'short_term';
   timestamp: string;
   uris: Uri[];
 };

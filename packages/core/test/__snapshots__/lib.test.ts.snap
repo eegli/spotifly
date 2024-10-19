@@ -1403,7 +1403,7 @@ exports[`Users getUsersTopArtists 1`] = `
       "params": {
         "limit": 1,
         "offset": 1,
-        "time_range": "long_term ",
+        "time_range": "long_term",
       },
       "url": "me/top/artists",
     },
@@ -1422,7 +1422,7 @@ exports[`Users getUsersTopTracks 1`] = `
       "params": {
         "limit": 1,
         "offset": 1,
-        "time_range": "long_term ",
+        "time_range": "long_term",
       },
       "url": "me/top/tracks",
     },

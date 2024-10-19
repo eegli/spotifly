@@ -366,7 +366,7 @@ const tests: LibTestRunner = [
             Client.Users.getUsersTopArtists({
               limit,
               offset,
-              time_range: 'long_term ',
+              time_range: 'long_term',
             }),
           ),
       },
@@ -377,7 +377,7 @@ const tests: LibTestRunner = [
             Client.Users.getUsersTopTracks({
               limit,
               offset,
-              time_range: 'long_term ',
+              time_range: 'long_term',
             }),
           ),
       },
