@@ -1,5 +1,11 @@
 # @spotifly/core
 
+## 2.0.1
+
+### Patch Changes
+
+- 5bde726: Fix literal type params
+
 ## 2.0.0
 
 ### Major Changes
