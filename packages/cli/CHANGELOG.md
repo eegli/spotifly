@@ -1,5 +1,13 @@
 # @spotifly/cli
 
+## 3.0.2
+
+### Patch Changes
+
+- Updated dependencies [5bde726]
+  - @spotifly/core@2.0.1
+  - @spotifly/library@3.0.2
+
 ## 3.0.1
 
 ### Patch Changes
